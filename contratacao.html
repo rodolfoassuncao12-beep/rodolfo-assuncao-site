@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLT ou PJ? Simulador de Contratação 2026 — Rodolfo Assunção</title>
+<meta name="description" content="Compare o custo real e o risco jurídico de cada modalidade de contratação: CLT, PJ, MEI prestador e autônomo. Encargos reais 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F172A;--bg2:#111827;--bg3:#1E2937;--bg4:#263244;
+  --border:rgba(51,65,85,0.5);--border2:#334155;
+  --text:#F8FAFC;--text2:#CBD5E1;--text3:#94A3B8;
+  --indigo:#4F46E5;--indigo2:#4338CA;--indigo-l:#818CF8;
+  --indigo-d:rgba(79,70,229,0.1);--indigo-b:rgba(79,70,229,0.25);
+  --em:#10B981;--em2:#059669;--em-l:#34D399;
+  --em-d:rgba(16,185,129,0.1);--em-b:rgba(16,185,129,0.25);
+  --amber:#FBBF24;--amber-d:rgba(251,191,36,0.1);--amber-b:rgba(251,191,36,0.3);
+  --red:#F87171;--red-d:rgba(248,113,113,0.1);--red-b:rgba(248,113,113,0.3);
+  --gold:#F59E0B;--gold-d:rgba(245,158,11,0.08);--gold-b:rgba(245,158,11,0.25);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.7;min-height:100vh;}
+nav{position:sticky;top:0;z-index:100;background:rgba(15,23,42,0.95);backdrop-filter:blur(16px);border-bottom:.5px solid var(--border);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);text-decoration:none;}
+.nav-logo span{color:var(--indigo-l);}
+.nav-back{font-size:13px;color:var(--text2);text-decoration:none;}
+.wrap{max-width:960px;margin:0 auto;padding:2rem 2rem 4rem;}
+.page-tag{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:.5rem;}
+.page-title{font-family:'DM Serif Display',serif;font-size:clamp(1.4rem,3vw,1.9rem);color:var(--text);line-height:1.2;margin-bottom:.5rem;}
+.page-desc{font-size:13px;color:var(--text2);line-height:1.75;margin-bottom:1.75rem;}
+/* AVISO DESTAQUE */
+.aviso-principal{background:var(--red-d);border:1.5px solid var(--red-b);border-radius:12px;padding:1rem 1.25rem;margin-bottom:1.75rem;display:flex;gap:12px;align-items:flex-start;}
+.aviso-ico{font-size:1.2rem;flex-shrink:0;margin-top:2px;}
+.aviso-txt{font-size:13px;color:var(--text2);line-height:1.65;}
+.aviso-txt strong{color:var(--red);}
+/* LAYOUT */
+.g2{display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.sec{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:1.5rem;margin-bottom:14px;}
+.sec-t{font-size:11px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1.25rem;}
+.lbl{display:block;font-size:12px;color:var(--text2);margin-bottom:5px;}
+.field{margin-bottom:12px;}.field:last-child{margin-bottom:0;}
+.fi{width:100%;padding:9px 13px;font-size:13px;background:var(--bg4);border:.5px solid var(--border2);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;}
+.fi:focus{outline:none;border-color:var(--em);}
+.fs{width:100%;padding:9px 13px;font-size:13px;background:var(--bg4);border:.5px solid var(--border2);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;}
+.hint{font-size:11px;color:var(--text3);margin-top:3px;line-height:1.5;}
+/* CARDS COMPARATIVOS */
+.mod-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+.mod-card{border-radius:12px;padding:1.125rem;border:1.5px solid var(--border2);background:var(--bg3);}
+.mod-card.menor-custo{border-color:var(--em-b);background:var(--em-d);}
+.mod-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.625rem;}
+.mod-card-nome{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);}
+.mod-card.menor-custo .mod-card-nome{color:var(--em-l);}
+.risco-badge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;border:.5px solid;}
+.risco-baixo{background:var(--em-d);color:var(--em-l);border-color:var(--em-b);}
+.risco-medio{background:var(--amber-d);color:var(--amber);border-color:var(--amber-b);}
+.risco-alto{background:var(--red-d);color:var(--red);border-color:var(--red-b);}
+.mod-custo{font-family:'DM Serif Display',serif;font-size:1.35rem;color:var(--text);margin-bottom:3px;}
+.mod-card.menor-custo .mod-custo{color:var(--em-l);}
+.mod-liquido{font-size:11px;color:var(--text3);margin-bottom:4px;}
+.mod-mult{font-size:11px;color:var(--text3);}
+/* ANSWER */
+.answer{border-radius:14px;padding:1.375rem 1.5rem;margin-bottom:12px;border:1.5px solid;}
+.answer.verde{background:var(--em-d);border-color:var(--em-b);}
+.answer.amarelo{background:var(--amber-d);border-color:var(--amber-b);}
+.answer.vermelho{background:var(--red-d);border-color:var(--red-b);}
+.answer.indigo{background:var(--indigo-d);border-color:var(--indigo-b);}
+.answer-label{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem;}
+.answer-text{font-family:'DM Serif Display',serif;font-size:1.1rem;margin-bottom:.35rem;line-height:1.3;}
+.answer.verde .answer-text{color:var(--em-l);}
+.answer.amarelo .answer-text{color:var(--amber);}
+.answer.vermelho .answer-text{color:var(--red);}
+.answer.indigo .answer-text{color:var(--indigo-l);}
+.answer-sub{font-size:12.5px;color:var(--text2);line-height:1.65;}
+/* KPIS */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:14px;}
+.kpi{background:var(--bg3);border:.5px solid var(--border2);border-radius:10px;padding:.875rem;}
+.kpi-l{font-size:11px;color:var(--text3);margin-bottom:4px;line-height:1.3;}
+.kpi-v{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--text);}
+.kpi-v.g{color:var(--em-l);}.kpi-v.r{color:var(--red);}.kpi-v.w{color:var(--amber);}.kpi-v.i{color:var(--indigo-l);}
+/* ROWS */
+.rb{background:var(--bg4);border:.5px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:12px;}
+.rb-t{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem;}
+.rrow{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:.5px solid var(--border);font-size:13px;gap:12px;}
+.rrow:last-child{border-bottom:none;}
+.rrow.total{border-top:1px solid var(--border2);padding-top:10px;margin-top:4px;border-bottom:none;}
+.rn{color:var(--text2);flex:1;line-height:1.4;}.rn.b{color:var(--text);font-weight:500;}
+.rv{font-weight:500;color:var(--text);text-align:right;flex-shrink:0;}
+.rv.g{color:var(--em-l);}.rv.r{color:var(--red);}.rv.w{color:var(--amber);}.rv.i{color:var(--indigo-l);}
+.rv.big{font-family:'DM Serif Display',serif;font-size:1.4rem;}
+/* TOGGLE */
+.toggle-btn{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px;color:var(--text3);padding:6px 0;border:none;background:none;font-family:'DM Sans',sans-serif;transition:color .15s;margin-bottom:6px;}
+.toggle-btn:hover{color:var(--text2);}
+.arr{transition:transform .2s;display:inline-block;}
+.toggle-body{display:none;}.toggle-body.open{display:block;}
+/* NOTA */
+.nota{padding:10px 13px;border-radius:8px;font-size:12px;line-height:1.65;border-left:2px solid var(--border2);background:var(--bg4);color:var(--text2);margin-top:10px;}
+.nota.w{border-left-color:var(--amber);background:var(--amber-d);color:var(--amber);}
+.nota.r{border-left-color:var(--red);background:var(--red-d);color:var(--red);}
+.nota.g{border-left-color:var(--em);background:var(--em-d);}
+.nota.i{border-left-color:var(--indigo);background:var(--indigo-d);}
+/* RISCO TRABALHISTA */
+.risco-box{border-radius:12px;padding:1.125rem 1.25rem;margin-bottom:10px;border:1.5px solid;}
+.risco-box.baixo{background:var(--em-d);border-color:var(--em-b);}
+.risco-box.medio{background:var(--amber-d);border-color:var(--amber-b);}
+.risco-box.alto{background:var(--red-d);border-color:var(--red-b);}
+.risco-titulo{font-size:12px;font-weight:500;margin-bottom:.5rem;}
+.risco-box.baixo .risco-titulo{color:var(--em-l);}
+.risco-box.medio .risco-titulo{color:var(--amber);}
+.risco-box.alto .risco-titulo{color:var(--red);}
+.risco-item{font-size:12px;color:var(--text2);line-height:1.65;display:flex;gap:6px;margin-bottom:3px;}
+/* CTA */
+.cta-disc{padding:1rem 1.25rem;border-top:.5px solid var(--border);margin-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.cta-disc-txt{font-size:12px;color:var(--text3);line-height:1.6;max-width:520px;}
+.cta-disc-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:var(--em-d);border:.5px solid var(--em-b);border-radius:8px;font-size:12px;color:var(--em-l);text-decoration:none;font-family:'DM Sans',sans-serif;transition:all .15s;white-space:nowrap;}
+.cta-disc-btn:hover{background:var(--em);color:#fff;}
+.pdf-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 18px;background:var(--bg4);border:.5px solid var(--border2);border-radius:8px;font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;margin-top:12px;text-decoration:none;}
+.pdf-btn:hover{background:var(--bg3);color:var(--text);}
+.foot{border-top:.5px solid var(--border);padding:1.5rem 0;margin-top:2rem;font-size:11px;color:var(--text3);}
+@media(max-width:800px){
+  .g2,.mod-cards{grid-template-columns:1fr;}
+  .wrap{padding:1.5rem 1.25rem 3rem;}
+  .row2{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Rodolfo<span>.</span></a>
+  <a href="index.html" class="nav-back">← Voltar</a>
+</nav>
+
+<div class="wrap">
+  <div class="page-tag">Simulador · Contratação 2026</div>
+  <h1 class="page-title">CLT ou PJ? Quanto custa contratar de verdade?</h1>
+  <p class="page-desc">Compare o custo real e o risco jurídico de cada modalidade — CLT, PJ, MEI prestador e autônomo. ⏱️ Menos de 3 minutos.</p>
+
+  <div class="aviso-principal">
+    <div class="aviso-ico">⚖️</div>
+    <div class="aviso-txt"><strong>Menor custo financeiro não significa menor risco jurídico.</strong> Contratar como PJ ou MEI para reduzir encargos, quando a relação configura vínculo empregatício, pode gerar passivo trabalhista retroativo com multas, verbas rescisórias e FGTS em aberto. Este simulador mostra custo <em>e</em> risco — leia os dois antes de decidir.</div>
+  </div>
+
+  <div class="g2">
+    <div>
+      <!-- Fix 2: pergunta de exclusividade -->
+      <div class="sec" style="background:var(--indigo-d);border-color:var(--indigo-b);">
+        <div class="sec-t" style="color:var(--indigo-l);">Pergunta rápida — antes de calcular</div>
+        <div style="font-size:13px;color:var(--text2);margin-bottom:.875rem;">A pessoa vai trabalhar <strong style="color:var(--text)">exclusivamente</strong> para sua empresa?</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--text2);">
+            <input type="radio" name="exclusividade" value="sim" onchange="checkExclusividade()" style="accent-color:var(--amber)"> Sim, exclusivamente
+          </label>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--text2);">
+            <input type="radio" name="exclusividade" value="nao" checked onchange="checkExclusividade()" style="accent-color:var(--em)"> Não, presta serviços para outros
+          </label>
+        </div>
+        <div id="alerta-exclusividade" style="display:none;margin-top:.75rem;" class="nota w">⚠️ <strong>Exclusividade aumenta significativamente o risco de reconhecimento de vínculo</strong> para PJ, MEI e autônomo. Considere com cuidado antes de não optar pelo CLT.</div>
+      </div>
+      <div class="sec">
+        <div class="sec-t">Dados da contratação</div>
+        <div class="field">
+          <span class="lbl">Salário ou remuneração combinada (R$)</span>
+          <input type="number" class="fi" id="salario" value="3000" min="1621" oninput="calcTudo()">
+          <div class="hint">Salário bruto CLT ou valor combinado para PJ/MEI. Mín. 2026: R$ 1.621,00</div>
+        </div>
+        <div class="field">
+          <span class="lbl">Regime tributário da sua empresa (contratante)</span>
+          <select class="fs" id="regime-emp" onchange="calcTudo()">
+            <option value="simples">Simples Nacional — Anexos I, II, III e V (CPP inclusa no DAS)</option>
+            <option value="simplesIV">Simples Nacional — Anexo IV (INSS patronal recolhido via DARF)</option>
+            <option value="presumido">Lucro Presumido / Real</option>
+          </select>
+          <div class="hint" id="hint-regime-emp">No Simples Anexos I–III e V, a CPP já está inclusa na alíquota do DAS. No Anexo IV (construção civil, serviços de vigilância, etc.), o INSS patronal de 20% é recolhido separadamente via DARF.</div>
+        </div>
+        <div class="field">
+          <span class="lbl">Risco de acidente de trabalho — RAT</span>
+          <select class="fs" id="rat" onchange="calcTudo()">
+            <option value="0.01">1% — Risco leve (escritório, administrativo)</option>
+            <option value="0.02" selected>2% — Risco médio</option>
+            <option value="0.03">3% — Risco grave (produção, logística)</option>
+          </select>
+        </div>
+        <div class="field">
+          <span class="lbl">Vale transporte (R$/mês — valor total)</span>
+          <input type="number" class="fi" id="vt" value="200" min="0" oninput="calcTudo()">
+          <div class="hint">A empresa paga a diferença acima do desconto de 6% do salário do empregado.</div>
+        </div>
+        <div class="field">
+          <span class="lbl">Vale refeição / alimentação — CLT (R$/mês)</span>
+          <input type="number" class="fi" id="vr" value="400" min="0" oninput="calcTudo()">
+          <div class="hint">Benefício CLT. Para PJ/MEI, considere que fornecer benefícios idênticos pode reforçar aparência de vínculo empregatício.</div>
+        </div>
+        <div class="field">
+          <span class="lbl">Plano de saúde — CLT (R$/mês)</span>
+          <input type="number" class="fi" id="saude" value="0" min="0" oninput="calcTudo()">
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-t">Para PJ e MEI (prestador de serviço)</div>
+        <div class="field">
+          <span class="lbl">Regime tributário da empresa PJ contratada</span>
+          <select class="fs" id="regime-pj" onchange="calcTudo()">
+            <option value="simples1">Simples Nacional — 1ª faixa (~6% serviços)</option>
+            <option value="simples2">Simples Nacional — 2ª faixa (~11,2%)</option>
+            <option value="presumido_pj">Lucro Presumido (~14,53%)</option>
+            <option value="mei">MEI — DAS fixo R$ 80,90/mês</option>
+          </select>
+        </div>
+        <div class="field">
+          <span class="lbl">Pró-labore mensal do sócio PJ (R$)</span>
+          <input type="number" class="fi" id="prolabore" value="1621" min="0" oninput="calcTudo()">
+          <div class="hint">Base de cálculo do INSS do sócio. Mínimo recomendado: 1 salário mínimo (R$ 1.621).</div>
+        </div>
+        <div class="field">
+          <span class="lbl">Sistema S — encargos de terceiros (CLT fora do Simples)</span>
+          <select class="fs" id="sistema-s" onchange="calcTudo()">
+            <option value="0.058">~5,8% — comércio/indústria (SESC/SENAC/SEBRAE)</option>
+            <option value="0.045">~4,5% — serviços (SESC/SEBRAE)</option>
+            <option value="0.063">~6,3% — indústria completo</option>
+          </select>
+          <div class="hint">Varia por atividade e CNAE. No Simples Nacional, os encargos de terceiros não são recolhidos separadamente.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTADO -->
+    <div id="resultado"></div>
+  </div>
+
+  <div class="cta-disc">
+    <div class="cta-disc-txt">A escolha errada da modalidade pode gerar passivo trabalhista retroativo. Uma análise personalizada da sua situação específica garante segurança jurídica e fiscal.</div>
+    <a class="cta-disc-btn" id="cta-wpp" href="#" target="_blank">Falar com Rodolfo Assunção →</a>
+  </div>
+
+  <div class="sec" style="margin-top:14px;">
+    <div class="sec-t">⚠️ Disclaimer</div>
+    <div style="font-size:12px;color:var(--text2);line-height:1.75;">Estimativas com base na legislação vigente em junho/2026. Encargos CLT variam conforme CNAE, convenção coletiva, FAP e porte da empresa. Sistema S varia por atividade. ISSQN do autônomo varia por município (2%–5% — estimado em 5%). A existência de subordinação, pessoalidade, habitualidade e exclusividade pode configurar vínculo empregatício independente da modalidade contratada. Este simulador não substitui consultoria trabalhista ou contábil individualizada. Rodolfo Assunção — CRC/SP 1SP353033/O-5.</div>
+  </div>
+
+  <div class="foot">CLT/FGTS: Lei 8.036/90 · INSS 2026: Portaria MPS · IRRF 2026: Lei 15.270/2025 · Salário mínimo: Decreto 12.797/2025 · Rodolfo Assunção · CRC/SP 1SP353033/O-5 · Limeira, SP</div>
+</div>
+
+<script>
+const fmt2 = v => 'R$ '+parseFloat(v||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fmtR = v => 'R$ '+Math.round(v||0).toLocaleString('pt-BR');
+const pct  = v => parseFloat(v||0).toFixed(1)+'%';
+const g    = id => document.getElementById(id);
+const n    = id => parseFloat(g(id)?.value)||0;
+
+function toggle(id){
+  const btn=g('tbtn-'+id),body=g('tbody-'+id);
+  const open=body.classList.toggle('open');
+  btn.querySelector('.arr').textContent=open?'▲':'▼';
+}
+
+// ─── INSS EMPREGADO 2026 (progressivo) ───────────────────────────────────
+function calcINSSEmp(sal){
+  const faixas=[{ate:1621,aliq:.075},{ate:2902.84,aliq:.09},{ate:4354.27,aliq:.12},{ate:8475.55,aliq:.14}];
+  let inss=0,ant=0;
+  for(const f of faixas){
+    const teto=Math.min(sal,f.ate);
+    if(teto>ant){inss+=(teto-ant)*f.aliq;ant=teto;}
+    if(sal<=f.ate) break;
+  }
+  return inss;
+}
+
+// ─── IRRF 2026 — Lei nº 15.270/2025 ─────────────────────────────────────
+function calcIRRF(baseCalculoIR){
+  if(baseCalculoIR<=0) return 0;
+
+  // 1. Tabela progressiva oficial 2026 (calculada primeiro)
+  let irBruto = 0;
+  if(baseCalculoIR<=2428.80)      irBruto = 0;
+  else if(baseCalculoIR<=2826.65) irBruto = baseCalculoIR*.075 - 182.16;
+  else if(baseCalculoIR<=3751.05) irBruto = baseCalculoIR*.15  - 394.16;
+  else if(baseCalculoIR<=4664.68) irBruto = baseCalculoIR*.225 - 675.49;
+  else                             irBruto = baseCalculoIR*.275 - 908.73;
+  irBruto = Math.max(0, irBruto);
+
+  // 2. Redutor adicional — Lei nº 15.270/2025 / Art. 3º-A
+  // Isenção total até R$ 5.000: redutor acompanha o imposto (zera completamente)
+  // Rampa gradual R$ 5.001–R$ 7.350: redutor de R$ 312,89 decresce até zero
+  // Acima de R$ 7.350: sem redutor (tabela normal)
+  const TETO_ISENCAO = 5000.00;
+  const TETO_RAMPA   = 7350.00;
+  const REDUTOR_MAX  = 312.89; // valor do redutor no patamar exato de R$ 5.000
+
+  let reducaoAdicional = 0;
+  if(baseCalculoIR<=TETO_ISENCAO){
+    // Isenção total: desconto acompanha o imposto bruto integralmente
+    reducaoAdicional = irBruto;
+  } else if(baseCalculoIR<=TETO_RAMPA){
+    // Rampa gradual decrescente
+    const fatorProporcional = (TETO_RAMPA - baseCalculoIR) / (TETO_RAMPA - TETO_ISENCAO);
+    reducaoAdicional = REDUTOR_MAX * fatorProporcional;
+  } else {
+    reducaoAdicional = 0;
+  }
+
+  // 3. Imposto final (nunca negativo)
+  return Math.max(0, irBruto - reducaoAdicional);
+}
+
+// Helper: verifica se regime tem INSS patronal separado
+function temInssPatronal(regEmp){ return regEmp==='simplesIV' || regEmp==='presumido'; }
+
+// ─── 1. CLT ───────────────────────────────────────────────────────────────
+function calcCLT(sal, regEmp, rat, vt, vr, saude, sistemaS){
+  const inssEmp  = calcINSSEmp(sal);
+  const irrf     = Math.max(0,calcIRRF(sal-inssEmp));
+  // Nota: se salário está na faixa da rampa gradual, sinaliza para UI
+  const naRampa  = (sal-inssEmp)>5000 && (sal-inssEmp)<=7350;
+  const vtDesc   = Math.min(sal*.06, vt);
+  const vtEmp    = Math.max(0, vt-vtDesc);
+  const liquido  = sal - inssEmp - irrf - vtDesc;
+
+  // Encargos patronais
+  const fgts     = sal*.08;
+  const rat_v    = sal*rat;
+  // INSS patronal: 20% apenas fora do Simples
+  const inssPatr = temInssPatronal(regEmp) ? sal*.20 : 0;
+  // Sistema S: apenas fora do Simples
+  const sisS     = temInssPatronal(regEmp) ? sal*sistemaS : 0;
+
+  // Provisões anualizadas (por mês)
+  const dec13_sal    = sal/12;
+  const dec13_fgts   = dec13_sal*.08;
+  const dec13_patr   = temInssPatronal(regEmp) ? dec13_sal*.20 : 0;
+  const ferias_sal   = (sal/12)*(4/3); // + 1/3 constitucional
+  const ferias_fgts  = ferias_sal*.08;
+  const ferias_patr  = temInssPatronal(regEmp) ? ferias_sal*.20 : 0;
+
+  // Custo anual / 12
+  const custoAnual =
+    (sal + inssPatr + sisS + rat_v + fgts)*12   // mensal base × 12
+    + dec13_sal + dec13_fgts + dec13_patr        // 13º (1 vez/ano)
+    + ferias_sal + ferias_fgts + ferias_patr     // férias (1 vez/ano)
+    + (vtEmp + vr + saude)*12;                   // benefícios × 12
+  const custoMes = custoAnual/12;
+
+  return {
+    id:'clt', label:'CLT',
+    sal, liquido, custoMes, custoAnual,
+    inssEmp, irrf, vtDesc, vtEmp, vr, saude, naRampa,
+    inssPatr, sisS, rat_v, fgts,
+    dec13_sal, dec13_fgts, ferias_sal, ferias_fgts,
+    mult: custoMes/sal,
+    risco:'baixo',
+    riscoLabel:'🟢 Risco jurídico baixo',
+    riscoDesc:'Vínculo formal e regularizado. Máxima segurança jurídica para a empresa.',
+    riscoItens:['Todos os direitos trabalhistas garantidos','Sem risco de reconhecimento retroativo de vínculo','Férias, 13º, FGTS e INSS regularizados'],
+  };
+}
+
+// ─── 2. PJ ────────────────────────────────────────────────────────────────
+function calcPJ(val, regPJ, prolabore){
+  let imposto, descImp;
+  if(regPJ==='simples1'){    imposto=val*.06;    descImp='6% Simples 1ª faixa';}
+  else if(regPJ==='simples2'){imposto=val*.112;  descImp='11,2% Simples 2ª faixa';}
+  else if(regPJ==='presumido_pj'){imposto=val*.1453;descImp='14,53% Presumido';}
+  else{imposto=80.90; descImp='DAS MEI fixo';}
+
+  const inssSocio = calcINSSEmp(prolabore);
+  const irrfSocio = Math.max(0,calcIRRF(prolabore-inssSocio));
+  const proLabLiq = prolabore - inssSocio - irrfSocio;
+  const lucroDistr= Math.max(0, val - imposto - prolabore);
+  const liquido   = proLabLiq + lucroDistr;
+  // Custo para contratante = valor do contrato (sem benefícios — ver aviso)
+  const custoMes  = val;
+
+  return {
+    id:'pj', label:'PJ (Pessoa Jurídica)',
+    sal:val, liquido, custoMes, custoAnual:custoMes*12,
+    imposto, descImp, inssSocio, irrfSocio, proLabLiq, lucroDistr,
+    mult: custoMes/val,
+    risco:'medio',
+    riscoLabel:'🟡 Risco jurídico moderado a alto',
+    riscoDesc:'Depende da estrutura da relação. Se houver subordinação, pessoalidade, habitualidade e exclusividade, o contrato pode ser reconhecido como CLT com passivo retroativo.',
+    riscoItens:[
+      'Verificar: há subordinação hierárquica diária?',
+      'Verificar: o serviço é prestado com exclusividade?',
+      'Verificar: há pessoalidade (só essa pessoa pode executar)?',
+      'Verificar: a prestação é habitual e contínua?',
+      'Se 2+ respostas forem "sim" → risco alto de vínculo empregatício',
+    ],
+  };
+}
+
+// ─── 3. MEI PRESTADOR ────────────────────────────────────────────────────
+function calcMEI(val){
+  const dasMEI   = 80.90;
+  const liquido  = val - dasMEI;
+  const custoMes = val;
+  return {
+    id:'mei', label:'MEI Prestador',
+    sal:val, liquido, custoMes, custoAnual:custoMes*12,
+    dasMEI, mult: custoMes/val,
+    risco:'alto',
+    riscoLabel:'⚠️ Risco elevado quando substitui empregado',
+    riscoDesc:'MEI é legítimo para serviços pontuais e eventuais. O risco surge quando utilizado como substituto de empregado — especialmente com subordinação, exclusividade, pessoalidade e habitualidade simultâneas.',
+    riscoItens:[
+      'Limite: R$ 81k/ano (R$ 6.750/mês) — acima disso MEI é inválido',
+      'Várias atividades são vedadas para MEI — verificar CNAE',
+      'Serviço pontual (eletricista, encanador, freelancer): baixo risco',
+      'Serviço contínuo e exclusivo com subordinação: risco alto de vínculo',
+      'Sem direitos trabalhistas: férias, FGTS, 13º e aviso prévio',
+    ],
+  };
+}
+
+// ─── 4. AUTÔNOMO / RPA ────────────────────────────────────────────────────
+function calcRPA(val, regEmp){
+  // INSS retido do autônomo: 11% (teto INSS)
+  const inssRetido = Math.min(val*.11, 8475.55*.14);
+  // ISSQN: ~5% estimado (varia 2%–5% por município)
+  const issqn  = val*.05;
+  const irrf   = Math.max(0,calcIRRF(val-inssRetido));
+  const liquido= val - inssRetido - issqn - irrf;
+
+  // INSS patronal sobre RPA: 20% quando fora do Simples (empresa recolhe como GPS)
+  // No Simples: CPP inclusa na alíquota — não há adicional sobre RPA
+  const inssPatrRPA = temInssPatronal(regEmp) ? val*.20 : 0;
+  const custoMes    = val + inssPatrRPA;
+
+  return {
+    id:'rpa', label:'Autônomo (RPA)',
+    sal:val, liquido, custoMes, custoAnual:custoMes*12,
+    inssRetido, issqn, irrf, inssPatrRPA,
+    mult: custoMes/val,
+    risco:'medio',
+    riscoLabel:'🟡 Risco jurídico moderado',
+    riscoDesc:'Adequado para serviços eventuais e não habituais. Prestação habitual e contínua pode caracterizar vínculo.',
+    riscoItens:[
+      'Adequado para serviços pontuais e eventuais',
+      'Serviços habituais e contínuos aumentam o risco de vínculo',
+      'INSS 11% retido na fonte — empresa recolhe como contribuinte',
+      'ISSQN varia por município (estimado em 5%)',
+      temInssPatronal(regEmp)?'INSS patronal de 20% incidente sobre RPA (recolhimento via DARF Previdenciário / DCTFWeb)':'No Simples Anexos I, II, III e V: CPP inclusa no DAS — sem INSS patronal adicional',
+    ],
+  };
+}
+
+// ─── RENDER ────────────────────────────────────────────────────────────────
+function checkExclusividade(){
+  const val = document.querySelector('input[name="exclusividade"]:checked')?.value;
+  g('alerta-exclusividade').style.display = val==='sim' ? 'block' : 'none';
+}
+
+function calcTudo(){
+  const sal     = n('salario');
+  const regEmp  = g('regime-emp').value;
+  const rat     = parseFloat(g('rat').value)||.02;
+  const vt      = n('vt');
+  const vr      = n('vr');
+  const saude   = n('saude');
+  const regPJ   = g('regime-pj').value;
+  const prolab  = n('prolabore');
+  const sisS    = parseFloat(g('sistema-s').value)||.058;
+
+  if(sal<1621){
+    g('resultado').innerHTML=`<div class="nota r">⚠️ Salário mínimo 2026: R$ 1.621,00. Informe um valor igual ou acima.</div>`;
+    return;
+  }
+
+  const clt = calcCLT(sal,regEmp,rat,vt,vr,saude,sisS);
+  const pj  = calcPJ(sal,regPJ,prolab);
+  const mei = calcMEI(sal);
+  const rpa = calcRPA(sal,regEmp);
+  const todos = [clt,pj,mei,rpa];
+
+  const menorCusto = todos.reduce((a,b)=>a.custoMes<b.custoMes?a:b);
+  const maiorCusto = todos.reduce((a,b)=>a.custoMes>b.custoMes?a:b);
+  const diff = maiorCusto.custoMes - menorCusto.custoMes;
+
+  // Cards comparativos
+  const cards = todos.map(m=>`
+    <div class="mod-card ${m.id===menorCusto.id?'menor-custo':''}">
+      <div class="mod-card-header">
+        <div class="mod-card-nome">${m.label}</div>
+        <div class="risco-badge risco-${m.risco}">${m.risco==='baixo'?'Risco baixo':m.risco==='medio'?'Risco moderado':m.id==='mei'?'Depende da situação':'Risco alto'}</div>
+      </div>
+      <div class="mod-custo">${fmtR(m.custoMes)}/mês</div>
+      <div class="mod-liquido">Líquido trabalhador: ${fmtR(m.liquido)}/mês</div>
+      <div class="mod-mult">Multiplicador: ${m.mult.toFixed(2)}x sobre o combinado</div>
+      ${m.id===menorCusto.id?'<div style="margin-top:6px;font-size:10px;font-weight:500;color:var(--em-l);">💰 Menor custo financeiro</div>':''}
+    </div>`).join('');
+
+  // Seções de risco
+  const riscos = todos.map(m=>`
+    <div class="risco-box ${m.risco}">
+      <div class="risco-titulo">${m.label} — ${m.riscoLabel}</div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:.5rem;">${m.riscoDesc}</div>
+      ${m.riscoItens.map(i=>`<div class="risco-item"><span>•</span><span>${i}</span></div>`).join('')}
+    </div>`).join('');
+
+  // Detalhamentos
+  const detCLT = `
+    <button class="toggle-btn" id="tbtn-clt" onclick="toggle('clt')">Ver detalhamento CLT <span class="arr">▼</span></button>
+    <div class="toggle-body" id="tbody-clt">
+      <div class="rb"><div class="rb-t">Custo para a empresa (mensal)</div>
+        <div class="rrow"><span class="rn b">Salário bruto</span><span class="rv">${fmt2(sal)}</span></div>
+        ${temInssPatronal(regEmp)?`<div class="rrow"><span class="rn">INSS patronal (20%)${regEmp==='simplesIV'?' — recolhido via DARF Previdenciário':''}</span><span class="rv r">+${fmt2(clt.inssPatr)}</span></div>`:'<div class="rrow"><span class="rn">INSS patronal (CPP inclusa no DAS — Simples I–III e V)</span><span class="rv" style="color:var(--em-l)">incluso no DAS</span></div>'}
+        ${temInssPatronal(regEmp)?`<div class="rrow"><span class="rn">Sistema S (~${pct(sisS*100)})</span><span class="rv r">+${fmt2(clt.sisS)}</span></div>`:'<div class="rrow"><span class="rn">Sistema S (não recolhido separado no Simples)</span><span class="rv" style="color:var(--em-l)">—</span></div>'}
+        <div class="rrow"><span class="rn">RAT — risco acidente (${pct(rat*100)})</span><span class="rv r">+${fmt2(clt.rat_v)}</span></div>
+        <div class="rrow"><span class="rn">FGTS (8%)</span><span class="rv r">+${fmt2(clt.fgts)}</span></div>
+        <div class="rrow"><span class="rn">Provisão 13º (1/12 do anual)</span><span class="rv r">+${fmt2(clt.dec13_sal)}</span></div>
+        <div class="rrow"><span class="rn">FGTS sobre 13º (1/12)</span><span class="rv r">+${fmt2(clt.dec13_fgts)}</span></div>
+        <div class="rrow"><span class="rn">Provisão férias + 1/3 (1/12)</span><span class="rv r">+${fmt2(clt.ferias_sal)}</span></div>
+        <div class="rrow"><span class="rn">FGTS sobre férias (1/12)</span><span class="rv r">+${fmt2(clt.ferias_fgts)}</span></div>
+        ${clt.vtEmp>0?`<div class="rrow"><span class="rn">Vale transporte (parte empresa)</span><span class="rv r">+${fmt2(clt.vtEmp)}</span></div>`:''}
+        ${vr>0?`<div class="rrow"><span class="rn">Vale refeição / alimentação</span><span class="rv r">+${fmt2(vr)}</span></div>`:''}
+        ${saude>0?`<div class="rrow"><span class="rn">Plano de saúde</span><span class="rv r">+${fmt2(saude)}</span></div>`:''}
+        <div class="rrow total"><span class="rn b">Custo total mensal</span><span class="rv big w">${fmtR(clt.custoMes)}</span></div>
+        <div class="rrow"><span class="rn">Multiplicador sobre salário bruto</span><span class="rv w">${clt.mult.toFixed(2)}x</span></div>
+      </div>
+      <div class="rb"><div class="rb-t">O que o trabalhador recebe</div>
+        <div class="rrow"><span class="rn">Salário bruto</span><span class="rv">${fmt2(sal)}</span></div>
+        <div class="rrow"><span class="rn">(-) INSS empregado (progressivo)</span><span class="rv r">-${fmt2(clt.inssEmp)}</span></div>
+        <div class="rrow"><span class="rn">(-) IRRF 2026${clt.naRampa?' <span style="font-size:10px;color:var(--amber)">⚡ rampa gradual Lei 15.270/2025</span>':''}</span><span class="rv r">-${fmt2(clt.irrf)}</span></div>
+        ${clt.vtDesc>0?`<div class="rrow"><span class="rn">(-) Desconto VT (6% do salário)</span><span class="rv r">-${fmt2(clt.vtDesc)}</span></div>`:''}
+        <div class="rrow total"><span class="rn b">Salário líquido</span><span class="rv big g">${fmt2(clt.liquido)}</span></div>
+      </div>
+      ${regEmp==='simples'?`<div class="nota i">No Simples Nacional Anexos I, II, III e V, a CPP e os encargos de terceiros já estão inclusos na alíquota do DAS — não há recolhimento separado de INSS patronal nem de Sistema S. Isso reduz o custo CLT no Simples em relação ao Lucro Presumido.</div>`:regEmp==='simplesIV'?`<div class="nota w">⚠️ Simples Nacional Anexo IV (construção civil, serviços de vigilância, limpeza e conservação): o INSS patronal de 20% e o Sistema S são recolhidos separadamente via DARF Previdenciário, fora da guia unificada do DAS.</div>`:''}
+    </div>`;
+
+  const detPJ = `
+    <button class="toggle-btn" id="tbtn-pj" onclick="toggle('pj')">Ver detalhamento PJ <span class="arr">▼</span></button>
+    <div class="toggle-body" id="tbody-pj">
+      <div class="rb"><div class="rb-t">Custo para a empresa contratante</div>
+        <div class="rrow"><span class="rn b">Valor do contrato</span><span class="rv">${fmt2(sal)}</span></div>
+        <div class="rrow total"><span class="rn b">Custo direto para a empresa</span><span class="rv big g">${fmtR(pj.custoMes)}</span></div>
+      </div>
+      <div class="rb"><div class="rb-t">Dentro da PJ — o que o prestador recebe</div>
+        <div class="rrow"><span class="rn">Receita bruta da PJ</span><span class="rv">${fmt2(sal)}</span></div>
+        <div class="rrow"><span class="rn">(-) Imposto (${pj.descImp})</span><span class="rv r">-${fmt2(pj.imposto)}</span></div>
+        <div class="rrow"><span class="rn">= Lucro disponível</span><span class="rv i">${fmt2(sal-pj.imposto)}</span></div>
+        <div class="rrow"><span class="rn">Pró-labore bruto</span><span class="rv">${fmt2(prolab)}</span></div>
+        <div class="rrow"><span class="rn">(-) INSS sócio sobre pró-labore</span><span class="rv r">-${fmt2(pj.inssSocio)}</span></div>
+        <div class="rrow"><span class="rn">(-) IRRF sobre pró-labore</span><span class="rv r">-${fmt2(pj.irrfSocio)}</span></div>
+        <div class="rrow"><span class="rn">Pró-labore líquido</span><span class="rv">${fmt2(pj.proLabLiq)}</span></div>
+        <div class="rrow"><span class="rn">Distribuição de lucros (isenta de IR)</span><span class="rv g">+${fmt2(pj.lucroDistr)}</span></div>
+        <div class="rrow total"><span class="rn b">Total líquido para o sócio</span><span class="rv big g">${fmt2(pj.liquido)}</span></div>
+      </div>
+      <div class="nota w">⚠️ Fornecer vale refeição, plano de saúde ou outros benefícios idênticos aos CLT para prestadores PJ pode reforçar a aparência de vínculo empregatício. Evite replicar a estrutura de benefícios sem orientação jurídica.</div>
+    </div>`;
+
+  const detMEI = `
+    <button class="toggle-btn" id="tbtn-mei" onclick="toggle('mei')">Ver detalhamento MEI prestador <span class="arr">▼</span></button>
+    <div class="toggle-body" id="tbody-mei">
+      <div class="rb"><div class="rb-t">Custo para a empresa contratante</div>
+        <div class="rrow"><span class="rn b">Valor do contrato</span><span class="rv">${fmt2(sal)}</span></div>
+        <div class="rrow total"><span class="rn b">Custo direto para a empresa</span><span class="rv big g">${fmtR(mei.custoMes)}</span></div>
+      </div>
+      <div class="rb"><div class="rb-t">O que o MEI recebe</div>
+        <div class="rrow"><span class="rn">Valor recebido</span><span class="rv">${fmt2(sal)}</span></div>
+        <div class="rrow"><span class="rn">(-) DAS MEI mensal</span><span class="rv r">-${fmt2(mei.dasMEI)}</span></div>
+        <div class="rrow total"><span class="rn b">Líquido estimado</span><span class="rv big g">${fmt2(mei.liquido)}</span></div>
+      </div>
+      <div class="nota r">⚠️ MEI é legítimo para serviços pontuais. O problema surge quando utilizado como substituto de empregado. Se houver simultaneamente subordinação, pessoalidade, habitualidade e exclusividade, o contrato pode ser reconhecido judicialmente como CLT — gerando passivo retroativo: FGTS, 13º, férias, INSS e multas.</div>
+    </div>`;
+
+  const detRPA = `
+    <button class="toggle-btn" id="tbtn-rpa" onclick="toggle('rpa')">Ver detalhamento Autônomo (RPA) <span class="arr">▼</span></button>
+    <div class="toggle-body" id="tbody-rpa">
+      <div class="rb"><div class="rb-t">Custo para a empresa contratante</div>
+        <div class="rrow"><span class="rn b">Valor bruto do serviço</span><span class="rv">${fmt2(sal)}</span></div>
+        ${temInssPatronal(regEmp)?`<div class="rrow"><span class="rn">INSS patronal sobre RPA (20%)${regEmp==='simplesIV'?' — recolhido via DARF Previdenciário':''}</span><span class="rv r">+${fmt2(rpa.inssPatrRPA)}</span></div>`:'<div class="rrow"><span class="rn">INSS patronal sobre RPA (no Simples I–III e V, incluso no DAS)</span><span class="rv" style="color:var(--em-l)">—</span></div>'}
+        <div class="rrow total"><span class="rn b">Custo total para a empresa</span><span class="rv big g">${fmtR(rpa.custoMes)}</span></div>
+      </div>
+      <div class="rb"><div class="rb-t">O que o autônomo recebe</div>
+        <div class="rrow"><span class="rn">Valor bruto</span><span class="rv">${fmt2(sal)}</span></div>
+        <div class="rrow"><span class="rn">(-) INSS retido (11%)</span><span class="rv r">-${fmt2(rpa.inssRetido)}</span></div>
+        <div class="rrow"><span class="rn">(-) ISSQN estimado (~5%)</span><span class="rv r">-${fmt2(rpa.issqn)}</span></div>
+        <div class="rrow"><span class="rn">(-) IRRF 2026</span><span class="rv r">-${fmt2(rpa.irrf)}</span></div>
+        <div class="rrow total"><span class="rn b">Líquido estimado</span><span class="rv big g">${fmt2(rpa.liquido)}</span></div>
+      </div>
+      <div class="nota w">⚠️ ISSQN varia por município (2%–5%). Valor estimado em 5%. Adequado para serviços eventuais — prestação habitual e contínua aumenta risco de reconhecimento de vínculo.</div>
+    </div>`;
+
+  g('resultado').innerHTML=`
+    <div class="answer amarelo">
+      <div class="answer-label">Custo financeiro vs risco jurídico</div>
+      <div class="answer-text">Menor custo financeiro não significa menor risco jurídico.</div>
+      <div class="answer-sub">${menorCusto.label} tem o menor custo (${fmtR(menorCusto.custoMes)}/mês), mas possui ${menorCusto.risco==='alto'?'<strong>risco jurídico alto</strong>':menorCusto.risco==='medio'?'risco jurídico moderado':'risco jurídico baixo'}. A diferença financeira entre a mais cara e a mais barata é ${fmtR(diff)}/mês — avalie se a economia compensa o risco.</div>
+    </div>
+    <div class="mod-cards">${cards}</div>
+    <div style="margin-bottom:10px;font-size:11px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;">Perfil de risco jurídico por modalidade</div>
+    ${riscos}
+    <div class="kpis" style="margin-top:14px;">
+      <div class="kpi"><div class="kpi-l">CLT — custo total/mês</div><div class="kpi-v w">${fmtR(clt.custoMes)}</div></div>
+      <div class="kpi"><div class="kpi-l">PJ — custo total/mês</div><div class="kpi-v">${fmtR(pj.custoMes)}</div></div>
+      <div class="kpi"><div class="kpi-l">MEI — custo total/mês</div><div class="kpi-v g">${fmtR(mei.custoMes)}</div></div>
+      <div class="kpi"><div class="kpi-l">Autônomo — custo/mês</div><div class="kpi-v">${fmtR(rpa.custoMes)}</div></div>
+    </div>
+    <div class="nota i" style="margin-bottom:12px;">💡 O multiplicador CLT revela o custo real: para cada R$ 1 de salário, a empresa gasta R$ ${clt.mult.toFixed(2)} no total (${regEmp==='simples'?'Simples Nacional — sem INSS patronal separado':'Lucro Presumido — com INSS 20% e Sistema S'}).</div>
+
+    <!-- Fix 3: economia anual -->
+    <div class="rb" style="margin-bottom:12px;">
+      <div class="rb-t">💰 Economia anual estimada — CLT como base</div>
+      ${[pj,mei,rpa].map(m=>{
+        const econAno = (clt.custoAnual - m.custoAnual);
+        const sinal = econAno>0?'Economia':'Custo adicional';
+        return `<div class="rrow">
+          <span class="rn">CLT vs ${m.label}</span>
+          <span class="rv ${econAno>0?'g':'r'}">${econAno>0?'−':'+'} ${fmtR(Math.abs(econAno))}/ano (${sinal}: ${fmtR(Math.abs(econAno/12))}/mês)</span>
+        </div>`;
+      }).join('')}
+    </div>
+
+    <!-- Fix 4: ranking -->
+    <div class="rb" style="margin-bottom:12px;">
+      <div class="rb-t">🏆 Ranking por critério</div>
+      <div class="rrow"><span class="rn">💰 Menor custo financeiro</span><span class="rv g">${menorCusto.label}</span></div>
+      <div class="rrow"><span class="rn">⚖️ Melhor equilíbrio custo × segurança</span><span class="rv i">${regEmp==='simples'?'PJ (Simples 1ª faixa)':'PJ ou Autônomo'}</span></div>
+      <div class="rrow"><span class="rn">🛡️ Maior segurança jurídica</span><span class="rv g">CLT</span></div>
+      <div class="rrow"><span class="rn">📋 Menor burocracia operacional</span><span class="rv">MEI (serviços pontuais)</span></div>
+    </div>
+
+    <!-- Fix 5: complexidade administrativa -->
+    <div class="rb" style="margin-bottom:14px;">
+      <div class="rb-t">🗂️ Complexidade administrativa por modalidade</div>
+      <div class="rrow">
+        <span class="rn b">CLT</span>
+        <span class="rv g">Baixa</span>
+        <span style="font-size:11px;color:var(--text3);text-align:right;flex-shrink:0;width:200px">Folha de pagamento mensal, eSocial, FGTS</span>
+      </div>
+      <div class="rrow">
+        <span class="rn b">PJ</span>
+        <span class="rv w">Média</span>
+        <span style="font-size:11px;color:var(--text3);text-align:right;flex-shrink:0;width:200px">Contrato de prestação, NF mensal, IRRF retido</span>
+      </div>
+      <div class="rrow">
+        <span class="rn b">MEI Prestador</span>
+        <span class="rv g">Baixa</span>
+        <span style="font-size:11px;color:var(--text3);text-align:right;flex-shrink:0;width:200px">Emissão de NF pelo MEI, pagamento simples</span>
+      </div>
+      <div class="rrow">
+        <span class="rn b">Autônomo (RPA)</span>
+        <span class="rv w">Média</span>
+        <span style="font-size:11px;color:var(--text3);text-align:right;flex-shrink:0;width:200px">RPA, INSS GPS, IRRF retido, ISSQN a recolher</span>
+      </div>
+    </div>
+    ${detCLT}${detPJ}${detMEI}${detRPA}
+    <button class="pdf-btn" onclick="gerarPDF()">📄 Baixar relatório em PDF</button>`;
+
+  const msg=`Olá Rodolfo! Usei o simulador de contratação.\n\nRemuneração combinada: ${fmtR(sal)}/mês\nRegime da minha empresa: ${regEmp}\n\nCustos estimados:\n• CLT: ${fmtR(clt.custoMes)}/mês (mult. ${clt.mult.toFixed(2)}x)\n• PJ: ${fmtR(pj.custoMes)}/mês\n• MEI: ${fmtR(mei.custoMes)}/mês\n• Autônomo: ${fmtR(rpa.custoMes)}/mês\n\nGostaria de entender a melhor forma de estruturar minha equipe com segurança jurídica.`;
+  g('cta-wpp').href='https://wa.me/5519982003732?text='+encodeURIComponent(msg);
+}
+
+function gerarPDF(){
+  const c=g('resultado').innerHTML;
+  const w=window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+    <title>Simulador de Contratação · Rodolfo Assunção</title>
+    <style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:Arial,sans-serif;font-size:12px;color:#1e293b;background:#fff;padding:2rem;}
+    .answer{border:1px solid #cbd5e1;border-radius:6px;padding:.875rem;margin-bottom:10px;background:#f8fafc;}
+    .answer.amarelo{border-color:#fcd34d;background:#fffbeb;}
+    .answer-label{font-size:10px;text-transform:uppercase;color:#64748b;margin-bottom:.25rem;}
+    .answer-text{font-size:1rem;font-weight:600;margin-bottom:.25rem;color:#b45309;}
+    .answer-sub{font-size:11px;color:#475569;line-height:1.6;}
+    .mod-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px;}
+    .mod-card{border:1px solid #e2e8f0;border-radius:6px;padding:.75rem;background:#f8fafc;}
+    .mod-card.menor-custo{border-color:#6ee7b7;background:#f0fdf4;}
+    .mod-card-nome{font-size:10px;text-transform:uppercase;color:#64748b;margin-bottom:4px;}
+    .mod-custo{font-size:1rem;font-weight:700;color:#1e293b;}
+    .mod-card.menor-custo .mod-custo{color:#059669;}
+    .mod-liquido,.mod-mult{font-size:10px;color:#64748b;}
+    .risco-badge{display:inline-flex;font-size:9px;font-weight:600;padding:1px 5px;border-radius:20px;margin-top:3px;}
+    .risco-baixo{background:#d1fae5;color:#059669;}.risco-medio{background:#fef3c7;color:#b45309;}.risco-alto{background:#fee2e2;color:#dc2626;}
+    .risco-box{border:1px solid #e2e8f0;border-radius:6px;padding:.75rem;margin-bottom:8px;background:#f8fafc;}
+    .risco-box.baixo{border-color:#6ee7b7;background:#f0fdf4;}.risco-box.medio{border-color:#fcd34d;background:#fffbeb;}.risco-box.alto{border-color:#fca5a5;background:#fff1f2;}
+    .risco-titulo{font-size:11px;font-weight:600;margin-bottom:.5rem;}
+    .risco-box.baixo .risco-titulo{color:#059669;}.risco-box.medio .risco-titulo{color:#b45309;}.risco-box.alto .risco-titulo{color:#dc2626;}
+    .risco-item{font-size:11px;color:#475569;line-height:1.6;}
+    .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px;}
+    .kpi{border:1px solid #e2e8f0;border-radius:6px;padding:.625rem;background:#f8fafc;}
+    .kpi-l{font-size:10px;color:#64748b;margin-bottom:2px;}.kpi-v{font-size:1rem;font-weight:700;color:#1e293b;}
+    .rb{border:1px solid #e2e8f0;border-radius:6px;padding:1rem;margin-bottom:8px;background:#f8fafc;}
+    .rb-t{font-size:10px;text-transform:uppercase;color:#64748b;margin-bottom:.75rem;}
+    .rrow{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #f1f5f9;font-size:11px;}
+    .rrow:last-child{border-bottom:none;}.rrow.total{border-top:1px solid #e2e8f0;padding-top:8px;margin-top:4px;border-bottom:none;}
+    .rn{color:#475569;flex:1;}.rn.b{color:#1e293b;font-weight:600;}
+    .rv{font-weight:600;text-align:right;color:#1e293b;}.rv.big{font-size:1.2rem;}
+    .rv.g{color:#059669;}.rv.r{color:#dc2626;}.rv.w{color:#b45309;}.rv.i{color:#4338ca;}
+    .nota{padding:8px;border-left:2px solid #94a3b8;font-size:10px;color:#475569;margin-top:8px;}
+    .nota.w{border-left-color:#f59e0b;color:#b45309;background:#fffbeb;}
+    .nota.r{border-left-color:#dc2626;color:#dc2626;background:#fff1f2;}
+    .nota.i{border-left-color:#6366f1;color:#4338ca;background:#eef2ff;}
+    .toggle-btn,.pdf-btn,.cta-disc{display:none!important;}.toggle-body{display:block!important;}
+    header{border-bottom:2px solid #e2e8f0;padding-bottom:.75rem;margin-bottom:1.25rem;display:flex;justify-content:space-between;}
+    .hdr-logo{font-size:1rem;font-weight:700;color:#1e293b;}.hdr-data{font-size:10px;color:#64748b;}
+    footer{border-top:1px solid #e2e8f0;margin-top:1.5rem;padding-top:.75rem;font-size:9px;color:#94a3b8;text-align:center;}
+    .disclaimer{border:1px solid #fcd34d;background:#fffbeb;border-radius:4px;padding:.625rem;margin-top:1rem;font-size:10px;color:#78350f;line-height:1.6;}
+    </style></head><body>
+    <header><div class="hdr-logo">CLT ou PJ? Simulador de Contratação · Rodolfo Assunção · CRC/SP 1SP353033/O-5</div>
+    <div class="hdr-data">Gerado em: ${new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}</div></header>
+    ${c}
+    <div class="disclaimer">⚠️ Estimativas com base na legislação vigente em junho/2026. Não substitui consultoria trabalhista ou contábil individualizada. A existência de subordinação, pessoalidade, habitualidade e exclusividade pode configurar vínculo empregatício. Rodolfo Assunção — CRC/SP 1SP353033/O-5 — Limeira, SP.</div>
+    <footer>Simulador de Contratação · Rodolfo Assunção · CRC/SP 1SP353033/O-5 · Junho/2026</footer>
+    </body></html>`);
+  w.document.close();
+  setTimeout(()=>w.print(),600);
+}
+
+calcTudo();
+</script>
+</body>
+</html>

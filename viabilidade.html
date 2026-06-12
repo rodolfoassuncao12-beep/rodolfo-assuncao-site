@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador de Viabilidade de Negócio 2026 — Rodolfo Assunção</title>
+<meta name="description" content="Descubra se o seu negócio é viável antes de investir. Score de viabilidade, ponto de equilíbrio, payback, teste de estresse e veredito. Dados SEBRAE 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F172A;--bg2:#111827;--bg3:#1E2937;--bg4:#263244;
+  --border:rgba(51,65,85,0.5);--border2:#334155;
+  --text:#F1F5F9;--text2:#94A3B8;--text3:#64748B;
+  --indigo:#4F46E5;--indigo2:#4338CA;--indigo-l:#818CF8;--indigo-d:rgba(79,70,229,0.1);--indigo-b:rgba(79,70,229,0.25);
+  --em:#10B981;--em2:#059669;--em-l:#34D399;--em-d:rgba(16,185,129,0.1);--em-b:rgba(16,185,129,0.25);
+  --amber:#FBBF24;--amber-d:rgba(251,191,36,0.1);--amber-b:rgba(251,191,36,0.3);
+  --red:#F87171;--red-d:rgba(248,113,113,0.1);--red-b:rgba(248,113,113,0.3);
+  --orange:#FB923C;--orange-d:rgba(251,146,60,0.1);--orange-b:rgba(251,146,60,0.3);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.7;min-height:100vh;}
+nav{position:sticky;top:0;z-index:100;background:rgba(15,23,42,0.95);backdrop-filter:blur(16px);border-bottom:.5px solid var(--border);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);text-decoration:none;}
+.nav-logo span{color:var(--indigo-l);}
+.nav-back{font-size:13px;color:var(--text2);text-decoration:none;}
+.nav-back:hover{color:var(--text);}
+.wizard{max-width:820px;margin:0 auto;padding:2rem 2rem 4rem;}
+.steps-bar{display:flex;align-items:center;gap:0;margin-bottom:2.5rem;}
+.step-item{display:flex;align-items:center;gap:8px;flex:1;}.step-item:last-child{flex:none;}
+.step-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0;transition:all .3s;}
+.step-num.done{background:var(--em);color:#fff;}
+.step-num.active{background:var(--indigo);color:#fff;}
+.step-num.idle{background:var(--bg4);color:var(--text3);}
+.step-label{font-size:12px;color:var(--text3);transition:color .3s;}
+.step-label.active{color:var(--text2);}
+.step-line{flex:1;height:.5px;background:var(--border2);margin:0 8px;}
+.panel{display:none;}.panel.active{display:block;}
+.panel-title{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--text);margin-bottom:.4rem;}
+.panel-desc{font-size:14px;color:var(--text2);margin-bottom:1.75rem;line-height:1.7;}
+.seg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem;}
+.seg-card{background:var(--bg3);border:1.5px solid var(--border2);border-radius:12px;padding:1rem;cursor:pointer;transition:all .2s;text-align:center;}
+.seg-card:hover{border-color:var(--indigo-b);}
+.seg-card.selected{border-color:var(--indigo);background:var(--indigo-d);}
+.seg-icon{font-size:1.6rem;margin-bottom:6px;}
+.seg-name{font-size:12px;font-weight:500;color:var(--text2);line-height:1.3;}
+.seg-card.selected .seg-name{color:var(--indigo-l);}
+.fase-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem;}
+.fase-btn{background:var(--bg3);border:1.5px solid var(--border2);border-radius:10px;padding:1rem 1.25rem;cursor:pointer;transition:all .2s;}
+.fase-btn.selected{border-color:var(--indigo);background:var(--indigo-d);}
+.fase-btn-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;}
+.fase-btn.selected .fase-btn-title{color:var(--indigo-l);}
+.fase-btn-desc{font-size:11px;color:var(--text3);}
+.sec{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:1.5rem;margin-bottom:14px;}
+.sec-title{font-size:11px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1.25rem;}
+.lbl{display:block;font-size:12px;color:var(--text2);margin-bottom:5px;}
+.fi{width:100%;padding:9px 13px;font-size:13px;background:var(--bg4);border:.5px solid var(--border2);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;transition:border-color .2s;}
+.fi:focus{outline:none;border-color:var(--indigo);}
+.field{margin-bottom:12px;}.field:last-child{margin-bottom:0;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.bench{font-size:11px;color:var(--text3);margin-top:4px;}
+.bench b{color:var(--amber);}
+.cen-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.cen-card{background:var(--bg4);border:.5px solid var(--border);border-radius:10px;padding:1rem;}
+.cen-label{font-size:10px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;font-weight:500;}
+.cen-label.p{color:var(--red);}.cen-label.r{color:var(--amber);}.cen-label.o{color:var(--em-l);}
+.nav-btns{display:flex;justify-content:space-between;align-items:center;margin-top:1.75rem;}
+.btn{padding:10px 24px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;border:none;}
+.btn-sec{background:var(--bg4);color:var(--text2);border:.5px solid var(--border2);}
+.btn-sec:hover{background:var(--bg3);}
+.btn-pri{background:var(--indigo);color:#fff;}
+.btn-pri:hover{background:var(--indigo2);}
+.btn-cal{background:var(--em);color:#fff;padding:11px 28px;font-size:14px;}
+.btn-cal:hover{background:var(--em2);}
+.nota{padding:10px 13px;border-radius:8px;font-size:12px;line-height:1.65;border-left:2px solid var(--indigo);background:var(--indigo-d);color:var(--text2);margin-top:10px;}
+.nota.w{border-left-color:var(--amber);background:var(--amber-d);color:var(--amber);}
+.nota.d{border-left-color:var(--red);background:var(--red-d);color:var(--red);}
+/* SCORE */
+.score-box{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:1.5rem;margin-bottom:14px;display:flex;align-items:center;gap:1.5rem;}
+.score-circle{width:88px;height:88px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;border:3px solid;}
+.score-circle.ex{border-color:var(--em);color:var(--em-l);}
+.score-circle.bo{border-color:var(--indigo);color:var(--indigo-l);}
+.score-circle.at{border-color:var(--amber);color:var(--amber);}
+.score-circle.ri{border-color:var(--red);color:var(--red);}
+.score-num{font-family:'DM Serif Display',serif;font-size:1.8rem;line-height:1;}
+.score-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.06em;margin-top:2px;}
+.score-info{flex:1;}
+.score-titulo{font-family:'DM Serif Display',serif;font-size:1.35rem;color:var(--text);margin-bottom:4px;}
+.score-sub{font-size:13px;color:var(--text2);line-height:1.65;}
+/* VEREDITO */
+.veredito{border-radius:14px;padding:1.5rem;margin-bottom:14px;}
+.veredito.verde{background:var(--em-d);border:1px solid var(--em-b);}
+.veredito.amarelo{background:var(--amber-d);border:1px solid var(--amber-b);}
+.veredito.vermelho{background:var(--red-d);border:1px solid var(--red-b);}
+.v-emoji{font-size:2rem;margin-bottom:.4rem;}
+.v-title{font-size:17px;font-weight:500;margin-bottom:.3rem;}
+.veredito.verde .v-title{color:var(--em-l);}
+.veredito.amarelo .v-title{color:var(--amber);}
+.veredito.vermelho .v-title{color:var(--red);}
+.v-sub{font-size:13px;color:var(--text2);line-height:1.65;}
+/* KPIS */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:14px;}
+.kpi{background:var(--bg3);border:.5px solid var(--border2);border-radius:10px;padding:1rem;}
+.kpi-l{font-size:11px;color:var(--text3);margin-bottom:4px;}
+.kpi-v{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--text);}
+.kpi-v.g{color:var(--em-l);}.kpi-v.r{color:var(--red);}.kpi-v.w{color:var(--amber);}.kpi-v.i{color:var(--indigo-l);}
+/* CENÁRIOS RESULTADO */
+.res-cen{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px;}
+.rc{border-radius:12px;padding:1.25rem;border:.5px solid;}
+.rc.p{background:var(--red-d);border-color:var(--red-b);}
+.rc.r{background:var(--amber-d);border-color:var(--amber-b);}
+.rc.o{background:var(--em-d);border-color:var(--em-b);}
+.rc-lbl{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;}
+.rc.p .rc-lbl{color:var(--red);}.rc.r .rc-lbl{color:var(--amber);}.rc.o .rc-lbl{color:var(--em-l);}
+.rc-fat{font-size:12px;color:var(--text2);margin-bottom:3px;}
+.rc-mes{font-family:'DM Serif Display',serif;font-size:1.35rem;}
+.rc.p .rc-mes{color:var(--red);}.rc.r .rc-mes{color:var(--amber);}.rc.o .rc-mes{color:var(--em-l);}
+.rc-ano{font-size:12px;color:var(--text3);margin-top:2px;}
+.rc-pe{font-size:11px;color:var(--text3);margin-top:5px;}
+/* STRESS */
+.stress-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+.stress-card{border-radius:12px;padding:1.125rem;border:.5px solid;}
+.stress-card.ok{background:var(--em-d);border-color:var(--em-b);}
+.stress-card.no{background:var(--red-d);border-color:var(--red-b);}
+.stress-lbl{font-size:11px;color:var(--text2);margin-bottom:6px;font-weight:500;}
+.stress-res{font-size:15px;font-weight:500;margin-bottom:4px;}
+.stress-card.ok .stress-res{color:var(--em-l);}
+.stress-card.no .stress-res{color:var(--red);}
+.stress-sub{font-size:11px;color:var(--text3);}
+/* RETORNO */
+.rb{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:1.5rem;margin-bottom:14px;}
+.rb-title{font-size:11px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem;}
+.rrow{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:.5px solid var(--border);font-size:13px;}
+.rrow:last-child{border-bottom:none;}
+.rn{color:var(--text2);}
+.rv{font-weight:500;color:var(--text);}
+.rv.g{color:var(--em-l);}.rv.r{color:var(--red);}.rv.w{color:var(--amber);}.rv.i{color:var(--indigo-l);}
+/* BENCHMARK */
+.brow{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:.5px solid var(--border);font-size:13px;}
+.brow:last-child{border-bottom:none;}
+.bn{color:var(--text2);}
+.bv{font-weight:500;}.bv.ok{color:var(--em-l);}.bv.at{color:var(--amber);}.bv.no{color:var(--red);}
+/* DIAGNÓSTICO */
+.diag-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:.5px solid var(--border);font-size:13px;}
+.diag-item:last-child{border-bottom:none;}
+.di-ico{flex-shrink:0;margin-top:2px;}
+.di-t{color:var(--text2);line-height:1.65;}
+/* INVESTIRIA */
+.investiria-box{border-radius:14px;padding:1.5rem;margin-bottom:14px;border:1.5px solid;}
+.investiria-box.sim{background:var(--em-d);border-color:var(--em-b);}
+.investiria-box.nao{background:var(--red-d);border-color:var(--red-b);}
+.inv-titulo{font-size:15px;font-weight:500;margin-bottom:.75rem;}
+.investiria-box.sim .inv-titulo{color:var(--em-l);}
+.investiria-box.nao .inv-titulo{color:var(--red);}
+.inv-motivo{display:flex;align-items:flex-start;gap:6px;font-size:13px;color:var(--text2);padding:3px 0;}
+.inv-aviso{font-size:11px;color:var(--text3);margin-top:.75rem;padding-top:.75rem;border-top:.5px solid var(--border);line-height:1.6;}
+/* CTA */
+.cta{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:2rem;text-align:center;}
+.cta-title{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--text);margin-bottom:6px;}
+.cta-sub{font-size:13px;color:var(--text2);margin-bottom:1.5rem;line-height:1.6;}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;background:var(--em);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;}
+.cta-btn:hover{background:var(--em2);}
+.cta-email{display:block;margin-top:10px;font-size:12px;color:var(--text2);}
+.cta-email a{color:var(--text2);text-decoration:none;border-bottom:.5px solid var(--border2);}
+.foot{border-top:.5px solid var(--border);padding:1.5rem 2rem;text-align:center;font-size:11px;color:var(--text3);margin-top:2rem;}
+@media(max-width:700px){
+  .seg-grid{grid-template-columns:repeat(2,1fr);}
+  .row2,.row3,.cen-grid,.res-cen,.stress-grid{grid-template-columns:1fr;}
+  .wizard{padding:1.5rem 1.25rem 3rem;}
+  .steps-bar{gap:0;}.step-label{display:none;}
+  .score-box{flex-direction:column;text-align:center;}
+}
+.fat-alvo-box{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:1.5rem;margin-bottom:14px;}
+.fat-alvo-title{font-size:11px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1.25rem;}
+.fat-escada{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;margin-bottom:1.25rem;}
+.fat-nivel{border-radius:12px;padding:1rem;border:.5px solid;position:relative;}
+.fat-nivel.sobrev{background:var(--red-d);border-color:var(--red-b);}
+.fat-nivel.equil{background:var(--amber-d);border-color:var(--amber-b);}
+.fat-nivel.alvo{background:var(--indigo-d);border-color:var(--indigo-b);}
+.fat-nivel.excel{background:var(--em-d);border-color:var(--em-b);}
+.fat-nivel-tag{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;}
+.fat-nivel.sobrev .fat-nivel-tag{color:var(--red);}
+.fat-nivel.equil .fat-nivel-tag{color:var(--amber);}
+.fat-nivel.alvo .fat-nivel-tag{color:var(--indigo-l);}
+.fat-nivel.excel .fat-nivel-tag{color:var(--em-l);}
+.fat-nivel-val{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:4px;}
+.fat-nivel-desc{font-size:11px;color:var(--text3);line-height:1.5;}
+.fat-nivel-badge{display:inline-block;margin-top:6px;font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;background:var(--text);color:var(--bg);}
+.fat-barra-wrap{margin-bottom:1.25rem;}
+.fat-barra-label{display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-bottom:5px;}
+.fat-barra-outer{height:10px;background:var(--bg4);border-radius:5px;position:relative;}
+.fat-barra-fill{height:100%;border-radius:5px;transition:width .5s ease;}
+.fat-bench-row{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:.5px solid var(--border);font-size:13px;gap:12px;}
+.fat-bench-row:last-child{border-bottom:none;}
+.fat-bench-name{color:var(--text2);flex:1;}
+.fat-bench-val{font-weight:500;text-align:right;}
+.fat-class{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500;}
+.fat-class.mb{background:var(--red-d);color:var(--red);}
+.fat-class.ab{background:var(--amber-d);color:var(--amber);}
+.fat-class.al{background:var(--em-d);color:var(--em-l);}
+.fat-class.ac{background:var(--indigo-d);color:var(--indigo-l);}
+.fat-class.ma{background:var(--red-d);color:var(--red);}
+.fat-alvo-nota{font-size:12px;color:var(--text2);margin-top:.75rem;padding-top:.75rem;border-top:.5px solid var(--border);line-height:1.65;}
+@media(max-width:700px){.fat-escada{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Rodolfo<span>.</span></a>
+  <a href="index.html" class="nav-back">← Voltar</a>
+</nav>
+
+<div class="wizard">
+  <div class="steps-bar">
+    <div class="step-item"><div class="step-num active" id="sn1">1</div><div class="step-label active" id="sl1">Perfil</div></div>
+    <div class="step-line"></div>
+    <div class="step-item"><div class="step-num idle" id="sn2">2</div><div class="step-label" id="sl2">Investimento</div></div>
+    <div class="step-line"></div>
+    <div class="step-item"><div class="step-num idle" id="sn3">3</div><div class="step-label" id="sl3">Custos e Receita</div></div>
+    <div class="step-line"></div>
+    <div class="step-item"><div class="step-num idle" id="sn4">4</div><div class="step-label" id="sl4">Resultado</div></div>
+  </div>
+
+  <!-- P1: PERFIL -->
+  <div class="panel active" id="p1">
+    <h1 class="panel-title">Qual é o seu negócio?</h1>
+    <p class="panel-desc">Selecione o segmento. Os campos serão pré-preenchidos com dados reais de mercado (SEBRAE 2026) — você ajusta o que for diferente da sua realidade.</p>
+    <div class="seg-grid">
+      <div class="seg-card" data-seg="ecom" onclick="selSeg(this)"><div class="seg-icon">🛒</div><div class="seg-name">E-commerce / Marketplace</div></div>
+      <div class="seg-card" data-seg="varejo" onclick="selSeg(this)"><div class="seg-icon">🏪</div><div class="seg-name">Varejo / Loja Física</div></div>
+      <div class="seg-card" data-seg="food" onclick="selSeg(this)"><div class="seg-icon">🍽️</div><div class="seg-name">Restaurante / Delivery</div></div>
+      <div class="seg-card" data-seg="servicos" onclick="selSeg(this)"><div class="seg-icon">💼</div><div class="seg-name">Serviços / Consultoria</div></div>
+      <div class="seg-card" data-seg="beleza" onclick="selSeg(this)"><div class="seg-icon">✂️</div><div class="seg-name">Beleza / Estética</div></div>
+      <div class="seg-card" data-seg="educacao" onclick="selSeg(this)"><div class="seg-icon">📚</div><div class="seg-name">Escola / Cursos</div></div>
+      <div class="seg-card" data-seg="oficina" onclick="selSeg(this)"><div class="seg-icon">🔧</div><div class="seg-name">Oficina / Assistência</div></div>
+      <div class="seg-card" data-seg="outro" onclick="selSeg(this)"><div class="seg-icon">📦</div><div class="seg-name">Outro segmento</div></div>
+    </div>
+    <p class="panel-desc" style="margin-bottom:1rem">Qual é o seu momento?</p>
+    <div class="fase-row">
+      <div class="fase-btn selected" id="fase-abrir" onclick="selFase('abrir')">
+        <div class="fase-btn-title">🚀 Estou pensando em abrir</div>
+        <div class="fase-btn-desc">Quero saber se vale a pena antes de investir</div>
+      </div>
+      <div class="fase-btn" id="fase-revisar" onclick="selFase('revisar')">
+        <div class="fase-btn-title">📊 Já tenho o negócio</div>
+        <div class="fase-btn-desc">Quero revisar a saúde financeira da operação</div>
+      </div>
+    </div>
+    <div class="nav-btns"><div></div><button class="btn btn-pri" onclick="goStep(2)">Próximo →</button></div>
+  </div>
+
+  <!-- P2: INVESTIMENTO -->
+  <div class="panel" id="p2">
+    <h1 class="panel-title">Quanto você vai investir?</h1>
+    <p class="panel-desc" id="p2-desc">Valores pré-preenchidos com a média do segmento. Ajuste conforme a sua realidade.</p>
+    <div class="sec">
+      <div class="sec-title">Investimento inicial</div>
+      <div class="row2">
+        <div class="field"><span class="lbl">Equipamentos e máquinas (R$)</span><input type="number" class="fi" id="inv-equip" value="0" min="0"><div class="bench" id="b-equip"></div></div>
+        <div class="field"><span class="lbl">Reforma / adequação do espaço (R$)</span><input type="number" class="fi" id="inv-reforma" value="0" min="0"><div class="bench" id="b-reforma"></div></div>
+        <div class="field"><span class="lbl">Estoque inicial (R$)</span><input type="number" class="fi" id="inv-estoque" value="0" min="0"><div class="bench" id="b-estoque"></div></div>
+        <div class="field"><span class="lbl">Marketing e lançamento (R$)</span><input type="number" class="fi" id="inv-mkt" value="0" min="0"><div class="bench" id="b-mkt"></div></div>
+        <div class="field"><span class="lbl">Abertura da empresa e taxas legais (R$)</span><input type="number" class="fi" id="inv-legal" value="800" min="0"></div>
+        <div class="field"><span class="lbl">Outros investimentos (R$)</span><input type="number" class="fi" id="inv-outros" value="0" min="0"></div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-title">Capital de reserva</div>
+      <div class="field"><span class="lbl">Meses de reserva disponíveis (além do investimento inicial)</span><input type="number" class="fi" id="inv-reserva" value="3" min="0" max="24"><div class="bench" id="b-reserva"></div></div>
+      <div class="nota">Todo negócio leva tempo para atingir o ponto de equilíbrio. Especialistas recomendam pelo menos 6 meses de reserva além do investimento. Abrir sem reserva é o principal motivo de fechamento precoce.</div>
+    </div>
+    <div class="nav-btns"><button class="btn btn-sec" onclick="goStep(1)">← Voltar</button><button class="btn btn-pri" onclick="goStep(3)">Próximo →</button></div>
+  </div>
+
+  <!-- P3: CUSTOS E RECEITA -->
+  <div class="panel" id="p3">
+    <h1 class="panel-title">Custos mensais e faturamento esperado</h1>
+    <p class="panel-desc">Seja honesto — especialmente no cenário pessimista.</p>
+
+    <div class="sec">
+      <div class="sec-title">Remuneração do empreendedor</div>
+      <div class="row2">
+        <div class="field">
+          <span class="lbl">Quanto você deseja retirar por mês? (R$)</span>
+          <input type="number" class="fi" id="remuneracao" value="3000" min="0" oninput="syncRemuneracao()">
+          <div class="bench">Este valor será usado como pró-labore nos custos fixos. Mínimo legal: R$ 1.621,00.</div>
+        </div>
+        <div style="display:flex;align-items:center;">
+          <div class="nota" style="margin-top:0">Inclua aqui o valor que você precisa para viver. Muitos empreendedores se esquecem de se remunerar corretamente — isso distorce toda a análise de viabilidade.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-title">Custos fixos mensais</div>
+      <div class="row3">
+        <div class="field"><span class="lbl">Aluguel (R$)</span><input type="number" class="fi" id="cf-aluguel" value="0" min="0"></div>
+        <div class="field"><span class="lbl">Folha de pagamento (R$)</span><input type="number" class="fi" id="cf-folha" value="0" min="0"></div>
+        <div class="field"><span class="lbl">Pró-labore do sócio (R$)</span><input type="number" class="fi" id="cf-prolabore" value="3000" min="0"></div>
+        <div class="field"><span class="lbl">Contador (R$)</span><input type="number" class="fi" id="cf-contador" value="500" min="0"></div>
+        <div class="field"><span class="lbl">Marketing / tráfego pago (R$)</span><input type="number" class="fi" id="cf-mkt" value="0" min="0"></div>
+        <div class="field"><span class="lbl">Energia / internet / telefone (R$)</span><input type="number" class="fi" id="cf-energia" value="300" min="0"></div>
+        <div class="field"><span class="lbl">Sistemas / plataformas (R$)</span><input type="number" class="fi" id="cf-sistemas" value="200" min="0"></div>
+        <div class="field"><span class="lbl">Outros custos fixos (R$)</span><input type="number" class="fi" id="cf-outros" value="0" min="0"></div>
+      </div>
+      <div class="bench" id="b-cf" style="margin-top:12px;padding:8px 12px;border-radius:6px;background:var(--amber-d);border-left:2px solid var(--amber);font-size:12px;color:var(--amber);"></div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-title">Margem de contribuição</div>
+      <div class="row2">
+        <div class="field"><span class="lbl">Margem de contribuição média (%)</span><input type="number" class="fi" id="margem" value="40" min="1" max="100"><div class="bench" id="b-margem"></div></div>
+        <div style="display:flex;align-items:center;"><div class="nota" style="margin-top:0">De cada R$ 100 vendidos, quanto sobra após custos variáveis (produto, comissão, frete, imposto, embalagem)? <strong>Inclua os tributos sobre a venda na margem.</strong> Os resultados não consideram planejamento tributário detalhado — a tributação pode impactar significativamente a rentabilidade dependendo da atividade e do regime adotado.</div></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-title">🎯 Faturamento alvo — seus objetivos</div>
+      <p style="font-size:13px;color:var(--text2);margin-bottom:1rem;line-height:1.65;">O simulador calculará quanto você precisa faturar para atingir cada nível de objetivo. Preencha o que for relevante para você.</p>
+      <div class="row3">
+        <div class="field">
+          <span class="lbl">Pró-labore desejado (R$/mês)</span>
+          <input type="number" class="fi" id="alvo-prolabore" value="5000" min="0">
+          <div class="bench">Quanto você quer retirar mensalmente</div>
+        </div>
+        <div class="field">
+          <span class="lbl">Lucro desejado além do pró-labore (R$/mês)</span>
+          <input type="number" class="fi" id="alvo-lucro" value="2000" min="0">
+          <div class="bench">Sobra para reinvestir ou distribuir</div>
+        </div>
+        <div class="field">
+          <span class="lbl">Reserva mensal desejada (R$/mês)</span>
+          <input type="number" class="fi" id="alvo-reserva" value="1000" min="0">
+          <div class="bench">Para emergências e crescimento</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-title">Faturamento mensal esperado — 3 cenários</div>
+      <div id="fat-alerta" style="margin-bottom:12px;"></div>
+      <div class="cen-grid">
+        <div class="cen-card"><div class="cen-label p">😟 Pessimista</div><span class="lbl">Faturamento (R$)</span><input type="number" class="fi" id="fat-p" value="0" min="0" oninput="checkFat()"><div class="bench" id="b-fatp" style="margin-top:6px;"></div></div>
+        <div class="cen-card"><div class="cen-label r">😐 Realista</div><span class="lbl">Faturamento (R$)</span><input type="number" class="fi" id="fat-r" value="0" min="0" oninput="checkFat()"><div class="bench" id="b-fatr" style="margin-top:6px;"></div></div>
+        <div class="cen-card"><div class="cen-label o">😄 Otimista</div><span class="lbl">Faturamento (R$)</span><input type="number" class="fi" id="fat-o" value="0" min="0" oninput="checkFat()"><div class="bench" id="b-fato" style="margin-top:6px;"></div></div>
+      </div>
+    </div>
+
+    <div class="nav-btns"><button class="btn btn-sec" onclick="goStep(2)">← Voltar</button><button class="btn btn-cal" onclick="calcular()">Calcular viabilidade →</button></div>
+  </div>
+
+  <!-- P4: RESULTADO -->
+  <div class="panel" id="p4">
+    <div id="score-el"></div>
+    <div id="veredito-el"></div>
+    <div class="kpis" id="kpis-el"></div>
+    <div id="fat-alvo-el"></div>
+    <div class="res-cen" id="cen-el"></div>
+    <div class="stress-grid" id="stress-el"></div>
+    <div id="retorno-el"></div>
+    <div class="rb" id="bench-el"></div>
+    <div class="rb" id="diag-el"></div>
+    <div id="investiria-el"></div>
+    <div class="cta" id="cta-el"></div>
+    <div class="foot">Dados de mercado: SEBRAE / ABComm / Abrasel 2025–2026. Este simulador é orientativo e não substitui análise contábil individualizada. · Rodolfo Assunção · CRC/SP 1SP353033/O-5 · Limeira, SP</div>
+    <div style="margin-top:1rem;text-align:center;"><button class="btn btn-sec" onclick="goStep(1);resetar()">← Refazer simulação</button></div>
+  </div>
+</div>
+
+<script>
+const SEGS={
+  ecom:{n:'E-commerce / Marketplace',emoji:'🛒',margMin:15,margMax:25,margMed:20,cfMin:1500,cfMax:4000,cfMed:2500,invMin:5000,invMax:20000,invMed:10000,maturMin:6,maturMax:12,mort:27,fatMin:15000,fatMax:50000,fatMed:25000,equip:2000,reforma:0,estoque:5000,mkt:1500,dica:'A margem do e-commerce é a mais baixa entre os segmentos. Taxas de marketplace (12%–20%) e frete consomem boa parte da receita. Precificação correta e controle de estoque são críticos para sobrevivência.'},
+  varejo:{n:'Varejo / Loja Física',emoji:'🏪',margMin:30,margMax:45,margMed:38,cfMin:5000,cfMax:12000,cfMed:8000,invMin:30000,invMax:80000,invMed:50000,maturMin:12,maturMax:18,mort:25,fatMin:25000,fatMax:80000,fatMed:40000,equip:5000,reforma:15000,estoque:20000,mkt:2000,dica:'O ponto comercial define o sucesso. Baixo fluxo é a principal causa de falha. Encalhe de estoque drena o capital de giro — gire com frequência e evite compras excessivas no início.'},
+  food:{n:'Restaurante / Delivery',emoji:'🍽️',margMin:20,margMax:35,margMed:28,cfMin:8000,cfMax:18000,cfMed:12000,invMin:40000,invMax:120000,invMed:70000,maturMin:12,maturMax:24,mort:40,fatMin:40000,fatMax:120000,fatMed:65000,equip:20000,reforma:25000,estoque:5000,mkt:3000,dica:'Segmento com maior mortalidade no Brasil (35%–45% fecham em 2 anos). Desperdício de insumos, precificação incorreta e alta rotatividade de equipe são as principais causas. O modelo dark kitchen reduz investimento em até 40%.'},
+  servicos:{n:'Serviços / Consultoria',emoji:'💼',margMin:60,margMax:85,margMed:72,cfMin:500,cfMax:2000,cfMed:1000,invMin:2000,invMax:10000,invMed:5000,maturMin:3,maturMax:8,mort:17,fatMin:8000,fatMax:30000,fatMed:15000,equip:3000,reforma:0,estoque:0,mkt:1500,dica:'O segmento mais seguro para começar. O principal ativo é o conhecimento — investimento inicial mínimo. O desafio é captação recorrente de clientes. Construa autoridade digital desde o primeiro dia.'},
+  beleza:{n:'Beleza / Estética',emoji:'✂️',margMin:40,margMax:60,margMed:50,cfMin:3000,cfMax:8000,cfMed:5000,invMin:15000,invMax:45000,invMed:28000,maturMin:8,maturMax:14,mort:22,fatMin:15000,fatMax:45000,fatMed:25000,equip:12000,reforma:8000,estoque:3000,mkt:2000,dica:'Negócio de recorrência — a fidelização é tudo. Leva tempo para construir carteira de clientes. O modelo salão parceiro (Lei 13.352/2016) é fundamental para evitar passivos trabalhistas com profissionais.'},
+  educacao:{n:'Escola / Cursos',emoji:'📚',margMin:50,margMax:75,margMed:62,cfMin:2000,cfMax:7000,cfMed:4000,invMin:5000,invMax:25000,invMed:12000,maturMin:6,maturMax:12,mort:21,fatMin:10000,fatMax:40000,fatMed:20000,equip:5000,reforma:3000,estoque:0,mkt:2500,dica:'Sazonalidade marcada — matrículas concentram-se no início dos semestres (Jan, Fev, Jul). Planejamento de caixa para meses fracos (Nov–Dez) é crítico. Cursos online têm custo de replicação próximo de zero.'},
+  oficina:{n:'Oficina / Assistência Técnica',emoji:'🔧',margMin:45,margMax:65,margMed:55,cfMin:4000,cfMax:9000,cfMed:6000,invMin:20000,invMax:50000,invMed:32000,maturMin:8,maturMax:15,mort:18,fatMin:20000,fatMax:60000,fatMed:35000,equip:20000,reforma:5000,estoque:5000,mkt:1500,dica:'Demanda inelástica — as pessoas consertam equipamentos independentemente da economia. Especialização em nicho (ex: eletrônica, injeção eletrônica) aumenta muito a rentabilidade.'},
+  outro:{n:'Outro segmento',emoji:'📦',margMin:30,margMax:50,margMed:40,cfMin:2000,cfMax:8000,cfMed:4000,invMin:10000,invMax:50000,invMed:25000,maturMin:6,maturMax:18,mort:25,fatMin:10000,fatMax:50000,fatMed:25000,equip:8000,reforma:3000,estoque:5000,mkt:2000,dica:'Preencha os valores com base na realidade do seu segmento. Pesquise benchmarks específicos do seu mercado antes de tomar a decisão final.'},
+};
+const fmt=v=>'R$ '+Math.round(v||0).toLocaleString('pt-BR');
+const pct=v=>parseFloat(v||0).toFixed(1)+'%';
+const g=id=>document.getElementById(id);
+let segAtual=null,faseAtual='abrir';
+
+function goStep(n){
+  if(n===2&&!segAtual){alert('Selecione um segmento para continuar.');return;}
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  g('p'+n).classList.add('active');
+  [1,2,3,4].forEach(i=>{
+    const sn=g('sn'+i),sl=g('sl'+i);
+    if(i<n){sn.className='step-num done';sn.textContent='✓';}
+    else if(i===n){sn.className='step-num active';sn.textContent=i;sl.className='step-label active';}
+    else{sn.className='step-num idle';sn.textContent=i;sl.className='step-label';}
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function resetar(){
+  segAtual=null;
+  document.querySelectorAll('.seg-card').forEach(c=>c.classList.remove('selected'));
+  [1,2,3,4].forEach(i=>{
+    const sn=g('sn'+i),sl=g('sl'+i);
+    sn.className=i===1?'step-num active':'step-num idle';
+    sn.textContent=i;sl.className=i===1?'step-label active':'step-label';
+  });
+}
+
+function syncRemuneracao(){
+  const v=parseFloat(g('remuneracao').value)||0;
+  g('cf-prolabore').value=Math.max(v,1621);
+}
+
+function selSeg(el){
+  document.querySelectorAll('.seg-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  segAtual=el.dataset.seg;
+  const s=SEGS[segAtual];
+  g('inv-equip').value=s.equip;g('inv-reforma').value=s.reforma;
+  g('inv-estoque').value=s.estoque;g('inv-mkt').value=s.mkt;g('inv-reserva').value=6;
+  g('margem').value=s.margMed;
+  g('fat-p').value=Math.round(s.fatMin);g('fat-r').value=Math.round(s.fatMed);g('fat-o').value=Math.round(s.fatMax);
+  const bh=(id,t)=>{const el=g(id);if(el)el.innerHTML=`<b>▸ Mercado:</b> ${t}`;};
+  bh('b-equip',fmt(s.equip));bh('b-reforma',fmt(s.reforma));bh('b-estoque',fmt(s.estoque));bh('b-mkt',fmt(s.mkt));
+  bh('b-reserva',`mínimo recomendado: 6 meses · maturação esperada: ${s.maturMin}–${s.maturMax} meses`);
+  bh('b-margem',`${s.margMin}%–${s.margMax}% para ${s.n}`);
+  bh('b-fatp',`mercado: a partir de ${fmt(s.fatMin)}/mês`);
+  bh('b-fatr',`mercado: média ${fmt(s.fatMed)}/mês após 12 meses`);
+  bh('b-fato',`mercado: até ${fmt(s.fatMax)}/mês após 12 meses`);
+  g('b-cf').textContent=`Mercado: ${fmt(s.cfMin)} a ${fmt(s.cfMax)}/mês para ${s.n}`;
+  g('p2-desc').textContent=`Valores pré-preenchidos com a média de mercado para ${s.n}. Ajuste conforme a sua realidade.`;
+}
+
+function selFase(f){
+  faseAtual=f;
+  g('fase-abrir').classList.toggle('selected',f==='abrir');
+  g('fase-revisar').classList.toggle('selected',f==='revisar');
+}
+
+function checkFat(){
+  if(!segAtual) return;
+  const s=SEGS[segAtual];
+  const fatR=parseFloat(g('fat-r').value)||0;
+  const al=g('fat-alerta');
+  if(fatR>s.fatMax*2){
+    al.innerHTML=`<div class="nota d">⚠️ O faturamento informado no cenário realista (${fmt(fatR)}) está muito acima da média observada para negócios semelhantes (até ${fmt(s.fatMax)}/mês após 12 meses). O cálculo continua normalmente, mas revise se esse número é realista para o seu contexto.</div>`;
+  } else {
+    al.innerHTML='';
+  }
+}
+
+function calcular(){
+  const s=SEGS[segAtual];
+  const invTotal=[g('inv-equip'),g('inv-reforma'),g('inv-estoque'),g('inv-mkt'),g('inv-legal'),g('inv-outros')].reduce((a,el)=>a+(parseFloat(el.value)||0),0);
+  const cfTotal=[g('cf-aluguel'),g('cf-folha'),g('cf-prolabore'),g('cf-contador'),g('cf-mkt'),g('cf-energia'),g('cf-sistemas'),g('cf-outros')].reduce((a,el)=>a+(parseFloat(el.value)||0),0);
+  const margem=(parseFloat(g('margem').value)||40)/100;
+  const fatP=parseFloat(g('fat-p').value)||0;
+  const fatR=parseFloat(g('fat-r').value)||0;
+  const fatO=parseFloat(g('fat-o').value)||0;
+  const reservaMeses=parseFloat(g('inv-reserva').value)||0;
+  const remuneracao=parseFloat(g('remuneracao').value)||3000;
+
+  // INDICADORES BASE
+  const pe=margem>0?cfTotal/margem:0;
+  const ms=fatR>0&&pe>0?((fatR-pe)/fatR)*100:0;
+  const cc=f=>({fat:f,mc:f*margem,lucro:f*margem-cfTotal,peMet:f>=pe});
+  const cenP=cc(fatP),cenR=cc(fatR),cenO=cc(fatO);
+  const payback=cenR.lucro>0?invTotal/cenR.lucro:null;
+
+  // Fix 9: capital de giro mais realista
+  const cgNec=Math.max(cfTotal*3, cfTotal*s.maturMax*0.65);
+  const cgDis=cfTotal*reservaMeses;
+  const cgOk=cgDis>=cgNec*0.7;
+
+  // Fix 6: STRESS TEST
+  const fat20=fatR*0.8; const luc20=fat20*margem-cfTotal; const ok20=luc20>=0;
+  const fat30=fatR*0.7; const luc30=fat30*margem-cfTotal; const ok30=luc30>=0;
+
+  // Fix 8: ROI
+  const lucroAnual=cenR.lucro*12;
+  const roi=invTotal>0?(lucroAnual/invTotal)*100:0;
+
+  // FIX 4: Margem de segurança
+  const msOk=ms>=15;
+
+  // ─── SCORE AUDITORIA: fórmula 30-30-20-20 ───────────────────────────────
+  // Componente 1 — Margem (peso 30): margem real vs benchmark do segmento
+  const scoreMargem = Math.min(100, (margem*100 / s.margMed) * 100);
+
+  // Componente 2 — Payback (peso 30): gradual, não binário
+  const scorePayback = payback
+    ? Math.max(0, 100 - (payback / 12) * 100)
+    : (cenR.lucro <= 0 ? 0 : 100);
+
+  // Componente 3 — Capital de giro (peso 20): mesma lógica do alerta cgOk
+  const coberturaCG = cgNec > 0 ? cgDis / cgNec : 1;
+  const scoreCG =
+    coberturaCG >= 1.00 ? 100 :
+    coberturaCG >= 0.70 ? 80  :
+    coberturaCG >= 0.50 ? 60  :
+    coberturaCG >= 0.30 ? 40  : 20;
+
+  // Componente 4 — Risco setorial (peso 20)
+  const scoreRisco = Math.max(0, 100 - s.mort * 1.5);
+
+  const score = Math.min(100, Math.round(
+    scoreMargem * 0.30 +
+    scorePayback * 0.30 +
+    scoreCG * 0.20 +
+    scoreRisco * 0.20
+  ));
+
+  // Classificação auditoria: 5 níveis
+  let scClass, scTit, scSub, scAviso='';
+  if(score >= 80){
+    scClass='ex'; scTit='Muito viável';
+    scSub='Os indicadores são sólidos em todas as dimensões. Boa estrutura para avançar com segurança.';
+  } else if(score >= 65){
+    scClass='bo'; scTit='Viável';
+    scSub='Negócio viável com fundamentos positivos. Revise os pontos de atenção antes de comprometer capital.';
+    // Auditoria 4: aviso específico zona 65-75
+    if(score < 75 && s.mort >= 30){
+      scAviso=`<div class="nota w" style="margin-top:10px;">⚠️ Viável, mas com ressalvas importantes. O setor de ${s.n} tem mortalidade de ${s.mort}% — ou seja, ${s.mort > 40 ? 'quase 1 em 2' : 'cerca de 1 em 3'} negócios fecha nos primeiros 2 anos. O score indica viabilidade econômica, não ausência de risco. Recomendações: tenha 6 meses de custos fixos em reserva, valide o conceito com clientes reais antes de investir e comece com estrutura enxuta.</div>`;
+    }
+  } else if(score >= 50){
+    scClass='bo'; scTit='Moderadamente viável';
+    scSub='Existem riscos relevantes que precisam ser endereçados. Revise os custos, o faturamento esperado e a reserva de capital.';
+  } else if(score >= 35){
+    scClass='at'; scTit='Viável com ressalvas';
+    scSub='Os indicadores mostram fragilidades importantes. Ajuste o modelo financeiro antes de avançar.';
+  } else {
+    scClass='ri'; scTit='Não recomendado';
+    scSub='Os indicadores mostram inviabilidade significativa nos parâmetros informados. Revise profundamente antes de qualquer investimento.';
+  }
+
+  // VEREDITO
+  const peOk=fatR>=pe;
+  const payOk=payback&&payback<=24;
+  const margemOk=margem*100>=s.margMin;
+  const pontos=[peOk,payOk,cgOk,margemOk].filter(Boolean).length;
+  let verd,emj,vtit,vsub;
+  if(pontos>=3&&peOk){
+    verd='verde';emj='✅';vtit='Negócio com boa viabilidade';
+    vsub=`No cenário realista, o negócio cobre os custos e gera ${fmt(cenR.lucro)}/mês (${fmt(lucroAnual)}/ano). Ponto de equilíbrio de ${fmt(pe)}/mês dentro do faturamento esperado. Margem de segurança: ${ms.toFixed(0)}%.`;
+  } else if(pontos>=2||(peOk&&!cgOk)){
+    verd='amarelo';emj='⚠️';vtit='Viável com ajustes importantes';
+    vsub=[!cgOk?'A reserva pode não cobrir o período de maturação.':'',!payOk&&payback?`Payback de ${Math.ceil(payback)} meses acima do ideal (24 meses).`:'',!peOk?'No cenário realista o negócio não atinge o ponto de equilíbrio.':''].filter(Boolean).join(' ');
+  } else {
+    verd='vermelho';emj='🚨';vtit='Atenção: viabilidade comprometida';
+    vsub=`No cenário realista o negócio não atinge o ponto de equilíbrio (${fmt(pe)}/mês). Revise os custos fixos, a margem de contribuição ou o faturamento esperado.`;
+  }
+
+  // Alerta de tensão: score bom mas CG insuficiente
+  const alertaCGHtml = (score>=65 && !cgOk) ? `
+    <div class="nota w" style="margin-top:12px;">
+      💡 <strong>Atenção ao dinheiro de reserva:</strong> Os números do seu negócio são positivos — a conta fecha, você consegue se pagar e ainda sobra. Mas você ainda não tem dinheiro suficiente guardado para aguentar os primeiros meses antes de o negócio engrenar.<br><br>
+      Todo negócio demora um tempo para ganhar tração. Nesse período, as contas chegam mesmo quando as vendas ainda estão baixas. Se a reserva acabar antes do negócio decolar, você pode ser forçado a fechar mesmo tendo um negócio que daria certo.<br><br>
+      <strong>O que fazer:</strong> antes de abrir, junte mais ${fmt(Math.max(0,cgNec-cgDis))} em reserva — ou renegocie custos fixos para reduzir o tempo necessário de capital.
+    </div>` : '';
+
+  goStep(4);
+
+  // ─── FATURAMENTO ALVO INTELIGENTE ────────────────────────────────────────
+  calcFatAlvo(s, cfTotal, margem, fatR, remuneracao);
+
+  // SCORE
+  g('score-el').innerHTML=`<div class="score-box"><div class="score-circle ${scClass}"><div class="score-num">${score}</div><div class="score-lbl">/100</div></div><div class="score-info"><div class="score-titulo">Índice de Viabilidade — ${scTit}</div><div class="score-sub">${scSub}</div>${scAviso}</div></div>`;
+
+  // VEREDITO
+  g('veredito-el').innerHTML=`<div class="veredito ${verd}" style="margin-bottom:14px;"><div class="v-emoji">${emj}</div><div class="v-title">${vtit}</div><div class="v-sub">${vsub}</div>${alertaCGHtml}</div>`;
+
+  // KPIS
+  g('kpis-el').innerHTML=`
+    <div class="kpi"><div class="kpi-l">Investimento total</div><div class="kpi-v i">${fmt(invTotal)}</div></div>
+    <div class="kpi"><div class="kpi-l">Custos fixos/mês</div><div class="kpi-v">${fmt(cfTotal)}</div></div>
+    <div class="kpi"><div class="kpi-l">Ponto de equilíbrio</div><div class="kpi-v ${peOk?'w':'r'}">${fmt(pe)}/mês</div></div>
+    <div class="kpi"><div class="kpi-l">Margem de segurança</div><div class="kpi-v ${ms>=20?'g':ms>=10?'w':'r'}">${ms.toFixed(0)}%</div></div>
+    <div class="kpi"><div class="kpi-l">Payback</div><div class="kpi-v ${payOk?'g':'r'}">${payback?Math.ceil(payback)+' meses':'Sem lucro'}</div></div>
+    <div class="kpi"><div class="kpi-l">Reserva disponível</div><div class="kpi-v ${cgOk?'g':'r'}">${fmt(cgDis)}</div></div>`;
+
+  // CENÁRIOS
+  const rc=(c,cl,lb,ej)=>`<div class="rc ${cl}"><div class="rc-lbl">${ej} ${lb}</div><div class="rc-fat">Faturamento: ${fmt(c.fat)}/mês</div><div class="rc-mes">${fmt(c.lucro)}/mês</div><div class="rc-ano">${fmt(c.lucro*12)}/ano</div><div class="rc-pe">${c.peMet?'✓ Acima do PE':'✗ Abaixo do PE ('+fmt(pe)+')'}</div></div>`;
+  g('cen-el').innerHTML=rc(cenP,'p','Pessimista','😟')+rc(cenR,'r','Realista','😐')+rc(cenO,'o','Otimista','😄');
+
+  // STRESS TEST — Auditoria 4: destaque quando crítico
+  const stressAviso20 = !ok20 ? `<div style="font-size:11px;color:var(--red);margin-top:6px;font-weight:500">Ação imediata: reduza custos fixos ou aumente a margem antes de avançar.</div>` : '';
+  const stressAviso30 = !ok30 && ok20 ? `<div style="font-size:11px;color:var(--amber);margin-top:6px;">Com queda de 30%, você teria poucos meses para recuperar. Tenha 6 meses de reserva.</div>` : '';
+  g('stress-el').innerHTML=`
+    <div class="stress-card ${ok20?'ok':'no'}"><div class="stress-lbl">Se as vendas caírem 20%</div><div class="stress-res">${ok20?'Ainda sobrevive':'Entraria no prejuízo'}</div><div class="stress-sub">Faturamento: ${fmt(fat20)}/mês · Resultado: ${fmt(luc20)}/mês</div>${stressAviso20}</div>
+    <div class="stress-card ${ok30?'ok':'no'}"><div class="stress-lbl">Se as vendas caírem 30%</div><div class="stress-res">${ok30?'Ainda sobrevive':'Entraria no prejuízo'}</div><div class="stress-sub">Faturamento: ${fmt(fat30)}/mês · Resultado: ${fmt(luc30)}/mês</div>${stressAviso30}</div>`;
+
+  // RETORNO
+  g('retorno-el').innerHTML=`<div class="rb" style="margin-bottom:14px;"><div class="rb-title">Retorno sobre o investimento</div>
+    <div class="rrow"><span class="rn">Investimento inicial total</span><span class="rv">${fmt(invTotal)}</span></div>
+    <div class="rrow"><span class="rn">Lucro mensal projetado (realista)</span><span class="rv ${cenR.lucro>0?'g':'r'}">${fmt(cenR.lucro)}/mês</span></div>
+    <div class="rrow"><span class="rn">Lucro anual projetado (realista)</span><span class="rv ${lucroAnual>0?'g':'r'}">${fmt(lucroAnual)}/ano</span></div>
+    <div class="rrow"><span class="rn">ROI anual sobre o investimento</span><span class="rv ${roi>60?'g':roi>25?'w':'r'}">${roi.toFixed(0)}%</span></div>
+    <div class="rrow"><span class="rn">Payback do investimento</span><span class="rv ${payOk?'g':'r'}">${payback?Math.ceil(payback)+' meses':'Não recupera no cenário realista'}</span></div>
+    <div class="rrow"><span class="rn">Remuneração desejada pelo empreendedor</span><span class="rv i">${fmt(remuneracao)}/mês · ${fmt(remuneracao*12)}/ano</span></div>
+    <div class="nota" style="margin-top:.75rem">O ROI é calculado sobre o lucro projetado, não sobre receita. Resultado real depende da execução, do mercado e de fatores externos.</div></div>`;
+
+  // BENCHMARK
+  g('bench-el').innerHTML=`<div class="rb-title">Comparativo com o mercado — ${s.n}</div>`+
+    [['Margem de contribuição',`${(margem*100).toFixed(0)}% (mercado: ${s.margMin}%–${s.margMax}%)`,margemOk?'ok':'no'],
+     ['Custos fixos mensais',`${fmt(cfTotal)} (mercado: ${fmt(s.cfMin)}–${fmt(s.cfMax)})`,cfTotal<=s.cfMed?'ok':cfTotal<=s.cfMax?'at':'no'],
+     ['Investimento inicial',`${fmt(invTotal)} (mercado: ${fmt(s.invMin)}–${fmt(s.invMax)})`,invTotal<=s.invMed?'ok':invTotal<=s.invMax?'at':'no'],
+     ['Faturamento esperado (realista)',`${fmt(fatR)} (mercado: ${fmt(s.fatMin)}–${fmt(s.fatMax)}/mês após 12m)`,fatR>=s.fatMed?'ok':fatR>=s.fatMin?'at':'no'],
+     [`Sobrevivência após 2 anos`,`${100-s.mort}% dos negócios semelhantes sobrevivem (mortalidade: ${s.mort}%)`,s.mort<=20?'ok':s.mort<=30?'at':'no'],
+     ['Tempo de maturação esperado',`${s.maturMin}–${s.maturMax} meses até atingir o ponto de equilíbrio`,'at'],
+    ].map(([n,v,c])=>`<div class="brow"><span class="bn">${n}</span><span class="bv ${c}">${v}</span></div>`).join('');
+
+  // DIAGNÓSTICO
+  const itens=[];
+  if(!peOk) itens.push({i:'🔴',t:`Faturamento realista (${fmt(fatR)}) está abaixo do ponto de equilíbrio (${fmt(pe)}). O negócio gerará prejuízo no cenário mais provável. Reduza custos ou revise o faturamento esperado.`});
+  if(!cgOk) itens.push({i:'🟠',t:`Reserva (${fmt(cgDis)}) pode ser insuficiente para o período de maturação (${s.maturMin}–${s.maturMax} meses). Mínimo recomendado: ${fmt(cgNec)}.`});
+  if(payback&&payback>24) itens.push({i:'🟡',t:`Payback de ${Math.ceil(payback)} meses está acima do ideal (24 meses). Você levará mais de 2 anos para recuperar o investimento no cenário realista.`});
+  if(!margemOk) itens.push({i:'🟡',t:`Margem de contribuição (${(margem*100).toFixed(0)}%) abaixo da média do segmento (${s.margMin}%–${s.margMax}%). Revise a precificação ou reduza custos variáveis.`});
+  if(ms>0&&ms<15) itens.push({i:'🟡',t:`Margem de segurança de ${ms.toFixed(0)}% é baixa. Uma queda de ${ms.toFixed(0)}% no faturamento zeraria o resultado. Ideal: acima de 20%.`});
+  if(!ok20) itens.push({i:'🟠',t:`O negócio não resiste a uma queda de 20% no faturamento. Alta fragilidade operacional — reduza custos fixos ou aumente a margem.`});
+  if(peOk)  itens.push({i:'🟢',t:`Faturamento realista (${fmt(fatR)}) cobre o ponto de equilíbrio com margem de segurança de ${ms.toFixed(0)}%.`});
+  if(cgOk)  itens.push({i:'🟢',t:`Capital de reserva adequado para o período de maturação do segmento.`});
+  if(cenR.lucro>0) itens.push({i:'🟢',t:`Resultado positivo no cenário realista: ${fmt(cenR.lucro)}/mês · ${fmt(lucroAnual)}/ano.`});
+  if(ok20)  itens.push({i:'🟢',t:`Resiste a uma queda de 20% no faturamento — boa margem operacional.`});
+  itens.push({i:'📌',t:s.dica});
+  g('diag-el').innerHTML=`<div class="rb-title">Diagnóstico detalhado</div>`+itens.map(i=>`<div class="diag-item"><div class="di-ico">${i.i}</div><div class="di-t">${i.t}</div></div>`).join('');
+
+  // INVESTIRIA?
+  const motivosSim=[],motivosNao=[];
+  if(peOk)          motivosSim.push(`Ponto de equilíbrio atingível (${fmt(pe)}/mês)`);
+  else              motivosNao.push(`Faturamento realista não cobre o ponto de equilíbrio (${fmt(pe)}/mês)`);
+  if(payOk)         motivosSim.push(`Payback de ${Math.ceil(payback)} meses — dentro do aceitável`);
+  else if(payback)  motivosNao.push(`Payback de ${Math.ceil(payback)} meses — acima de 24 meses`);
+  if(cgOk)          motivosSim.push('Capital de reserva suficiente para o período de maturação');
+  else              motivosNao.push('Capital de reserva insuficiente para o período de maturação');
+  if(margemOk)      motivosSim.push(`Margem de contribuição (${(margem*100).toFixed(0)}%) dentro da média do segmento`);
+  else              motivosNao.push(`Margem abaixo da média do segmento (${s.margMin}%–${s.margMax}%)`);
+  if(ok20)          motivosSim.push('Resiste a quedas de 20% no faturamento');
+  else              motivosNao.push('Não resiste a quedas de 20% no faturamento');
+  const investiria=motivosSim.length>motivosNao.length&&peOk;
+  g('investiria-el').innerHTML=`<div class="investiria-box ${investiria?'sim':'nao'}" style="margin-bottom:14px;">
+    <div class="inv-titulo">${investiria?'✅ Com base nos números informados, o simulador avalia positivamente.':'❌ Com base nos números informados, o simulador recomenda cautela antes de avançar.'}</div>
+    ${motivosSim.map(m=>`<div class="inv-motivo"><span style="color:var(--em-l)">✓</span>${m}</div>`).join('')}
+    ${motivosNao.map(m=>`<div class="inv-motivo"><span style="color:var(--red)">✗</span>${m}</div>`).join('')}
+    <div class="inv-aviso">Esta avaliação é gerada automaticamente com base nos dados informados e não substitui análise contábil e financeira individualizada. Os resultados reais dependem da execução, do mercado e de fatores externos.</div>
+  </div>`;
+
+  // AUDITORIA 3: DISCLAIMER ROBUSTO antes do CTA
+  const disclaimerHtml=`<div class="rb" style="margin-bottom:14px;background:var(--bg4);border-color:var(--border);">
+    <div class="rb-title">⚠️ Informações importantes</div>
+    <div style="font-size:13px;color:var(--text2);line-height:1.75;">
+      Esta ferramenta utiliza benchmarks de mercado, projeções estatísticas e premissas econômicas para estimar a viabilidade de negócios. Os resultados representam <strong style="color:var(--text)">estimativas</strong> e não constituem garantia de desempenho futuro.
+    </div>
+    <div style="margin-top:10px;font-size:13px;color:var(--text2);line-height:1.75;">A decisão de investimento deve considerar: mercado local e concorrência, localização e ponto comercial, experiência do empreendedor, estratégia comercial e contexto econômico.</div>
+    <div style="margin-top:10px;padding:10px 13px;border-radius:8px;border-left:2px solid var(--amber);background:var(--amber-d);font-size:12px;color:var(--amber);line-height:1.65;">⚠️ <strong>Tributação não considerada:</strong> Os resultados apresentados não consideram planejamento tributário detalhado. A tributação pode impactar significativamente a rentabilidade final do negócio dependendo da atividade e do regime tributário adotado. Consulte um contador para análise tributária individualizada antes de investir.</div>
+    <div style="margin-top:10px;font-size:12px;color:var(--text3);">
+      ✓ Consulte um contador antes de formalizar a empresa &nbsp;·&nbsp;
+      ✓ Valide o conceito com clientes reais antes de investir &nbsp;·&nbsp;
+      ✓ Tenha reserva para 6 meses de custos fixos<br>
+      Rodolfo Assunção — CRC/SP 1SP353033/O-5 não se responsabiliza por decisões tomadas com base nos resultados desta ferramenta. · Atualização: Junho de 2026
+    </div>
+  </div>`;
+
+  // CTA
+  const msg=`Olá Rodolfo! Usei o simulador de viabilidade de negócio.\n\nPerfil:\n• Segmento: ${s.n}\n• Fase: ${faseAtual==='abrir'?'Abrindo negócio':'Revisando operação'}\n• Investimento total: ${fmt(invTotal)}\n• Custos fixos: ${fmt(cfTotal)}/mês\n• Ponto de equilíbrio: ${fmt(pe)}/mês\n• Resultado realista: ${fmt(cenR.lucro)}/mês (${fmt(lucroAnual)}/ano)\n• Score de viabilidade: ${score}/100 (${scTit})\n• Veredito: ${vtit}\n\nGostaria de uma análise personalizada.`;
+  g('cta-el').innerHTML=disclaimerHtml+`<div class="cta-title">Número na mão. E agora?</div><div class="cta-sub">Uma análise personalizada pode identificar oportunidades de redução de custo, regime tributário ideal e estrutura jurídica mais adequada para o seu negócio.</div><a class="cta-btn" href="https://wa.me/5519982003732?text=${encodeURIComponent(msg)}" target="_blank">Falar com especialista →</a><div class="cta-email">Prefere e-mail? <a href="mailto:contato@solcontabil.com.br">contato@solcontabil.com.br</a></div>`;
+}
+// ─── FATURAMENTO ALVO INTELIGENTE ────────────────────────────────────────────
+function calcFatAlvo(s, cfTotal, margem, fatR, remuneracao){
+  if(margem<=0) return;
+
+  // Inputs do usuário
+  const alvoProlabore = parseFloat(g('alvo-prolabore').value)||remuneracao;
+  const alvoLucro     = parseFloat(g('alvo-lucro').value)||0;
+  const alvoReserva   = parseFloat(g('alvo-reserva').value)||0;
+
+  // CF base já inclui o pró-labore atual (do campo cf-prolabore)
+  // Para os níveis, substituímos o pró-labore atual pelo desejado
+  const prolaAtual = parseFloat(g('cf-prolabore').value)||0;
+  const cfSemPro   = cfTotal - prolaAtual; // CF sem pró-labore
+
+  // 4 NÍVEIS DE FATURAMENTO
+  // 1. Sobrevivência: cobre custos fixos atuais (já tem pró-labore real)
+  const fatSobrev = margem > 0 ? cfTotal / margem : 0;
+
+  // 2. Equilíbrio: cobre CF (sem pró-labore) + pró-labore desejado
+  const cfEquil   = cfSemPro + alvoProlabore;
+  const fatEquil  = cfEquil / margem;
+
+  // 3. Alvo: equilíbrio + lucro desejado
+  const cfAlvo    = cfEquil + alvoLucro;
+  const fatAlvo   = cfAlvo / margem;
+
+  // 4. Excelente: alvo + reserva mensal + reinvestimento estimado (10% do lucro desejado)
+  const reinvest  = alvoLucro * 0.10;
+  const cfExcel   = cfAlvo + alvoReserva + reinvest;
+  const fatExcel  = cfExcel / margem;
+
+  // Posição do faturamento realista na escada
+  let posicao='';
+  if(fatR < fatSobrev)     posicao='abaixo da sobrevivência';
+  else if(fatR < fatEquil) posicao='entre sobrevivência e equilíbrio';
+  else if(fatR < fatAlvo)  posicao='entre equilíbrio e alvo';
+  else if(fatR < fatExcel) posicao='entre alvo e excelente';
+  else                     posicao='acima do faturamento excelente';
+
+  // Classificação em relação ao benchmark do segmento
+  const benchRef = s.fatMed;
+  const ratioAlvo = benchRef > 0 ? (fatAlvo / benchRef) : 1;
+  let fatClassCls, fatClassTxt, fatClassDiag;
+  if(ratioAlvo < 0.7){
+    fatClassCls='mb'; fatClassTxt='Muito abaixo do benchmark';
+    fatClassDiag=`Seu faturamento alvo (${fmt(fatAlvo)}/mês) está muito abaixo da média de mercado (${fmt(benchRef)}/mês). Seus custos e objetivos são enxutos — isso pode indicar boa vantagem competitiva ou possível subestimação dos custos reais.`;
+  } else if(ratioAlvo < 0.9){
+    fatClassCls='ab'; fatClassTxt='Abaixo do benchmark';
+    fatClassDiag=`Seu faturamento alvo (${fmt(fatAlvo)}/mês) está abaixo da média de mercado (${fmt(benchRef)}/mês). Estrutura enxuta — possível com eficiência operacional ou menor escala.`;
+  } else if(ratioAlvo <= 1.15){
+    fatClassCls='al'; fatClassTxt='Alinhado ao benchmark';
+    fatClassDiag=`Seu faturamento alvo (${fmt(fatAlvo)}/mês) está alinhado à média de mercado (${fmt(benchRef)}/mês). Objetivo consistente com o que negócios semelhantes entregam.`;
+  } else if(ratioAlvo <= 1.5){
+    fatClassCls='ac'; fatClassTxt='Acima do benchmark';
+    fatClassDiag=`Seu faturamento alvo (${fmt(fatAlvo)}/mês) está ${Math.round((ratioAlvo-1)*100)}% acima da média de mercado (${fmt(benchRef)}/mês). Atingível, mas exige desempenho acima da média — estratégia comercial sólida é essencial.`;
+  } else {
+    fatClassCls='ma'; fatClassTxt='Muito acima do benchmark';
+    fatClassDiag=`Seu faturamento alvo (${fmt(fatAlvo)}/mês) está ${Math.round((ratioAlvo-1)*100)}% acima da média de mercado (${fmt(benchRef)}/mês). Objetivo ambicioso — exige desempenho excepcional ou diferenciação significativa. Revise se os custos e objetivos estão calibrados corretamente.`;
+  }
+
+  // Badge para marcar onde o faturamento realista cai
+  const badge = (nivel) => {
+    const nivelFats = {sobrev: fatSobrev, equil: fatEquil, alvo: fatAlvo, excel: fatExcel};
+    const vals = Object.values(nivelFats);
+    const keys = Object.keys(nivelFats);
+    const idx = keys.indexOf(nivel);
+    const curr = vals[idx];
+    const prev = idx > 0 ? vals[idx-1] : 0;
+    if(fatR >= prev && fatR < curr){
+      return `<div class="fat-nivel-badge">👈 Seu faturamento realista</div>`;
+    }
+    if(nivel==='excel' && fatR >= curr){
+      return `<div class="fat-nivel-badge">👈 Você está aqui</div>`;
+    }
+    return '';
+  };
+
+  // Barra visual de posicionamento
+  const maxBarra = Math.max(fatExcel * 1.15, fatR * 1.1);
+  const pct = v => Math.min(100, Math.round((v / maxBarra) * 100));
+
+  // Segmentos coloridos da barra
+  const barraHtml = `
+    <div class="fat-barra-wrap">
+      <div class="fat-barra-label">
+        <span>R$ 0</span>
+        <span>Seu cenário realista: <strong style="color:var(--text)">${fmt(fatR)}/mês</strong></span>
+        <span>${fmt(maxBarra)}</span>
+      </div>
+      <div class="fat-barra-outer">
+        <div style="position:absolute;left:0;top:0;height:100%;width:${pct(fatSobrev)}%;background:var(--red);border-radius:5px 0 0 5px;"></div>
+        <div style="position:absolute;left:${pct(fatSobrev)}%;top:0;height:100%;width:${Math.max(0,pct(fatEquil)-pct(fatSobrev))}%;background:var(--amber);"></div>
+        <div style="position:absolute;left:${pct(fatEquil)}%;top:0;height:100%;width:${Math.max(0,pct(fatAlvo)-pct(fatEquil))}%;background:var(--indigo);"></div>
+        <div style="position:absolute;left:${pct(fatAlvo)}%;top:0;height:100%;width:${Math.max(0,pct(fatExcel)-pct(fatAlvo))}%;background:var(--em);border-radius:0 5px 5px 0;"></div>
+        <div style="position:absolute;left:${pct(fatR)}%;top:-4px;width:3px;height:18px;background:var(--text);border-radius:2px;transform:translateX(-50%);"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:4px;font-size:10px;color:var(--text3);">
+        <span style="margin-left:${pct(fatSobrev)}%;transform:translateX(-50%);">Sobrev.</span>
+        <span style="margin-left:${Math.max(0,pct(fatEquil)-pct(fatSobrev))}%;transform:translateX(-50%);">Equil.</span>
+        <span>Alvo</span>
+        <span>Excelente</span>
+      </div>
+    </div>`;
+
+  g('fat-alvo-el').innerHTML=`
+    <div class="fat-alvo-box">
+      <div class="fat-alvo-title">🎯 Faturamento alvo inteligente</div>
+
+      <div class="fat-escada">
+        <div class="fat-nivel sobrev">
+          <div class="fat-nivel-tag">🔴 Sobrevivência</div>
+          <div class="fat-nivel-val">${fmt(fatSobrev)}/mês</div>
+          <div class="fat-nivel-desc">Mínimo para cobrir todos os custos fixos. Abaixo disso a operação gera prejuízo.</div>
+          ${badge('sobrev')}
+        </div>
+        <div class="fat-nivel equil">
+          <div class="fat-nivel-tag">🟡 Equilíbrio</div>
+          <div class="fat-nivel-val">${fmt(fatEquil)}/mês</div>
+          <div class="fat-nivel-desc">Cobre custos + pró-labore desejado de ${fmt(alvoProlabore)}/mês. Você se remunera sem prejuízo.</div>
+          ${badge('equil')}
+        </div>
+        <div class="fat-nivel alvo">
+          <div class="fat-nivel-tag">🎯 Alvo</div>
+          <div class="fat-nivel-val">${fmt(fatAlvo)}/mês</div>
+          <div class="fat-nivel-desc">Equilíbrio + lucro de ${fmt(alvoLucro)}/mês para reinvestir ou distribuir.</div>
+          ${badge('alvo')}
+        </div>
+        <div class="fat-nivel excel">
+          <div class="fat-nivel-tag">✨ Excelente</div>
+          <div class="fat-nivel-val">${fmt(fatExcel)}/mês</div>
+          <div class="fat-nivel-desc">Alvo + reserva de ${fmt(alvoReserva)}/mês + reinvestimento (${fmt(Math.round(reinvest))}/mês).</div>
+          ${badge('excel')}
+        </div>
+      </div>
+
+      ${barraHtml}
+
+      <div style="font-size:13px;color:var(--text2);margin-bottom:.75rem;">
+        <strong style="color:var(--text)">Seu faturamento realista está:</strong> ${posicao}.
+      </div>
+
+      <div style="padding:1rem;background:var(--bg4);border-radius:10px;border:.5px solid var(--border2);margin-bottom:.75rem;">
+        <div class="fat-bench-row">
+          <span class="fat-bench-name">Benchmark realista do segmento</span>
+          <span class="fat-bench-val" style="color:var(--text2)">${fmt(benchRef)}/mês</span>
+        </div>
+        <div class="fat-bench-row">
+          <span class="fat-bench-name">Seu faturamento alvo</span>
+          <span class="fat-bench-val" style="color:var(--indigo-l)">${fmt(fatAlvo)}/mês</span>
+        </div>
+        <div class="fat-bench-row">
+          <span class="fat-bench-name">Diferença</span>
+          <span class="fat-bench-val" style="color:${ratioAlvo>1?'var(--amber)':'var(--em-l)'}">${ratioAlvo>1?'+':''}${Math.round((ratioAlvo-1)*100)}% ${ratioAlvo>1?'acima':'abaixo'} da média</span>
+        </div>
+        <div style="margin-top:10px;">
+          <span class="fat-class ${fatClassCls}">${fatClassTxt}</span>
+          <div style="font-size:12px;color:var(--text2);margin-top:8px;line-height:1.65;">${fatClassDiag}</div>
+        </div>
+      </div>
+
+      <div class="fat-alvo-nota">
+        Os faturamentos acima são calculados com base na margem de contribuição informada (${(margem*100).toFixed(0)}%) e nos objetivos que você definiu. Esses valores não substituem os cenários pessimista, realista e otimista — eles mostram <em>o que você precisa buscar</em> para atingir cada nível de objetivo. <strong>Os resultados não consideram planejamento tributário detalhado.</strong> A tributação pode impactar significativamente a rentabilidade final dependendo da atividade e do regime tributário adotado.
+      </div>
+    </div>`;
+}
+</script>
+</body>
+</html>

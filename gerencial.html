@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Check-up Empresarial — Rodolfo Assunção</title>
+<meta name="description" content="Check-up empresarial gratuito. Descubra se sua empresa tem caixa, margem e lucro suficientes para crescer com segurança. Resultado em menos de 2 minutos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F172A;--bg2:#111827;--bg3:#1E2937;--bg4:#263244;
+  --border:rgba(51,65,85,0.5);--border2:#334155;
+  --text:#F8FAFC;--text2:#CBD5E1;--text3:#94A3B8;
+  --indigo:#4F46E5;--indigo2:#4338CA;--indigo-l:#818CF8;
+  --indigo-d:rgba(79,70,229,0.1);--indigo-b:rgba(79,70,229,0.25);
+  --em:#10B981;--em2:#059669;--em-l:#34D399;
+  --em-d:rgba(16,185,129,0.1);--em-b:rgba(16,185,129,0.25);
+  --amber:#FBBF24;--amber-d:rgba(251,191,36,0.1);--amber-b:rgba(251,191,36,0.3);
+  --red:#F87171;--red-d:rgba(248,113,113,0.1);--red-b:rgba(248,113,113,0.3);
+  --gold:#F59E0B;--gold-d:rgba(245,158,11,0.08);--gold-b:rgba(245,158,11,0.25);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.7;min-height:100vh;}
+nav{position:sticky;top:0;z-index:100;background:rgba(15,23,42,0.95);backdrop-filter:blur(16px);border-bottom:.5px solid var(--border);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);text-decoration:none;}
+.nav-logo span{color:var(--indigo-l);}
+.nav-back{font-size:13px;color:var(--text2);text-decoration:none;}
+/* SIDEBAR + CONTENT */
+.layout{display:grid;grid-template-columns:230px 1fr;min-height:calc(100vh - 60px);}
+.sidebar{background:var(--bg2);border-right:.5px solid var(--border);padding:0;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;display:flex;flex-direction:column;}
+.sidebar-intro{padding:1.25rem;background:var(--indigo-d);border-bottom:.5px solid var(--indigo-b);}
+.sidebar-intro-text{font-size:12px;color:var(--text2);line-height:1.65;}
+.sidebar-intro-text strong{color:var(--indigo-l);}
+.sidebar-nav{padding:.75rem 0;flex:1;}
+.sidebar-title{font-size:10px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;padding:0 1.25rem;margin-bottom:.5rem;}
+.slink{display:flex;align-items:flex-start;gap:10px;padding:.7rem 1.25rem;cursor:pointer;border-left:2px solid transparent;transition:all .15s;text-decoration:none;}
+.slink:hover{background:var(--bg3);}
+.slink.active{border-left-color:var(--indigo);background:var(--indigo-d);}
+.slink-icon{font-size:.95rem;flex-shrink:0;margin-top:2px;}
+.slink-text{font-size:11.5px;color:var(--text2);line-height:1.4;}.slink.active .slink-text{color:var(--indigo-l);}
+/* CTA DISCRETO — único no sidebar */
+.sidebar-cta{padding:1rem 1.25rem;border-top:.5px solid var(--border);}
+.sidebar-cta-txt{font-size:11px;color:var(--text3);line-height:1.6;margin-bottom:.625rem;}
+.sidebar-cta-btn{display:block;text-align:center;padding:7px 12px;background:var(--em-d);border:.5px solid var(--em-b);border-radius:8px;font-size:11.5px;color:var(--em-l);text-decoration:none;font-family:'DM Sans',sans-serif;transition:all .15s;}
+.sidebar-cta-btn:hover{background:var(--em);color:#fff;}
+.content{padding:2rem 2.5rem 4rem;max-width:800px;}
+/* PAGE */
+.page{display:none;}.page.active{display:block;}
+.page-tag{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:.5rem;}
+.page-title{font-family:'DM Serif Display',serif;font-size:clamp(1.35rem,2.5vw,1.85rem);font-weight:400;color:var(--text);line-height:1.2;margin-bottom:.6rem;}
+.page-desc{font-size:13px;color:var(--text2);line-height:1.75;margin-bottom:1.75rem;}
+/* AVISO BENCHMARK — Fix 5 */
+.bench-aviso{font-size:11px;color:var(--text3);padding:8px 10px;border-radius:6px;background:var(--bg4);border-left:2px solid var(--border2);margin-top:10px;line-height:1.55;}
+/* LAYOUT */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.sec{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:1.5rem;margin-bottom:14px;}
+.sec-t{font-size:11px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1.25rem;}
+.lbl{display:block;font-size:12px;color:var(--text2);margin-bottom:5px;}
+.field{margin-bottom:12px;}.field:last-child{margin-bottom:0;}
+.fi{width:100%;padding:9px 13px;font-size:13px;background:var(--bg4);border:.5px solid var(--border2);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;}
+.fi:focus{outline:none;border-color:var(--indigo);}
+.fs{width:100%;padding:9px 13px;font-size:13px;background:var(--bg4);border:.5px solid var(--border2);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;}
+.hint{font-size:11px;color:var(--text3);margin-top:3px;line-height:1.5;}
+/* RESULT ANSWER */
+.answer{background:var(--indigo-d);border:1.5px solid var(--indigo-b);border-radius:14px;padding:1.5rem;margin-bottom:14px;}
+.answer.verde{background:var(--em-d);border-color:var(--em-b);}
+.answer.amarelo{background:var(--amber-d);border-color:var(--amber-b);}
+.answer.vermelho{background:var(--red-d);border-color:var(--red-b);}
+.answer-label{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem;}
+.answer-text{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--text);line-height:1.4;margin-bottom:.5rem;}
+.answer.verde .answer-text{color:var(--em-l);}
+.answer.amarelo .answer-text{color:var(--amber);}
+.answer.vermelho .answer-text{color:var(--red);}
+.answer-sub{font-size:13px;color:var(--text2);line-height:1.65;}
+/* SEMÁFORO */
+.semaforo{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:14px;}
+.sem-item{background:var(--bg3);border-radius:10px;padding:.875rem;border:.5px solid var(--border2);}
+.sem-icon{font-size:1.2rem;margin-bottom:4px;}
+.sem-label{font-size:11px;color:var(--text3);margin-bottom:3px;line-height:1.3;}
+.sem-val{font-size:13px;font-weight:500;color:var(--text);}
+/* ANÁLISE TÉCNICA */
+.tecnica-toggle{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px;color:var(--text3);padding:6px 0;border:none;background:none;font-family:'DM Sans',sans-serif;transition:color .15s;margin-bottom:8px;}
+.tecnica-toggle:hover{color:var(--text2);}
+.tecnica-toggle.open .arrow{transform:rotate(180deg);}
+.arrow{transition:transform .2s;display:inline-block;}
+.tecnica-body{display:none;}
+.tecnica-body.open{display:block;}
+/* ROWS */
+.rb{background:var(--bg4);border:.5px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:12px;}
+.rb-t{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem;}
+.rrow{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:.5px solid var(--border);font-size:13px;gap:12px;}
+.rrow:last-child{border-bottom:none;}
+.rrow.total{border-top:1px solid var(--border2);padding-top:10px;margin-top:4px;border-bottom:none;}
+.rn{color:var(--text2);flex:1;line-height:1.5;}.rn.b{color:var(--text);font-weight:500;}
+.rv{font-weight:500;color:var(--text);text-align:right;flex-shrink:0;}
+.rv.g{color:var(--em-l);}.rv.r{color:var(--red);}.rv.w{color:var(--amber);}.rv.i{color:var(--indigo-l);}
+.rv.big{font-family:'DM Serif Display',serif;font-size:1.5rem;}
+/* NOTA */
+.nota{padding:10px 13px;border-radius:8px;font-size:12px;line-height:1.65;border-left:2px solid var(--indigo);background:var(--indigo-d);color:var(--text2);}
+.nota.g{border-left-color:var(--em);background:var(--em-d);}
+.nota.w{border-left-color:var(--amber);background:var(--amber-d);color:var(--amber);}
+.nota.r{border-left-color:var(--red);background:var(--red-d);color:var(--red);}
+.foot{border-top:.5px solid var(--border);padding:1.5rem 0;margin-top:2rem;font-size:11px;color:var(--text3);}
+/* SCORE GERAL */
+.score-panel{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:1.25rem;margin-bottom:14px;}
+.score-panel-title{font-size:11px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.875rem;}
+.score-indicadores{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:.875rem;}
+.sc-ind{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:500;background:var(--bg4);border:.5px solid var(--border2);}
+.sc-ind.verde{background:var(--em-d);border-color:var(--em-b);color:var(--em-l);}
+.sc-ind.amarelo{background:var(--amber-d);border-color:var(--amber-b);color:var(--amber);}
+.sc-ind.vermelho{background:var(--red-d);border-color:var(--red-b);color:var(--red);}
+.sc-ind.vazio{color:var(--text3);}
+.score-nota-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.score-numero{font-family:'DM Serif Display',serif;font-size:2rem;line-height:1;}
+.score-numero.verde{color:var(--em-l);}
+.score-numero.amarelo{color:var(--amber);}
+.score-numero.vermelho{color:var(--red);}
+/* BARRA DE SCORE */
+.score-barra-track{height:8px;border-radius:4px;background:var(--bg4);overflow:hidden;margin:.5rem 0 .25rem;position:relative;}
+.score-barra-fill{height:100%;border-radius:4px;transition:width .6s ease;}
+.score-barra-fill.verde{background:var(--em-l);}
+.score-barra-fill.amarelo{background:var(--amber);}
+.score-barra-fill.vermelho{background:var(--red);}
+/* TOOLTIP / AJUDA */
+.info-btn{display:inline-flex;align-items:center;gap:3px;font-size:11px;color:var(--text3);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;padding:0;transition:color .15s;vertical-align:middle;}
+.info-btn:hover{color:var(--text2);}
+.tooltip-box{display:none;background:var(--bg2);border:.5px solid var(--border2);border-radius:8px;padding:.625rem .875rem;font-size:12px;color:var(--text2);line-height:1.6;margin-top:4px;}
+.tooltip-box.open{display:block;}
+/* TELA INICIAL */
+.home-hero{text-align:center;padding:3rem 1rem 2rem;}
+.home-title{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);color:var(--text);line-height:1.15;margin-bottom:.75rem;}
+.home-title span{color:var(--indigo-l);}
+.home-sub{font-size:14px;color:var(--text2);line-height:1.75;max-width:480px;margin:0 auto 1.5rem;}
+.home-tempo{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;background:var(--em-d);border:.5px solid var(--em-b);border-radius:20px;font-size:12px;color:var(--em-l);margin-bottom:1.75rem;}
+.home-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:2rem;}
+.home-card{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:1.25rem;cursor:pointer;transition:all .2s;text-align:left;border-left:2px solid transparent;}
+.home-card:hover{border-left-color:var(--indigo);background:var(--indigo-d);}
+.home-card-icon{font-size:1.4rem;margin-bottom:.5rem;}
+.home-card-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:.3rem;line-height:1.4;}
+.home-card-desc{font-size:11px;color:var(--text3);line-height:1.5;}
+.home-card:hover .home-card-title{color:var(--indigo-l);}
+.home-card:hover .home-card-desc{color:var(--text2);}
+.home-start-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 28px;background:var(--indigo);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;margin-bottom:2rem;}
+.home-start-btn:hover{background:var(--indigo2);}
+/* MICROCOPY */
+.microcopy{text-align:center;padding:1.25rem 0;font-size:11px;color:var(--text3);line-height:1.7;border-top:.5px solid var(--border);margin-top:1.5rem;}
+/* PONTO DE ATENÇÃO */
+.atencao-box{background:var(--red-d);border:.5px solid var(--red-b);border-radius:10px;padding:1rem 1.125rem;margin-bottom:14px;display:flex;align-items:flex-start;gap:10px;}
+.atencao-ico{font-size:1.1rem;flex-shrink:0;margin-top:1px;}
+.atencao-txt{font-size:13px;color:var(--text2);line-height:1.6;}
+.atencao-txt strong{color:var(--red);}
+/* VALIDAÇÃO */
+.val-alerta{background:var(--amber-d);border:1px solid var(--amber-b);border-radius:10px;padding:.875rem 1rem;margin-bottom:12px;font-size:13px;color:var(--amber);display:flex;align-items:flex-start;gap:8px;line-height:1.6;}
+/* PDF BUTTON */
+.pdf-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 18px;background:var(--bg4);border:.5px solid var(--border2);border-radius:8px;font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;margin-top:12px;text-decoration:none;}
+.pdf-btn:hover{background:var(--bg3);color:var(--text);}
+@media(max-width:800px){
+  .layout{grid-template-columns:1fr;}
+  .sidebar{display:none;}
+  .content{padding:1.5rem 1.25rem 3rem;}
+  .g2{grid-template-columns:1fr;}
+}
+@media print{
+  nav,.sidebar,.pdf-btn,.tecnica-toggle,.sidebar-cta{display:none!important;}
+  .layout{grid-template-columns:1fr!important;}
+  .content{padding:0!important;max-width:100%!important;}
+  .page{display:block!important;}
+  .tecnica-body{display:block!important;}
+  body{background:#fff!important;color:#111!important;font-family:Arial,sans-serif!important;}
+  .answer,.rb,.score-panel,.atencao-box,.score-panel{border:1px solid #ddd!important;background:#f9f9f9!important;}
+  .answer-text,.score-numero,.rv,.rn,.page-title{color:#111!important;}
+  .answer-sub,.rn,.sem-label,.hint{color:#444!important;}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Rodolfo<span>.</span></a>
+  <a href="index.html" class="nav-back">← Voltar</a>
+</nav>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-intro">
+      <div class="sidebar-intro-text"><strong>Check-up Empresarial</strong><br>Descubra se sua empresa tem caixa, margem e lucro suficientes para crescer com segurança.</div>
+    </div>
+    <div class="sidebar-nav">
+      <div class="sidebar-title">Diagnósticos disponíveis</div>
+      <a class="slink" onclick="voltar()"><span class="slink-icon">🏠</span><span class="slink-text">Início — Check-up Empresarial</span></a>
+      <a class="slink" id="slink-cg" onclick="showPage('cg',this)"><span class="slink-icon">💰</span><span class="slink-text">Quanto dinheiro precisa ter em caixa?</span></a>
+      <a class="slink" id="slink-cf" onclick="showPage('cf',this)"><span class="slink-icon">🔄</span><span class="slink-text">Em quantos dias o dinheiro volta ao caixa?</span></a>
+      <a class="slink" id="slink-ge" onclick="showPage('ge',this)"><span class="slink-icon">📦</span><span class="slink-text">Seu estoque está parado ou girando?</span></a>
+      <a class="slink" id="slink-pe" onclick="showPage('pe',this)"><span class="slink-icon">⚖️</span><span class="slink-text">Qual o faturamento mínimo para sobreviver?</span></a>
+      <a class="slink" id="slink-mc" onclick="showPage('mc',this)"><span class="slink-icon">💸</span><span class="slink-text">Quanto sobra de cada venda?</span></a>
+      <a class="slink" id="slink-dre" onclick="showPage('dre',this)"><span class="slink-icon">🩺</span><span class="slink-text">Sua empresa está dando lucro de verdade?</span></a>
+      <a class="slink" id="slink-liq" onclick="showPage('liq',this)"><span class="slink-icon">🏦</span><span class="slink-text">Consegue pagar as contas dos próximos meses?</span></a>
+      <a class="slink" id="slink-rent" onclick="showPage('rent',this)"><span class="slink-icon">📈</span><span class="slink-text">Seu negócio compensa o dinheiro investido?</span></a>
+      <!-- SCORE PAINEL -->
+      <div style="padding:.875rem 1.25rem .25rem;">
+        <div class="sidebar-title" style="margin-bottom:.625rem;">Saúde geral da empresa</div>
+        <div id="sidebar-score-indicadores" style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:.625rem;">
+          <span class="sc-ind vazio">💰 Caixa?</span>
+          <span class="sc-ind vazio">🩺 Lucro?</span>
+          <span class="sc-ind vazio">📦 Estoque?</span>
+          <span class="sc-ind vazio">📈 Retorno?</span>
+        </div>
+        <div id="sidebar-score-nota" style="font-size:11px;color:var(--text3);">Use os simuladores acima para gerar o diagnóstico.</div>
+      </div>
+    </div>
+    <!-- Fix 1: CTA único e discreto -->
+    <div class="sidebar-cta">
+      <div class="sidebar-cta-txt">Quer entender o que esses números significam para o seu negócio?</div>
+      <a class="sidebar-cta-btn" href="https://wa.me/5519982003732?text=Ol%C3%A1%20Rodolfo!%20Usei%20os%20simuladores%20gerenciais%20e%20gostaria%20de%20conversar%20sobre%20os%20n%C3%BAmeros%20da%20minha%20empresa." target="_blank">Falar com Rodolfo Assunção</a>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- HOME SCREEN -->
+    <div class="page active" id="page-home">
+      <div class="home-hero">
+        <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:.75rem;">Rodolfo Assunção · Contador</div>
+        <h1 class="home-title">Check-up <span>Empresarial</span></h1>
+        <p class="home-sub">Descubra se sua empresa tem caixa, margem e lucro suficientes para crescer com segurança. Resultado instantâneo, sem cadastro.</p>
+        <div class="home-tempo">⏱️ Cada diagnóstico em menos de 2 minutos</div>
+        <div class="home-grid">
+          <div class="home-card" onclick="goHome('cg')">
+            <div class="home-card-icon">💰</div>
+            <div class="home-card-title">Quanto dinheiro precisa ter em caixa?</div>
+            <div class="home-card-desc">Capital de giro e necessidade operacional</div>
+          </div>
+          <div class="home-card" onclick="goHome('cf')">
+            <div class="home-card-icon">🔄</div>
+            <div class="home-card-title">Em quantos dias o dinheiro volta ao caixa?</div>
+            <div class="home-card-desc">Ciclo financeiro e operacional</div>
+          </div>
+          <div class="home-card" onclick="goHome('ge')">
+            <div class="home-card-icon">📦</div>
+            <div class="home-card-title">Seu estoque está parado ou girando?</div>
+            <div class="home-card-desc">Giro de estoque e capital imobilizado</div>
+          </div>
+          <div class="home-card" onclick="goHome('pe')">
+            <div class="home-card-icon">⚖️</div>
+            <div class="home-card-title">Qual o faturamento mínimo para sobreviver?</div>
+            <div class="home-card-desc">Ponto de equilíbrio contábil, financeiro e econômico</div>
+          </div>
+          <div class="home-card" onclick="goHome('mc')">
+            <div class="home-card-icon">💸</div>
+            <div class="home-card-title">Quanto sobra de cada venda?</div>
+            <div class="home-card-desc">Margem de contribuição com custos de marketplace</div>
+          </div>
+          <div class="home-card" onclick="goHome('dre')">
+            <div class="home-card-icon">🩺</div>
+            <div class="home-card-title">Sua empresa está dando lucro de verdade?</div>
+            <div class="home-card-desc">Raio-X financeiro — da receita ao lucro líquido</div>
+          </div>
+          <div class="home-card" onclick="goHome('liq')">
+            <div class="home-card-icon">🏦</div>
+            <div class="home-card-title">Consegue pagar as contas dos próximos meses?</div>
+            <div class="home-card-desc">Índices de liquidez e folga financeira</div>
+          </div>
+          <div class="home-card" onclick="goHome('rent')">
+            <div class="home-card-icon">📈</div>
+            <div class="home-card-title">Seu negócio compensa o dinheiro investido?</div>
+            <div class="home-card-desc">Retorno sobre o capital e rentabilidade</div>
+          </div>
+        </div>
+        <div class="microcopy">Simulações gerenciais desenvolvidas para apoiar a tomada de decisão empresarial.<br>Não substituem análise contábil, financeira ou tributária individualizada.<br>Rodolfo Assunção · CRC/SP 1SP353033/O-5 · Limeira, SP</div>
+      </div>
+    </div>
+    <div class="page active" id="page-cg">
+      <div class="page-tag">Check-up Empresarial</div>
+      <h1 class="page-title">Quanto dinheiro sua empresa precisa ter em caixa para não quebrar?</h1>
+      <p class="page-desc">Descubra quanto dinheiro sua empresa precisa manter em caixa para operar com segurança e não atrasar pagamentos. ⏱️ Menos de 2 minutos.</p>
+      <div class="g2">
+        <div>
+          <div class="sec">
+            <div class="sec-t">Dados da operação</div>
+            <div class="field"><span class="lbl">Faturamento mensal (R$)</span><input type="number" class="fi" id="cg-fat" value="50000" oninput="calcCG()"></div>
+            <div class="field"><span class="lbl">CMV como % do faturamento (%)</span><input type="number" class="fi" id="cg-cmv" value="60" min="0" max="100" oninput="calcCG()"><div class="hint">Custo da mercadoria vendida. Varejo ~50–70%, serviços ~20–40%.</div></div>
+            <div class="field"><span class="lbl">Prazo médio de recebimento (dias)</span><input type="number" class="fi" id="cg-pmr" value="15" min="0" oninput="calcCG()"><div class="hint">PIX/débito: 0–2 · Cartão crédito: 25–30 · Marketplace: 7–14</div></div>
+            <div class="field"><span class="lbl">Prazo médio de pagamento a fornecedores (dias)</span><input type="number" class="fi" id="cg-pmp" value="30" min="0" oninput="calcCG()"></div>
+            <div class="field"><span class="lbl">Estoque médio (R$)</span><input type="number" class="fi" id="cg-estoque" value="15000" min="0" oninput="calcCG()"></div>
+            <div class="field"><span class="lbl">Segmento</span>
+              <select class="fs" id="cg-setor" onchange="calcCG()">
+                <option value="ecom_mkt">E-commerce (Marketplace)</option>
+                <option value="ecom_proprio">E-commerce (Loja própria)</option>
+                <option value="varejo">Varejo / Loja física</option>
+                <option value="servicos">Serviços</option>
+                <option value="alimentacao">Alimentação / Restaurante</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style="margin-bottom:8px;"><button class="info-btn" onclick="document.getElementById('tip-cg').classList.toggle('open')">ⓘ O que significa este diagnóstico?</button><div class="tooltip-box" id="tip-cg">Capital de giro é o dinheiro necessário para manter a operação funcionando até o recebimento das vendas.</div></div>
+          <div id="cg-result"></div>
+        </div>
+      </div>
+      <div class="foot">Fórmula: NCG = (Clientes + Estoque) − Fornecedores · Fonte: relatório de referência jun/2026</div>
+    </div>
+
+    <!-- 2. CICLO FINANCEIRO -->
+    <div class="page" id="page-cf">
+      <div class="page-tag">Check-up Empresarial</div>
+      <h1 class="page-title">Em quantos dias o dinheiro volta para o seu caixa?</h1>
+      <p class="page-desc">Descubra quanto tempo seu dinheiro fica preso na operação antes de voltar para o caixa — e o que isso significa para a saúde financeira da empresa. ⏱️ Menos de 2 minutos.</p>
+      <div class="g2">
+        <div>
+          <div class="sec">
+            <div class="sec-t">Prazos da operação</div>
+            <div class="field"><span class="lbl">Dias médios que o produto fica no estoque (PME)</span><input type="number" class="fi" id="cf-pme" value="30" min="0" oninput="calcCF()"><div class="hint">Quantos dias em média o produto espera no estoque antes de vender.</div></div>
+            <div class="field"><span class="lbl">Dias médios para receber do cliente (PMR)</span><input type="number" class="fi" id="cf-pmr" value="14" min="0" oninput="calcCF()"><div class="hint">Quantos dias após a venda o dinheiro entra no caixa.</div></div>
+            <div class="field"><span class="lbl">Dias médios para pagar o fornecedor (PMP)</span><input type="number" class="fi" id="cf-pmp" value="30" min="0" oninput="calcCF()"><div class="hint">Quantos dias após a compra você efetua o pagamento.</div></div>
+            <div class="field"><span class="lbl">Faturamento mensal (R$)</span><input type="number" class="fi" id="cf-fat" value="50000" min="0" oninput="calcCF()"></div>
+            <div class="field"><span class="lbl">CMV % do faturamento (%)</span><input type="number" class="fi" id="cf-cmv" value="60" min="0" max="100" oninput="calcCF()"></div>
+          </div>
+        </div>
+        <div>
+          <div style="margin-bottom:8px;"><button class="info-btn" onclick="document.getElementById('tip-cf').classList.toggle('open')">ⓘ O que significa este diagnóstico?</button><div class="tooltip-box" id="tip-cf">Ciclo financeiro é o número de dias entre o pagamento ao fornecedor e o recebimento do cliente. Ciclo negativo é favorável.</div></div>
+          <div id="cf-result"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. GIRO DE ESTOQUE -->
+    <div class="page" id="page-ge">
+      <div class="page-tag">Check-up Empresarial</div>
+      <h1 class="page-title">Seu estoque está parado ou girando?</h1>
+      <p class="page-desc">Descubra se seu estoque está travando capital que poderia estar circulando. Cada dia a mais no estoque é dinheiro parado. ⏱️ Menos de 1 minuto.</p>
+      <div class="g2">
+        <div>
+          <div class="sec">
+            <div class="sec-t">Dados do estoque</div>
+            <div class="field"><span class="lbl">CMV mensal — custo das mercadorias vendidas (R$)</span><input type="number" class="fi" id="ge-cmv" value="30000" min="0" oninput="calcGE()"></div>
+            <div class="field"><span class="lbl">Estoque médio (R$)</span><input type="number" class="fi" id="ge-est" value="20000" min="0" oninput="calcGE()"><div class="hint">Some o estoque do início e do fim do mês e divida por 2.</div></div>
+            <div class="field"><span class="lbl">Segmento</span>
+              <select class="fs" id="ge-setor" onchange="calcGE()">
+                <option value="ecom_elet">E-commerce (eletrônicos)</option>
+                <option value="ecom_moda">E-commerce (moda)</option>
+                <option value="varejo_super">Varejo (supermercado)</option>
+                <option value="varejo_moda">Varejo (moda)</option>
+                <option value="alimentacao">Alimentação / Restaurante</option>
+                <option value="farmacia">Farmácia</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style="margin-bottom:8px;"><button class="info-btn" onclick="document.getElementById('tip-ge').classList.toggle('open')">ⓘ O que significa este diagnóstico?</button><div class="tooltip-box" id="tip-ge">Giro de estoque mede com que frequência você renova seu estoque. Giro baixo significa capital parado.</div></div>
+          <div id="ge-result"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. PONTO DE EQUILÍBRIO -->
+    <div class="page" id="page-pe">
+      <div class="page-tag">Check-up Empresarial</div>
+      <h1 class="page-title">Qual o faturamento mínimo para sua empresa sobreviver?</h1>
+      <p class="page-desc">Descubra o faturamento mínimo que sua empresa precisa atingir para não operar no prejuízo — e quanto precisa vender para você se remunerar adequadamente. ⏱️ Menos de 2 minutos.</p>
+      <div class="g2">
+        <div>
+          <div class="sec">
+            <div class="sec-t">Custos e metas</div>
+            <div class="field"><span class="lbl">Custos fixos mensais totais (R$)</span><input type="number" class="fi" id="pe-cf" value="15000" min="0" oninput="calcPE()"><div class="hint">Aluguel + folha + contador + energia + sistemas + outros fixos.</div></div>
+            <div class="field"><span class="lbl">Margem de contribuição média (%)</span><input type="number" class="fi" id="pe-mc" value="40" min="1" max="100" oninput="calcPE()"><div class="hint">De cada R$ 100 vendidos, quanto sobra após custos variáveis?</div></div>
+            <div class="field"><span class="lbl">Depreciação mensal incluída nos custos fixos (R$)</span><input type="number" class="fi" id="pe-dep" value="500" min="0" oninput="calcPE()"><div class="hint">Depreciação de equipamentos. Se não souber, use R$ 0.</div></div>
+            <!-- Fix 2: renomeado e explicado corretamente -->
+            <div class="field"><span class="lbl">Parcelas de empréstimos e financiamentos/mês (R$)</span><input type="number" class="fi" id="pe-amort" value="0" min="0" oninput="calcPE()"><div class="hint">Inclua apenas parcelas que realmente saem do caixa todo mês.</div></div>
+            <div class="field"><span class="lbl">Retirada desejada pelo empreendedor/mês (R$)</span><input type="number" class="fi" id="pe-lucro" value="5000" min="0" oninput="calcPE()"></div>
+          </div>
+        </div>
+        <div>
+          <div style="margin-bottom:8px;"><button class="info-btn" onclick="document.getElementById('tip-pe').classList.toggle('open')">ⓘ O que significa este diagnóstico?</button><div class="tooltip-box" id="tip-pe">Ponto de equilíbrio é o faturamento mínimo para não operar no prejuízo.</div></div>
+          <div id="pe-result"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. MARGEM DE CONTRIBUIÇÃO -->
+    <div class="page" id="page-mc">
+      <div class="page-tag">Check-up Empresarial</div>
+      <h1 class="page-title">Quanto sobra de cada venda no seu bolso?</h1>
+      <p class="page-desc">Descubra quanto sobra de verdade em cada venda, depois de descontar frete, comissão do marketplace, embalagem e imposto. Muitos vendem sem saber que estão perdendo dinheiro. ⏱️ Menos de 2 minutos.</p>
+      <div class="g2">
+        <div>
+          <div class="sec">
+            <div class="sec-t">Dados do produto</div>
+            <div class="field"><span class="lbl">Preço de venda (R$)</span><input type="number" class="fi" id="mc-preco" value="100" min="0.01" oninput="calcMC()"></div>
+            <div class="field"><span class="lbl">Custo do produto (R$)</span><input type="number" class="fi" id="mc-custo" value="35" min="0" oninput="calcMC()"></div>
+            <div class="field"><span class="lbl">Canal de venda</span>
+              <select class="fs" id="mc-canal" onchange="syncComissao()">
+                <option value="0.16">Mercado Livre (Full) — 16%</option>
+                <option value="0.14">Mercado Livre (Flex) — 14%</option>
+                <option value="0.12">Shopee — 12%</option>
+                <option value="0.15">Amazon — 15%</option>
+                <option value="0.10">Magalu / Americanas — 10%</option>
+                <option value="0.00">Loja própria / WhatsApp — 0%</option>
+                <option value="custom">Outro canal (informar)</option>
+              </select>
+            </div>
+            <div class="field" id="mc-custom-field" style="display:none"><span class="lbl">Comissão do canal (%)</span><input type="number" class="fi" id="mc-comissao-custom" value="12" min="0" max="40" oninput="calcMC()"></div>
+            <div class="field"><span class="lbl">Comissão aplicada (%)</span><input type="number" class="fi" id="mc-comissao" value="16" min="0" max="40" oninput="calcMC()"></div>
+            <div class="field"><span class="lbl">Frete pago pelo vendedor (R$)</span><input type="number" class="fi" id="mc-frete" value="15" min="0" oninput="calcMC()"></div>
+            <div class="field"><span class="lbl">Embalagem (R$)</span><input type="number" class="fi" id="mc-embalagem" value="3" min="0" oninput="calcMC()"></div>
+            <div class="field"><span class="lbl">Imposto sobre a venda (%)</span>
+              <select class="fs" id="mc-imposto" onchange="calcMC()">
+                <option value="4">Simples Nacional — 1ª faixa (~4%)</option>
+                <option value="7.3">Simples Nacional — 2ª faixa (~7,3%)</option>
+                <option value="9.5">Simples Nacional — 3ª faixa (~9,5%)</option>
+                <option value="11.33">Lucro Presumido (~11,33%)</option>
+                <option value="0">MEI — DAS fixo</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style="margin-bottom:8px;"><button class="info-btn" onclick="document.getElementById('tip-mc').classList.toggle('open')">ⓘ O que significa este diagnóstico?</button><div class="tooltip-box" id="tip-mc">Margem de contribuição é o que sobra do preço de venda após subtrair todos os custos variáveis.</div></div>
+          <div id="mc-result"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. DRE GERENCIAL -->
+    <div class="page" id="page-dre">
+      <div class="page-tag">Check-up Empresarial</div>
+      <h1 class="page-title">Sua empresa está dando lucro de verdade?</h1>
+      <p class="page-desc">Monte o raio-X financeiro da sua empresa — da receita bruta até o lucro líquido. Descubra se o lucro que você enxerga no caixa é lucro de verdade. ⏱️ Menos de 3 minutos.</p>
+      <div class="g2">
+        <div>
+          <div class="sec">
+            <div class="sec-t">Receitas</div>
+            <div class="field"><span class="lbl">Receita bruta mensal (R$)</span><input type="number" class="fi" id="dre-rb" value="100000" oninput="calcDRE()"></div>
+            <div class="field"><span class="lbl">Devoluções e descontos (R$)</span><input type="number" class="fi" id="dre-dev" value="2000" min="0" oninput="calcDRE()"></div>
+            <div class="field"><span class="lbl">Impostos sobre receita — DAS, ISS, ICMS (R$)</span><input type="number" class="fi" id="dre-imp" value="8000" min="0" oninput="calcDRE()"><div class="hint">Se usar %, calcule o valor e informe aqui.</div></div>
+          </div>
+          <div class="sec">
+            <div class="sec-t">Custos e despesas</div>
+            <div class="field"><span class="lbl">Custo das mercadorias vendidas — CMV (R$)</span><input type="number" class="fi" id="dre-cmv" value="45000" min="0" oninput="calcDRE()"></div>
+            <div class="field"><span class="lbl">Despesas com pessoal (R$)</span><input type="number" class="fi" id="dre-pessoal" value="20000" min="0" oninput="calcDRE()"></div>
+            <div class="field"><span class="lbl">Aluguel e ocupação (R$)</span><input type="number" class="fi" id="dre-aluguel" value="5000" min="0" oninput="calcDRE()"></div>
+            <div class="field"><span class="lbl">Marketing e publicidade (R$)</span><input type="number" class="fi" id="dre-mkt" value="3000" min="0" oninput="calcDRE()"></div>
+            <div class="field"><span class="lbl">Outras despesas operacionais (R$)</span><input type="number" class="fi" id="dre-outros" value="5000" min="0" oninput="calcDRE()"></div>
+            <div class="field"><span class="lbl">Depreciação e amortização (R$)</span><input type="number" class="fi" id="dre-dep" value="1000" min="0" oninput="calcDRE()"></div>
+            <div class="field"><span class="lbl">Resultado financeiro — juros (R$, negativo se despesa)</span><input type="number" class="fi" id="dre-fin" value="-500" oninput="calcDRE()"></div>
+            <!-- Fix 3: campo livre, sem cálculo automático de IR -->
+            <div class="field"><span class="lbl">Impostos sobre lucro — IR, CSLL (R$)</span><input type="number" class="fi" id="dre-ircs" value="0" min="0" oninput="calcDRE()"><div class="hint">Varia conforme o regime tributário. Preencha se souber; deixe em zero caso contrário.</div></div>
+          </div>
+        </div>
+        <div>
+          <div style="margin-bottom:8px;"><button class="info-btn" onclick="document.getElementById('tip-dre').classList.toggle('open')">ⓘ O que significa este diagnóstico?</button><div class="tooltip-box" id="tip-dre">A DRE mostra o caminho da receita bruta até o lucro líquido, revelando onde o dinheiro está sendo consumido.</div></div>
+          <div id="dre-result"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. LIQUIDEZ -->
+    <div class="page" id="page-liq">
+      <div class="page-tag">Check-up Empresarial</div>
+      <h1 class="page-title">Sua empresa consegue pagar as contas dos próximos meses?</h1>
+      <p class="page-desc">Descubra se sua empresa teria dificuldades para pagar as contas nos próximos meses — e quanto de folga financeira você realmente tem. ⏱️ Menos de 2 minutos.</p>
+      <div class="g2">
+        <div>
+          <div class="sec">
+            <div class="sec-t">O que você tem (ativo)</div>
+            <div class="field"><span class="lbl">Caixa e aplicações disponíveis (R$)</span><input type="number" class="fi" id="liq-caixa" value="15000" min="0" oninput="calcLIQ()"></div>
+            <div class="field"><span class="lbl">Clientes a receber (R$)</span><input type="number" class="fi" id="liq-receber" value="30000" min="0" oninput="calcLIQ()"></div>
+            <div class="field"><span class="lbl">Estoque (R$)</span><input type="number" class="fi" id="liq-estoque" value="20000" min="0" oninput="calcLIQ()"></div>
+            <div class="field"><span class="lbl">Outros recebíveis de curto prazo (R$)</span><input type="number" class="fi" id="liq-outros-ac" value="0" min="0" oninput="calcLIQ()"></div>
+            <div class="field"><span class="lbl">Recebíveis de longo prazo (R$)</span><input type="number" class="fi" id="liq-rlp" value="0" min="0" oninput="calcLIQ()"></div>
+          </div>
+          <div class="sec">
+            <div class="sec-t">O que você deve (passivo)</div>
+            <div class="field"><span class="lbl">Contas a pagar no curto prazo (R$)</span><input type="number" class="fi" id="liq-cp" value="35000" min="0" oninput="calcLIQ()"></div>
+            <div class="field"><span class="lbl">Dívidas de longo prazo (R$)</span><input type="number" class="fi" id="liq-elp" value="20000" min="0" oninput="calcLIQ()"></div>
+          </div>
+        </div>
+        <div>
+          <div style="margin-bottom:8px;"><button class="info-btn" onclick="document.getElementById('tip-liq').classList.toggle('open')">ⓘ O que significa este diagnóstico?</button><div class="tooltip-box" id="tip-liq">Liquidez mede a capacidade da empresa de pagar suas obrigações de curto prazo.</div></div>
+          <div id="liq-result"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. RENTABILIDADE -->
+    <div class="page" id="page-rent">
+      <div class="page-tag">Check-up Empresarial</div>
+      <h1 class="page-title">Seu negócio está compensando o dinheiro investido?</h1>
+      <p class="page-desc">Descubra se o dinheiro que você investiu na empresa está rendendo o suficiente — e se compensa mais do que outros investimentos disponíveis. ⏱️ Menos de 2 minutos.</p>
+      <div class="g2">
+        <div>
+          <div class="sec">
+            <div class="sec-t">Resultados anuais</div>
+            <div class="field"><span class="lbl">Lucro líquido anual (R$)</span><input type="number" class="fi" id="rent-ll" value="60000" oninput="calcRENT()"></div>
+            <div class="field"><span class="lbl">Lucro antes de juros e impostos — anual (R$)</span><input type="number" class="fi" id="rent-ebit" value="80000" oninput="calcRENT()"><div class="hint">Lucro operacional puro, sem efeitos financeiros ou tributários.</div></div>
+            <div class="field"><span class="lbl">Receita total anual (R$)</span><input type="number" class="fi" id="rent-rec" value="600000" oninput="calcRENT()"></div>
+          </div>
+          <div class="sec">
+            <div class="sec-t">O que a empresa tem e deve</div>
+            <div class="field"><span class="lbl">Total de bens e direitos da empresa (R$)</span><input type="number" class="fi" id="rent-ativo" value="200000" oninput="calcRENT()"></div>
+            <div class="field"><span class="lbl">Capital próprio — o que os sócios investiram (R$)</span><input type="number" class="fi" id="rent-pl" value="120000" oninput="calcRENT()"></div>
+            <div class="field"><span class="lbl">Total de dívidas e obrigações (R$)</span><input type="number" class="fi" id="rent-passivo" value="80000" oninput="calcRENT()"></div>
+            <div class="field"><span class="lbl">Dívidas de longo prazo (R$)</span><input type="number" class="fi" id="rent-elp" value="30000" oninput="calcRENT()"></div>
+            <div class="field"><span class="lbl">Segmento</span>
+              <select class="fs" id="rent-setor" onchange="calcRENT()">
+                <option value="ecom">E-commerce</option>
+                <option value="varejo">Varejo</option>
+                <option value="servicos">Serviços profissionais</option>
+                <option value="alimentacao">Alimentação</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style="margin-bottom:8px;"><button class="info-btn" onclick="document.getElementById('tip-rent').classList.toggle('open')">ⓘ O que significa este diagnóstico?</button><div class="tooltip-box" id="tip-rent">Rentabilidade mede o retorno gerado em relação ao capital investido pelos sócios.</div></div>
+          <div id="rent-result"></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /layout -->
+
+<script>
+// ─── UTILS ────────────────────────────────────────────────────────────────
+const fmt  = v => 'R$ '+Math.round(v||0).toLocaleString('pt-BR');
+const pct  = v => parseFloat(v||0).toFixed(1)+'%';
+const g    = id => document.getElementById(id);
+const n    = id => parseFloat(g(id)?.value)||0;
+const BENCH_AVISO = '<div class="bench-aviso">⚠️ Faixas apenas referenciais. Cada negócio deve ser analisado conforme setor, porte, região, modelo de venda e regime tributário.</div>';
+
+// ─── SCORE GLOBAL ─────────────────────────────────────────────────────────
+// Estado dos indicadores: null=não calculado, 'verde'|'amarelo'|'vermelho'
+const scoreState = {
+  caixa: null,    // calcCG
+  ciclo: null,    // calcCF
+  estoque: null,  // calcGE
+  pe: null,       // calcPE
+  margem: null,   // calcMC
+  lucro: null,    // calcDRE
+  liquidez: null, // calcLIQ
+  retorno: null   // calcRENT
+};
+
+const PONTOS = {verde:100, amarelo:50, vermelho:0};
+
+function setScore(chave, cls){ scoreState[chave]=cls; atualizarScorePanel(); }
+
+function atualizarScorePanel(){
+  // Calcula score ponderado apenas dos indicadores calculados
+  const pesos = {caixa:15,ciclo:10,estoque:10,pe:15,margem:15,lucro:20,liquidez:10,retorno:5};
+  const map = {
+    caixa:{label:'💰 Caixa',k:'caixa'},
+    lucro:{label:'🩺 Lucro',k:'lucro'},
+    estoque:{label:'📦 Estoque',k:'estoque'},
+    retorno:{label:'📈 Retorno',k:'retorno'},
+    liquidez:{label:'🏦 Liquidez',k:'liquidez'},
+    margem:{label:'💸 Margem',k:'margem'},
+    pe:{label:'⚖️ Equilíbrio',k:'pe'},
+    ciclo:{label:'🔄 Ciclo',k:'ciclo'},
+  };
+
+  // Sidebar: indicadores resumidos
+  const sidebarInds = ['caixa','lucro','estoque','retorno'];
+  const indEl = g('sidebar-score-indicadores');
+  indEl.innerHTML = sidebarInds.map(k=>{
+    const s=scoreState[k], m=map[k];
+    return `<span class="sc-ind ${s||'vazio'}">${m.label}</span>`;
+  }).join('');
+
+  // Score total
+  let somaPeso=0, somaScore=0;
+  let calculados=0;
+  Object.entries(pesos).forEach(([k,p])=>{
+    if(scoreState[k]!==null){
+      somaPeso+=p;
+      somaScore+=PONTOS[scoreState[k]]*p;
+      calculados++;
+    }
+  });
+  const score = somaPeso>0 ? Math.round(somaScore/somaPeso) : null;
+  const scoreCls = score===null?null:score>=70?'verde':score>=40?'amarelo':'vermelho';
+  const scoreLabel = score===null?null:score>=70?'Saudável':score>=40?'Atenção necessária':'Situação crítica';
+
+  const notaEl = g('sidebar-score-nota');
+  if(score===null){
+    notaEl.innerHTML='<span style="font-size:11px;color:var(--text3);">Use os simuladores para gerar o diagnóstico.</span>';
+  } else {
+    notaEl.innerHTML=`
+      <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:4px;">
+        <span class="score-numero ${scoreCls}" style="font-size:1.3rem;">${score}</span>
+        <span style="font-size:11px;color:var(--text3);">/100 — ${scoreLabel}</span>
+      </div>
+      <div class="score-barra-track"><div class="score-barra-fill ${scoreCls}" style="width:${score}%;"></div></div>`;
+  }
+}
+
+function infoBtn(id){
+  const tip = TOOLTIPS[id]||'';
+  return tip ? `<button class="info-btn" onclick="toggleTooltip('${id}')">ⓘ O que significa?</button><div class="tooltip-box" id="tip-${id}">${tip}</div>` : '';
+}
+
+// ─── SCORE PANEL ─────────────────────────────────────────────────────────────
+function scorePanelHTML(){
+  const calculados = Object.values(scoreState).filter(v=>v!==null).length;
+  if(calculados<2) return '';
+  const mapa = [
+    {k:'caixa',l:'💰 Caixa'},{k:'lucro',l:'🩺 Lucro'},
+    {k:'estoque',l:'📦 Estoque'},{k:'margem',l:'💸 Margem'},
+    {k:'liquidez',l:'🏦 Liquidez'},{k:'retorno',l:'📈 Retorno'},
+    {k:'pe',l:'⚖️ Equilíbrio'},{k:'ciclo',l:'🔄 Ciclo'},
+  ].filter(m=>scoreState[m.k]!==null);
+  const pesos={caixa:15,ciclo:10,estoque:10,pe:15,margem:15,lucro:20,liquidez:10,retorno:5};
+  let s=0,p=0;
+  mapa.forEach(m=>{s+=PONTOS[scoreState[m.k]]*(pesos[m.k]||10);p+=pesos[m.k]||10;});
+  const score=p>0?Math.round(s/p):0;
+  const cls=score>=70?'verde':score>=40?'amarelo':'vermelho';
+  const lbl=score>=70?'Saudável':score>=40?'Atenção necessária':'Situação crítica';
+  return `<div class="score-panel">
+    <div class="score-panel-title">Saúde geral da empresa — diagnóstico parcial</div>
+    <div class="score-indicadores">${mapa.map(m=>`<span class="sc-ind ${scoreState[m.k]}">${m.l}</span>`).join('')}</div>
+    <div class="score-nota-row">
+      <span class="score-numero ${cls}">${score}</span>
+      <span style="font-size:13px;color:var(--text3)">/100 — ${lbl}</span>
+    </div>
+    <div class="score-barra-track"><div class="score-barra-fill ${cls}" style="width:${score}%"></div></div>
+    ${gerarPontoAtencao()}
+    <div style="font-size:11px;color:var(--text3);margin-top:.5rem;">${calculados} de 8 diagnósticos calculados.</div>
+  </div>`;
+}
+function gerarPontoAtencao(){
+  const problemas = [];
+  if(scoreState.lucro==='vermelho')    problemas.push({p:10,txt:'🔴 Empresa operando no prejuízo'});
+  if(scoreState.pe==='vermelho')       problemas.push({p:9,txt:'🔴 Faturamento abaixo do ponto de equilíbrio'});
+  if(scoreState.liquidez==='vermelho') problemas.push({p:8,txt:'🔴 Falta de liquidez para pagar as contas'});
+  if(scoreState.margem==='vermelho')   problemas.push({p:7,txt:'🔴 Margem de contribuição insuficiente'});
+  if(scoreState.caixa==='vermelho')    problemas.push({p:6,txt:'🔴 Capital de giro crítico'});
+  if(scoreState.estoque==='vermelho')  problemas.push({p:5,txt:'🔴 Estoque com giro muito lento'});
+  if(scoreState.retorno==='vermelho')  problemas.push({p:4,txt:'🔴 Retorno sobre o investimento insatisfatório'});
+  if(scoreState.ciclo==='vermelho')    problemas.push({p:3,txt:'🔴 Ciclo financeiro muito longo'});
+  if(problemas.length===0) return '';
+  problemas.sort((a,b)=>b.p-a.p);
+  return `<div class="atencao-box"><div class="atencao-ico">⚠️</div><div class="atencao-txt"><strong>Principal ponto de atenção:</strong><br>${problemas[0].txt}${problemas.length>1?'<br><span style="font-size:12px;color:var(--text3)">'+problemas.length+' pontos identificados — uma análise profissional pode ajudar a priorizar as ações.</span>':''}</div></div>`;
+}
+
+// ─── VALIDAÇÃO ────────────────────────────────────────────────────────────
+function validar(erros){
+  if(!erros||erros.length===0) return '';
+  return `<div class="val-alerta"><span>⚠️</span><div>Os dados informados parecem inconsistentes. Revise os valores antes de interpretar os resultados.<br><span style="font-size:12px;opacity:.8">${erros.join(' · ')}</span></div></div>`;
+}
+
+// ─── PDF / IMPRESSÃO ──────────────────────────────────────────────────────
+function gerarPDF(paginaId){
+  const pagina = g('page-'+paginaId);
+  if(!pagina) return;
+  const titulo = pagina.querySelector('.page-title')?.textContent||'Relatório';
+  const conteudo = pagina.innerHTML;
+  const pdfWin = window.open('','_blank');
+  pdfWin.document.write(`<!DOCTYPE html><html lang="pt-BR"><head>
+    <meta charset="UTF-8">
+    <title>Rodolfo Assunção — ${titulo}</title>
+    <style>
+      *{box-sizing:border-box;margin:0;padding:0;}
+      body{font-family:Arial,sans-serif;font-size:13px;color:#1e293b;background:#fff;padding:2rem;}
+      h1{font-size:1.4rem;color:#1e293b;margin-bottom:.5rem;font-weight:600;}
+      .page-tag{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#64748b;margin-bottom:.25rem;}
+      .page-desc{font-size:12px;color:#475569;margin-bottom:1.25rem;line-height:1.65;}
+      .answer{border:1px solid #cbd5e1;border-radius:8px;padding:1rem;margin-bottom:12px;background:#f8fafc;}
+      .answer.verde{border-color:#6ee7b7;background:#f0fdf4;}
+      .answer.amarelo{border-color:#fcd34d;background:#fffbeb;}
+      .answer.vermelho{border-color:#fca5a5;background:#fff1f2;}
+      .answer-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#64748b;margin-bottom:.25rem;}
+      .answer-text{font-size:1.1rem;font-weight:600;margin-bottom:.25rem;}
+      .answer.verde .answer-text{color:#059669;}
+      .answer.amarelo .answer-text{color:#b45309;}
+      .answer.vermelho .answer-text{color:#dc2626;}
+      .answer-sub{font-size:12px;color:#475569;line-height:1.6;}
+      .semaforo{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
+      .sem-item{border:1px solid #e2e8f0;border-radius:6px;padding:.75rem;background:#f8fafc;}
+      .sem-label{font-size:10px;color:#64748b;margin-bottom:2px;}
+      .sem-val{font-size:13px;font-weight:600;color:#1e293b;}
+      .rb{border:1px solid #e2e8f0;border-radius:8px;padding:1rem;margin-bottom:10px;background:#f8fafc;}
+      .rb-t{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#64748b;margin-bottom:.75rem;}
+      .rrow{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;font-size:12px;}
+      .rrow:last-child{border-bottom:none;}
+      .rn{color:#475569;}.rv{font-weight:600;color:#1e293b;}
+      .rv.g{color:#059669;}.rv.r{color:#dc2626;}.rv.w{color:#b45309;}
+      .score-panel{border:1px solid #e2e8f0;border-radius:8px;padding:1rem;margin-bottom:12px;background:#f8fafc;}
+      .sc-ind{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:500;border:1px solid #e2e8f0;margin:2px;}
+      .sc-ind.verde{background:#f0fdf4;border-color:#6ee7b7;color:#059669;}
+      .sc-ind.amarelo{background:#fffbeb;border-color:#fcd34d;color:#b45309;}
+      .sc-ind.vermelho{background:#fff1f2;border-color:#fca5a5;color:#dc2626;}
+      .atencao-box{border:1px solid #fca5a5;background:#fff1f2;border-radius:6px;padding:.75rem;margin-bottom:10px;font-size:12px;color:#dc2626;}
+      .bench-aviso,.val-alerta,.tecnica-toggle{display:none;}
+      .tecnica-body{display:block!important;}
+      .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+      .sec{border:1px solid #e2e8f0;border-radius:8px;padding:1rem;margin-bottom:10px;}
+      .sec-t{font-size:10px;text-transform:uppercase;color:#64748b;margin-bottom:.75rem;}
+      .lbl{font-size:11px;color:#64748b;display:block;margin-bottom:2px;}
+      .fi,.fs{width:100%;border:1px solid #cbd5e1;border-radius:4px;padding:5px 8px;font-size:12px;background:#f8fafc;}
+      .field{margin-bottom:8px;}
+      .hint{font-size:10px;color:#94a3b8;}
+      .disclaimer{border:1px solid #fcd34d;background:#fffbeb;border-radius:6px;padding:.75rem;margin-top:1rem;font-size:11px;color:#78350f;line-height:1.6;}
+      .pdf-btn{display:none;}
+      .nota{padding:8px;border-left:2px solid #cbd5e1;background:#f8fafc;font-size:11px;color:#475569;margin-top:8px;}
+      .nota.w{border-left-color:#fcd34d;background:#fffbeb;color:#b45309;}
+      header{border-bottom:2px solid #e2e8f0;padding-bottom:.75rem;margin-bottom:1.25rem;display:flex;justify-content:space-between;align-items:flex-end;}
+      .hdr-logo{font-size:1.2rem;font-weight:700;color:#1e293b;}
+      .hdr-data{font-size:11px;color:#64748b;}
+      footer{border-top:1px solid #e2e8f0;margin-top:1.5rem;padding-top:.75rem;font-size:10px;color:#94a3b8;text-align:center;}
+    </style>
+  </head><body>
+    <header>
+      <div class="hdr-logo">Check-up Empresarial · Rodolfo Assunção · CRC/SP 1SP353033/O-5</div>
+      <div class="hdr-data">Gerado em: ${new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}</div>
+    </header>
+    ${conteudo}
+    <div class="disclaimer">
+      ⚠️ <strong>Este relatório é uma simulação gerencial orientativa.</strong> Os resultados são estimativas baseadas nos dados informados e não constituem análise contábil, financeira ou tributária. Os benchmarks são referenciais de mercado. Consulte um contador para análise individualizada. Rodolfo Assunção — CRC/SP 1SP353033/O-5 — Limeira, SP.
+    </div>
+    <footer>Check-up Empresarial · Rodolfo Assunção · CRC/SP 1SP353033/O-5 · contato@solcontabil.com.br · Junho/2026</footer>
+  </body></html>`);
+  pdfWin.document.close();
+  setTimeout(()=>pdfWin.print(), 600);
+}
+
+function showPage(id, el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.slink').forEach(l=>l.classList.remove('active'));
+  g('page-'+id).classList.add('active');
+  if(el) el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function goHome(id){
+  const el = g('slink-'+id);
+  showPage(id, el);
+}
+
+function voltar(){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.slink').forEach(l=>l.classList.remove('active'));
+  g('page-home').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggleTecnica(id){
+  const btn=g('btn-tec-'+id), body=g('tec-'+id);
+  const open=body.classList.toggle('open');
+  btn.classList.toggle('open',open);
+  btn.querySelector('.arrow').textContent=open?'▲':'▼';
+}
+
+function toggleTooltip(id){
+  const box=g('tip-'+id);
+  if(box) box.classList.toggle('open');
+}
+
+const TOOLTIPS = {
+  cg:'Capital de giro é o dinheiro necessário para manter a operação funcionando até o recebimento das vendas. Quanto maior a diferença entre o que você recebe tarde e paga cedo, mais capital você precisa.',
+  cf:'Ciclo financeiro é o número de dias entre o pagamento ao fornecedor e o recebimento do cliente. Ciclo negativo significa que você recebe antes de pagar — situação ideal.',
+  ge:'Giro de estoque mede com que frequência você renova seu estoque em um período. Um giro baixo significa que os produtos ficam muito tempo parados, consumindo capital.',
+  pe:'Ponto de equilíbrio é o faturamento mínimo para que a empresa não opere no prejuízo. Abaixo dele, cada real vendido gera prejuízo.',
+  mc:'Margem de contribuição é o que sobra do preço de venda após subtrair todos os custos variáveis. É esse valor que cobre as despesas fixas e gera lucro.',
+  dre:'A DRE (Demonstração do Resultado) mostra o caminho da receita bruta até o lucro líquido, revelando onde o dinheiro está sendo consumido na operação.',
+  liq:'Liquidez mede a capacidade da empresa de pagar suas obrigações. Liquidez corrente acima de 1 significa que você tem mais ativos de curto prazo do que dívidas no mesmo prazo.',
+  rent:'Rentabilidade mede o retorno gerado em relação ao capital investido. ROE abaixo da taxa básica de juros pode indicar que o negócio não está compensando o risco assumido.'
+};
+
+// ─── 1. CAPITAL DE GIRO ──────────────────────────────────────────────────
+const CG_BENCH={ecom_mkt:[5,15],ecom_proprio:[15,30],varejo:[10,25],servicos:[-10,10],alimentacao:[5,10]};
+function calcCG(){
+  const fat=n('cg-fat'),cmvPct=n('cg-cmv')/100,pmr=n('cg-pmr'),pmp=n('cg-pmp'),est=n('cg-estoque');
+  const setor=g('cg-setor').value;
+  const erros=[];
+  if(fat<=0) erros.push('Faturamento deve ser maior que zero');
+  if(cmvPct>1) erros.push('CMV acima de 100%');
+  if(est<0) erros.push('Estoque não pode ser negativo');
+  const vendDia=fat/30,cmvMes=fat*cmvPct,compraDia=cmvMes/30;
+  const acoClientes=pmr*vendDia,pcoFornec=pmp*compraDia,ncg=acoClientes+est-pcoFornec;
+  const ncgPct=fat>0?(ncg/fat)*100:0;
+  const [bMin,bMax]=CG_BENCH[setor]||[5,20];
+  const semCls=ncg<=0?'verde':ncgPct<=bMax?'verde':'amarelo';
+  setScore('caixa',ncg<=0?'verde':ncgPct<=bMax?'verde':ncgPct<=bMax*1.5?'amarelo':'vermelho');
+  g('cg-result').innerHTML=`${validar(erros)}
+    <div class="answer ${semCls}">
+      <div class="answer-label">Necessidade de capital de giro</div>
+      <div class="answer-text">${ncg>0?`Mantenha pelo menos ${fmt(ncg)} disponíveis em caixa.`:'Sua empresa não precisa de capital de giro adicional.'}</div>
+      <div class="answer-sub">${ncg>0?`Se o caixa cair abaixo de ${fmt(ncg)}, você começa a atrasar pagamentos.`:'Você recebe antes de precisar pagar — situação favorável.'}</div>
+    </div>
+    <div class="semaforo">
+      <div class="sem-item"><div class="sem-icon">${semCls==='verde'?'🟢':'🟡'}</div><div class="sem-label">Situação</div><div class="sem-val">${ncg<=0?'Favorável':ncgPct<=bMax?'Dentro do padrão':'Acima do esperado'}</div></div>
+      <div class="sem-item"><div class="sem-icon">📊</div><div class="sem-label">NCG / Faturamento</div><div class="sem-val">${pct(ncgPct)}</div></div>
+      <div class="sem-item"><div class="sem-icon">🎯</div><div class="sem-label">Benchmark do setor</div><div class="sem-val">${bMin}%–${bMax}%</div></div>
+    </div>
+    ${scorePanelHTML()}
+    <button class="tecnica-toggle" id="btn-tec-cg" onclick="toggleTecnica('cg')">Ver análise técnica <span class="arrow">▼</span></button>
+    <div class="tecnica-body" id="tec-cg">
+      <div class="rb"><div class="rb-t">NCG = ACO − PCO</div>
+        <div class="rrow"><span class="rn">Clientes (PMR × vendas/dia)</span><span class="rv">${fmt(acoClientes)}</span></div>
+        <div class="rrow"><span class="rn">Estoque médio</span><span class="rv">${fmt(est)}</span></div>
+        <div class="rrow"><span class="rn">Ativo Circulante Operacional</span><span class="rv i">${fmt(acoClientes+est)}</span></div>
+        <div class="rrow"><span class="rn">Fornecedores (PMP × compras/dia)</span><span class="rv">${fmt(pcoFornec)}</span></div>
+        <div class="rrow total"><span class="rn b">NCG</span><span class="rv big ${ncg>0?'w':'g'}">${fmt(ncg)}</span></div>
+      </div>${BENCH_AVISO}
+    </div>
+    <button class="pdf-btn" onclick="gerarPDF('cg')">📄 Baixar relatório em PDF</button>`;
+}
+
+// ─── 2. CICLO FINANCEIRO ─────────────────────────────────────────────────
+function calcCF(){
+  const pme=n('cf-pme'),pmr=n('cf-pmr'),pmp=n('cf-pmp'),fat=n('cf-fat'),cmvPct=n('cf-cmv')/100;
+  const erros=[];
+  if(fat<=0) erros.push('Faturamento deve ser maior que zero');
+  const co=pme+pmr,cf=co-pmp;
+  const capitalPreso=Math.max(0,cf*(fat*cmvPct/30));
+  const semCls=cf<0?'verde':cf<=15?'verde':cf<=30?'amarelo':'vermelho';
+  setScore('ciclo',semCls);
+  const msg=cf<0?`Você recebe ${Math.abs(cf)} dias antes de precisar pagar. Situação favorável.`:cf<=15?`${cf} dias é um ciclo saudável.`:cf<=30?`${cf} dias — monitore o prazo de estoque e de recebimento.`:`${cf} dias é um ciclo longo. Mais capital fica preso na operação.`;
+  g('cf-result').innerHTML=`${validar(erros)}
+    <div class="answer ${semCls}">
+      <div class="answer-label">Ciclo financeiro</div>
+      <div class="answer-text">${cf>0?`Você leva ${cf} dias para recuperar o dinheiro investido.`:`Você tem ${Math.abs(cf)} dias de vantagem — recebe antes de pagar.`}</div>
+      <div class="answer-sub">${msg}</div>
+    </div>
+    <div class="semaforo">
+      <div class="sem-item"><div class="sem-icon">${cf<=15?'🟢':cf<=30?'🟡':'🔴'}</div><div class="sem-label">Ciclo financeiro</div><div class="sem-val">${cf} dias</div></div>
+      <div class="sem-item"><div class="sem-icon">🔄</div><div class="sem-label">Ciclo operacional</div><div class="sem-val">${co} dias</div></div>
+      <div class="sem-item"><div class="sem-icon">💸</div><div class="sem-label">Capital preso est.</div><div class="sem-val">${fmt(capitalPreso)}</div></div>
+    </div>
+    ${scorePanelHTML()}
+    <button class="tecnica-toggle" id="btn-tec-cf" onclick="toggleTecnica('cf')">Ver análise técnica <span class="arrow">▼</span></button>
+    <div class="tecnica-body" id="tec-cf">
+      <div class="rb"><div class="rb-t">CF = PME + PMR − PMP</div>
+        <div class="rrow"><span class="rn">Prazo médio de estoque (PME)</span><span class="rv">${pme} dias</span></div>
+        <div class="rrow"><span class="rn">Prazo médio de recebimento (PMR)</span><span class="rv">${pmr} dias</span></div>
+        <div class="rrow"><span class="rn">Ciclo Operacional (CO)</span><span class="rv i">${co} dias</span></div>
+        <div class="rrow"><span class="rn">Prazo médio de pagamento (PMP)</span><span class="rv">${pmp} dias</span></div>
+        <div class="rrow total"><span class="rn b">Ciclo Financeiro</span><span class="rv big ${cf<=0?'g':cf<=30?'w':'r'}">${cf} dias</span></div>
+      </div>
+    </div>
+    <button class="pdf-btn" onclick="gerarPDF('cf')">📄 Baixar relatório em PDF</button>`;
+}
+
+// ─── 3. GIRO DE ESTOQUE ──────────────────────────────────────────────────
+const GE_BENCH={ecom_elet:[30,45],ecom_moda:[45,90],varejo_super:[15,25],varejo_moda:[60,120],alimentacao:[3,7],farmacia:[45,60]};
+const GE_NOMES={ecom_elet:'E-commerce eletrônicos',ecom_moda:'E-commerce moda',varejo_super:'Supermercado',varejo_moda:'Varejo moda',alimentacao:'Restaurante',farmacia:'Farmácia'};
+function calcGE(){
+  const cmv=n('ge-cmv'),est=n('ge-est'),setor=g('ge-setor').value;
+  const erros=[];
+  if(est<0) erros.push('Estoque não pode ser negativo');
+  if(cmv<0) erros.push('CMV não pode ser negativo');
+  if(est<=0){g('ge-result').innerHTML=validar(['Informe o estoque médio para calcular.']);return;}
+  const giroMes=cmv/est,giroAno=giroMes*12;
+  const diasEst=cmv>0?Math.round(est/(cmv/30)):0;
+  const [bMin,bMax]=GE_BENCH[setor]||[30,60];
+  const semCls=diasEst<=bMin?'verde':diasEst<=bMax?'amarelo':'vermelho';
+  setScore('estoque',semCls);
+  g('ge-result').innerHTML=`${validar(erros)}
+    <div class="answer ${semCls}">
+      <div class="answer-label">Giro de estoque</div>
+      <div class="answer-text">Seus produtos ficam em média ${diasEst} dias no estoque antes de vender.</div>
+      <div class="answer-sub">${diasEst<=bMin?'Excelente — seu capital não fica parado.':diasEst<=bMax?`Dentro do esperado para ${GE_NOMES[setor]} (${bMin}–${bMax} dias).`:`Acima do esperado para ${GE_NOMES[setor]} (${bMin}–${bMax} dias).`}</div>
+    </div>
+    <div class="semaforo">
+      <div class="sem-item"><div class="sem-icon">${semCls==='verde'?'🟢':semCls==='amarelo'?'🟡':'🔴'}</div><div class="sem-label">Situação</div><div class="sem-val">${diasEst<=bMin?'Excelente':diasEst<=bMax?'Adequado':'Estoque lento'}</div></div>
+      <div class="sem-item"><div class="sem-icon">🔁</div><div class="sem-label">Giro anual</div><div class="sem-val">${giroAno.toFixed(1)}x/ano</div></div>
+      <div class="sem-item"><div class="sem-icon">💰</div><div class="sem-label">Capital imobilizado</div><div class="sem-val">${fmt(est)}</div></div>
+    </div>
+    ${scorePanelHTML()}
+    <button class="tecnica-toggle" id="btn-tec-ge" onclick="toggleTecnica('ge')">Ver análise técnica <span class="arrow">▼</span></button>
+    <div class="tecnica-body" id="tec-ge">
+      <div class="rb"><div class="rb-t">Giro = CMV ÷ Estoque médio</div>
+        <div class="rrow"><span class="rn">CMV mensal</span><span class="rv">${fmt(cmv)}</span></div>
+        <div class="rrow"><span class="rn">Estoque médio</span><span class="rv">${fmt(est)}</span></div>
+        <div class="rrow"><span class="rn">Giro mensal</span><span class="rv">${giroMes.toFixed(2)}x</span></div>
+        <div class="rrow"><span class="rn">Dias em estoque</span><span class="rv ${diasEst<=bMax?'g':'r'}">${diasEst} dias</span></div>
+        <div class="rrow"><span class="rn">Benchmark ${GE_NOMES[setor]}</span><span class="rv">${bMin}–${bMax} dias</span></div>
+      </div>${BENCH_AVISO}
+    </div>
+    <button class="pdf-btn" onclick="gerarPDF('ge')">📄 Baixar relatório em PDF</button>`;
+}
+
+// ─── 4. PONTO DE EQUILÍBRIO ──────────────────────────────────────────────
+function calcPE(){
+  const cf=n('pe-cf'),mc=n('pe-mc')/100,dep=n('pe-dep'),amort=n('pe-amort'),lucro=n('pe-lucro');
+  const erros=[];
+  if(mc<=0){
+    scoreState.pe=null;
+    g('pe-result').innerHTML=`<div class="answer vermelho">
+      <div class="answer-label">Cálculo impossível</div>
+      <div class="answer-text">Margem de contribuição zero ou negativa — ponto de equilíbrio inalcançável.</div>
+      <div class="answer-sub">Com margem igual ou abaixo de zero, cada venda realizada acumula prejuízo. Não existe nível de faturamento capaz de cobrir os custos fixos. Revise o preço de venda ou os custos variáveis do produto antes de continuar.</div>
+    </div>`;
+    return;
+  }
+  if(mc>1) erros.push('Margem de contribuição acima de 100% é inconsistente');
+  if(cf<0) erros.push('Custos fixos não podem ser negativos');
+  const peCont=cf/mc,peFin=(cf-dep+amort)/mc,peEcon=(cf+lucro)/mc;
+  const semCls=peFin<0?'verde':peCont>0?'amarelo':'verde';
+  setScore('pe',peCont<=0?'verde':peCont>0?'amarelo':'vermelho');
+  g('pe-result').innerHTML=`${validar(erros)}
+    <div class="answer amarelo">
+      <div class="answer-label">Faturamento mínimo mensal</div>
+      <div class="answer-text">Abaixo de ${fmt(peCont)}/mês sua empresa opera no prejuízo.</div>
+      <div class="answer-sub">Para se remunerar com ${fmt(lucro)}/mês, você precisa faturar pelo menos ${fmt(peEcon)}/mês.</div>
+    </div>
+    <div class="semaforo">
+      <div class="sem-item"><div class="sem-icon">⚖️</div><div class="sem-label">PE Mínimo (contábil)</div><div class="sem-val">${fmt(peCont)}</div></div>
+      <div class="sem-item"><div class="sem-icon">💳</div><div class="sem-label">PE Caixa (financeiro)</div><div class="sem-val">${fmt(peFin)}</div></div>
+      <div class="sem-item"><div class="sem-icon">🎯</div><div class="sem-label">PE com sua retirada</div><div class="sem-val">${fmt(peEcon)}</div></div>
+    </div>
+    ${scorePanelHTML()}
+    <button class="tecnica-toggle" id="btn-tec-pe" onclick="toggleTecnica('pe')">Ver análise técnica <span class="arrow">▼</span></button>
+    <div class="tecnica-body" id="tec-pe">
+      <div class="rb"><div class="rb-t">Os três pontos de equilíbrio</div>
+        <div class="rrow"><span class="rn">Custos fixos mensais</span><span class="rv">${fmt(cf)}</span></div>
+        <div class="rrow"><span class="rn">Margem de contribuição</span><span class="rv">${pct(mc*100)}</span></div>
+        <div class="rrow"><span class="rn b">PE Contábil (CF ÷ MC%)</span><span class="rv i">${fmt(peCont)}</span></div>
+        <div style="font-size:11px;color:var(--text3);padding:2px 0 8px">Cobre os custos fixos. Abaixo disso: prejuízo contábil.</div>
+        <div class="rrow"><span class="rn b">PE Financeiro ((CF − Dep + Parcelas) ÷ MC%)</span><span class="rv i">${fmt(peFin)}</span></div>
+        <div style="font-size:11px;color:var(--text3);padding:2px 0 8px">Exclui depreciação (não é caixa), inclui parcelas de empréstimos (são caixa real).</div>
+        <div class="rrow"><span class="rn b">PE Econômico ((CF + Retirada) ÷ MC%)</span><span class="rv i">${fmt(peEcon)}</span></div>
+        <div style="font-size:11px;color:var(--text3);padding:2px 0 6px">Inclui remuneração do empreendedor. Meta mínima de faturamento.</div>
+      </div>
+    </div>
+    <button class="pdf-btn" onclick="gerarPDF('pe')">📄 Baixar relatório em PDF</button>`;
+}
+
+// ─── 5. MARGEM DE CONTRIBUIÇÃO ────────────────────────────────────────────
+function syncComissao(){
+  const canal=g('mc-canal').value,custom=g('mc-custom-field');
+  if(canal==='custom'){custom.style.display='block';g('mc-comissao').value=n('mc-comissao-custom');}
+  else{custom.style.display='none';g('mc-comissao').value=(parseFloat(canal)*100).toFixed(0);}
+  calcMC();
+}
+function calcMC(){
+  const preco=n('mc-preco'),custo=n('mc-custo');
+  const comissaoPct=n('mc-comissao')/100;
+  const frete=n('mc-frete'),emb=n('mc-embalagem'),impostoPct=n('mc-imposto')/100;
+  const erros=[];
+  if(preco<=0) erros.push('Preço de venda deve ser maior que zero');
+  if(custo>preco) erros.push('Custo do produto maior que o preço de venda');
+  const comissaoR=preco*comissaoPct,impostoR=preco*impostoPct;
+  const cvTotal=custo+comissaoR+frete+emb+impostoR;
+  const mc=preco-cvTotal,mcPct=preco>0?(mc/preco)*100:0;
+  const semCls=mcPct>=30?'verde':mcPct>=15?'amarelo':'vermelho';
+  setScore('margem',semCls);
+  const txt=mcPct>=30?`De cada ${fmt(preco)} vendidos, sobram ${fmt(mc)} para pagar despesas fixas e gerar lucro.`:mcPct>=15?`Margem de ${pct(mcPct)} é baixa. Pequenas variações podem zerar o lucro.`:mcPct>0?`Margem de ${pct(mcPct)} é muito baixa. Revise os custos ou o preço.`:'Este produto está sendo vendido abaixo do custo variável.';
+  g('mc-result').innerHTML=`${validar(erros)}
+    <div class="answer ${semCls}">
+      <div class="answer-label">Margem de contribuição</div>
+      <div class="answer-text">De cada ${fmt(preco)} vendidos, sobram ${mc>0?fmt(mc)+' ('+pct(mcPct)+')':'nada'}.</div>
+      <div class="answer-sub">${txt}</div>
+    </div>
+    <div class="semaforo">
+      <div class="sem-item"><div class="sem-icon">${semCls==='verde'?'🟢':semCls==='amarelo'?'🟡':'🔴'}</div><div class="sem-label">Situação</div><div class="sem-val">${mcPct>=30?'Saudável':mcPct>=15?'Apertada':'Crítica'}</div></div>
+      <div class="sem-item"><div class="sem-icon">💰</div><div class="sem-label">MC unitária</div><div class="sem-val">${fmt(mc)}</div></div>
+      <div class="sem-item"><div class="sem-icon">📊</div><div class="sem-label">MC%</div><div class="sem-val">${pct(mcPct)}</div></div>
+    </div>
+    ${scorePanelHTML()}
+    <button class="tecnica-toggle" id="btn-tec-mc" onclick="toggleTecnica('mc')">Ver decomposição dos custos <span class="arrow">▼</span></button>
+    <div class="tecnica-body" id="tec-mc">
+      <div class="rb"><div class="rb-t">Preço − Custos variáveis = MC</div>
+        <div class="rrow"><span class="rn">Preço de venda</span><span class="rv">${fmt(preco)}</span></div>
+        <div class="rrow"><span class="rn">(−) Custo do produto</span><span class="rv r">−${fmt(custo)} (${pct(preco>0?custo/preco*100:0)})</span></div>
+        <div class="rrow"><span class="rn">(−) Comissão marketplace (${pct(comissaoPct*100)})</span><span class="rv r">−${fmt(comissaoR)}</span></div>
+        <div class="rrow"><span class="rn">(−) Frete</span><span class="rv r">−${fmt(frete)}</span></div>
+        <div class="rrow"><span class="rn">(−) Embalagem</span><span class="rv r">−${fmt(emb)}</span></div>
+        <div class="rrow"><span class="rn">(−) Imposto sobre venda (${pct(impostoPct*100)})</span><span class="rv r">−${fmt(impostoR)}</span></div>
+        <div class="rrow total"><span class="rn b">Margem de contribuição</span><span class="rv big ${mcPct>=30?'g':mcPct>=15?'w':'r'}">${fmt(mc)}</span></div>
+        <div class="rrow"><span class="rn">MC%</span><span class="rv ${mcPct>=30?'g':mcPct>=15?'w':'r'}">${pct(mcPct)}</span></div>
+      </div>
+    </div>
+    <button class="pdf-btn" onclick="gerarPDF('mc')">📄 Baixar relatório em PDF</button>`;
+}
+
+// ─── 6. DRE GERENCIAL ────────────────────────────────────────────────────
+function calcDRE(){
+  const rb=n('dre-rb'),dev=n('dre-dev'),imp=n('dre-imp');
+  const rl=rb-dev-imp,cmv=n('dre-cmv'),lb=rl-cmv;
+  const pessoal=n('dre-pessoal'),alug=n('dre-aluguel'),mkt=n('dre-mkt'),outros=n('dre-outros');
+  const dep=n('dre-dep'),fin=n('dre-fin'),ircs=n('dre-ircs');
+  const erros=[];
+  if(rb<=0) erros.push('Receita bruta deve ser maior que zero');
+  if(rl<0) erros.push('Receita líquida negativa — verifique deduções e impostos sobre receita');
+  if(cmv>rl&&rl>0) erros.push('CMV maior que a receita líquida — verifique os valores');
+  const ebitda=lb-(pessoal+alug+mkt+outros);
+  const ebit=ebitda-dep,lair=ebit+fin,ll=lair-ircs;
+  const mBruta=rl>0?(lb/rl)*100:0,mEbitda=rb>0?(ebitda/rb)*100:0,mLiq=rb>0?(ll/rb)*100:0;
+  const semCls=ll>0&&mLiq>=5?'verde':ll>0?'amarelo':'vermelho';
+  setScore('lucro',semCls);
+  g('dre-result').innerHTML=`${validar(erros)}
+    <div class="answer ${semCls}">
+      <div class="answer-label">Resultado do período</div>
+      <div class="answer-text">${ll>=0?`Sua empresa gerou ${fmt(ll)} de lucro líquido este mês.`:`Sua empresa teve prejuízo de ${fmt(Math.abs(ll))} este mês.`}</div>
+      <div class="answer-sub">${ll>=0?`De cada R$ 100 vendidos, ${pct(mLiq)} ficam como lucro.`:`Principal consumo: ${pessoal>cmv&&pessoal>alug?'Pessoal ('+fmt(pessoal)+')':cmv>alug?'CMV ('+fmt(cmv)+')':'Aluguel/ocupação ('+fmt(alug)+')'}.`}</div>
+    </div>
+    <div class="semaforo">
+      <div class="sem-item"><div class="sem-icon">${semCls==='verde'?'🟢':semCls==='amarelo'?'🟡':'🔴'}</div><div class="sem-label">Lucro líquido</div><div class="sem-val">${fmt(ll)}</div></div>
+      <div class="sem-item"><div class="sem-icon">${ebitda>=0?'🟢':'🔴'}</div><div class="sem-label">Lucro antes dos efeitos financeiros</div><div class="sem-val">${fmt(ebitda)}</div></div>
+      <div class="sem-item"><div class="sem-icon">${mBruta>=40?'🟢':mBruta>=20?'🟡':'🔴'}</div><div class="sem-label">Margem bruta</div><div class="sem-val">${pct(mBruta)}</div></div>
+    </div>
+    ${scorePanelHTML()}
+    <button class="tecnica-toggle" id="btn-tec-dre" onclick="toggleTecnica('dre')">Ver DRE completa <span class="arrow">▼</span></button>
+    <div class="tecnica-body" id="tec-dre">
+      <div class="rb"><div class="rb-t">DRE Gerencial — linha a linha</div>
+        <div class="rrow"><span class="rn b">Receita Bruta</span><span class="rv">${fmt(rb)}</span></div>
+        <div class="rrow"><span class="rn">(−) Devoluções e descontos</span><span class="rv r">−${fmt(dev)}</span></div>
+        <div class="rrow"><span class="rn">(−) Impostos sobre receita</span><span class="rv r">−${fmt(imp)}</span></div>
+        <div class="rrow"><span class="rn b">= Receita Líquida</span><span class="rv i">${fmt(rl)}</span></div>
+        <div class="rrow"><span class="rn">(−) CMV</span><span class="rv r">−${fmt(cmv)}</span></div>
+        <div class="rrow"><span class="rn b">= Lucro Bruto</span><span class="rv ${lb>=0?'g':'r'}">${fmt(lb)} — MB: ${pct(mBruta)}</span></div>
+        <div class="rrow"><span class="rn">(−) Pessoal</span><span class="rv r">−${fmt(pessoal)}</span></div>
+        <div class="rrow"><span class="rn">(−) Aluguel</span><span class="rv r">−${fmt(alug)}</span></div>
+        <div class="rrow"><span class="rn">(−) Marketing</span><span class="rv r">−${fmt(mkt)}</span></div>
+        <div class="rrow"><span class="rn">(−) Outras despesas</span><span class="rv r">−${fmt(outros)}</span></div>
+        <div class="rrow"><span class="rn b">= EBITDA</span><span class="rv ${ebitda>=0?'g':'r'}">${fmt(ebitda)} — ${pct(mEbitda)}</span></div>
+        <div class="rrow"><span class="rn">(−) Depreciação e amortização</span><span class="rv r">−${fmt(dep)}</span></div>
+        <div class="rrow"><span class="rn b">= EBIT</span><span class="rv ${ebit>=0?'g':'r'}">${fmt(ebit)}</span></div>
+        <div class="rrow"><span class="rn">Resultado financeiro (juros)</span><span class="rv ${fin>=0?'g':'r'}">${fmt(fin)}</span></div>
+        <div class="rrow"><span class="rn b">= Resultado antes dos impostos s/ lucro</span><span class="rv">${fmt(lair)}</span></div>
+        <div class="rrow"><span class="rn">(−) IR e CSLL (informado)</span><span class="rv r">−${fmt(ircs)}</span></div>
+        <div class="rrow total"><span class="rn b">= Lucro Líquido</span><span class="rv big ${ll>=0?'g':'r'}">${fmt(ll)}</span></div>
+      </div>
+      <div class="nota w" style="margin-top:8px">IR/CSLL varia conforme o regime tributário. O valor correto deve ser calculado pelo seu contador.</div>
+    </div>
+    <button class="pdf-btn" onclick="gerarPDF('dre')">📄 Baixar relatório em PDF</button>`;
+}
+
+// ─── 7. LIQUIDEZ ─────────────────────────────────────────────────────────
+function calcLIQ(){
+  const caixa=n('liq-caixa'),receber=n('liq-receber'),est=n('liq-estoque'),outAC=n('liq-outros-ac'),rlp=n('liq-rlp');
+  const cp=n('liq-cp'),elp=n('liq-elp');
+  const erros=[];
+  if(cp<0) erros.push('Passivo circulante não pode ser negativo');
+  if(est<0) erros.push('Estoque não pode ser negativo');
+  if(caixa<0) erros.push('Caixa não pode ser negativo');
+  const ac=caixa+receber+est+outAC;
+  const lc=cp>0?ac/cp:0,ls=cp>0?(ac-est)/cp:0,li=cp>0?caixa/cp:0,lg=cp+elp>0?(ac+rlp)/(cp+elp):0;
+  const semCls=lc>=1.5?'verde':lc>=1.0?'amarelo':'vermelho';
+  setScore('liquidez',semCls);
+  g('liq-result').innerHTML=`${validar(erros)}
+    <div class="answer ${semCls}">
+      <div class="answer-label">Capacidade de pagamento</div>
+      <div class="answer-text">${lc>=1?`Para cada R$ 1 que vence, você tem R$ ${lc.toFixed(2)} disponíveis.`:`Para cada R$ 1 que vence, você tem apenas R$ ${lc.toFixed(2)}.`}</div>
+      <div class="answer-sub">${lc>=1.5?'Situação financeira saudável.':lc>=1.0?'Situação adequada, mas sem muita folga.':'Risco de não conseguir pagar as contas em dia.'}</div>
+    </div>
+    <div class="semaforo">
+      <div class="sem-item"><div class="sem-icon">${lc>=1.5?'🟢':lc>=1.0?'🟡':'🔴'}</div><div class="sem-label">Folga financeira geral</div><div class="sem-val">${lc.toFixed(2)}</div></div>
+      <div class="sem-item"><div class="sem-icon">${ls>=1?'🟢':ls>=0.8?'🟡':'🔴'}</div><div class="sem-label">Sem contar o estoque</div><div class="sem-val">${ls.toFixed(2)}</div></div>
+      <div class="sem-item"><div class="sem-icon">${li>=0.3?'🟢':li>=0.15?'🟡':'🔴'}</div><div class="sem-label">Só caixa disponível</div><div class="sem-val">${li.toFixed(2)}</div></div>
+      <div class="sem-item"><div class="sem-icon">${lg>=1?'🟢':lg>=0.8?'🟡':'🔴'}</div><div class="sem-label">Visão longo prazo</div><div class="sem-val">${lg.toFixed(2)}</div></div>
+    </div>
+    ${scorePanelHTML()}
+    <button class="tecnica-toggle" id="btn-tec-liq" onclick="toggleTecnica('liq')">Ver análise técnica <span class="arrow">▼</span></button>
+    <div class="tecnica-body" id="tec-liq">
+      <div class="rb"><div class="rb-t">Índices de liquidez</div>
+        <div class="rrow"><span class="rn b">Liquidez Corrente (AC ÷ PC)</span><span class="rv ${lc>=1.5?'g':lc>=1.0?'w':'r'}">${lc.toFixed(2)} ${lc>=1.5?'✅ Excelente':lc>=1.0?'⚠️ Adequado':'❌ Atenção'}</span></div>
+        <div class="rrow"><span class="rn b">Liquidez Seca ((AC − Est) ÷ PC)</span><span class="rv ${ls>=1?'g':ls>=0.8?'w':'r'}">${ls.toFixed(2)} ${ls>=1?'✅':ls>=0.8?'⚠️':'❌'}</span></div>
+        <div class="rrow"><span class="rn b">Liquidez Imediata (Caixa ÷ PC)</span><span class="rv ${li>=0.3?'g':li>=0.15?'w':'r'}">${li.toFixed(2)} ${li>=0.3?'✅':li>=0.15?'⚠️':'❌'}</span></div>
+        <div class="rrow"><span class="rn b">Liquidez Geral ((AC+RLP) ÷ (PC+ELP))</span><span class="rv ${lg>=1?'g':lg>=0.8?'w':'r'}">${lg.toFixed(2)} ${lg>=1?'✅':lg>=0.8?'⚠️':'❌'}</span></div>
+      </div>
+      <div class="nota" style="margin-top:8px">Liquidez Corrente abaixo de 1 pode ser aceitável em negócios com giro rápido (supermercado, restaurante).</div>
+      ${BENCH_AVISO}
+    </div>
+    <button class="pdf-btn" onclick="gerarPDF('liq')">📄 Baixar relatório em PDF</button>`;
+}
+
+// ─── 8. RENTABILIDADE ────────────────────────────────────────────────────
+const RENT_BENCH={
+  ecom:{roe:[12,25],roa:[5,12],nome:'E-commerce'},
+  varejo:{roe:[10,20],roa:[4,10],nome:'Varejo'},
+  servicos:{roe:[20,40],roa:[12,25],nome:'Serviços'},
+  alimentacao:{roe:[15,30],roa:[8,18],nome:'Alimentação'}
+};
+function calcRENT(){
+  const ll=n('rent-ll'),ebit=n('rent-ebit'),rec=n('rent-rec');
+  const ativo=n('rent-ativo'),pl=n('rent-pl'),passivo=n('rent-passivo'),elp=n('rent-elp');
+  const setor=g('rent-setor').value,B=RENT_BENCH[setor];
+  const erros=[];
+  if(ativo<=0) erros.push('Ativo total deve ser maior que zero');
+  if(passivo<0) erros.push('Passivo não pode ser negativo');
+
+  // Fix 2: PL <= 0 — Passivo a Descoberto
+  const plDescoberto = pl<=0;
+  const roe = plDescoberto ? null : (ll/pl)*100;
+  const roa = ativo>0?(ll/ativo)*100:0;
+  const capEmpregado = Math.max(pl,1)+elp;
+  const roce = capEmpregado>0?(ebit/capEmpregado)*100:0;
+  const giroAtivo = ativo>0?rec/ativo:0;
+  const endivid = plDescoberto ? null : (passivo/pl)*100;
+  const mLiq = rec>0?(ll/rec)*100:0;
+  const [roeBom,roeExc]=B.roe,[roaBom,roaExc]=B.roa;
+
+  const semCls = plDescoberto?'vermelho':roe>=roeExc?'verde':roe>=roeBom?'amarelo':'vermelho';
+  setScore('retorno',semCls);
+  const semEnd = plDescoberto
+    ?{icon:'🔴',label:'Passivo a Descoberto'}
+    :endivid<=50?{icon:'🟢',label:'Baixo'}:endivid<=100?{icon:'🟡',label:'Moderado'}:{icon:'🔴',label:'Alto'};
+
+  const roeDisplay = plDescoberto
+    ? '<div class="sem-item"><div class="sem-icon">🔴</div><div class="sem-label">Retorno do dinheiro investido</div><div class="sem-val" style="color:var(--red)">Ocultado</div></div>'
+    : `<div class="sem-item"><div class="sem-icon">${roe>=roeExc?'🟢':roe>=roeBom?'🟡':'🔴'}</div><div class="sem-label">Retorno do dinheiro investido</div><div class="sem-val">${roe.toFixed(1)}%/ano</div></div>`;
+
+  const plAlerta = plDescoberto
+    ? `<div class="nota r" style="margin-bottom:12px;">⚠️ <strong>Passivo a Descoberto detectado.</strong> O Patrimônio Líquido zero ou negativo indica que as dívidas da empresa superam todos os seus bens. O ROE foi ocultado para não gerar uma leitura enganosa. Esta situação requer análise contábil imediata.</div>`
+    : '';
+
+  g('rent-result').innerHTML=`${validar(erros)}${plAlerta}
+    <div class="answer ${semCls}">
+      <div class="answer-label">Retorno sobre o investimento</div>
+      <div class="answer-text">${plDescoberto?'Análise de retorno comprometida — Passivo a Descoberto.':`Seu capital está rendendo ${roe.toFixed(1)}% ao ano dentro da empresa.`}</div>
+      <div class="answer-sub">${plDescoberto?'O PL negativo impede o cálculo do ROE. Verifique os dados informados.':roe>=roeExc?`Excelente para ${B.nome}.`:roe>=roeBom?`Retorno adequado para ${B.nome}.`:`Retorno abaixo do esperado para ${B.nome} (${roeBom}%–${roeExc}%).`}</div>
+    </div>
+    <div class="semaforo">
+      ${roeDisplay}
+      <div class="sem-item"><div class="sem-icon">${roa>=roaExc?'🟢':roa>=roaBom?'🟡':'🔴'}</div><div class="sem-label">Retorno sobre os bens da empresa</div><div class="sem-val">${roa.toFixed(1)}%/ano</div></div>
+      <div class="sem-item"><div class="sem-icon">${semEnd.icon}</div><div class="sem-label">Dívida em relação ao capital próprio</div><div class="sem-val">${plDescoberto?'—':endivid.toFixed(0)+'% — '+semEnd.label}</div></div>
+      <div class="sem-item"><div class="sem-icon">${mLiq>=5?'🟢':mLiq>=2?'🟡':'🔴'}</div><div class="sem-label">Margem líquida</div><div class="sem-val">${pct(mLiq)}</div></div>
+    </div>
+    ${scorePanelHTML()}
+    <button class="tecnica-toggle" id="btn-tec-rent" onclick="toggleTecnica('rent')">Ver análise técnica <span class="arrow">▼</span></button>
+    <div class="tecnica-body" id="tec-rent">
+      <div class="rb"><div class="rb-t">Índices — benchmark ${B.nome}</div>
+        <div class="rrow"><span class="rn b">ROE — Retorno sobre Patrimônio</span><span class="rv">${plDescoberto?'<span style="color:var(--red)">Ocultado — PL ≤ 0</span>':roe.toFixed(1)+'% (alvo: '+roeBom+'%–'+roeExc+'%)'}</span></div>
+        <div class="rrow"><span class="rn b">ROA — Retorno sobre Ativo Total</span><span class="rv ${roa>=roaExc?'g':roa>=roaBom?'w':'r'}">${roa.toFixed(1)}% (alvo: ${roaBom}%–${roaExc}%)</span></div>
+        <div class="rrow"><span class="rn b">ROCE — Retorno sobre Capital Empregado</span><span class="rv ${roce>=15?'g':roce>=8?'w':'r'}">${roce.toFixed(1)}%</span></div>
+        <div class="rrow"><span class="rn b">Giro do Ativo</span><span class="rv ${giroAtivo>=1.5?'g':giroAtivo>=0.8?'w':'r'}">${giroAtivo.toFixed(2)}x</span></div>
+        <div class="rrow"><span class="rn b">Endividamento (Passivo ÷ PL)</span><span class="rv">${plDescoberto?'<span style="color:var(--red)">Passivo a Descoberto</span>':endivid.toFixed(0)+'%'}</span></div>
+      </div>${BENCH_AVISO}
+    </div>
+    <button class="pdf-btn" onclick="gerarPDF('rent')">📄 Baixar relatório em PDF</button>`;
+}
+
+// INIT
+calcCG(); calcCF(); calcGE(); calcPE(); calcMC(); calcDRE(); calcLIQ(); calcRENT();
+</script>
+</body>
+</html>

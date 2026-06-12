@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora DAS — Simples Nacional 2026 — Rodolfo Assunção</title>
+<meta name="description" content="Calcule o DAS do Simples Nacional com a composição exata por tributo. Anexos I a V, alíquota efetiva e alerta de mudança de faixa. Dados 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F172A;--bg2:#111827;--bg3:#1E2937;--bg4:#263244;
+  --border:rgba(51,65,85,0.5);--border2:#334155;
+  --text:#F8FAFC;--text2:#CBD5E1;--text3:#94A3B8;
+  --indigo:#4F46E5;--indigo-l:#818CF8;
+  --indigo-d:rgba(79,70,229,0.1);--indigo-b:rgba(79,70,229,0.25);
+  --em:#10B981;--em2:#059669;--em-l:#34D399;
+  --em-d:rgba(16,185,129,0.1);--em-b:rgba(16,185,129,0.25);
+  --amber:#FBBF24;--amber-d:rgba(251,191,36,0.1);--amber-b:rgba(251,191,36,0.3);
+  --red:#F87171;--red-d:rgba(248,113,113,0.1);--red-b:rgba(248,113,113,0.3);
+  --gold:#F59E0B;--gold-d:rgba(245,158,11,0.08);--gold-b:rgba(245,158,11,0.25);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.7;min-height:100vh;}
+nav{position:sticky;top:0;z-index:100;background:rgba(15,23,42,0.95);backdrop-filter:blur(16px);border-bottom:.5px solid var(--border);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);text-decoration:none;}
+.nav-logo span{color:var(--indigo-l);}
+.nav-back{font-size:13px;color:var(--text2);text-decoration:none;}
+.wrap{max-width:900px;margin:0 auto;padding:2rem 2rem 4rem;}
+.page-tag{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:.5rem;}
+.page-title{font-family:'DM Serif Display',serif;font-size:clamp(1.4rem,3vw,1.9rem);color:var(--text);line-height:1.2;margin-bottom:.5rem;}
+.page-desc{font-size:13px;color:var(--text2);line-height:1.75;margin-bottom:1.75rem;}
+.g2{display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start;}
+.sec{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:1.5rem;margin-bottom:14px;}
+.sec-t{font-size:11px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1.25rem;}
+.lbl{display:block;font-size:12px;color:var(--text2);margin-bottom:5px;}
+.field{margin-bottom:12px;}.field:last-child{margin-bottom:0;}
+.fi{width:100%;padding:9px 13px;font-size:13px;background:var(--bg4);border:.5px solid var(--border2);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;}
+.fi:focus{outline:none;border-color:var(--em);}
+.fs{width:100%;padding:9px 13px;font-size:13px;background:var(--bg4);border:.5px solid var(--border2);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;}
+.hint{font-size:11px;color:var(--text3);margin-top:3px;line-height:1.5;}
+/* ANSWER */
+.answer{border-radius:14px;padding:1.5rem;margin-bottom:14px;border:1.5px solid;}
+.answer.verde{background:var(--em-d);border-color:var(--em-b);}
+.answer.amarelo{background:var(--amber-d);border-color:var(--amber-b);}
+.answer.indigo{background:var(--indigo-d);border-color:var(--indigo-b);}
+.answer-label{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem;}
+.answer-text{font-family:'DM Serif Display',serif;font-size:1.5rem;margin-bottom:.3rem;}
+.answer.verde .answer-text{color:var(--em-l);}
+.answer.amarelo .answer-text{color:var(--amber);}
+.answer.indigo .answer-text{color:var(--indigo-l);}
+.answer-sub{font-size:13px;color:var(--text2);line-height:1.65;}
+/* KPIS */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:14px;}
+.kpi{background:var(--bg3);border:.5px solid var(--border2);border-radius:10px;padding:.875rem;}
+.kpi-l{font-size:11px;color:var(--text3);margin-bottom:4px;line-height:1.3;}
+.kpi-v{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--text);}
+.kpi-v.g{color:var(--em-l);}.kpi-v.r{color:var(--red);}.kpi-v.w{color:var(--amber);}.kpi-v.i{color:var(--indigo-l);}
+/* BARRA DE FAIXA */
+.faixa-bar{background:var(--bg3);border:.5px solid var(--border2);border-radius:12px;padding:1.125rem;margin-bottom:14px;}
+.faixa-bar-title{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem;}
+.faixa-track{height:10px;background:var(--bg4);border-radius:5px;overflow:hidden;margin-bottom:6px;position:relative;}
+.faixa-fill{height:100%;border-radius:5px;transition:width .5s ease;}
+.faixa-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--text3);}
+.faixa-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:500;margin-bottom:.5rem;}
+.badge-f1{background:var(--em-d);color:var(--em-l);border:.5px solid var(--em-b);}
+.badge-f2{background:var(--amber-d);color:var(--amber);border:.5px solid var(--amber-b);}
+.badge-f3{background:var(--gold-d);color:var(--gold);border:.5px solid var(--gold-b);}
+.badge-f4,.badge-f5,.badge-f6{background:var(--red-d);color:var(--red);border:.5px solid var(--red-b);}
+/* COMPOSIÇÃO TRIBUTOS */
+.trib-grid{display:grid;gap:6px;margin-bottom:14px;}
+.trib-row{display:flex;align-items:center;gap:8px;}
+.trib-nome{font-size:12px;color:var(--text2);width:70px;flex-shrink:0;}
+.trib-track{flex:1;height:20px;background:var(--bg4);border-radius:4px;overflow:hidden;}
+.trib-fill{height:100%;display:flex;align-items:center;padding-left:6px;font-size:10px;color:rgba(255,255,255,.85);font-weight:500;min-width:2px;}
+.trib-val{font-size:12px;color:var(--text2);width:75px;text-align:right;flex-shrink:0;}
+/* CENÁRIOS */
+.cen-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+.cen-card{background:var(--bg3);border:.5px solid var(--border2);border-radius:10px;padding:.875rem;}
+.cen-card.atual{border-color:var(--em-b);background:var(--em-d);}
+.cen-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:4px;}
+.cen-card.atual .cen-label{color:var(--em-l);}
+.cen-fat{font-size:12px;color:var(--text3);margin-bottom:2px;}
+.cen-das{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--text);}
+.cen-card.atual .cen-das{color:var(--em-l);}
+.cen-aliq{font-size:11px;color:var(--text3);}
+/* ALERTA FAIXA */
+.alerta-faixa{border-radius:10px;padding:.875rem 1rem;margin-bottom:14px;display:flex;gap:10px;font-size:13px;line-height:1.6;}
+.alerta-faixa.w{background:var(--amber-d);border:.5px solid var(--amber-b);color:var(--amber);}
+.alerta-faixa.g{background:var(--em-d);border:.5px solid var(--em-b);color:var(--em-l);}
+/* ROWS */
+.rb{background:var(--bg4);border:.5px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:12px;}
+.rb-t{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem;}
+.rrow{display:flex;justify-content:space-between;padding:8px 0;border-bottom:.5px solid var(--border);font-size:13px;gap:12px;}
+.rrow:last-child{border-bottom:none;}
+.rrow.total{border-top:1px solid var(--border2);padding-top:10px;margin-top:4px;border-bottom:none;}
+.rn{color:var(--text2);flex:1;}.rn.b{color:var(--text);font-weight:500;}
+.rv{font-weight:500;color:var(--text);text-align:right;}
+.rv.g{color:var(--em-l);}.rv.w{color:var(--amber);}
+.rv.big{font-family:'DM Serif Display',serif;font-size:1.5rem;}
+/* TOGGLE */
+.toggle-btn{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px;color:var(--text3);padding:6px 0;border:none;background:none;font-family:'DM Sans',sans-serif;margin-bottom:6px;}
+.toggle-btn:hover{color:var(--text2);}
+.arr{display:inline-block;transition:transform .2s;}
+.toggle-body{display:none;}.toggle-body.open{display:block;}
+/* NOTA */
+.nota{padding:10px 13px;border-radius:8px;font-size:12px;line-height:1.65;border-left:2px solid var(--border2);background:var(--bg4);color:var(--text2);margin-top:10px;}
+.nota.w{border-left-color:var(--amber);background:var(--amber-d);color:var(--amber);}
+.nota.i{border-left-color:var(--indigo);background:var(--indigo-d);}
+/* CTA */
+.cta-disc{padding:1rem 1.25rem;border-top:.5px solid var(--border);margin-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.cta-disc-txt{font-size:12px;color:var(--text3);line-height:1.6;max-width:520px;}
+.cta-disc-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:var(--em-d);border:.5px solid var(--em-b);border-radius:8px;font-size:12px;color:var(--em-l);text-decoration:none;font-family:'DM Sans',sans-serif;transition:all .15s;white-space:nowrap;}
+.cta-disc-btn:hover{background:var(--em);color:#fff;}
+.pdf-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 18px;background:var(--bg4);border:.5px solid var(--border2);border-radius:8px;font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;margin-top:12px;text-decoration:none;}
+.pdf-btn:hover{background:var(--bg3);color:var(--text);}
+.foot{border-top:.5px solid var(--border);padding:1.5rem 0;margin-top:2rem;font-size:11px;color:var(--text3);}
+@media(max-width:740px){
+  .g2{grid-template-columns:1fr;}
+  .cen-grid{grid-template-columns:1fr;}
+  .wrap{padding:1.5rem 1.25rem 3rem;}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Rodolfo<span>.</span></a>
+  <a href="index.html" class="nav-back">← Voltar</a>
+</nav>
+
+<div class="wrap">
+  <div class="page-tag">Calculadora · Simples Nacional 2026</div>
+  <h1 class="page-title">Quanto vou pagar de DAS esse mês?</h1>
+  <p class="page-desc">Calcule o valor exato do DAS do Simples Nacional com a composição por tributo — IRPJ, CSLL, PIS, COFINS, CPP e ISS/ICMS. Inclui alerta de mudança de faixa. ⏱️ Menos de 1 minuto.</p>
+
+  <div class="g2">
+    <div>
+      <div class="sec">
+        <div class="sec-t">Dados da empresa</div>
+        <div class="field">
+          <span class="lbl">Anexo do Simples Nacional</span>
+          <select class="fs" id="anexo" onchange="calcDAS()">
+            <option value="I">Anexo I — Comércio</option>
+            <option value="II">Anexo II — Indústria</option>
+            <option value="III" selected>Anexo III — Serviços (locação, agência, TI...)</option>
+            <option value="IV">Anexo IV — Serviços (construção, vigilância, limpeza...)</option>
+            <option value="V">Anexo V — Serviços (medicina, odonto, engenharia...)</option>
+          </select>
+          <div class="hint" id="hint-anexo"></div>
+        </div>
+        <div class="field">
+          <span class="lbl">RBT12 — faturamento acumulado dos últimos 12 meses (R$)</span>
+          <input type="number" class="fi" id="rbt12" value="240000" min="0" oninput="calcDAS()">
+          <div class="hint">Some os últimos 12 meses de receita bruta. Usado para calcular a alíquota efetiva.</div>
+        </div>
+        <div class="field">
+          <span class="lbl">Faturamento do mês atual (R$)</span>
+          <input type="number" class="fi" id="fat-mes" value="20000" min="0" oninput="calcDAS()">
+          <div class="hint">Receita bruta deste mês — base de cálculo do DAS.</div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-t">Informações adicionais</div>
+        <div class="field">
+          <span class="lbl">Município — ISS (para Anexos III, IV e V)</span>
+          <select class="fs" id="iss-aliq" onchange="calcDAS()">
+            <option value="2">2% — alíquota mínima</option>
+            <option value="3">3%</option>
+            <option value="4">4%</option>
+            <option value="5" selected>5% — alíquota máxima</option>
+          </select>
+          <div class="hint">O ISS dentro do DAS usa a alíquota do seu município (2%–5%).</div>
+        </div>
+        <div class="field">
+          <span class="lbl">Tem funcionários com folha de salários?</span>
+          <select class="fs" id="tem-folha" onchange="calcDAS()">
+            <option value="nao" selected>Não / Só pró-labore</option>
+            <option value="sim">Sim</option>
+          </select>
+          <div class="hint">Afeta o cálculo do Fator R no Anexo V.</div>
+        </div>
+        <div class="field" id="field-folha" style="display:none">
+          <span class="lbl">Folha de salários dos últimos 12 meses (R$)</span>
+          <input type="number" class="fi" id="folha12" value="0" min="0" oninput="calcDAS()">
+          <div class="hint">Inclui pró-labore + salários + encargos.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="resultado"></div>
+  </div>
+
+  <div class="cta-disc">
+    <div class="cta-disc-txt">Dúvidas sobre qual Anexo sua empresa se enquadra, ou se o Fator R vale para você? Uma análise correta pode reduzir o DAS significativamente.</div>
+    <a class="cta-disc-btn" id="cta-wpp" href="#" target="_blank">Falar com Rodolfo Assunção →</a>
+  </div>
+
+  <div class="sec" style="margin-top:14px;">
+    <div class="sec-t">⚠️ Disclaimer</div>
+    <div style="font-size:12px;color:var(--text2);line-height:1.75;">Cálculo estimado com base nas tabelas do Simples Nacional vigentes em junho/2026. A alíquota real pode variar conforme o CNAE, atividade concomitante, sublimites estaduais e compensações de períodos anteriores. O Fator R usa os dados informados como aproximação. Use o PGDAS-D da Receita Federal para a apuração oficial. Rodolfo Assunção — CRC/SP 1SP353033/O-5.</div>
+  </div>
+
+  <div class="foot">Tabelas: LC 123/2006, Resolução CGSN 140/2018 · Alíquotas 2026 atualizadas · Rodolfo Assunção · CRC/SP 1SP353033/O-5 · Limeira, SP</div>
+</div>
+
+<script>
+const fmt2 = v => 'R$ '+parseFloat(v||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fmtR = v => 'R$ '+Math.round(v||0).toLocaleString('pt-BR');
+const pct  = v => parseFloat(v||0).toFixed(2)+'%';
+const pct1 = v => parseFloat(v||0).toFixed(1)+'%';
+const g    = id => document.getElementById(id);
+const n    = id => parseFloat(g(id)?.value)||0;
+
+// ─── TABELAS SIMPLES 2026 ─────────────────────────────────────────────────
+// Cada faixa: [teto_rbt12, aliq_nominal, parcela_deduzir]
+const TABELAS = {
+  I: { // Comércio
+    nome:'Anexo I — Comércio',
+    tributos:['IRPJ','CSLL','COFINS','PIS','CPP','ICMS'],
+    faixas:[
+      [180000,  .040, 0,      [5.5,3.5,12.74,2.76,41.5,34]],
+      [360000,  .073, 5940,   [5.5,3.5,12.74,2.76,41.5,34]],
+      [720000,  .095, 13860,  [5.5,3.5,12.74,2.76,42,33.5]],
+      [1800000, .107, 22500,  [5,3,12.74,2.76,42,34.5]],
+      [3600000, .143, 87300,  [4.5,3.5,12.74,2.76,42,34.5]],
+      [4800000, .190, 378000, [4.5,3.5,12.74,2.76,42,34.5]],
+    ]
+  },
+  II: { // Indústria
+    nome:'Anexo II — Indústria',
+    tributos:['IRPJ','CSLL','COFINS','PIS','CPP','ICMS','IPI'],
+    faixas:[
+      [180000,  .045, 0,      [5.5,3.5,11.51,2.49,37,30,7]],
+      [360000,  .078, 5940,   [5.5,3.5,11.51,2.49,37,30,7]],
+      [720000,  .100, 13860,  [5.5,3.5,11.51,2.49,37.5,29,7]],
+      [1800000, .112, 22500,  [5,3,11.51,2.49,37.5,29,7]],
+      [3600000, .147, 85500,  [4.5,3.5,11.51,2.49,37.5,29,7]],
+      [4800000, .195, 378000, [4.5,3.5,11.51,2.49,37.5,29,7]],
+    ]
+  },
+  III: { // Serviços Anexo III
+    nome:'Anexo III — Serviços',
+    tributos:['IRPJ','CSLL','COFINS','PIS','CPP','ISS'],
+    faixas:[
+      [180000,  .060, 0,      [4,3.5,12.82,2.78,43.4,33.5]],
+      [360000,  .112, 9360,   [4,3.5,14.05,3.05,43.4,32]],
+      [720000,  .135, 17640,  [4,3.5,13.64,2.96,43.4,32.5]],
+      [1800000, .160, 35640,  [4,3.5,13.64,2.96,43.4,32.5]],
+      [3600000, .210, 125640, [4,3.5,12.82,2.78,43.4,33.5]],
+      [4800000, .330, 648000, [4,3.5,12.82,2.78,43.4,33.5]],
+    ]
+  },
+  IV: { // Serviços Anexo IV (sem CPP)
+    nome:'Anexo IV — Serviços (sem CPP)',
+    tributos:['IRPJ','CSLL','COFINS','PIS','ISS'],
+    faixas:[
+      [180000,  .045, 0,      [18.8,15.2,17.67,3.83,44.5]],
+      [360000,  .090, 8100,   [19.8,15.2,20.55,4.25,40.2]],
+      [720000,  .102, 12420,  [20.8,15.2,19.73,4.07,40.2]],
+      [1800000, .140, 39780,  [17.8,19.2,18.90,3.9,40.2]],
+      [3600000, .220, 183780, [18.8,19.2,18.08,3.72,40.2]],
+      [4800000, .330, 828000, [17.8,19.2,16.94,3.46,42.6]],
+    ]
+  },
+  V: { // Serviços Anexo V
+    nome:'Anexo V — Serviços',
+    tributos:['IRPJ','CSLL','COFINS','PIS','CPP','ISS'],
+    faixas:[
+      [180000,  .155, 0,      [15.5,15.5,22.45,4.96,28.74,13]],
+      [360000,  .180, 4500,   [15.5,15.5,22.45,4.96,27.74,14]],
+      [720000,  .195, 9900,   [15.5,15.5,22.45,4.96,23.7,18]],
+      [1800000, .205, 17100,  [15.5,15.5,22.45,4.96,23.7,18]],
+      [3600000, .230, 62100,  [12.5,15.5,22.45,4.96,23.7,20.94]],
+      [4800000, .305, 540000, [12.5,15.5,22.45,4.96,23.7,20.94]],
+    ]
+  }
+};
+
+const FAIXA_LABELS = ['1ª faixa','2ª faixa','3ª faixa','4ª faixa','5ª faixa','6ª faixa'];
+const FAIXA_CORES  = ['var(--em-l)','var(--amber)','var(--gold)','#fb923c','var(--red)','#dc2626'];
+
+const TRIB_CORES = {
+  IRPJ:'#6366f1',CSLL:'#8b5cf6',COFINS:'#f59e0b',PIS:'#fbbf24',
+  CPP:'#10b981',ISS:'#3b82f6',ICMS:'#06b6d4',IPI:'#ec4899'
+};
+
+// ─── HINTS POR ANEXO ──────────────────────────────────────────────────────
+const ANEXO_HINTS = {
+  I:'Revenda de mercadorias. E-commerce, lojas físicas, distribuidoras.',
+  II:'Fabricação e transformação de produtos. Indústrias.',
+  III:'Agências, TI, comunicação, locação de bens, despachantes, escritórios de serviços.',
+  IV:'Construção civil, vigilância, limpeza, conservação. <strong style="color:var(--amber)">INSS patronal recolhido separadamente via DARF.</strong>',
+  V:'Medicina, odontologia, psicologia, advocacia, engenharia, arquitetura, fisioterapia. Sujeito ao Fator R.',
+};
+
+function onTemFolha(){
+  g('field-folha').style.display = g('tem-folha').value==='sim' ? 'block' : 'none';
+  calcDAS();
+}
+g('tem-folha').addEventListener('change', onTemFolha);
+
+function toggle(id){
+  const btn=g('tbtn-'+id),body=g('tbody-'+id);
+  const open=body.classList.toggle('open');
+  btn.querySelector('.arr').textContent=open?'▲':'▼';
+}
+
+// ─── CÁLCULO PRINCIPAL ────────────────────────────────────────────────────
+function calcDAS(){
+  const anexoKey = g('anexo').value;
+  const T        = TABELAS[anexoKey];
+  const rbt12    = n('rbt12');
+  const fatMes   = n('fat-mes');
+  const issAliq  = n('iss-aliq')/100;
+  const temFolha = g('tem-folha').value==='sim';
+  const folha12  = temFolha ? n('folha12') : n('prolabore-aprox')||0;
+
+  // Hint do anexo
+  g('hint-anexo').innerHTML = ANEXO_HINTS[anexoKey]||'';
+
+  if(rbt12<=0||fatMes<=0){
+    g('resultado').innerHTML='<div class="nota w">Preencha o RBT12 e o faturamento do mês para calcular.</div>';
+    return;
+  }
+
+  // ── FATOR R (Anexo V) ────────────────────────────────────────────────
+  let anexoEfetivo = anexoKey;
+  let fratorR = null;
+  if(anexoKey==='V'){
+    fratorR = rbt12>0 ? folha12/rbt12 : 0;
+    if(fratorR>=0.28) anexoEfetivo='III'; // migra para Anexo III
+  }
+  const TE = TABELAS[anexoEfetivo];
+
+  // ── ALÍQUOTA EFETIVA ─────────────────────────────────────────────────
+  let faixaIdx = TE.faixas.length-1;
+  for(let i=0;i<TE.faixas.length;i++){
+    if(rbt12<=TE.faixas[i][0]){ faixaIdx=i; break; }
+  }
+  const [tetoFaixa, aliqNom, pd, distrib] = TE.faixas[faixaIdx];
+  const aliqEfetiva = pd===0 ? aliqNom : Math.max(0,((rbt12*aliqNom)-pd)/rbt12);
+
+  // ── DAS DO MÊS ───────────────────────────────────────────────────────
+  const dasMes = fatMes * aliqEfetiva;
+
+  // ── SUBTETO ESTADUAL SP (Art. 19, LC 123/06) ──────────────────────────
+  // RBT12 > R$ 3.600.000: ICMS (Anexos I/II) e ISS (Anexos III/IV/V)
+  // deixam de ser recolhidos dentro do DAS — passam a ser apurados por fora.
+  // Implementado para SP; outros estados podem ter regras distintas.
+  const SUBTETO_SP     = 3600000;
+  const acimaSublimite = rbt12 > SUBTETO_SP;
+  const tribFora       = acimaSublimite
+    ? (['I','II'].includes(anexoEfetivo) ? 'ICMS' : 'ISS')
+    : null;
+
+  // ── COMPOSIÇÃO POR TRIBUTO ────────────────────────────────────────────
+  const ehAnexoIV = anexoEfetivo === 'IV';
+  const tribComp = TE.tributos.map((nome, i) => {
+    // Fix 3: Anexo IV — CPP não existe; se aparecer, força zero
+    // (Na tabela IV já não há CPP, mas garantimos explicitamente)
+    if(ehAnexoIV && nome === 'CPP') return {nome, pct:0, valor:0, foraDoSimples:false, cpp_dctfweb:false};
+
+    // Fix 1: Subteto SP — zera ICMS/ISS no DAS quando acima de R$ 3,6M
+    const foraDoSimples = acimaSublimite && nome === tribFora;
+    const pctTrib = foraDoSimples ? 0 : distrib[i] / 100;
+    const valor   = foraDoSimples ? 0 : dasMes * pctTrib;
+    return {nome, pct: foraDoSimples ? 0 : distrib[i], valor, foraDoSimples};
+  });
+
+  // Se acima do sublimite, DAS efetivo é menor (sem ICMS/ISS)
+  const dasEfetivo = tribComp.reduce((s, t) => s + t.valor, 0);
+
+  // ── PRÓXIMA FAIXA ─────────────────────────────────────────────────────
+  const faixaAtual    = faixaIdx;
+  const tetoAtual     = TE.faixas[faixaIdx][0];
+  const proxFaixa     = faixaIdx<TE.faixas.length-1 ? TE.faixas[faixaIdx+1] : null;
+  const faltaProxFaixa= proxFaixa ? Math.max(0, proxFaixa[0]-rbt12) : null;
+  const pctFaixa      = tetoAtual>0 ? Math.min(100,(rbt12/tetoAtual)*100) : 100;
+
+  // Alíquota efetiva da próxima faixa (para alerta)
+  const aliqProx = proxFaixa
+    ? (proxFaixa[2]===0 ? proxFaixa[1] : Math.max(0,((proxFaixa[0]*proxFaixa[1])-proxFaixa[2])/proxFaixa[0]))
+    : null;
+
+  // ── CENÁRIOS ─────────────────────────────────────────────────────────
+  const cen_menos10 = fatMes*0.9 * aliqEfetiva;
+  const cen_mais10  = fatMes*1.1 * calcAliqEfetiva(rbt12*1.1, TE);
+  const cen_mais20  = fatMes*1.2 * calcAliqEfetiva(rbt12*1.2, TE);
+
+  // ── RENDER ────────────────────────────────────────────────────────────
+  const fatorRHTML = anexoKey==='V' ? `
+    <div class="answer ${fratorR>=0.28?'verde':'amarelo'}" style="margin-bottom:12px;">
+      <div class="answer-label">Fator R — Anexo V</div>
+      <div class="answer-text" style="font-size:1.1rem;">${pct1(fratorR*100)} — ${fratorR>=0.28?'Enquadrado no Anexo III ✅':'Permanece no Anexo V ⚠️'}</div>
+      <div class="answer-sub">${fratorR>=0.28
+        ?`Fator R ≥ 28%: sua empresa usa o Anexo III (alíquota menor). Tabela aplicada: ${TE.nome}.`
+        :`Fator R < 28%: permanece no Anexo V. Aumentar a folha de salários pode migrar para o Anexo III e reduzir o DAS.`}</div>
+    </div>` : '';
+
+  const alertaFaixa = faltaProxFaixa!==null && faltaProxFaixa < rbt12*0.15 ? `
+    <div class="alerta-faixa w">
+      <span>⚠️</span>
+      <div>Faltam <strong>${fmtR(faltaProxFaixa)}</strong> no RBT12 para entrar na ${FAIXA_LABELS[faixaAtual+1]}. Nessa faixa, a alíquota efetiva sobe para ~${pct(aliqProx*100)}. Acompanhe o crescimento para planejar com antecedência.</div>
+    </div>` : faltaProxFaixa===null ? `
+    <div class="alerta-faixa w"><span>⚠️</span><div>Empresa na última faixa do Simples Nacional. Acompanhe o faturamento — acima de R$ 4,8M/ano há obrigatoriedade de migrar para outro regime.</div></div>` : '';
+
+  const maxTrib = Math.max(...tribComp.map(t=>t.valor), 1);
+  const tribHTML = tribComp.map(t=>{
+    const barW = maxTrib>0?(t.valor/maxTrib)*100:0;
+    const cor  = TRIB_CORES[t.nome]||'var(--em)';
+    if(t.foraDoSimples){
+      // Tributo excluído do DAS — linha especial
+      return `<div class="trib-row">
+        <div class="trib-nome" style="color:var(--amber)">${t.nome}</div>
+        <div class="trib-track" style="background:var(--amber-d)"><div style="width:100%;display:flex;align-items:center;padding-left:6px;font-size:10px;color:var(--amber)">Recolhimento por fora do DAS (sublimite SP)</div></div>
+        <div class="trib-val" style="color:var(--amber)">R$ 0,00*</div>
+      </div>`;
+    }
+    if(ehAnexoIV && t.nome==='CPP'){
+      return `<div class="trib-row">
+        <div class="trib-nome" style="color:var(--amber)">CPP</div>
+        <div class="trib-track" style="background:var(--amber-d)"><div style="width:100%;display:flex;align-items:center;padding-left:6px;font-size:10px;color:var(--amber)">0,00% — Recolhimento via DCTFWeb / DARF Previdenciário</div></div>
+        <div class="trib-val" style="color:var(--amber)">R$ 0,00</div>
+      </div>`;
+    }
+    return `<div class="trib-row">
+      <div class="trib-nome">${t.nome}</div>
+      <div class="trib-track"><div class="trib-fill" style="width:${barW}%;background:${cor}">${barW>15?pct1(t.pct)+'%':''}</div></div>
+      <div class="trib-val">${fmt2(t.valor)}</div>
+    </div>`;
+  }).join('');
+
+  // Fix 2: card de alerta sublimite SP
+  const alertaSubteto = acimaSublimite ? `
+    <div class="alerta-faixa w" style="margin-bottom:14px;">
+      <span>⚠️</span>
+      <div><strong>Alerta: ${tribFora} calculado por fora do DAS</strong> — Subteto Estadual de SP (Art. 19, LC 123/06).<br>
+      RBT12 acima de R$ 3.600.000: o ${tribFora} deixa de ser recolhido dentro do Simples e passa a ser apurado e recolhido separadamente, conforme as regras do estado/município. Consulte seu contador para a apuração correta.</div>
+    </div>` : '';
+
+  const barCor = pctFaixa<60?'var(--em-l)':pctFaixa<85?'var(--amber)':'var(--red)';
+
+  g('resultado').innerHTML=`
+    ${fatorRHTML}
+    ${alertaSubteto}
+    <div class="answer verde">
+      <div class="answer-label">DAS do mês</div>
+      <div class="answer-text">${fmt2(dasEfetivo)}</div>
+      <div class="answer-sub">Faturamento: ${fmtR(fatMes)} × alíquota efetiva ${pct(aliqEfetiva*100)}${acimaSublimite?` — <strong style="color:var(--amber)">${tribFora} recolhido por fora (sublimite SP)</strong>`:''}<br>${TE.nome} · ${FAIXA_LABELS[faixaAtual]} · RBT12: ${fmtR(rbt12)}</div>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi"><div class="kpi-l">Alíquota nominal</div><div class="kpi-v">${pct(aliqNom*100)}</div></div>
+      <div class="kpi"><div class="kpi-l">Alíquota efetiva</div><div class="kpi-v g">${pct(aliqEfetiva*100)}</div></div>
+      <div class="kpi"><div class="kpi-l">Faixa atual</div><div class="kpi-v i">${FAIXA_LABELS[faixaAtual]}</div></div>
+      <div class="kpi"><div class="kpi-l">DAS anual estimado</div><div class="kpi-v w">${fmtR(dasMes*12)}</div></div>
+    </div>
+
+    <!-- Barra de posição na faixa -->
+    <div class="faixa-bar">
+      <div class="faixa-bar-title">Posição dentro da faixa atual</div>
+      <div class="faixa-bar-title"><span class="faixa-badge badge-f${faixaAtual+1}">${FAIXA_LABELS[faixaAtual]} — até ${fmtR(tetoAtual)}/ano</span></div>
+      <div class="faixa-track"><div class="faixa-fill" style="width:${pctFaixa}%;background:${barCor}"></div></div>
+      <div class="faixa-labels"><span>RBT12: ${fmtR(rbt12)}</span><span>Teto: ${fmtR(tetoAtual)}</span></div>
+      ${faltaProxFaixa!==null?`<div style="font-size:11px;color:var(--text3);margin-top:4px;">Falta ${fmtR(faltaProxFaixa)} para a próxima faixa</div>`:''}
+    </div>
+
+    ${alertaFaixa}
+
+    <!-- Composição por tributo -->
+    <div class="rb"><div class="rb-t">Composição do DAS — ${fmt2(dasEfetivo)}${acimaSublimite?` <span style="font-size:10px;color:var(--amber)">(sem ${tribFora})</span>`:''}</div>
+      <div class="trib-grid">${tribHTML}</div>
+      ${acimaSublimite?`<div class="nota w" style="margin-top:8px;">* ${tribFora} excluído do DAS por estouro do sublimite estadual de SP (RBT12 > R$ 3,6M). Recolhimento separado obrigatório. Consulte seu contador.</div>`:''}
+      ${anexoKey==='IV'?`<div class="nota w" style="margin-top:8px;">⚠️ Anexo IV: CPP (INSS patronal) <strong>não está incluso no DAS</strong> — 0,00% na partilha. Recolhimento obrigatório via DCTFWeb / DARF Previdenciário.</div>`:''}
+      ${anexoKey==='V'&&fratorR<0.28?`<div class="nota i" style="margin-top:8px;">💡 Fator R < 28%: aumentar a folha de salários pode migrar para o Anexo III, reduzindo a alíquota efetiva.</div>`:''}
+    </div>
+
+    <!-- Cenários -->
+    <div style="margin-bottom:8px;font-size:11px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;">Simulação de cenários</div>
+    <div class="cen-grid">
+      <div class="cen-card">
+        <div class="cen-label">−10% no mês</div>
+        <div class="cen-fat">${fmtR(fatMes*0.9)}</div>
+        <div class="cen-das">${fmt2(cen_menos10)}</div>
+        <div class="cen-aliq">Alíq. efetiva: ${pct(aliqEfetiva*100)}</div>
+      </div>
+      <div class="cen-card atual">
+        <div class="cen-label">Mês atual ✓</div>
+        <div class="cen-fat">${fmtR(fatMes)}</div>
+        <div class="cen-das">${fmt2(dasMes)}</div>
+        <div class="cen-aliq">Alíq. efetiva: ${pct(aliqEfetiva*100)}</div>
+      </div>
+      <div class="cen-card">
+        <div class="cen-label">+10% no mês</div>
+        <div class="cen-fat">${fmtR(fatMes*1.1)}</div>
+        <div class="cen-das">${fmt2(cen_mais10)}</div>
+        <div class="cen-aliq">Alíq. efetiva (RBT12+10%): ${pct(calcAliqEfetiva(rbt12*1.1,TE)*100)}</div>
+      </div>
+    </div>
+
+    <button class="toggle-btn" id="tbtn-form" onclick="toggle('form')">Ver cálculo passo a passo <span class="arr">▼</span></button>
+    <div class="toggle-body" id="tbody-form">
+      <div class="rb"><div class="rb-t">Fórmula da alíquota efetiva do Simples Nacional</div>
+        <div class="rrow"><span class="rn">RBT12 (faturamento 12 meses)</span><span class="rv">${fmtR(rbt12)}</span></div>
+        <div class="rrow"><span class="rn">Alíquota nominal da faixa</span><span class="rv">${pct(aliqNom*100)}</span></div>
+        <div class="rrow"><span class="rn">Parcela a deduzir (PD)</span><span class="rv">${fmtR(pd)}</span></div>
+        <div class="rrow"><span class="rn">RBT12 × Alíq. nominal</span><span class="rv">${fmtR(rbt12*aliqNom)}</span></div>
+        <div class="rrow"><span class="rn">− Parcela a deduzir</span><span class="rv">−${fmtR(pd)}</span></div>
+        <div class="rrow"><span class="rn">÷ RBT12</span><span class="rv">÷ ${fmtR(rbt12)}</span></div>
+        <div class="rrow total"><span class="rn b">= Alíquota efetiva</span><span class="rv g">${pct(aliqEfetiva*100)}</span></div>
+        <div class="rrow"><span class="rn b">Faturamento do mês × alíquota efetiva</span><span class="rv">${fmtR(fatMes)} × ${pct(aliqEfetiva*100)}</span></div>
+        <div class="rrow total"><span class="rn b">= DAS do mês</span><span class="rv big g">${fmt2(dasMes)}</span></div>
+      </div>
+      <div class="nota i">A fórmula [(RBT12 × Alíq) − PD] / RBT12 é definida pela LC 123/2006 e pela Resolução CGSN 140/2018. O DAS é calculado sobre o faturamento do mês usando a alíquota efetiva apurada sobre o RBT12 dos 12 meses anteriores.</div>
+    </div>
+
+    <button class="pdf-btn" onclick="gerarPDF()">📄 Baixar relatório em PDF</button>`;
+
+  // WPP
+  const msg=`Olá Rodolfo! Calculei meu DAS pelo simulador.\n\nEmpresa:\n• Anexo: ${TE.nome}\n• RBT12: ${fmtR(rbt12)}\n• Faturamento do mês: ${fmtR(fatMes)}\n• Alíquota efetiva: ${pct(aliqEfetiva*100)}\n• DAS estimado: ${fmt2(dasMes)}\n• Faixa: ${FAIXA_LABELS[faixaAtual]}\n\nGostaria de confirmar se estou no Anexo correto e otimizar minha apuração.`;
+  g('cta-wpp').href='https://wa.me/5519982003732?text='+encodeURIComponent(msg);
+}
+
+function calcAliqEfetiva(rbt12, T){
+  if(rbt12<=0) return 0;
+  let idx=T.faixas.length-1;
+  for(let i=0;i<T.faixas.length;i++){
+    if(rbt12<=T.faixas[i][0]){idx=i;break;}
+  }
+  const [,aliqNom,pd]=T.faixas[idx];
+  return pd===0 ? aliqNom : Math.max(0,((rbt12*aliqNom)-pd)/rbt12);
+}
+
+function gerarPDF(){
+  const c=g('resultado').innerHTML;
+  const w=window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+    <title>DAS Simples Nacional · Rodolfo Assunção</title>
+    <style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:Arial,sans-serif;font-size:12px;color:#1e293b;background:#fff;padding:2rem;}
+    .answer{border:1px solid #cbd5e1;border-radius:6px;padding:.875rem;margin-bottom:10px;background:#f8fafc;}
+    .answer.verde{border-color:#6ee7b7;background:#f0fdf4;}
+    .answer.amarelo{border-color:#fcd34d;background:#fffbeb;}
+    .answer-label{font-size:10px;text-transform:uppercase;color:#64748b;margin-bottom:.25rem;}
+    .answer-text{font-size:1.2rem;font-weight:700;color:#059669;margin-bottom:.25rem;}
+    .answer-sub{font-size:11px;color:#475569;line-height:1.6;}
+    .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px;}
+    .kpi{border:1px solid #e2e8f0;border-radius:6px;padding:.625rem;background:#f8fafc;}
+    .kpi-l{font-size:10px;color:#64748b;margin-bottom:2px;}.kpi-v{font-size:1rem;font-weight:700;color:#1e293b;}
+    .faixa-bar{border:1px solid #e2e8f0;border-radius:6px;padding:.875rem;margin-bottom:10px;background:#f8fafc;}
+    .faixa-bar-title{font-size:10px;text-transform:uppercase;color:#64748b;margin-bottom:.5rem;}
+    .faixa-track{height:8px;background:#f1f5f9;border-radius:4px;overflow:hidden;margin-bottom:4px;}
+    .faixa-fill{height:100%;border-radius:4px;}
+    .alerta-faixa{border-radius:6px;padding:.75rem;margin-bottom:8px;font-size:11px;border:1px solid #fcd34d;background:#fffbeb;color:#b45309;display:flex;gap:6px;}
+    .trib-grid{display:grid;gap:4px;margin-bottom:8px;}
+    .trib-row{display:flex;align-items:center;gap:6px;}
+    .trib-nome{font-size:10px;color:#64748b;width:60px;}
+    .trib-track{flex:1;height:14px;background:#f1f5f9;border-radius:2px;overflow:hidden;}
+    .trib-fill{height:100%;display:flex;align-items:center;padding-left:3px;font-size:8px;color:#fff;}
+    .trib-val{font-size:10px;color:#64748b;width:70px;text-align:right;}
+    .cen-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;}
+    .cen-card{border:1px solid #e2e8f0;border-radius:6px;padding:.75rem;background:#f8fafc;}
+    .cen-card.atual{border-color:#6ee7b7;background:#f0fdf4;}
+    .cen-label{font-size:10px;text-transform:uppercase;color:#64748b;margin-bottom:3px;}
+    .cen-fat{font-size:10px;color:#64748b;}.cen-das{font-size:1rem;font-weight:700;color:#1e293b;}.cen-aliq{font-size:10px;color:#64748b;}
+    .rb{border:1px solid #e2e8f0;border-radius:6px;padding:1rem;margin-bottom:8px;background:#f8fafc;}
+    .rb-t{font-size:10px;text-transform:uppercase;color:#64748b;margin-bottom:.75rem;}
+    .rrow{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #f1f5f9;font-size:11px;}
+    .rrow:last-child{border-bottom:none;}.rrow.total{border-top:1px solid #e2e8f0;padding-top:8px;margin-top:4px;border-bottom:none;}
+    .rn{color:#475569;flex:1;}.rn.b{color:#1e293b;font-weight:600;}
+    .rv{font-weight:600;text-align:right;color:#1e293b;}.rv.g{color:#059669;}.rv.big{font-size:1.2rem;}
+    .nota{padding:8px;border-left:2px solid #94a3b8;font-size:10px;color:#475569;margin-top:8px;}
+    .nota.w{border-left-color:#f59e0b;color:#b45309;background:#fffbeb;}
+    .nota.i{border-left-color:#6366f1;color:#4338ca;background:#eef2ff;}
+    .faixa-badge{display:inline-flex;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600;background:#d1fae5;color:#059669;}
+    .toggle-btn,.pdf-btn,.cta-disc{display:none!important;}
+    .toggle-body{display:block!important;}
+    header{border-bottom:2px solid #e2e8f0;padding-bottom:.75rem;margin-bottom:1.25rem;display:flex;justify-content:space-between;}
+    .hdr-logo{font-size:1rem;font-weight:700;color:#1e293b;}.hdr-data{font-size:10px;color:#64748b;}
+    footer{border-top:1px solid #e2e8f0;margin-top:1.5rem;padding-top:.75rem;font-size:9px;color:#94a3b8;text-align:center;}
+    .disclaimer{border:1px solid #fcd34d;background:#fffbeb;border-radius:4px;padding:.625rem;margin-top:1rem;font-size:10px;color:#78350f;line-height:1.6;}
+    </style></head><body>
+    <header><div class="hdr-logo">DAS Simples Nacional · Rodolfo Assunção · CRC/SP 1SP353033/O-5</div>
+    <div class="hdr-data">Gerado em: ${new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}</div></header>
+    ${c}
+    <div class="disclaimer">⚠️ Cálculo estimado. Use o PGDAS-D da Receita Federal para a apuração oficial. Alíquotas podem variar conforme CNAE e compensações. Rodolfo Assunção — CRC/SP 1SP353033/O-5 — Limeira, SP.</div>
+    <footer>DAS Simples Nacional · Rodolfo Assunção · CRC/SP 1SP353033/O-5 · Junho/2026</footer>
+    </body></html>`);
+  w.document.close();
+  setTimeout(()=>w.print(),600);
+}
+
+calcDAS();
+</script>
+</body>
+</html>

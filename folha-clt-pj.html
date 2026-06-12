@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador CLT vs PJ 2026 — Rodolfo Assunção</title>
+<meta name="description" content="Calcule o custo real de um funcionário CLT, o custo de contratar um PJ e compare os dois modelos. Dados 2026 com Lei 15.270/2025.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F172A;--bg2:#111827;--bg3:#1E2937;--bg4:#263244;
+  --border:rgba(51,65,85,0.5);--border2:#334155;
+  --text:#F1F5F9;--text2:#94A3B8;--text3:#64748B;
+  --indigo:#4F46E5;--indigo2:#4338CA;--indigo-l:#818CF8;
+  --indigo-d:rgba(79,70,229,0.1);--indigo-b:rgba(79,70,229,0.25);
+  --em:#10B981;--em2:#059669;--em-l:#34D399;--em-d:rgba(16,185,129,0.1);--em-b:rgba(16,185,129,0.25);
+  --amber:#FBBF24;--amber-d:rgba(251,191,36,0.1);--amber-b:rgba(251,191,36,0.3);
+  --red:#F87171;--red-d:rgba(248,113,113,0.1);--red-b:rgba(248,113,113,0.3);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.7;min-height:100vh;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(15,23,42,0.95);backdrop-filter:blur(16px);border-bottom:0.5px solid var(--border);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);text-decoration:none;}
+.nav-logo span{color:var(--indigo-l);}
+.nav-back{font-size:13px;color:var(--text2);text-decoration:none;transition:color .2s;}
+.nav-back:hover{color:var(--text);}
+
+/* TABS */
+.tabs-wrap{background:var(--bg2);border-bottom:0.5px solid var(--border);padding:0 2rem;}
+.tabs{max-width:940px;margin:0 auto;display:flex;gap:0;}
+.tab{padding:14px 24px;font-size:13px;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none;font-family:'DM Sans',sans-serif;letter-spacing:.02em;white-space:nowrap;}
+.tab:hover{color:var(--text2);}
+.tab.active{color:var(--text);border-bottom-color:var(--indigo);}
+
+/* PAGES */
+.page{display:none;max-width:940px;margin:0 auto;padding:2rem 2rem 4rem;}
+.page.active{display:block;}
+.page-hdr{margin-bottom:2rem;}
+.page-tag{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:.5rem;}
+.page-title{font-family:'DM Serif Display',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:400;color:var(--text);line-height:1.2;margin-bottom:.6rem;}
+.page-desc{font-size:14px;color:var(--text2);line-height:1.75;max-width:580px;}
+
+/* LAYOUT */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.sec{background:var(--bg3);border:0.5px solid var(--border2);border-radius:14px;padding:1.5rem;margin-bottom:14px;}
+.sec-title{font-size:11px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1.25rem;}
+.lbl{display:block;font-size:12px;color:var(--text2);margin-bottom:5px;}
+.field{margin-bottom:12px;}.field:last-child{margin-bottom:0;}
+.fi{width:100%;padding:9px 13px;font-size:13px;background:var(--bg4);border:0.5px solid var(--border2);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;transition:border-color .2s;}
+.fi:focus{outline:none;border-color:var(--indigo);}
+.fs{width:100%;padding:9px 13px;font-size:13px;background:var(--bg4);border:0.5px solid var(--border2);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+
+/* RESULT BOX */
+.rb{background:var(--bg4);border:0.5px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:12px;}
+.rb.green{background:var(--em-d);border-color:var(--em-b);}
+.rb.indigo{background:var(--indigo-d);border-color:var(--indigo-b);}
+.rb.amber{background:var(--amber-d);border-color:var(--amber-b);}
+.rb.red{background:var(--red-d);border-color:var(--red-b);}
+.rb-title{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem;}
+.rrow{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:0.5px solid var(--border);font-size:13px;}
+.rrow:last-child{border-bottom:none;}
+.rrow.total{border-top:1px solid var(--border2);padding-top:10px;margin-top:4px;}
+.rname{color:var(--text2);}
+.rname.b{color:var(--text);font-weight:500;}
+.rval{font-weight:500;color:var(--text);}
+.rval.g{color:var(--em-l);}
+.rval.r{color:var(--red);}
+.rval.w{color:var(--amber);}
+.rval.i{color:var(--indigo-l);}
+.rval.big{font-family:'DM Serif Display',serif;font-size:1.8rem;color:var(--text);}
+.rval.big.g{color:var(--em-l);}
+.rval.big.r{color:var(--red);}
+.rval.big.i{color:var(--indigo-l);}
+
+/* KPI grid */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px;}
+.kpi{background:var(--bg3);border:0.5px solid var(--border2);border-radius:10px;padding:1rem;}
+.kpi-lbl{font-size:11px;color:var(--text3);margin-bottom:4px;}
+.kpi-val{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--text);}
+.kpi-val.g{color:var(--em-l);}
+.kpi-val.r{color:var(--red);}
+.kpi-val.i{color:var(--indigo-l);}
+.kpi-val.w{color:var(--amber);}
+
+/* NOTA */
+.nota{margin-top:10px;padding:10px 13px;border-radius:8px;font-size:12px;line-height:1.65;border-left:2px solid var(--indigo);background:var(--indigo-d);color:var(--text2);}
+.nota.g{border-left-color:var(--em);background:var(--em-d);}
+.nota.w{border-left-color:var(--amber);background:var(--amber-d);color:var(--amber);}
+.nota.r{border-left-color:var(--red);background:var(--red-d);color:var(--red);}
+
+/* RISCO VÍNCULO */
+.risco-bar{height:8px;background:var(--bg4);border-radius:4px;overflow:hidden;margin:8px 0;}
+.risco-fill{height:100%;border-radius:4px;transition:width .4s,background .4s;}
+.risco-label{font-size:12px;font-weight:500;}
+
+/* COMPARATIVO */
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px;}
+.cmp-card{background:var(--bg3);border:0.5px solid var(--border2);border-radius:14px;padding:1.5rem;}
+.cmp-card.winner{border-color:var(--em-b);background:var(--em-d);}
+.cmp-card-title{font-size:12px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1rem;display:flex;align-items:center;gap:8px;}
+.cmp-winner-tag{font-size:10px;padding:2px 8px;border-radius:20px;background:var(--em-b);color:var(--em-l);}
+.cmp-val{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--text);margin-bottom:4px;}
+.cmp-sub{font-size:12px;color:var(--text3);}
+.cmp-rows{margin-top:12px;padding-top:12px;border-top:0.5px solid var(--border);}
+
+/* ALERT */
+.alert{border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:13px;line-height:1.65;display:flex;align-items:flex-start;gap:10px;}
+.alert.info{background:var(--indigo-d);color:var(--indigo-l);border:0.5px solid var(--indigo-b);}
+.alert.warn{background:var(--amber-d);color:var(--amber);border:0.5px solid var(--amber-b);}
+.alert.danger{background:var(--red-d);color:var(--red);border:0.5px solid var(--red-b);}
+.alert-icon{flex-shrink:0;margin-top:1px;}
+
+/* FOOTER */
+.foot{border-top:0.5px solid var(--border);padding:1.5rem 2rem;text-align:center;font-size:11px;color:var(--text3);margin-top:2rem;}
+
+@media(max-width:700px){
+  .g2,.row2,.row3,.g3,.cmp-grid{grid-template-columns:1fr;}
+  .tabs{overflow-x:auto;}.tab{padding:12px 16px;}
+  .page{padding:1.5rem 1.25rem 3rem;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Rodolfo<span>.</span></a>
+  <a href="index.html" class="nav-back">← Voltar</a>
+</nav>
+
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab active" onclick="showPage('clt',this)">📋 Folha CLT</button>
+    <button class="tab" onclick="showPage('pj',this)">🏢 Contratação PJ</button>
+    <button class="tab" onclick="showPage('cmp',this)">⚖️ CLT vs PJ — Comparativo</button>
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- ABA 1: FOLHA CLT                                          -->
+<!-- ========================================================= -->
+<div id="page-clt" class="page active">
+  <div class="page-hdr">
+    <div class="page-tag">Simulador · Departamento Pessoal</div>
+    <h1 class="page-title">Folha de Pagamento Completa — CLT 2026</h1>
+    <p class="page-desc">Custo real do empregado para a empresa. INSS progressivo, IR com Lei 15.270/2025, encargos patronais e provisões de 13º e férias.</p>
+  </div>
+
+  <div class="g2">
+    <!-- INPUTS -->
+    <div>
+      <div class="sec">
+        <div class="sec-title">Dados do empregado</div>
+        <div class="field">
+          <span class="lbl">Salário bruto (R$)</span>
+          <input type="number" class="fi" id="clt-sal" value="3500" min="1621" oninput="calcCLT()">
+        </div>
+        <div class="field">
+          <span class="lbl">Dependentes para IR</span>
+          <input type="number" class="fi" id="clt-dep" value="0" min="0" max="20" oninput="calcCLT()">
+        </div>
+        <div class="field">
+          <span class="lbl">Horas extras / mês</span>
+          <input type="number" class="fi" id="clt-he" value="0" min="0" oninput="calcCLT()">
+        </div>
+        <div class="field">
+          <span class="lbl">Tipo de hora extra</span>
+          <select class="fs" id="clt-he-tipo" onchange="calcCLT()">
+            <option value="1.5">Dia útil (50%)</option>
+            <option value="2">Domingo / Feriado (100%)</option>
+          </select>
+        </div>
+        <div class="field">
+          <span class="lbl">Adicional noturno (horas/mês)</span>
+          <input type="number" class="fi" id="clt-not" value="0" min="0" oninput="calcCLT()">
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-title">Dados da empresa</div>
+        <div class="field">
+          <span class="lbl">Regime tributário</span>
+          <select class="fs" id="clt-reg" onchange="calcCLT()">
+            <option value="presumido">Lucro Presumido / Real</option>
+            <option value="simples">Simples Nacional (Anexos I–III)</option>
+            <option value="simplesIV">Simples Nacional (Anexo IV)</option>
+          </select>
+        </div>
+        <div class="field">
+          <span class="lbl">Setor (Sistema S)</span>
+          <select class="fs" id="clt-setor" onchange="calcCLT()">
+            <option value="comercio">Comércio / Varejo</option>
+            <option value="industria">Indústria</option>
+            <option value="servicos">Serviços</option>
+          </select>
+        </div>
+        <div class="field">
+          <span class="lbl">Grau de risco RAT (pelo CNAE)</span>
+          <select class="fs" id="clt-rat" onchange="calcCLT()">
+            <option value="1">Grau 1 — Leve 1% (comércio, serviços)</option>
+            <option value="2" selected>Grau 2 — Médio 2% (indústria leve)</option>
+            <option value="3">Grau 3 — Grave 3% (mineração, química)</option>
+          </select>
+        </div>
+        <div class="field">
+          <span class="lbl">FAP — Fator Acidentário de Prevenção</span>
+          <select class="fs" id="clt-fap" onchange="calcCLT()">
+            <option value="0.5">0,50 — Mínimo (muita segurança)</option>
+            <option value="1.0" selected>1,00 — Padrão</option>
+            <option value="1.5">1,50 — Elevado</option>
+            <option value="2.0">2,00 — Máximo</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div>
+      <!-- KPIs -->
+      <div class="kpis">
+        <div class="kpi"><div class="kpi-lbl">Salário líquido</div><div class="kpi-val g" id="clt-kpi-liq">—</div></div>
+        <div class="kpi"><div class="kpi-lbl">Custo mensal</div><div class="kpi-val i" id="clt-kpi-custo">—</div></div>
+        <div class="kpi"><div class="kpi-lbl">Com provisões</div><div class="kpi-val r" id="clt-kpi-total">—</div></div>
+        <div class="kpi"><div class="kpi-lbl">% sobre salário</div><div class="kpi-val w" id="clt-kpi-pct">—</div></div>
+      </div>
+
+      <!-- Perspectiva funcionário -->
+      <div class="rb">
+        <div class="rb-title">👤 O que o funcionário recebe</div>
+        <div class="rrow"><span class="rname">Salário bruto</span><span class="rval" id="clt-bruto">—</span></div>
+        <div class="rrow"><span class="rname">Horas extras</span><span class="rval g" id="clt-he-val">—</span></div>
+        <div class="rrow"><span class="rname">Adicional noturno</span><span class="rval g" id="clt-not-val">—</span></div>
+        <div class="rrow"><span class="rname">Total bruto</span><span class="rval" id="clt-tot-bruto">—</span></div>
+        <div class="rrow"><span class="rname">(-) INSS progressivo</span><span class="rval r" id="clt-inss-emp">—</span></div>
+        <div class="rrow"><span class="rname">Base de cálculo IR</span><span class="rval" id="clt-base-ir">—</span></div>
+        <div class="rrow"><span class="rname">(-) IR retido na fonte</span><span class="rval r" id="clt-ir">—</span></div>
+        <div class="rrow total"><span class="rname b">Salário líquido</span><span class="rval big g" id="clt-liq">—</span></div>
+      </div>
+
+      <!-- Perspectiva empresa -->
+      <div class="rb">
+        <div class="rb-title">🏢 O que sai do caixa da empresa</div>
+        <div class="rrow"><span class="rname">Salário/remuneração total bruta</span><span class="rval" id="clt-rem">—</span></div>
+        <div class="rrow"><span class="rname">INSS patronal (20%)</span><span class="rval r" id="clt-inss-pat">—</span></div>
+        <div class="rrow"><span class="rname">RAT × FAP</span><span class="rval r" id="clt-rat-val">—</span></div>
+        <div class="rrow"><span class="rname">FGTS (8%)</span><span class="rval r" id="clt-fgts">—</span></div>
+        <div class="rrow"><span class="rname">Sistema S</span><span class="rval r" id="clt-sistemas">—</span></div>
+        <div class="rrow total"><span class="rname b">Custo mensal direto</span><span class="rval big i" id="clt-custo-dir">—</span></div>
+      </div>
+
+      <!-- Provisões -->
+      <div class="rb">
+        <div class="rb-title">📦 Provisões mensais obrigatórias</div>
+        <div class="rrow"><span class="rname">13º salário (1/12)</span><span class="rval" id="clt-prov13">—</span></div>
+        <div class="rrow"><span class="rname">Férias + 1/3 (1/9)</span><span class="rval" id="clt-provfer">—</span></div>
+        <div class="rrow"><span class="rname">FGTS sobre 13º</span><span class="rval" id="clt-fgts13">—</span></div>
+        <div class="rrow"><span class="rname">FGTS sobre férias</span><span class="rval" id="clt-fgtsfer">—</span></div>
+        <div class="rrow total"><span class="rname b">Total provisões</span><span class="rval" id="clt-provtot">—</span></div>
+      </div>
+
+      <!-- Total real -->
+      <div class="rb green">
+        <div class="rb-title">💰 Custo total real mensal</div>
+        <div class="rrow"><span class="rname">Custo direto</span><span class="rval" id="clt-dir2">—</span></div>
+        <div class="rrow"><span class="rname">Provisões</span><span class="rval" id="clt-prov2">—</span></div>
+        <div class="rrow total"><span class="rname b">Total mensal para a empresa</span><span class="rval big r" id="clt-total">—</span></div>
+        <div class="rrow"><span class="rname">% sobre salário bruto</span><span class="rval w" id="clt-pct">—</span></div>
+      </div>
+
+      <div id="clt-nota" class="nota"></div>
+
+      <!-- Sistema S detalhado -->
+      <div class="sec" style="margin-top:14px;">
+        <div class="sec-title">Composição Sistema S</div>
+        <div id="clt-sistemas-det"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    INSS progressivo conforme tabela 2026 · IR calculado com redução Lei 15.270/2025 · Provisões calculadas sobre salário base · Rodolfo Assunção CRC/SP 1SP353033/O-5
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- ABA 2: CONTRATAÇÃO PJ                                     -->
+<!-- ========================================================= -->
+<div id="page-pj" class="page">
+  <div class="page-hdr">
+    <div class="page-tag">Simulador · Contratação PJ</div>
+    <h1 class="page-title">Contratação como Pessoa Jurídica — PJ</h1>
+    <p class="page-desc">Custo real de contratar um prestador PJ. Inclui análise de risco de vínculo empregatício baseada nos critérios do art. 3º da CLT.</p>
+  </div>
+
+  <div class="g2">
+    <div>
+      <div class="sec">
+        <div class="sec-title">Dados do contrato PJ</div>
+        <div class="field">
+          <span class="lbl">Valor mensal do contrato (R$)</span>
+          <input type="number" class="fi" id="pj-val" value="5000" oninput="calcPJ()">
+        </div>
+        <div class="field">
+          <span class="lbl">Regime do prestador</span>
+          <select class="fs" id="pj-reg" onchange="calcPJ()">
+            <option value="mei">MEI (DAS fixo ~R$ 86/mês)</option>
+            <option value="simplesIII" selected>Simples Nacional — Anexo III (Fator R ≥ 28% — est. 6%)</option>
+            <option value="simplesV">Simples Nacional — Anexo V (Fator R &lt; 28% — est. 15,5%)</option>
+            <option value="presumido">Lucro Presumido (est. ~11,33%)</option>
+          </select>
+        </div>
+        <div class="field">
+          <span class="lbl">ISS retido na fonte pelo tomador (%)</span>
+          <select class="fs" id="pj-iss" onchange="calcPJ()">
+            <option value="0">Não retém (prestador recolhe)</option>
+            <option value="2">2% — mínimo legal</option>
+            <option value="3" selected>3% — comum em serviços</option>
+            <option value="5">5% — máximo legal</option>
+          </select>
+        </div>
+        <div class="field">
+          <span class="lbl">IRRF — Retenção federal na fonte</span>
+          <select class="fs" id="pj-irrf" onchange="calcPJ()">
+            <option value="0">Não retém (atividade isenta)</option>
+            <option value="1.5" selected>1,5% — serviços em geral</option>
+            <option value="4.8">4,8% — serviços específicos</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-title">Análise de risco de vínculo empregatício</div>
+        <p style="font-size:12px;color:var(--text2);margin-bottom:12px;line-height:1.6">Responda com base na relação real com o prestador. Cada item marcado aumenta o risco de caracterização de vínculo (art. 3º CLT).</p>
+        <div class="field">
+          <span class="lbl">Pessoalidade — o serviço é prestado sempre pela mesma pessoa, sem substituto?</span>
+          <select class="fs" id="pj-r1" onchange="calcPJ()"><option value="0">Não — pode enviar substituto</option><option value="25">Sim — sempre a mesma pessoa</option></select>
+        </div>
+        <div class="field">
+          <span class="lbl">Subordinação — a empresa define horário, local e forma de trabalho?</span>
+          <select class="fs" id="pj-r2" onchange="calcPJ()"><option value="0">Não — total autonomia</option><option value="25">Parcial — algumas diretrizes</option><option value="40">Sim — controle direto</option></select>
+        </div>
+        <div class="field">
+          <span class="lbl">Habitualidade — presta serviço com regularidade contínua?</span>
+          <select class="fs" id="pj-r3" onchange="calcPJ()"><option value="0">Não — projetos pontuais</option><option value="20">Sim — regularidade semanal/mensal</option></select>
+        </div>
+        <div class="field">
+          <span class="lbl">Exclusividade — presta serviço só para esta empresa? <span style="color:var(--text3);font-size:11px">(não é elemento obrigatório do art. 3º, mas agrava o risco)</span></span>
+          <select class="fs" id="pj-r4" onchange="calcPJ()"><option value="0">Não — tem outros clientes</option><option value="15">Sim — exclusivo</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="kpis">
+        <div class="kpi"><div class="kpi-lbl">Custo p/ empresa</div><div class="kpi-val i" id="pj-kpi-custo">—</div></div>
+        <div class="kpi"><div class="kpi-lbl">Líquido p/ PJ</div><div class="kpi-val g" id="pj-kpi-liq">—</div></div>
+        <div class="kpi"><div class="kpi-lbl">Risco de vínculo</div><div class="kpi-val" id="pj-kpi-risco">—</div></div>
+      </div>
+
+      <div class="rb">
+        <div class="rb-title">🏢 Custo para a empresa</div>
+        <div class="rrow"><span class="rname">Valor do contrato</span><span class="rval" id="pj-contrato">—</span></div>
+        <div class="rrow"><span class="rname">ISS retido na fonte</span><span class="rval r" id="pj-iss-val">—</span></div>
+        <div class="rrow"><span class="rname">IRRF / Retenção federal</span><span class="rval r" id="pj-irrf-val">—</span></div>
+        <div class="rrow total"><span class="rname b">Custo total mensal</span><span class="rval big i" id="pj-custo">—</span></div>
+        <div class="nota" style="margin-top:10px">O custo do tomador é o valor do contrato. As retenções são pagas ao fisco mas deduzidas do valor líquido do prestador.</div>
+      </div>
+
+      <div class="rb">
+        <div class="rb-title">👤 O que o prestador PJ recebe</div>
+        <div class="rrow"><span class="rname">Valor bruto do contrato</span><span class="rval" id="pj-bruto">—</span></div>
+        <div class="rrow"><span class="rname">(-) ISS retido na fonte</span><span class="rval r" id="pj-iss2">—</span></div>
+        <div class="rrow"><span class="rname">(-) IRRF / Retenção federal</span><span class="rval r" id="pj-ir2">—</span></div>
+        <div class="rrow"><span class="rname">Valor líquido recebido no banco</span><span class="rval" id="pj-liq-rec">—</span></div>
+        <div style="border-top:0.5px solid var(--border);margin:8px 0;padding-top:8px;">
+          <div class="rrow"><span class="rname">(-) Imposto PJ (DAS / regime)</span><span class="rval r" id="pj-imp-pj">—</span></div>
+          <div class="rrow total"><span class="rname b">Líquido sem contribuição previdenciária</span><span class="rval big g" id="pj-liq">—</span></div>
+        </div>
+        <div style="border-top:0.5px solid var(--border);margin:8px 0;padding-top:8px;">
+          <div class="rrow"><span class="rname">(-) INSS autônomo — plano normal (20% s/ mín.)</span><span class="rval r" id="pj-inss-aut">—</span></div>
+          <div class="rrow total"><span class="rname b">Líquido com INSS (garante aposentadoria por tempo)</span><span class="rval big g" id="pj-liq-c-inss">—</span></div>
+        </div>
+        <div class="nota" style="margin-top:10px;color:var(--amber);border-left-color:var(--amber);background:var(--amber-d)">O prestador PJ não possui FGTS, seguro-desemprego, 13º nem férias remuneradas. O prestador PJ deve provisionar recursos para férias, 13º, períodos sem contrato, tributos e aposentadoria.</div>
+      </div>
+
+      <!-- ALERTA ALTO RISCO -->
+      <div id="pj-alerta-risco"></div>
+
+      <!-- RISCO DE VÍNCULO -->
+      <div class="rb" id="pj-risco-box">
+        <div class="rb-title">⚖️ Risco de caracterização de vínculo empregatício</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+          <span class="risco-label" id="pj-risco-label">—</span>
+          <span class="rval" id="pj-risco-pct">—</span>
+        </div>
+        <div class="risco-bar"><div class="risco-fill" id="pj-risco-fill"></div></div>
+        <div id="pj-risco-nota" class="nota" style="margin-top:10px;"></div>
+        <div style="margin-top:12px;padding-top:10px;border-top:0.5px solid var(--border);">
+          <p style="font-size:11px;color:var(--text3);line-height:1.7">
+            <strong style="color:var(--text2)">Elementos do art. 3º CLT:</strong> pessoa física, não eventualidade (habitualidade), dependência/subordinação e onerosidade (salário). A presença simultânea dos quatro caracteriza vínculo empregatício, independentemente do contrato firmado. <strong style="color:var(--text2)">Exclusividade</strong> não é requisito legal, mas quando combinada com pessoalidade, subordinação e habitualidade, reforça significativamente o risco. Em caso de reconhecimento de vínculo empregatício, podem existir recolhimentos retroativos de INSS, FGTS, verbas trabalhistas e penalidades, conforme decisão administrativa ou judicial.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    Análise de risco orientativa — não substitui parecer jurídico. Retenções conforme legislação vigente 2026. Rodolfo Assunção CRC/SP 1SP353033/O-5
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- ABA 3: COMPARATIVO                                        -->
+<!-- ========================================================= -->
+<div id="page-cmp" class="page">
+  <div class="page-hdr">
+    <div class="page-tag">Simulador · Comparativo</div>
+    <h1 class="page-title">CLT vs PJ — Comparativo de Custos</h1>
+    <p class="page-desc">Compare os dois modelos com base no custo real para a empresa e no líquido real para quem trabalha. Preencha os dados nas abas anteriores ou configure aqui.</p>
+  </div>
+
+  <div class="sec" style="margin-bottom:16px;">
+    <div class="sec-title">Configuração rápida</div>
+    <div class="row3">
+      <div class="field">
+        <span class="lbl">Salário CLT pretendido (R$)</span>
+        <input type="number" class="fi" id="cm-sal" value="3500" oninput="calcCmp()">
+      </div>
+      <div class="field">
+        <span class="lbl">Valor contrato PJ equivalente (R$)</span>
+        <input type="number" class="fi" id="cm-pj" value="5000" oninput="calcCmp()">
+      </div>
+      <div class="field">
+        <span class="lbl">Regime da empresa (tomador)</span>
+        <select class="fs" id="cm-reg" onchange="calcCmp()">
+          <option value="presumido">Lucro Presumido / Real</option>
+          <option value="simples">Simples Nacional</option>
+        </select>
+      </div>
+    </div>
+    <div class="row3" style="margin-top:0">
+      <div class="field">
+        <span class="lbl">Regime tributário do PJ (prestador)</span>
+        <select class="fs" id="cm-reg-pj" onchange="calcCmp()">
+          <option value="mei">MEI (DAS fixo ~R$ 86/mês)</option>
+          <option value="simplesIII" selected>Simples Nacional — Anexo III (Fator R ≥ 28%, est. 6%)</option>
+          <option value="simplesV">Simples Nacional — Anexo V (Fator R &lt; 28%, est. 15,5%)</option>
+          <option value="presumido">Lucro Presumido (est. ~11,33%)</option>
+        </select>
+      </div>
+      <div class="field">
+        <span class="lbl">Quantidade de colaboradores neste perfil</span>
+        <input type="number" class="fi" id="cm-qtd" value="1" min="1" max="500" oninput="calcCmp()">
+      </div>
+    </div>
+  </div>
+
+  <div class="cmp-grid" id="cmp-cards"></div>
+  <div class="kpis" id="cmp-kpis" style="margin-bottom:14px;"></div>
+  <div id="cmp-analise" class="rb" style="margin-bottom:14px;"></div>
+
+  <!-- TABELA LADO A LADO -->
+  <div class="sec">
+    <div class="sec-title">Visão detalhada lado a lado</div>
+    <div id="cmp-tabela"></div>
+  </div>
+
+  <div class="foot">
+    Comparativo orientativo. CLT calculado com INSS progressivo, IR Lei 15.270/2025, encargos patronais e provisões. Rodolfo Assunção CRC/SP 1SP353033/O-5
+  </div>
+</div>
+
+<script>
+// ─── UTILITÁRIOS ──────────────────────────────────────────────────────────
+const fmt = v => 'R$ '+Math.round(v).toLocaleString('pt-BR');
+const fmtD = v => 'R$ '+parseFloat(v||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const pct = v => parseFloat(v||0).toFixed(1)+'%';
+const g = id => document.getElementById(id);
+const n = id => parseFloat(g(id)?.value)||0;
+
+function showPage(id, el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  g('page-'+id).classList.add('active');
+  el.classList.add('active');
+}
+
+// ─── INSS EMPREGADO PROGRESSIVO 2026 ─────────────────────────────────────
+function calcINSS(sal){
+  // Tabela 2026: faixas com parcela a deduzir
+  if(sal<=0) return 0;
+  if(sal<=1621)   return sal*0.075;
+  if(sal<=2902.84) return sal*0.09-24.32;
+  if(sal<=4354.27) return sal*0.12-111.40;
+  if(sal<=8475.55) return sal*0.14-198.49;
+  return 8475.55*0.14-198.49; // teto
+}
+
+// ─── IR COM LEI 15.270/2025 ───────────────────────────────────────────────
+function calcIR(base){
+  if(base<=0) return 0;
+  // Tabela progressiva
+  let irBruto=0;
+  if(base<=2428.80)       irBruto=0;
+  else if(base<=2826.65)  irBruto=base*0.075-182.16;
+  else if(base<=3751.05)  irBruto=base*0.15-394.16;
+  else if(base<=4664.68)  irBruto=base*0.225-675.49;
+  else                    irBruto=base*0.275-908.73;
+  if(irBruto<=0) return 0;
+  // Redução Lei 15.270/2025
+  let reducao=0;
+  if(base<=5000)      reducao=978.62-(0.133145*base);
+  else if(base<=7350) reducao=978.62-(0.133145*base);
+  const irFinal=Math.max(0,irBruto-Math.max(0,reducao));
+  return irFinal;
+}
+
+// ─── SISTEMA S POR SETOR ──────────────────────────────────────────────────
+function getSistemaS(setor, base){
+  const tabelas={
+    comercio:{ SESC:0.015, SENAC:0.01, SEBRAE:0.003, 'Salário-Educação':0.025 },
+    industria:{ SESI:0.015, SENAI:0.01, SEBRAE:0.003, INCRA:0.002, 'Salário-Educação':0.025 },
+    servicos:{ SESC:0.015, SENAC:0.01, SEBRAE:0.003, 'Salário-Educação':0.025 }
+  };
+  const tab=tabelas[setor]||tabelas.comercio;
+  let total=0;
+  const rows=[];
+  for(const [nome,aliq] of Object.entries(tab)){
+    const val=base*aliq;
+    total+=val;
+    rows.push({nome,aliq,val});
+  }
+  return{total,rows};
+}
+
+// ─── CÁLCULO CLT ─────────────────────────────────────────────────────────
+function calcCLT(){
+  const sal    = n('clt-sal');
+  const dep    = n('clt-dep');
+  const heQty  = n('clt-he');
+  const heTipo = n('clt-he-tipo');
+  const notHrs = n('clt-not');
+  const reg    = g('clt-reg').value;
+  const setor  = g('clt-setor').value;
+  const ratPct = n('clt-rat')/100;
+  const fap    = n('clt-fap');
+
+  // Remuneração bruta
+  const valorHora = sal/220;
+  const heVal  = heQty>0 ? valorHora*heTipo*heQty : 0;
+  const notVal = notHrs>0 ? valorHora*0.2*notHrs : 0;
+  const remBruta = sal+heVal+notVal;
+
+  // INSS empregado
+  const inssEmp = calcINSS(remBruta);
+
+  // Base IR
+  const deducDep = dep*189.59;
+  const baseIR   = Math.max(0, remBruta-inssEmp-deducDep);
+  const ir       = calcIR(baseIR);
+
+  // Líquido
+  const liq = remBruta-inssEmp-ir;
+
+  // Encargos patronais
+  const isSimples = reg==='simples';
+  const inssPatronal = isSimples ? 0 : remBruta*0.20;
+  const ratEfetivo   = isSimples ? 0 : remBruta*ratPct*fap;
+  const fgts         = remBruta*0.08;
+  const sistemaS     = isSimples ? {total:0,rows:[]} : getSistemaS(setor, remBruta);
+  const custoDir = remBruta+inssPatronal+ratEfetivo+fgts+sistemaS.total;
+
+  // Provisões (sobre salário base, não sobre HE habituais para simplificar)
+  const prov13  = sal/12;
+  const provFer = sal/9;
+  const fgts13  = prov13*0.08;
+  const fgtsFer = provFer*0.08;
+  const provTot = prov13+provFer+fgts13+fgtsFer;
+
+  const total = custoDir+provTot;
+  const pctTotal = sal>0 ? (total/sal-1)*100 : 0;
+
+  // KPIs
+  g('clt-kpi-liq').textContent    = fmt(liq);
+  g('clt-kpi-custo').textContent  = fmt(custoDir);
+  g('clt-kpi-total').textContent  = fmt(total);
+  g('clt-kpi-pct').textContent    = '+'+pct(pctTotal);
+
+  // Funcionário
+  g('clt-bruto').textContent    = fmt(sal);
+  g('clt-he-val').textContent   = heVal>0?'+'+fmt(heVal):'—';
+  g('clt-not-val').textContent  = notVal>0?'+'+fmt(notVal):'—';
+  g('clt-tot-bruto').textContent= fmt(remBruta);
+  g('clt-inss-emp').textContent = '-'+fmtD(inssEmp);
+  g('clt-base-ir').textContent  = fmtD(baseIR);
+  g('clt-ir').textContent       = ir>0?'-'+fmtD(ir):'R$ 0,00 (isento)';
+  g('clt-liq').textContent      = fmt(liq);
+
+  // Empresa
+  g('clt-rem').textContent      = fmt(remBruta);
+  g('clt-inss-pat').textContent = isSimples?'Incluso no DAS':'-'+fmt(inssPatronal);
+  g('clt-rat-val').textContent  = isSimples?'Incluso no DAS':'-'+fmtD(ratEfetivo);
+  g('clt-fgts').textContent     = '-'+fmt(fgts);
+  g('clt-sistemas').textContent = isSimples?'Incluso no DAS':'-'+fmt(sistemaS.total);
+  g('clt-custo-dir').textContent= fmt(custoDir);
+
+  // Provisões
+  g('clt-prov13').textContent   = fmt(prov13);
+  g('clt-provfer').textContent  = fmt(provFer);
+  g('clt-fgts13').textContent   = fmt(fgts13);
+  g('clt-fgtsfer').textContent  = fmt(fgtsFer);
+  g('clt-provtot').textContent  = fmt(provTot);
+
+  // Total
+  g('clt-dir2').textContent     = fmt(custoDir);
+  g('clt-prov2').textContent    = fmt(provTot);
+  g('clt-total').textContent    = fmt(total);
+  g('clt-pct').textContent      = '+'+pct(pctTotal)+' sobre o salário bruto';
+
+  // Sistema S detalhado
+  if(isSimples){
+    g('clt-sistemas-det').innerHTML='<p style="font-size:13px;color:var(--text2)">No Simples Nacional (Anexos I–III), os encargos patronais e Sistema S estão unificados no DAS mensal. Não há recolhimento separado de INSS patronal, RAT ou Terceiros.</p>';
+  } else {
+    g('clt-sistemas-det').innerHTML=sistemaS.rows.map(r=>`
+      <div class="rrow"><span class="rname">${r.nome} (${(r.aliq*100).toFixed(1)}%)</span><span class="rval">${fmtD(r.val)}</span></div>
+    `).join('')+`<div class="rrow total"><span class="rname b">Total Sistema S</span><span class="rval">${fmt(sistemaS.total)}</span></div>`;
+  }
+
+  // Nota IR
+  const notaEl=g('clt-nota');
+  if(ir===0 && baseIR>2428.80){
+    notaEl.className='nota g';
+    notaEl.textContent=`IR zerado pela Lei 15.270/2025. Base de ${fmtD(baseIR)} — dentro da faixa de isenção efetiva (até aprox. R$ 5.000 de base de cálculo).`;
+  } else if(ir===0){
+    notaEl.className='nota g';
+    notaEl.textContent=`Base de ${fmtD(baseIR)} está na faixa de isenção (até R$ 2.428,80). IR = R$ 0,00.`;
+  } else {
+    notaEl.className='nota';
+    notaEl.textContent=`IR calculado com a redução da Lei 15.270/2025. Base ${fmtD(baseIR)} → alíquota progressiva → redução aplicada → IR final: ${fmtD(ir)}.`;
+  }
+
+  // Salva para comparativo
+  window._cltData = {sal,remBruta,liq,custoDir,total,pctTotal,inssEmp,ir,reg};
+}
+
+// ─── CÁLCULO PJ ──────────────────────────────────────────────────────────
+function calcPJ(){
+  const val    = n('pj-val');
+  const regPJ  = g('pj-reg').value;
+  const issAliq= n('pj-iss')/100;
+  const irrfAliq=n('pj-irrf')/100;
+
+  const issRetido  = val*issAliq;
+  const irrfRetido = val*irrfAliq;
+  const liqRecebido= val-issRetido-irrfRetido;
+
+  // Imposto PJ (estimativa por regime)
+  let impPJ=0;
+  if(regPJ==='mei')          impPJ=86.05;
+  else if(regPJ==='simplesIII') impPJ=liqRecebido*0.06;
+  else if(regPJ==='simplesV')   impPJ=liqRecebido*0.155;
+  else if(regPJ==='simples')    impPJ=liqRecebido*0.06;
+  else                       impPJ=val*0.1133;
+
+  // INSS autônomo — plano normal (20% sobre salário-mínimo = contribuição mínima)
+  const inssAut=1621*0.20; // R$ 324,20
+
+  const liqSemINSS=liqRecebido-impPJ;
+  const liqComINSS=Math.max(0,liqSemINSS-inssAut);
+
+  // Custo empresa = valor contrato
+  const custoEmp=val;
+
+  // KPIs
+  g('pj-kpi-custo').textContent=fmt(custoEmp);
+  g('pj-kpi-liq').textContent=fmt(liqSemINSS);
+
+  // Empresa
+  g('pj-contrato').textContent=fmt(val);
+  g('pj-iss-val').textContent=issRetido>0?'-'+fmtD(issRetido):'—';
+  g('pj-irrf-val').textContent=irrfRetido>0?'-'+fmtD(irrfRetido):'—';
+  g('pj-custo').textContent=fmt(custoEmp);
+
+  // PJ
+  g('pj-bruto').textContent=fmt(val);
+  g('pj-iss2').textContent=issRetido>0?'-'+fmtD(issRetido):'—';
+  g('pj-ir2').textContent=irrfRetido>0?'-'+fmtD(irrfRetido):'—';
+  g('pj-liq-rec').textContent=fmt(liqRecebido);
+  g('pj-imp-pj').textContent='-'+fmt(impPJ);
+  g('pj-inss-aut').textContent='-'+fmt(inssAut);
+  g('pj-liq').textContent=fmt(liqSemINSS);
+  g('pj-liq-c-inss').textContent=fmt(liqComINSS);
+
+  // RISCO DE VÍNCULO
+  const r1=ni('pj-r1'), r2=ni('pj-r2'), r3=ni('pj-r3'), r4=ni('pj-r4');
+  const risco=r1+r2+r3+r4;
+  const riscoMax=100;
+  const riscoPct=Math.min(risco,riscoMax);
+
+  let riscoLabel,riscoColor,riscoNota,riscoClass;
+  if(riscoPct<=15){
+    riscoLabel='🟢 Baixo';riscoColor='var(--em-l)';riscoClass='g';
+    riscoNota='Perfil compatível com contratação PJ legítima. Poucos elementos de vínculo identificados. Mantenha contratos bem redigidos e emissão de NF regular.';
+  } else if(riscoPct<=45){
+    riscoLabel='🟡 Moderado';riscoColor='var(--amber)';riscoClass='w';
+    riscoNota='Há elementos que merecem atenção. Revise os critérios de pessoalidade e subordinação. Um contrato bem estruturado e a comprovação de autonomia reduzem o risco.';
+  } else if(riscoPct<=70){
+    riscoLabel='🟠 Elevado';riscoColor='#FB923C';riscoClass='w';
+    riscoNota='Múltiplos elementos de vínculo identificados. Risco real de reconhecimento judicial ou administrativo. Recomenda-se revisão da estrutura contratual com assessoria jurídica especializada.';
+  } else {
+    riscoLabel='🔴 Crítico';riscoColor='var(--red)';riscoClass='r';
+    riscoNota='Configuração de alto risco de vínculo empregatício. Em caso de reconhecimento de vínculo empregatício, podem existir recolhimentos retroativos de INSS, FGTS, verbas trabalhistas e penalidades, conforme decisão administrativa ou judicial.';
+  }
+
+  g('pj-kpi-risco').textContent=riscoLabel;
+  g('pj-kpi-risco').className='kpi-val '+riscoClass;
+  g('pj-risco-label').textContent=riscoLabel;
+  g('pj-risco-label').style.color=riscoColor;
+  g('pj-risco-pct').textContent=riscoPct+'pts de 100';
+  const fill=g('pj-risco-fill');
+  fill.style.width=riscoPct+'%';
+  fill.style.background=riscoColor;
+  const notaEl=g('pj-risco-nota');
+  notaEl.textContent=riscoNota;
+  notaEl.className='nota '+riscoClass;
+
+  // Fix 5: alerta automático de alto risco >= 70
+  const alertaRisco=g('pj-alerta-risco');
+  if(riscoPct>=70){
+    alertaRisco.innerHTML=`<div class="alert danger">
+      <span class="alert-icon">⚠️</span>
+      <span><strong>Atenção.</strong> A economia potencial da contratação PJ pode ser anulada por eventual reconhecimento de vínculo empregatício. Avalie cuidadosamente os elementos de pessoalidade, subordinação e habitualidade antes de prosseguir com esta estrutura contratual.</span>
+    </div>`;
+  } else {
+    alertaRisco.innerHTML='';
+  }
+
+  window._pjData={val,liqReal:liqSemINSS,liqComINSS,custoEmp,impPJ,issRetido,irrfRetido,riscoPct,riscoLabel};
+  calcCmp();
+}
+
+// ─── COMPARATIVO ─────────────────────────────────────────────────────────
+function calcCmp(){
+  const salCLT = n('cm-sal');
+  const valPJ  = n('cm-pj');
+  const reg    = g('cm-reg').value;
+  const qtd    = Math.max(1, parseInt(g('cm-qtd')?.value)||1);
+
+  // CLT (por colaborador)
+  const inssEmp  = calcINSS(salCLT);
+  const baseIR   = Math.max(0,salCLT-inssEmp);
+  const ir       = calcIR(baseIR);
+  const liqCLT   = salCLT-inssEmp-ir;
+  const isSimples= reg==='simples';
+  const inssP    = isSimples?0:salCLT*0.20;
+  const rat      = isSimples?0:salCLT*0.02;
+  const fgts     = salCLT*0.08;
+  const terceiros= isSimples?0:salCLT*0.058;
+  const custoDirCLT = salCLT+inssP+rat+fgts+terceiros;
+  const provCLT  = salCLT/12+salCLT/9+(salCLT/12+salCLT/9)*0.08;
+  const totalCLT1 = custoDirCLT+provCLT; // por colaborador
+  const totalCLT  = totalCLT1*qtd;       // total
+
+  // PJ — usa regime próprio do comparativo (independente da aba PJ)
+  const issAliqCmp  = n('pj-iss')/100;
+  const irrfAliqCmp = n('pj-irrf')/100;
+  const regPJCmp    = g('cm-reg-pj').value;
+  const issRetCmp   = valPJ*issAliqCmp;
+  const irrfRetCmp  = valPJ*irrfAliqCmp;
+  const liqRecCmp   = valPJ-issRetCmp-irrfRetCmp;
+  let impPJCmp=0;
+  if(regPJCmp==='mei')          impPJCmp=86.05;
+  else if(regPJCmp==='simplesIII') impPJCmp=liqRecCmp*0.06;
+  else if(regPJCmp==='simplesV')   impPJCmp=liqRecCmp*0.155;
+  else if(regPJCmp==='simples')    impPJCmp=liqRecCmp*0.06;
+  else                          impPJCmp=valPJ*0.1133;
+  const liqPJ1    = liqRecCmp-impPJCmp;   // por colaborador
+  const custoPJ1  = valPJ;                // por colaborador
+  const custoPJ   = custoPJ1*qtd;         // total
+  const liqPJ     = liqPJ1;              // por colaborador (para exibição)
+
+  // Diferenças totais (com qtd)
+  const diffCusto  = totalCLT-custoPJ;    // positivo = PJ mais barato
+  const ecoMensal  = Math.abs(diffCusto);
+  const ecoAnual   = ecoMensal*12;
+  const quemEconomiza = diffCusto>0 ? 'PJ' : 'CLT';
+
+  // Cards — cltWins = true quando CLT é mais barato (totalCLT < custoPJ)
+  const cltWins = totalCLT < custoPJ;
+  const pjWins  = !cltWins;
+  const cards=g('cmp-cards');
+  cards.innerHTML=`
+    <div class="cmp-card ${cltWins?'winner':''}">
+      <div class="cmp-card-title">📋 CLT ${cltWins?'<span class="cmp-winner-tag">Menor custo</span>':''}</div>
+      <div class="cmp-val">${fmt(totalCLT)}</div>
+      <div class="cmp-sub">Custo total mensal — ${qtd} colaborador${qtd>1?'es':''}</div>
+      <div class="cmp-rows">
+        <div class="rrow"><span class="rname">Por colaborador</span><span class="rval">${fmt(totalCLT1)}</span></div>
+        <div class="rrow"><span class="rname">Custo direto (total)</span><span class="rval">${fmt(custoDirCLT*qtd)}</span></div>
+        <div class="rrow"><span class="rname">Provisões (total)</span><span class="rval">${fmt(provCLT*qtd)}</span></div>
+        <div class="rrow"><span class="rname">Encargo s/ salário</span><span class="rval w">+${pct((totalCLT1/salCLT-1)*100)}</span></div>
+      </div>
+    </div>
+    <div class="cmp-card ${pjWins?'winner':''}">
+      <div class="cmp-card-title">🏢 PJ ${pjWins?'<span class="cmp-winner-tag">Menor custo</span>':''}</div>
+      <div class="cmp-val">${fmt(custoPJ)}</div>
+      <div class="cmp-sub">Custo total mensal — ${qtd} colaborador${qtd>1?'es':''}</div>
+      <div class="cmp-rows">
+        <div class="rrow"><span class="rname">Por colaborador</span><span class="rval">${fmt(custoPJ1)}</span></div>
+        <div class="rrow"><span class="rname">Sem encargos patronais</span><span class="rval g">✓</span></div>
+        <div class="rrow"><span class="rname">Sem provisões</span><span class="rval g">✓</span></div>
+        <div class="rrow"><span class="rname">Líquido estimado/colab.</span><span class="rval g">${fmt(liqPJ)}</span></div>
+      </div>
+    </div>
+  `;
+
+  // Fix 3: KPIs de economia
+  g('cmp-kpis').innerHTML=`
+    <div class="kpi"><div class="kpi-lbl">Modelo mais barato</div><div class="kpi-val ${pjWins?'g':'i'}">${pjWins?'PJ':'CLT'}</div></div>
+    <div class="kpi"><div class="kpi-lbl">Economia mensal${qtd>1?' ('+qtd+' colab.)':''}</div><div class="kpi-val g">${fmt(ecoMensal)}</div></div>
+    <div class="kpi"><div class="kpi-lbl">Economia anual${qtd>1?' ('+qtd+' colab.)':''}</div><div class="kpi-val g">${fmt(ecoAnual)}</div></div>
+    ${qtd>1?`<div class="kpi"><div class="kpi-lbl">Economia/colab./ano</div><div class="kpi-val">${fmt(ecoAnual/qtd)}</div></div>`:''}
+  `;
+
+  // Análise
+  const ana=g('cmp-analise');
+  if(pjWins){
+    ana.innerHTML=`<div class="rb-title">📊 Análise</div>
+      <p style="font-size:14px;color:var(--text2);line-height:1.8">Neste cenário, o <strong style="color:var(--text)">modelo PJ custa ${fmt(ecoMensal)} a menos por mês</strong> (${fmt(ecoAnual)}/ano${qtd>1?' para '+qtd+' colaboradores':''}) do que o CLT com provisões. Antes de optar pelo PJ, verifique o risco de vínculo na aba correspondente — um eventual reconhecimento de vínculo empregatício pode anular e superar essa economia.</p>`;
+  } else {
+    ana.innerHTML=`<div class="rb-title">📊 Análise</div>
+      <p style="font-size:14px;color:var(--text2);line-height:1.8">Neste cenário, o <strong style="color:var(--text)">modelo CLT custa ${fmt(ecoMensal)} a menos por mês</strong> (${fmt(ecoAnual)}/ano${qtd>1?' para '+qtd+' colaboradores':''}) do que contratar como PJ neste valor. Isso é comum quando o contrato PJ está acima do custo total CLT — o PJ precisa ser calibrado para compensar a ausência de encargos.</p>`;
+  }
+
+  // Tabela lado a lado (por colaborador)
+  const tab=g('cmp-tabela');
+  tab.innerHTML=`
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:0;border:0.5px solid var(--border);border-radius:10px;overflow:hidden;">
+      <div style="padding:8px 12px;background:var(--bg4);font-size:11px;color:var(--text3);font-weight:500;text-transform:uppercase;letter-spacing:.05em;">Item — por colaborador</div>
+      <div style="padding:8px 12px;background:var(--bg4);font-size:11px;color:var(--text3);font-weight:500;text-transform:uppercase;letter-spacing:.05em;text-align:right">CLT</div>
+      <div style="padding:8px 12px;background:var(--bg4);font-size:11px;color:var(--text3);font-weight:500;text-transform:uppercase;letter-spacing:.05em;text-align:right">PJ</div>
+      ${[
+        ['Salário / Contrato bruto', fmt(salCLT), fmt(valPJ)],
+        ['INSS empregado/prestador', '-'+fmtD(inssEmp), 'Resp. do PJ'],
+        ['IR retido', ir>0?'-'+fmtD(ir):'R$ 0 (isento)', 'Conforme contrato'],
+        ['Líquido recebido', fmt(liqCLT), fmt(liqPJ1)+' (est.)'],
+        ['INSS patronal', isSimples?'No DAS':'-'+fmt(salCLT*0.20), '—'],
+        ['FGTS', '-'+fmt(fgts), '—'],
+        ['RAT + Sistema S', isSimples?'No DAS':'-'+fmt(rat+terceiros), '—'],
+        ['Provisão 13º', '-'+fmt(salCLT/12), '—'],
+        ['Provisão férias+1/3', '-'+fmt(salCLT/9), '—'],
+        ['Custo/colaborador/mês', fmt(totalCLT1), fmt(custoPJ1)],
+        qtd>1?['Custo total ('+qtd+' colab.)/mês', fmt(totalCLT), fmt(custoPJ)]:null,
+        ['Diferença mensal total', '—', pjWins?'Economia: '+fmt(ecoMensal):'Custo extra: '+fmt(ecoMensal)],
+        ['Diferença anual total', '—', pjWins?'Economia: '+fmt(ecoAnual):'Custo extra: '+fmt(ecoAnual)],
+      ].filter(Boolean).map(([item,clt,pj],i)=>`
+        <div style="padding:8px 12px;font-size:13px;color:var(--text2);border-top:0.5px solid var(--border);background:${i%2?'var(--bg3)':'var(--bg4)'};">${item}</div>
+        <div style="padding:8px 12px;font-size:13px;color:var(--text);border-top:0.5px solid var(--border);text-align:right;background:${i%2?'var(--bg3)':'var(--bg4)'};">${clt}</div>
+        <div style="padding:8px 12px;font-size:13px;color:var(--text);border-top:0.5px solid var(--border);text-align:right;background:${i%2?'var(--bg3)':'var(--bg4)'};">${pj}</div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function ni(id){ return parseInt(g(id)?.value)||0; }
+
+// INIT
+calcCLT();
+calcPJ();
+calcCmp();
+</script>
+</body>
+</html>

@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Check-up Marketplace — Rodolfo Assunção</title>
+<meta name="description" content="Descubra quanto sobra em cada venda no marketplace. Precificação correta, comparativo de plataformas e margem real — ML, Shopee, Amazon, Magalu, Americanas e Nuvemshop.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F172A;--bg2:#111827;--bg3:#1E2937;--bg4:#263244;
+  --border:rgba(51,65,85,0.5);--border2:#334155;
+  --text:#F8FAFC;--text2:#CBD5E1;--text3:#94A3B8;
+  --indigo:#4F46E5;--indigo2:#4338CA;--indigo-l:#818CF8;
+  --indigo-d:rgba(79,70,229,0.1);--indigo-b:rgba(79,70,229,0.25);
+  --em:#10B981;--em2:#059669;--em-l:#34D399;
+  --em-d:rgba(16,185,129,0.1);--em-b:rgba(16,185,129,0.25);
+  --amber:#FBBF24;--amber-d:rgba(251,191,36,0.1);--amber-b:rgba(251,191,36,0.3);
+  --red:#F87171;--red-d:rgba(248,113,113,0.1);--red-b:rgba(248,113,113,0.3);
+  --gold:#F59E0B;--gold-d:rgba(245,158,11,0.08);--gold-b:rgba(245,158,11,0.25);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.7;min-height:100vh;}
+nav{position:sticky;top:0;z-index:100;background:rgba(15,23,42,0.95);backdrop-filter:blur(16px);border-bottom:.5px solid var(--border);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);text-decoration:none;}
+.nav-logo span{color:var(--indigo-l);}
+.nav-back{font-size:13px;color:var(--text2);text-decoration:none;}
+
+/* PAGES */
+.page{display:none;max-width:900px;margin:0 auto;padding:2rem 2rem 4rem;}
+.page.active{display:block;}
+
+/* HOME */
+.home-hero{text-align:center;padding:3rem 1rem 2rem;}
+.home-title{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);color:var(--text);line-height:1.15;margin-bottom:.75rem;}
+.home-title span{color:var(--em-l);}
+.home-sub{font-size:14px;color:var(--text2);line-height:1.75;max-width:480px;margin:0 auto 1.5rem;}
+.home-tempo{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;background:var(--em-d);border:.5px solid var(--em-b);border-radius:20px;font-size:12px;color:var(--em-l);margin-bottom:1.75rem;}
+.home-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:2rem;}
+.home-card{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:1.375rem;cursor:pointer;transition:all .2s;text-align:left;border-left:2px solid transparent;}
+.home-card:hover{border-left-color:var(--em);background:var(--em-d);}
+.home-card-icon{font-size:1.5rem;margin-bottom:.5rem;}
+.home-card-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:.3rem;line-height:1.4;}
+.home-card-desc{font-size:11px;color:var(--text3);line-height:1.5;}
+.home-card:hover .home-card-title{color:var(--em-l);}
+.home-card:hover .home-card-desc{color:var(--text2);}
+.microcopy{text-align:center;padding:1.25rem 0;font-size:11px;color:var(--text3);line-height:1.7;border-top:.5px solid var(--border);margin-top:1.5rem;}
+
+/* PAGE HEADER */
+.page-tag{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:.5rem;}
+.page-title{font-family:'DM Serif Display',serif;font-size:clamp(1.4rem,3vw,1.9rem);font-weight:400;color:var(--text);line-height:1.2;margin-bottom:.5rem;}
+.page-desc{font-size:13px;color:var(--text2);line-height:1.75;margin-bottom:1.75rem;}
+.voltar-btn{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text3);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif;padding:0;margin-bottom:1.25rem;transition:color .15s;}
+.voltar-btn:hover{color:var(--text2);}
+
+/* LAYOUT */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.sec{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:1.5rem;margin-bottom:14px;}
+.sec-t{font-size:11px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1.25rem;}
+.lbl{display:block;font-size:12px;color:var(--text2);margin-bottom:5px;}
+.field{margin-bottom:12px;}.field:last-child{margin-bottom:0;}
+.fi{width:100%;padding:9px 13px;font-size:13px;background:var(--bg4);border:.5px solid var(--border2);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;}
+.fi:focus{outline:none;border-color:var(--em);}
+.fs{width:100%;padding:9px 13px;font-size:13px;background:var(--bg4);border:.5px solid var(--border2);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;}
+.hint{font-size:11px;color:var(--text3);margin-top:3px;line-height:1.5;}
+
+/* ANSWER */
+.answer{border-radius:14px;padding:1.5rem;margin-bottom:14px;border:1.5px solid;}
+.answer.verde{background:var(--em-d);border-color:var(--em-b);}
+.answer.amarelo{background:var(--amber-d);border-color:var(--amber-b);}
+.answer.vermelho{background:var(--red-d);border-color:var(--red-b);}
+.answer-label{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem;}
+.answer-text{font-family:'DM Serif Display',serif;font-size:1.2rem;margin-bottom:.4rem;}
+.answer.verde .answer-text{color:var(--em-l);}
+.answer.amarelo .answer-text{color:var(--amber);}
+.answer.vermelho .answer-text{color:var(--red);}
+.answer-sub{font-size:13px;color:var(--text2);line-height:1.65;}
+
+/* KPIS */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:14px;}
+.kpi{background:var(--bg3);border:.5px solid var(--border2);border-radius:10px;padding:.875rem;}
+.kpi-l{font-size:11px;color:var(--text3);margin-bottom:4px;line-height:1.3;}
+.kpi-v{font-family:'DM Serif Display',serif;font-size:1.15rem;color:var(--text);}
+.kpi-v.g{color:var(--em-l);}.kpi-v.r{color:var(--red);}.kpi-v.w{color:var(--amber);}
+
+/* ROWS */
+.rb{background:var(--bg4);border:.5px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:12px;}
+.rb-t{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem;}
+.rrow{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:.5px solid var(--border);font-size:13px;gap:12px;}
+.rrow:last-child{border-bottom:none;}
+.rrow.total{border-top:1px solid var(--border2);padding-top:10px;margin-top:4px;border-bottom:none;}
+.rn{color:var(--text2);flex:1;line-height:1.4;}.rn.b{color:var(--text);font-weight:500;}
+.rv{font-weight:500;color:var(--text);text-align:right;flex-shrink:0;}
+.rv.g{color:var(--em-l);}.rv.r{color:var(--red);}.rv.w{color:var(--amber);}.rv.i{color:var(--indigo-l);}
+.rv.big{font-family:'DM Serif Display',serif;font-size:1.5rem;}
+
+/* COMPARATIVO PLATAFORMAS */
+.plat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:14px;}
+.plat-card{border-radius:12px;padding:1.125rem;border:.5px solid var(--border2);background:var(--bg3);}
+.plat-card.melhor{border-color:var(--em-b);background:var(--em-d);}
+.plat-card.pior{border-color:var(--red-b);background:var(--red-d);}
+.plat-nome{font-size:10px;font-weight:500;color:var(--text3);margin-bottom:5px;text-transform:uppercase;letter-spacing:.06em;}
+.plat-card.melhor .plat-nome{color:var(--em-l);}
+.plat-card.pior .plat-nome{color:var(--red);}
+.plat-lucro{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--text);margin-bottom:2px;}
+.plat-card.melhor .plat-lucro{color:var(--em-l);}
+.plat-card.pior .plat-lucro{color:var(--red);}
+.plat-margem{font-size:11px;color:var(--text3);}
+.plat-badge{font-size:10px;font-weight:500;padding:2px 7px;border-radius:20px;background:var(--em);color:#fff;display:inline-block;margin-top:4px;}
+.plat-badge.pior{background:var(--red);}
+
+/* OPCIONAIS */
+.opcionals-toggle{display:flex;align-items:center;gap:7px;cursor:pointer;font-size:12px;color:var(--text3);padding:8px 0;border:none;background:none;font-family:'DM Sans',sans-serif;transition:color .15s;width:100%;}
+.opcionals-toggle:hover{color:var(--text2);}
+.opc-arr{transition:transform .2s;display:inline-block;}
+.opcionals-body{display:none;padding-top:8px;border-top:.5px solid var(--border2);margin-top:8px;}
+.opcionals-body.open{display:block;}
+
+/* TOGGLE */
+.toggle-btn{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px;color:var(--text3);padding:6px 0;border:none;background:none;font-family:'DM Sans',sans-serif;transition:color .15s;margin-bottom:8px;}
+.toggle-btn:hover{color:var(--text2);}
+.arr{transition:transform .2s;display:inline-block;}
+.toggle-body{display:none;}.toggle-body.open{display:block;}
+
+/* NOTA */
+.nota{padding:10px 13px;border-radius:8px;font-size:12px;line-height:1.65;border-left:2px solid var(--indigo);background:var(--indigo-d);color:var(--text2);margin-top:10px;}
+.nota.w{border-left-color:var(--amber);background:var(--amber-d);color:var(--amber);}
+.nota.g{border-left-color:var(--em);background:var(--em-d);}
+
+/* CTA DISCRETO */
+.cta-disc{padding:1rem 1.25rem;border-top:.5px solid var(--border);margin-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.cta-disc-txt{font-size:12px;color:var(--text3);line-height:1.6;}
+.cta-disc-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:var(--em-d);border:.5px solid var(--em-b);border-radius:8px;font-size:12px;color:var(--em-l);text-decoration:none;font-family:'DM Sans',sans-serif;transition:all .15s;white-space:nowrap;}
+.cta-disc-btn:hover{background:var(--em);color:#fff;}
+
+/* PDF */
+.pdf-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 18px;background:var(--bg4);border:.5px solid var(--border2);border-radius:8px;font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;margin-top:12px;text-decoration:none;}
+.pdf-btn:hover{background:var(--bg3);color:var(--text);}
+
+.foot{border-top:.5px solid var(--border);padding:1.5rem 0;margin-top:2rem;font-size:11px;color:var(--text3);}
+@media(max-width:700px){
+  .g2,.row2,.plat-grid,.home-grid{grid-template-columns:1fr;}
+  .page{padding:1.5rem 1.25rem 3rem;}
+  .cta-disc{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Rodolfo<span>.</span></a>
+  <a href="index.html" class="nav-back">← Voltar</a>
+</nav>
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div class="home-hero">
+    <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:.75rem;">Rodolfo Assunção · Contador</div>
+    <h1 class="home-title">Check-up <span>Marketplace</span></h1>
+    <p class="home-sub">Descubra quanto sobra em cada venda — considerando comissão, imposto, frete e embalagem. Compare plataformas e precifique sem surpresas.</p>
+    <div class="home-tempo">⏱️ Cada diagnóstico em menos de 2 minutos</div>
+    <div class="home-grid">
+      <div class="home-card" onclick="goPage('prec')">
+        <div class="home-card-icon">🏷️</div>
+        <div class="home-card-title">Qual o preço mínimo para não ter prejuízo?</div>
+        <div class="home-card-desc">Precificação por marketplace com comissão, imposto, frete e embalagem</div>
+      </div>
+      <div class="home-card" onclick="goPage('comp')">
+        <div class="home-card-icon">📊</div>
+        <div class="home-card-title">Em qual plataforma seu produto rende mais?</div>
+        <div class="home-card-desc">Comparativo ML, Shopee, Amazon, Magalu, Americanas e Nuvemshop</div>
+      </div>
+      <div class="home-card" onclick="goPage('prec')">
+        <div class="home-card-icon">💰</div>
+        <div class="home-card-title">Quanto sobra de lucro em cada venda?</div>
+        <div class="home-card-desc">Margem real após todos os custos variáveis do marketplace</div>
+      </div>
+      <div class="home-card" onclick="goPage('comp')">
+        <div class="home-card-icon">📈</div>
+        <div class="home-card-title">Vale a pena vender em mais de um canal?</div>
+        <div class="home-card-desc">Diferença de rentabilidade entre plataformas para o mesmo produto</div>
+      </div>
+    </div>
+    <div class="microcopy">A simulação é gratuita e não exige cadastro.<br>Estimativas de mercado · Não substituem análise contábil individualizada.<br>Rodolfo Assunção · CRC/SP 1SP353033/O-5 · Limeira, SP</div>
+  </div>
+</div>
+
+<!-- PRECIFICAÇÃO -->
+<div id="page-prec" class="page">
+  <button class="voltar-btn" onclick="goPage('home')">← Voltar ao início</button>
+  <div class="page-tag">Check-up Marketplace</div>
+  <h1 class="page-title">Qual o preço mínimo para não ter prejuízo no marketplace?</h1>
+  <p class="page-desc">Informe o custo e a margem desejada. O simulador calcula o preço correto considerando a comissão exata da plataforma, imposto e todos os custos variáveis. ⏱️ Menos de 2 minutos.</p>
+  <div class="g2">
+    <div>
+      <div class="sec">
+        <div class="sec-t">Produto e canal</div>
+        <div class="field">
+          <span class="lbl">Custo do produto (CMV) — R$</span>
+          <input type="number" class="fi" id="pr-custo" value="30" min="0.01" oninput="calcPrec()">
+        </div>
+        <div class="field">
+          <span class="lbl">Marketplace</span>
+          <select class="fs" id="pr-mkt" onchange="atualizarCategorias()">
+            <option value="ml_class">Mercado Livre — Anúncio Clássico</option>
+            <option value="ml_prem">Mercado Livre — Anúncio Premium</option>
+            <option value="shopee">Shopee</option>
+            <option value="amazon">Amazon</option>
+            <option value="magalu">Magalu</option>
+            <option value="americanas">Americanas</option>
+            <option value="nuvem">Nuvemshop (loja própria)</option>
+          </select>
+        </div>
+        <div class="field">
+          <span class="lbl">Categoria do produto</span>
+          <select class="fs" id="pr-cat" onchange="calcPrec()"></select>
+        </div>
+        <div class="field">
+          <span class="lbl">Regime tributário</span>
+          <select class="fs" id="pr-regime" onchange="calcPrec()">
+            <option value="0">MEI — DAS fixo (não incide % sobre venda)</option>
+            <option value="4" selected>Simples Nacional — 1ª faixa (~4%)</option>
+            <option value="7.3">Simples Nacional — 2ª faixa (~7,3%)</option>
+            <option value="9.5">Simples Nacional — 3ª faixa (~9,5%)</option>
+            <option value="11.33">Lucro Presumido (~11,33%)</option>
+          </select>
+        </div>
+        <div class="field">
+          <span class="lbl">Margem de lucro desejada (%)</span>
+          <input type="number" class="fi" id="pr-margem" value="20" min="1" max="90" oninput="calcPrec()">
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-t">Custos variáveis</div>
+        <div class="row2">
+          <div class="field">
+            <span class="lbl">Embalagem + etiqueta (R$)</span>
+            <input type="number" class="fi" id="pr-emb" value="3.50" min="0" step="0.1" oninput="calcPrec()">
+          </div>
+          <div class="field">
+            <span class="lbl">Frete por pedido (R$)</span>
+            <input type="number" class="fi" id="pr-frete" value="0" min="0" oninput="calcPrec()">
+            <div class="hint" id="pr-frete-hint"></div>
+          </div>
+        </div>
+        <div class="field">
+          <span class="lbl">Custo fixo rateado por pedido (R$)</span>
+          <input type="number" class="fi" id="pr-cf" value="0" min="0" oninput="calcPrec()">
+          <div class="hint">Divida seu CF mensal pelo nº de pedidos esperados.</div>
+        </div>
+        <!-- Opcionais -->
+        <button class="opcionals-toggle" onclick="toggleOpc('prec')">
+          <span class="opc-arr" id="opc-arr-prec">▶</span> Custos opcionais (devoluções e anúncios)
+        </button>
+        <div class="opcionals-body" id="opc-prec">
+          <div class="row2">
+            <div class="field">
+              <span class="lbl">Taxa de devolução estimada (%)</span>
+              <input type="number" class="fi" id="pr-dev" value="0" min="0" max="50" step="0.5" oninput="calcPrec()">
+              <div class="hint">Média: 3–8% (moda até 15%)</div>
+            </div>
+            <div class="field">
+              <span class="lbl">Ads / patrocinado (% da venda)</span>
+              <input type="number" class="fi" id="pr-ads" value="0" min="0" max="30" step="0.5" oninput="calcPrec()">
+              <div class="hint">Mercado Ads, Shopee Ads, etc.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-t">Comissão aplicada</div>
+        <div class="field">
+          <span class="lbl">Comissão do marketplace (%)</span>
+          <input type="number" class="fi" id="pr-comissao" value="16" min="0" max="40" step="0.5" oninput="calcPrec()">
+          <div class="hint" id="pr-comissao-hint"></div>
+        </div>
+        <div class="field" id="pr-taxa-fixa-field" style="display:none">
+          <span class="lbl">Taxa fixa por pedido (R$) — calculada automaticamente</span>
+          <input type="number" class="fi" id="pr-taxa-fixa" value="0" min="0" step="0.5" readonly style="opacity:.6">
+          <div class="hint" id="pr-taxa-fixa-hint"></div>
+        </div>
+      </div>
+    </div>
+    <div><div id="prec-result"></div></div>
+  </div>
+  <div class="foot">Comissões: portais oficiais dos marketplaces — jun/2026 · Estimativas de mercado · Rodolfo Assunção · CRC/SP 1SP353033/O-5 · Limeira, SP</div>
+</div>
+
+<!-- COMPARATIVO -->
+<div id="page-comp" class="page">
+  <button class="voltar-btn" onclick="goPage('home')">← Voltar ao início</button>
+  <div class="page-tag">Check-up Marketplace</div>
+  <h1 class="page-title">Em qual marketplace seu produto rende mais?</h1>
+  <p class="page-desc">Para um mesmo produto, compare o lucro líquido em cada plataforma lado a lado — com comissão real por categoria, taxa fixa, frete e imposto. ⏱️ Menos de 2 minutos.</p>
+  <div class="g2">
+    <div>
+      <div class="sec">
+        <div class="sec-t">Dados do produto</div>
+        <div class="row2">
+          <div class="field">
+            <span class="lbl">Preço de venda (R$)</span>
+            <input type="number" class="fi" id="cp-preco" value="150" min="1" oninput="calcComp()">
+          </div>
+          <div class="field">
+            <span class="lbl">Custo do produto (CMV)</span>
+            <input type="number" class="fi" id="cp-custo" value="45" min="0" oninput="calcComp()">
+          </div>
+        </div>
+        <div class="field">
+          <span class="lbl">Categoria</span>
+          <select class="fs" id="cp-cat" onchange="calcComp()">
+            <option value="moda">Moda / Calçados / Acessórios</option>
+            <option value="eletro">Eletrônicos / Informática</option>
+            <option value="casa">Casa, Móveis e Decoração</option>
+            <option value="beleza">Beleza e Saúde</option>
+            <option value="esporte">Esporte e Lazer</option>
+            <option value="brinquedos">Brinquedos e Games</option>
+            <option value="pet">Pet Shop</option>
+            <option value="alimentos">Alimentos e Bebidas</option>
+          </select>
+        </div>
+        <div class="field">
+          <span class="lbl">Regime tributário</span>
+          <select class="fs" id="cp-regime" onchange="calcComp()">
+            <option value="0">MEI — DAS fixo</option>
+            <option value="4" selected>Simples Nacional — 1ª faixa (~4%)</option>
+            <option value="7.3">Simples Nacional — 2ª faixa (~7,3%)</option>
+            <option value="9.5">Simples Nacional — 3ª faixa (~9,5%)</option>
+            <option value="11.33">Lucro Presumido (~11,33%)</option>
+          </select>
+        </div>
+        <div class="field">
+          <span class="lbl">Embalagem + etiqueta (R$)</span>
+          <input type="number" class="fi" id="cp-emb" value="3.50" min="0" step="0.1" oninput="calcComp()">
+        </div>
+      </div>
+
+      <!-- Nuvemshop rateio -->
+      <div class="sec">
+        <div class="sec-t">Nuvemshop — rateio de mensalidade</div>
+        <div class="row2">
+          <div class="field">
+            <span class="lbl">Plano Nuvemshop</span>
+            <select class="fs" id="cp-nuvem-plano" onchange="calcComp()">
+              <option value="0">Começo — Grátis (tx 0%)</option>
+              <option value="2" selected>Essencial — R$ 69/mês (tx 2%)</option>
+              <option value="1.5">Impulso — R$ 164/mês (tx 1,5%)</option>
+              <option value="1">Escala — R$ 449/mês (tx 1%)</option>
+            </select>
+          </div>
+          <div class="field">
+            <span class="lbl">Pedidos Nuvemshop/mês</span>
+            <input type="number" class="fi" id="cp-nuvem-pedidos" value="50" min="1" oninput="calcComp()">
+            <div class="hint">Para ratear a mensalidade por pedido</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Opcionais comparativo -->
+      <div class="sec">
+        <button class="opcionals-toggle" onclick="toggleOpc('comp')">
+          <span class="opc-arr" id="opc-arr-comp">▶</span> Custos opcionais (devoluções e anúncios)
+        </button>
+        <div class="opcionals-body" id="opc-comp">
+          <div class="row2" style="margin-top:8px">
+            <div class="field">
+              <span class="lbl">Taxa de devolução (%)</span>
+              <input type="number" class="fi" id="cp-dev" value="0" min="0" max="50" step="0.5" oninput="calcComp()">
+            </div>
+            <div class="field">
+              <span class="lbl">Ads / patrocinado (% da venda)</span>
+              <input type="number" class="fi" id="cp-ads" value="0" min="0" max="30" step="0.5" oninput="calcComp()">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prazos -->
+      <div class="sec">
+        <div class="sec-t">Prazo de repasse por plataforma</div>
+        <div class="rrow"><span class="rn">Mercado Livre</span><span class="rv" style="color:var(--text2)">14 dias após entrega</span></div>
+        <div class="rrow"><span class="rn">Shopee</span><span class="rv" style="color:var(--text2)">7–15 dias</span></div>
+        <div class="rrow"><span class="rn">Amazon</span><span class="rv" style="color:var(--text2)">14 dias após entrega</span></div>
+        <div class="rrow"><span class="rn">Magalu</span><span class="rv" style="color:var(--text2)">14–21 dias</span></div>
+        <div class="rrow"><span class="rn">Americanas</span><span class="rv" style="color:var(--text2)">Quinzenal (1º e 15)</span></div>
+        <div class="rrow"><span class="rn">Nuvemshop</span><span class="rv" style="color:var(--text2)">Conforme operadora</span></div>
+        <div class="hint" style="margin-top:8px">Prazo maior = mais capital de giro necessário.</div>
+      </div>
+    </div>
+    <div><div id="comp-result"></div></div>
+  </div>
+
+  <!-- CTA discreto -->
+  <div class="cta-disc">
+    <div class="cta-disc-txt">Precificação errada no marketplace é dinheiro perdido em cada venda.</div>
+    <a class="cta-disc-btn" id="comp-wpp" href="#" target="_blank">Falar com Rodolfo Assunção →</a>
+  </div>
+
+  <div class="rb" style="background:var(--bg4);margin-top:14px;">
+    <div class="rb-t">⚠️ Disclaimer</div>
+    <div style="font-size:12px;color:var(--text2);line-height:1.75;">Comissões, taxas e regras dos marketplaces mudam com frequência. Verifique sempre nos portais oficiais. Estimativas de mercado — jun/2026. Não substituem análise contábil individualizada. Rodolfo Assunção — CRC/SP 1SP353033/O-5.</div>
+  </div>
+  <div class="foot">Fontes: Mercado Livre Central do Vendedor · Shopee Seller Center · Amazon Seller Central · Magalu Marketplace · Americanas Marketplace · Nuvemshop — jun/2026</div>
+</div>
+
+<script>
+// ─── UTILS ────────────────────────────────────────────────────────────────
+const fmt  = v => 'R$ '+parseFloat(v||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fmtR = v => 'R$ '+Math.round(v||0).toLocaleString('pt-BR');
+const pct  = v => parseFloat(v||0).toFixed(1)+'%';
+const g    = id => document.getElementById(id);
+const n    = id => parseFloat(g(id)?.value)||0;
+
+function goPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  g('page-'+id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function toggle(id){
+  const btn=g('tbtn-'+id),body=g('tbody-'+id);
+  const open=body.classList.toggle('open');
+  btn.classList.toggle('open',open);
+  btn.querySelector('.arr').textContent=open?'▲':'▼';
+}
+
+function toggleOpc(id){
+  const arr=g('opc-arr-'+id),body=g('opc-'+id);
+  const open=body.classList.toggle('open');
+  arr.textContent=open?'▼':'▶';
+}
+
+// ─── DADOS DE COMISSÕES ───────────────────────────────────────────────────
+const COMISSOES = {
+  ml_class:{label:'ML Clássico',cats:{
+    'Acessórios para Veículos':12,'Agro':11.5,'Alimentos e Bebidas':14,
+    'Beleza e Cuidado Pessoal':14,'Brinquedos e Hobbies':11.5,
+    'Calçados, Roupas e Bolsas':14,'Câmeras e Acessórios':11,
+    'Casa, Móveis e Decoração':11.5,'Eletrodomésticos':11,
+    'Eletrônicos, Áudio e Vídeo':13,'Esportes e Fitness':14,
+    'Games':13,'Informática / Celulares':11,'Joias e Relógios':12.5,
+    'Livros e Comics':12,'Pet Shop':12.5,'Saúde':12,
+  }, fretePlat:true, obs:'Taxa fixa por pedido calculada automaticamente pela faixa de preço.'},
+  ml_prem:{label:'ML Premium',cats:{
+    'Acessórios para Veículos':17,'Agro':16.5,'Alimentos e Bebidas':19,
+    'Beleza e Cuidado Pessoal':19,'Brinquedos e Hobbies':16.5,
+    'Calçados, Roupas e Bolsas':19,'Câmeras e Acessórios':16,
+    'Casa, Móveis e Decoração':16.5,'Eletrodomésticos':16,
+    'Eletrônicos, Áudio e Vídeo':18,'Esportes e Fitness':19,
+    'Games':18,'Informática / Celulares':16,'Joias e Relógios':17.5,
+    'Livros e Comics':17,'Pet Shop':17.5,'Saúde':17,
+  }, fretePlat:true, obs:'Premium: maior exposição e frete subsidiado. Taxa fixa calculada automaticamente.'},
+  shopee:{label:'Shopee',cats:{
+    'Moda Feminina':14,'Moda Masculina':14,'Calçados':14,'Acessórios':14,
+    'Beleza e Cuidados':12,'Casa e Decoração':12,'Eletrônicos':10,
+    'Esporte e Lazer':12,'Brinquedos':12,'Pet Shop':12,'Alimentos':12,
+  }, fretePlat:true, obs:'Novas comissões desde 01/03/2026. Frete subsidiado. Taxa de pagamento +2% inclusa na comissão por categoria.'},
+  amazon:{label:'Amazon',cats:{
+    'Eletrônicos':15,'Informática':8,'Câmeras':8,'Moda':15,
+    'Casa e Decoração':15,'Beleza e Saúde':15,'Esporte e Lazer':15,
+    'Brinquedos e Games':15,'Pet Shop':15,'Livros':15,'Alimentos':8,
+  }, fretePlat:false, obs:'CNPJ obrigatório. FBA adiciona custos de armazenagem e fulfillment não incluídos aqui.'},
+  magalu:{label:'Magalu',cats:{
+    'Eletrônicos e Informática':12.5,'Eletrodomésticos':14,'Móveis e Decoração':16,
+    'Moda e Acessórios':18,'Casa e Construção':15,'Beleza e Perfumaria':17,
+    'Brinquedos e Games':16,'Esporte e Lazer':15,'Alimentos':12,
+  }, fretePlat:false, obs:'CNPJ obrigatório. Comissão usa média da faixa por categoria.'},
+  americanas:{label:'Americanas',cats:{
+    'Pet / Mercado / Alimentos':12,'Eletrônicos / Telefonia / Eletrodomésticos':16,
+    'Utilidades / Papelaria / Móveis / Brinquedos':16.5,
+    'Suplementos / Saúde / Livros / Esporte / Beleza':17,
+    'Moda / Calçados / Relógios / Acessórios':19,
+  }, fretePlat:false, obs:'CNPJ obrigatório. Sem taxa fixa. Repasse quinzenal (dias 1 e 15).'},
+  nuvem:{label:'Nuvemshop',cats:{
+    'Plano Começo — Grátis (tx 0%)':0,
+    'Plano Essencial — R$ 69/mês (tx 2%)':2,
+    'Plano Impulso — R$ 164/mês (tx 1,5%)':1.5,
+    'Plano Escala — R$ 449/mês (tx 1%)':1,
+  }, fretePlat:false, obs:'Taxa sobre Nuvem Pago. Outros meios: 0,7%–2%. Mensalidade rateada por pedido.'},
+};
+
+// Nuvemshop mensalidades
+const NUVEM_MENS = {0:0, 2:69, 1.5:164, 1:449};
+
+// Taxa fixa ML por faixa de preço
+function getTaxaFixaML(preco){
+  if(preco<=29)  return 5.50;
+  if(preco<=55)  return 6.50;
+  if(preco<=109) return 8.00;
+  if(preco<=199) return 10.00;
+  return 0;
+}
+
+// Taxa fixa Shopee por faixa
+function getTaxaFixaShopee(preco){
+  if(preco<=79.99)  return 4.00;
+  if(preco<=99.99)  return 16.00;
+  if(preco<=199.99) return 20.00;
+  return 26.00;
+}
+
+function getTaxaFixa(mkt, preco){
+  if(mkt==='ml_class'||mkt==='ml_prem') return getTaxaFixaML(preco);
+  if(mkt==='shopee') return getTaxaFixaShopee(preco);
+  return 0;
+}
+
+function hasTaxaFixa(mkt){ return mkt==='ml_class'||mkt==='ml_prem'||mkt==='shopee'; }
+
+// ─── PREENCHE CATEGORIAS ──────────────────────────────────────────────────
+function atualizarCategorias(){
+  const mkt=g('pr-mkt').value, D=COMISSOES[mkt];
+  const sel=g('pr-cat');
+  sel.innerHTML=Object.keys(D.cats).map(c=>`<option value="${c}">${c}</option>`).join('');
+  g('pr-taxa-fixa-field').style.display=hasTaxaFixa(mkt)?'block':'none';
+  g('pr-frete-hint').textContent=D.fretePlat
+    ?'Frete pago pela plataforma — deixe em R$ 0 na maioria dos casos.'
+    :'Informe o custo médio de frete por pedido.';
+  calcPrec();
+}
+
+// ─── 1. PRECIFICAÇÃO — com loop de convergência ───────────────────────────
+function calcPrec(){
+  const custo   = n('pr-custo');
+  const mkt     = g('pr-mkt').value;
+  const cat     = g('pr-cat').value;
+  const regime  = parseFloat(g('pr-regime').value)||0;
+  const emb     = n('pr-emb');
+  const frete   = n('pr-frete');
+  const cf      = n('pr-cf');
+  const margem  = n('pr-margem')/100;
+  const dev     = n('pr-dev')/100;  // devolução
+  const ads     = n('pr-ads')/100;  // publicidade
+  const D       = COMISSOES[mkt];
+  const comissao= (D.cats[cat]||0)/100;
+
+  // Sincroniza campo comissão
+  g('pr-comissao').value = (D.cats[cat]||0).toFixed(1);
+  g('pr-comissao-hint').textContent=`Comissão ${D.label} — categoria "${cat}". ${D.obs}`;
+
+  const divisor = 1 - comissao - (regime/100) - margem - ads;
+  if(divisor<=0){
+    g('prec-result').innerHTML=`<div class="answer vermelho">
+      <div class="answer-label">Cálculo impossível</div>
+      <div class="answer-text">Comissão + imposto + margem + ads superam 100%.</div>
+      <div class="answer-sub">Reduza a margem desejada, os ads ou revise o canal de venda.</div>
+    </div>`;
+    return;
+  }
+
+  // Loop de convergência para taxa fixa (resolve imprecisão em faixas limite)
+  // Garante que preço calculado e faixa de taxa fixa sejam consistentes
+  let precoAlvo = custo; // seed
+  let taxaFixa  = 0;
+  for(let i=0;i<15;i++){
+    const tf = getTaxaFixa(mkt, precoAlvo);
+    const custoTotal = custo + frete + emb + cf + tf + (custo * dev);
+    const novoPreco = custoTotal / divisor;
+    if(Math.abs(novoPreco - precoAlvo) < 0.01){ taxaFixa=tf; precoAlvo=novoPreco; break; }
+    taxaFixa=tf; precoAlvo=novoPreco;
+  }
+
+  // Preço mínimo (PE — margem zero, sem ads no divisor para PE)
+  const divisorPE = 1 - comissao - (regime/100);
+  let precoMin = custo;
+  for(let i=0;i<15;i++){
+    const tf=getTaxaFixa(mkt,precoMin);
+    const ct=custo+frete+emb+cf+tf+(custo*dev);
+    const novo=ct/divisorPE;
+    if(Math.abs(novo-precoMin)<0.01){precoMin=novo;break;}
+    precoMin=novo;
+  }
+
+  // Atualiza campo taxa fixa
+  if(hasTaxaFixa(mkt)){
+    g('pr-taxa-fixa').value=taxaFixa.toFixed(2);
+    const faixaML=mkt!=='shopee'?`Faixa de preço do produto: ${
+      precoAlvo<=29?'até R$29 → R$5,50':
+      precoAlvo<=55?'R$29–55 → R$6,50':
+      precoAlvo<=109?'R$55–109 → R$8,00':
+      precoAlvo<=199?'R$109–199 → R$10,00':'acima R$199 → incluído na %'}`
+      :`Faixa Shopee: ${precoAlvo<=79.99?'até R$79,99 → R$4':precoAlvo<=99.99?'R$80–99,99 → R$16':precoAlvo<=199.99?'R$100–199,99 → R$20':'acima R$200 → R$26'}`;
+    g('pr-taxa-fixa-hint').textContent=faixaML;
+  }
+
+  const comissaoR = precoAlvo*comissao;
+  const impostoR  = precoAlvo*(regime/100);
+  const adsR      = precoAlvo*ads;
+  const devR      = custo*dev;
+  const lucroR    = precoAlvo*margem;
+  const semCls    = margem>=0.20?'verde':margem>=0.10?'amarelo':'vermelho';
+
+  const msgWpp=`Olá Rodolfo! Usei o simulador de precificação.\n\nProduto:\n• CMV: ${fmt(custo)}\n• Marketplace: ${D.label}\n• Categoria: ${cat}\n• Regime: ${regime}%\n• Margem desejada: ${pct(margem*100)}\n\nResultado:\n• Preço mínimo (PE): ${fmt(precoMin)}\n• Preço com margem: ${fmt(precoAlvo)}\n• Lucro por venda: ${fmt(lucroR)}\n\nGostaria de analisar minha precificação.`;
+
+  g('prec-result').innerHTML=`
+    <div class="answer verde">
+      <div class="answer-label">Preço com ${pct(margem*100)} de margem</div>
+      <div class="answer-text">${fmt(precoAlvo)}</div>
+      <div class="answer-sub">Abaixo de ${fmt(precoMin)} sua empresa perde dinheiro em cada venda.</div>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><div class="kpi-l">Preço mínimo (PE)</div><div class="kpi-v w">${fmt(precoMin)}</div></div>
+      <div class="kpi"><div class="kpi-l">Preço com margem</div><div class="kpi-v g">${fmt(precoAlvo)}</div></div>
+      <div class="kpi"><div class="kpi-l">Lucro por venda</div><div class="kpi-v g">${fmt(lucroR)}</div></div>
+      <div class="kpi"><div class="kpi-l">Margem líquida</div><div class="kpi-v g">${pct(margem*100)}</div></div>
+    </div>
+    <button class="toggle-btn" id="tbtn-prec" onclick="toggle('prec')">Ver decomposição dos custos <span class="arr">▼</span></button>
+    <div class="toggle-body" id="tbody-prec">
+      <div class="rb">
+        <div class="rb-t">Composição — preço de ${fmt(precoAlvo)}</div>
+        <div class="rrow"><span class="rn">Custo do produto (CMV)</span><span class="rv r">−${fmt(custo)} (${pct(custo/precoAlvo*100)})</span></div>
+        ${taxaFixa>0?`<div class="rrow"><span class="rn">Taxa fixa por pedido</span><span class="rv r">−${fmt(taxaFixa)}</span></div>`:''}
+        <div class="rrow"><span class="rn">Comissão ${D.label} (${pct(comissao*100)})</span><span class="rv r">−${fmt(comissaoR)}</span></div>
+        ${frete>0?`<div class="rrow"><span class="rn">Frete por pedido</span><span class="rv r">−${fmt(frete)}</span></div>`:''}
+        <div class="rrow"><span class="rn">Embalagem + etiqueta</span><span class="rv r">−${fmt(emb)}</span></div>
+        ${cf>0?`<div class="rrow"><span class="rn">Custo fixo rateado</span><span class="rv r">−${fmt(cf)}</span></div>`:''}
+        <div class="rrow"><span class="rn">Imposto sobre venda (${pct(regime)})</span><span class="rv r">−${fmt(impostoR)}</span></div>
+        ${adsR>0?`<div class="rrow"><span class="rn">Ads / patrocinado (${pct(ads*100)})</span><span class="rv r">−${fmt(adsR)}</span></div>`:''}
+        ${devR>0?`<div class="rrow"><span class="rn">Devolução estimada (${pct(dev*100)})</span><span class="rv r">−${fmt(devR)}</span></div>`:''}
+        <div class="rrow total"><span class="rn b">Lucro líquido (${pct(margem*100)})</span><span class="rv big g">${fmt(lucroR)}</span></div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;margin-top:12px;flex-wrap:wrap;">
+      <button class="pdf-btn" onclick="gerarPDF('prec','${D.label}')">📄 Baixar relatório em PDF</button>
+      <a href="https://wa.me/5519982003732?text=${encodeURIComponent(msgWpp)}" target="_blank" class="cta-disc-btn">Falar com Rodolfo Assunção →</a>
+    </div>
+    <div class="nota w" style="margin-top:12px">⚠️ Estimativas de mercado — jun/2026. Verifique taxas sempre no portal do vendedor. Não considera variações sazonais, estoque FBA ou promoções de plataforma.</div>`;
+}
+
+// ─── DADOS COMPARATIVO ────────────────────────────────────────────────────
+const COMP_CATS = {
+  moda:   {ml_class:14,ml_prem:19,shopee:14,amazon:15,magalu:18,americanas:19,nuvem:2},
+  eletro: {ml_class:13,ml_prem:18,shopee:10,amazon:15,magalu:12.5,americanas:16,nuvem:2},
+  casa:   {ml_class:11.5,ml_prem:16.5,shopee:12,amazon:15,magalu:16,americanas:16.5,nuvem:2},
+  beleza: {ml_class:14,ml_prem:19,shopee:12,amazon:15,magalu:17,americanas:17,nuvem:2},
+  esporte:{ml_class:14,ml_prem:19,shopee:12,amazon:15,magalu:15,americanas:17,nuvem:2},
+  brinquedos:{ml_class:11.5,ml_prem:16.5,shopee:12,amazon:15,magalu:16,americanas:16.5,nuvem:2},
+  pet:    {ml_class:12.5,ml_prem:17.5,shopee:12,amazon:15,magalu:16,americanas:12,nuvem:2},
+  alimentos:{ml_class:14,ml_prem:19,shopee:12,amazon:8,magalu:12,americanas:12,nuvem:2},
+};
+
+const PLAT_INFO=[
+  {id:'ml_class',nome:'ML Clássico', frete:0,  reqCnpj:false, prazo:'14 dias'},
+  {id:'ml_prem', nome:'ML Premium',  frete:0,  reqCnpj:false, prazo:'14 dias'},
+  {id:'shopee',  nome:'Shopee',       frete:0,  reqCnpj:false, prazo:'7–15 dias'},
+  {id:'amazon',  nome:'Amazon',       frete:15, reqCnpj:true,  prazo:'14 dias'},
+  {id:'magalu',  nome:'Magalu',       frete:15, reqCnpj:true,  prazo:'14–21 dias'},
+  {id:'americanas',nome:'Americanas',frete:15, reqCnpj:true,  prazo:'Quinzenal'},
+  {id:'nuvem',   nome:'Nuvemshop',   frete:15, reqCnpj:false, prazo:'Conforme operadora'},
+];
+
+// ─── 2. COMPARATIVO ──────────────────────────────────────────────────────
+function calcComp(){
+  const preco    = n('cp-preco');
+  const custo    = n('cp-custo');
+  const cat      = g('cp-cat').value;
+  const regime   = parseFloat(g('cp-regime').value)||0;
+  const emb      = n('cp-emb');
+  const dev      = n('cp-dev')/100;
+  const ads      = n('cp-ads')/100;
+  const nuvemPlanoTx = parseFloat(g('cp-nuvem-plano').value)||2;
+  const nuvemPedidos = Math.max(1,n('cp-nuvem-pedidos'));
+  const nuvemMens    = NUVEM_MENS[nuvemPlanoTx]||69;
+  const nuvemRateio  = nuvemMens/nuvemPedidos;
+
+  if(preco<=0||custo<0) return;
+  const impostoR = preco*(regime/100);
+  const adsR     = preco*ads;
+  const devR     = custo*dev;
+  const cats     = COMP_CATS[cat]||{};
+
+  const resultados = PLAT_INFO.map(P=>{
+    const comissao  = (cats[P.id]||15)/100;
+    // Loop convergência taxa fixa ML/Shopee no preço fixo (não há ajuste de preço no comparativo)
+    const taxaFixa  = getTaxaFixa(P.id, preco);
+    const comissaoR = preco*comissao;
+    const mensR     = P.id==='nuvem' ? nuvemRateio : 0;
+    const total     = custo + comissaoR + taxaFixa + P.frete + emb + impostoR + adsR + devR + mensR;
+    const lucro     = preco - total;
+    const margem    = preco>0?(lucro/preco)*100:0;
+    return {...P, comissao:comissao*100, comissaoR, taxaFixa, mensR, total, lucro, margem};
+  });
+  resultados.sort((a,b)=>b.lucro-a.lucro);
+  const melhor=resultados[0], pior=resultados[resultados.length-1];
+
+  const cards=resultados.map((P,i)=>{
+    const cls=i===0?'melhor':i===resultados.length-1?'pior':'';
+    const badge=i===0?'<div class="plat-badge">🥇 Mais rentável</div>'
+               :i===resultados.length-1?'<div class="plat-badge pior">📉 Menos rentável</div>':'';
+    const cnpjTag=P.reqCnpj?'<div style="font-size:10px;color:var(--text3);margin-top:3px;">CNPJ obrigatório</div>':'';
+    return `<div class="plat-card ${cls}">
+      <div class="plat-nome">${P.nome}</div>
+      <div class="plat-lucro">${P.lucro>=0?fmt(P.lucro):'Prejuízo'}</div>
+      <div class="plat-margem">${P.lucro>=0?pct(P.margem)+' margem':'−'+fmt(Math.abs(P.lucro))}</div>
+      ${badge}${cnpjTag}
+    </div>`;
+  }).join('');
+
+  const rows=resultados.map(P=>`<div class="rrow">
+    <span class="rn b" style="min-width:100px">${P.nome}</span>
+    <span class="rn" style="flex:none;width:100px;text-align:right;color:var(--text3);font-size:12px">${pct(P.comissao)}${P.taxaFixa>0?' +'+fmt(P.taxaFixa):''}${P.frete>0?' +R$'+P.frete:''}${P.mensR>0?' +'+fmt(P.mensR)+'/ped':''}</span>
+    <span class="rv ${P.lucro>=0?(P===melhor?'g':''):'r'}">${P.lucro>=0?fmt(P.lucro):'Prejuízo'}</span>
+  </div>`).join('');
+
+  const msg=`Olá Rodolfo! Usei o comparativo de marketplace.\n\nProduto:\n• Preço: ${fmt(preco)} · CMV: ${fmt(custo)} · Categoria: ${cat} · Regime: ${regime}%\n\nResultados:\n`
+    +resultados.map(P=>`• ${P.nome}: ${P.lucro>=0?fmt(P.lucro)+' ('+pct(P.margem)+')':'Prejuízo'}`).join('\n')
+    +`\n\nGostaria de analisar minha precificação.`;
+  g('comp-wpp').href='https://wa.me/5519982003732?text='+encodeURIComponent(msg);
+
+  const optRow = (dev>0||ads>0) ? `<div class="rb" style="margin-top:12px;"><div class="rb-t">Custos opcionais — aplicados em todas as plataformas</div>
+    ${dev>0?`<div class="rrow"><span class="rn">Devolução estimada (${pct(dev*100)} × CMV)</span><span class="rv r">−${fmt(devR)}</span></div>`:''}
+    ${ads>0?`<div class="rrow"><span class="rn">Ads / patrocinado (${pct(ads*100)} × preço)</span><span class="rv r">−${fmt(adsR)}</span></div>`:''}
+  </div>` : '';
+
+  g('comp-result').innerHTML=`
+    <div class="answer verde">
+      <div class="answer-label">Plataforma mais rentável para este produto</div>
+      <div class="answer-text">${melhor.nome} — ${fmt(melhor.lucro)} por venda</div>
+      <div class="answer-sub">Diferença entre melhor e pior: ${fmt(melhor.lucro-pior.lucro)}/venda. Em 100 vendas: ${fmtR((melhor.lucro-pior.lucro)*100)}.</div>
+    </div>
+    <div class="plat-grid">${cards}</div>
+    <button class="toggle-btn" id="tbtn-comp" onclick="toggle('comp')">Ver detalhamento completo <span class="arr">▼</span></button>
+    <div class="toggle-body" id="tbody-comp">
+      <div class="rb"><div class="rb-t">Lucro líquido por plataforma — preço ${fmt(preco)}</div>
+        ${rows}
+      </div>
+      <div class="rb" style="margin-top:12px;"><div class="rb-t">Custos comuns a todas as plataformas</div>
+        <div class="rrow"><span class="rn">Custo do produto (CMV)</span><span class="rv r">−${fmt(custo)}</span></div>
+        <div class="rrow"><span class="rn">Embalagem + etiqueta</span><span class="rv r">−${fmt(emb)}</span></div>
+        <div class="rrow"><span class="rn">Imposto sobre venda (${pct(regime)})</span><span class="rv r">−${fmt(impostoR)}</span></div>
+      </div>
+      ${optRow}
+      <div class="nota w" style="margin-top:8px">⚠️ Frete estimado em R$ 15 para Amazon, Magalu, Americanas e Nuvemshop. ML e Shopee: frete subsidiado pela plataforma. Nuvemshop: mensalidade do plano rateada em ${nuvemPedidos} pedidos/mês (R$ ${fmt(nuvemRateio)}/pedido).</div>
+    </div>
+    <button class="pdf-btn" onclick="gerarPDF('comp','Comparativo')">📄 Baixar relatório em PDF</button>`;
+}
+
+// ─── PDF ──────────────────────────────────────────────────────────────────
+function gerarPDF(pagId, subtitulo){
+  const pagina=g('page-'+pagId);
+  if(!pagina) return;
+  const conteudo=pagina.innerHTML;
+  const w=window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html lang="pt-BR"><head>
+    <meta charset="UTF-8"><title>Check-up Marketplace · Rodolfo Assunção</title>
+    <style>
+      *{box-sizing:border-box;margin:0;padding:0;}
+      body{font-family:Arial,sans-serif;font-size:13px;color:#1e293b;background:#fff;padding:2rem;}
+      h1{font-size:1.3rem;color:#1e293b;margin-bottom:.5rem;}
+      .page-tag{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#64748b;margin-bottom:.25rem;}
+      .page-desc,.page-title{font-size:12px;color:#475569;margin-bottom:1rem;line-height:1.65;}
+      .answer{border:1px solid #cbd5e1;border-radius:8px;padding:1rem;margin-bottom:10px;background:#f8fafc;}
+      .answer.verde{border-color:#6ee7b7;background:#f0fdf4;}
+      .answer.amarelo{border-color:#fcd34d;background:#fffbeb;}
+      .answer.vermelho{border-color:#fca5a5;background:#fff1f2;}
+      .answer-label{font-size:10px;text-transform:uppercase;color:#64748b;margin-bottom:.25rem;}
+      .answer-text{font-size:1.1rem;font-weight:600;margin-bottom:.25rem;}
+      .answer.verde .answer-text{color:#059669;}
+      .answer.amarelo .answer-text{color:#b45309;}
+      .answer.vermelho .answer-text{color:#dc2626;}
+      .answer-sub{font-size:12px;color:#475569;}
+      .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px;}
+      .kpi{border:1px solid #e2e8f0;border-radius:6px;padding:.75rem;background:#f8fafc;}
+      .kpi-l{font-size:10px;color:#64748b;margin-bottom:2px;}
+      .kpi-v{font-size:1.1rem;font-weight:600;color:#1e293b;}
+      .kpi-v.g{color:#059669;}.kpi-v.r{color:#dc2626;}.kpi-v.w{color:#b45309;}
+      .rb{border:1px solid #e2e8f0;border-radius:8px;padding:1rem;margin-bottom:10px;background:#f8fafc;}
+      .rb-t{font-size:10px;text-transform:uppercase;color:#64748b;margin-bottom:.75rem;}
+      .rrow{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #f1f5f9;font-size:12px;}
+      .rrow:last-child{border-bottom:none;}
+      .rn{color:#475569;flex:1;}.rn.b{color:#1e293b;font-weight:600;}
+      .rv{font-weight:600;color:#1e293b;text-align:right;}.rv.g{color:#059669;}.rv.r{color:#dc2626;}.rv.w{color:#b45309;}
+      .rv.big{font-size:1.4rem;}
+      .plat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;}
+      .plat-card{border:1px solid #e2e8f0;border-radius:8px;padding:.875rem;background:#f8fafc;}
+      .plat-card.melhor{border-color:#6ee7b7;background:#f0fdf4;}
+      .plat-card.pior{border-color:#fca5a5;background:#fff1f2;}
+      .plat-nome{font-size:10px;text-transform:uppercase;color:#64748b;margin-bottom:4px;}
+      .plat-lucro{font-size:1.1rem;font-weight:700;color:#1e293b;}
+      .plat-card.melhor .plat-lucro{color:#059669;}.plat-card.pior .plat-lucro{color:#dc2626;}
+      .plat-margem{font-size:11px;color:#64748b;}
+      .plat-badge{font-size:10px;font-weight:600;padding:2px 6px;border-radius:20px;background:#059669;color:#fff;display:inline-block;margin-top:3px;}
+      .plat-badge.pior{background:#dc2626;}
+      .nota{padding:8px;border-left:2px solid #cbd5e1;font-size:11px;color:#475569;margin-top:8px;}
+      .nota.w{border-left-color:#fcd34d;color:#b45309;}
+      .toggle-btn,.toggle-body,.voltar-btn,.pdf-btn,.opcionals-toggle,.cta-disc,.home-hero{display:none!important;}
+      .toggle-body{display:block!important;}
+      header{border-bottom:2px solid #e2e8f0;padding-bottom:.75rem;margin-bottom:1.25rem;display:flex;justify-content:space-between;align-items:flex-end;}
+      .hdr-logo{font-size:1.1rem;font-weight:700;color:#1e293b;}
+      .hdr-data{font-size:11px;color:#64748b;}
+      footer{border-top:1px solid #e2e8f0;margin-top:1.5rem;padding-top:.75rem;font-size:10px;color:#94a3b8;text-align:center;}
+      .disclaimer{border:1px solid #fcd34d;background:#fffbeb;border-radius:6px;padding:.75rem;margin-top:1rem;font-size:11px;color:#78350f;line-height:1.6;}
+      .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+      .sec{border:1px solid #e2e8f0;border-radius:8px;padding:1rem;margin-bottom:10px;}
+      .sec-t{font-size:10px;text-transform:uppercase;color:#64748b;margin-bottom:.75rem;}
+      .field{margin-bottom:8px;}.lbl{font-size:11px;color:#64748b;display:block;margin-bottom:2px;}
+      .fi,.fs{width:100%;border:1px solid #cbd5e1;border-radius:4px;padding:5px 8px;font-size:12px;background:#f8fafc;}
+      .hint{font-size:10px;color:#94a3b8;}
+      .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+    </style>
+  </head><body>
+    <header>
+      <div class="hdr-logo">Check-up Marketplace — ${subtitulo} · Rodolfo Assunção · CRC/SP 1SP353033/O-5</div>
+      <div class="hdr-data">Gerado em: ${new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}</div>
+    </header>
+    ${conteudo}
+    <div class="disclaimer">⚠️ <strong>Simulação gerencial orientativa.</strong> Estimativas de mercado baseadas em dados de junho/2026. Comissões e taxas dos marketplaces mudam com frequência — verifique sempre nos portais oficiais. Não constitui análise contábil ou tributária individualizada. Rodolfo Assunção — CRC/SP 1SP353033/O-5 — Limeira, SP.</div>
+    <footer>Check-up Marketplace · Rodolfo Assunção · CRC/SP 1SP353033/O-5 · contato@solcontabil.com.br · Junho/2026</footer>
+  </body></html>`);
+  w.document.close();
+  setTimeout(()=>w.print(),600);
+}
+
+// INIT
+atualizarCategorias();
+calcComp();
+</script>
+</body>
+</html>

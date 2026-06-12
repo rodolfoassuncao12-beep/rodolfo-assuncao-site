@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pró-labore ou Distribuição de Lucros? — Rodolfo Assunção</title>
+<meta name="description" content="Descubra quanto retirar como pró-labore e quanto como distribuição de lucros para maximizar o que fica no seu bolso. Inclui cálculo do Fator R 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F172A;--bg2:#111827;--bg3:#1E2937;--bg4:#263244;
+  --border:rgba(51,65,85,0.5);--border2:#334155;
+  --text:#F8FAFC;--text2:#CBD5E1;--text3:#94A3B8;
+  --indigo:#4F46E5;--indigo2:#4338CA;--indigo-l:#818CF8;
+  --indigo-d:rgba(79,70,229,0.1);--indigo-b:rgba(79,70,229,0.25);
+  --em:#10B981;--em2:#059669;--em-l:#34D399;
+  --em-d:rgba(16,185,129,0.1);--em-b:rgba(16,185,129,0.25);
+  --amber:#FBBF24;--amber-d:rgba(251,191,36,0.1);--amber-b:rgba(251,191,36,0.3);
+  --red:#F87171;--red-d:rgba(248,113,113,0.1);--red-b:rgba(248,113,113,0.3);
+  --gold:#F59E0B;--gold-d:rgba(245,158,11,0.08);--gold-b:rgba(245,158,11,0.25);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.7;min-height:100vh;}
+nav{position:sticky;top:0;z-index:100;background:rgba(15,23,42,0.95);backdrop-filter:blur(16px);border-bottom:.5px solid var(--border);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);text-decoration:none;}
+.nav-logo span{color:var(--indigo-l);}
+.nav-back{font-size:13px;color:var(--text2);text-decoration:none;}
+.wrap{max-width:960px;margin:0 auto;padding:2rem 2rem 4rem;}
+.page-tag{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:.5rem;}
+.page-title{font-family:'DM Serif Display',serif;font-size:clamp(1.4rem,3vw,1.9rem);color:var(--text);line-height:1.2;margin-bottom:.5rem;}
+.page-desc{font-size:13px;color:var(--text2);line-height:1.75;margin-bottom:1.75rem;}
+/* LAYOUT */
+.g2{display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.sec{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:1.5rem;margin-bottom:14px;}
+.sec-t{font-size:11px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1.25rem;}
+.lbl{display:block;font-size:12px;color:var(--text2);margin-bottom:5px;}
+.field{margin-bottom:12px;}.field:last-child{margin-bottom:0;}
+.fi{width:100%;padding:9px 13px;font-size:13px;background:var(--bg4);border:.5px solid var(--border2);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;}
+.fi:focus{outline:none;border-color:var(--em);}
+.fs{width:100%;padding:9px 13px;font-size:13px;background:var(--bg4);border:.5px solid var(--border2);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;}
+.hint{font-size:11px;color:var(--text3);margin-top:3px;line-height:1.5;}
+/* SLIDER */
+.slider-wrap{margin-top:8px;}
+.slider{width:100%;-webkit-appearance:none;height:5px;border-radius:3px;background:var(--bg4);outline:none;cursor:pointer;}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--em);cursor:pointer;border:2px solid var(--bg);}
+.slider-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-top:4px;}
+/* FATOR R BADGE */
+.fatorr-box{border-radius:12px;padding:.875rem 1rem;margin-bottom:14px;border:1.5px solid;display:flex;align-items:flex-start;gap:12px;}
+.fatorr-box.verde{background:var(--em-d);border-color:var(--em-b);}
+.fatorr-box.vermelho{background:var(--red-d);border-color:var(--red-b);}
+.fatorr-box.amarelo{background:var(--amber-d);border-color:var(--amber-b);}
+.fatorr-ico{font-size:1.3rem;flex-shrink:0;}
+.fatorr-txt{font-size:13px;line-height:1.6;}
+.fatorr-txt b{color:var(--text);}
+/* ANSWER */
+.answer{border-radius:14px;padding:1.375rem 1.5rem;margin-bottom:12px;border:1.5px solid;}
+.answer.verde{background:var(--em-d);border-color:var(--em-b);}
+.answer.amarelo{background:var(--amber-d);border-color:var(--amber-b);}
+.answer.gold{background:var(--gold-d);border-color:var(--gold-b);}
+.answer.indigo{background:var(--indigo-d);border-color:var(--indigo-b);}
+.answer-label{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem;}
+.answer-text{font-family:'DM Serif Display',serif;font-size:1.15rem;margin-bottom:.35rem;line-height:1.3;}
+.answer.verde .answer-text{color:var(--em-l);}
+.answer.amarelo .answer-text{color:var(--amber);}
+.answer.gold .answer-text{color:var(--gold);}
+.answer.indigo .answer-text{color:var(--indigo-l);}
+.answer-sub{font-size:12.5px;color:var(--text2);line-height:1.65;}
+/* KPIS */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:14px;}
+.kpi{background:var(--bg3);border:.5px solid var(--border2);border-radius:10px;padding:.875rem;}
+.kpi-l{font-size:11px;color:var(--text3);margin-bottom:4px;line-height:1.3;}
+.kpi-v{font-family:'DM Serif Display',serif;font-size:1.15rem;color:var(--text);}
+.kpi-v.g{color:var(--em-l);}.kpi-v.r{color:var(--red);}.kpi-v.w{color:var(--amber);}.kpi-v.i{color:var(--indigo-l);}.kpi-v.gold{color:var(--gold);}
+/* COMPARATIVO CENÁRIOS */
+.cen-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+.cen-card{border-radius:12px;padding:1rem;border:1.5px solid var(--border2);background:var(--bg3);}
+.cen-card.destaque{border-color:var(--em-b);background:var(--em-d);}
+.cen-card.destaque-gold{border-color:var(--gold-b);background:var(--gold-d);}
+.cen-titulo{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:.5rem;}
+.cen-card.destaque .cen-titulo{color:var(--em-l);}
+.cen-card.destaque-gold .cen-titulo{color:var(--gold);}
+.cen-valor{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--text);margin-bottom:2px;}
+.cen-card.destaque .cen-valor{color:var(--em-l);}
+.cen-card.destaque-gold .cen-valor{color:var(--gold);}
+.cen-sub{font-size:11px;color:var(--text3);}
+/* BARRA DE OTIMIZAÇÃO */
+.optbar-wrap{background:var(--bg3);border-radius:12px;padding:1.25rem;margin-bottom:14px;border:.5px solid var(--border2);}
+.optbar-title{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.875rem;}
+.optbar-track{height:28px;background:var(--bg4);border-radius:6px;overflow:hidden;position:relative;margin-bottom:6px;}
+.optbar-prolabore{height:100%;background:var(--indigo);display:flex;align-items:center;justify-content:center;font-size:11px;color:rgba(255,255,255,.85);font-weight:500;float:left;transition:width .4s;}
+.optbar-distrib{height:100%;background:var(--em);display:flex;align-items:center;justify-content:center;font-size:11px;color:rgba(255,255,255,.85);font-weight:500;float:left;transition:width .4s;}
+.optbar-legend{display:flex;gap:16px;font-size:11px;color:var(--text3);}
+.optbar-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;margin-top:4px;}
+/* ROWS */
+.rb{background:var(--bg4);border:.5px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:12px;}
+.rb-t{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem;}
+.rrow{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:.5px solid var(--border);font-size:13px;gap:12px;}
+.rrow:last-child{border-bottom:none;}
+.rrow.total{border-top:1px solid var(--border2);padding-top:10px;margin-top:4px;border-bottom:none;}
+.rn{color:var(--text2);flex:1;line-height:1.4;}.rn.b{color:var(--text);font-weight:500;}
+.rv{font-weight:500;color:var(--text);text-align:right;flex-shrink:0;}
+.rv.g{color:var(--em-l);}.rv.r{color:var(--red);}.rv.w{color:var(--amber);}.rv.i{color:var(--indigo-l);}
+.rv.big{font-family:'DM Serif Display',serif;font-size:1.5rem;}
+/* TOGGLE */
+.toggle-btn{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px;color:var(--text3);padding:6px 0;border:none;background:none;font-family:'DM Sans',sans-serif;transition:color .15s;margin-bottom:6px;}
+.toggle-btn:hover{color:var(--text2);}
+.arr{transition:transform .2s;display:inline-block;}
+.toggle-body{display:none;}.toggle-body.open{display:block;}
+/* NOTA */
+.nota{padding:10px 13px;border-radius:8px;font-size:12px;line-height:1.65;border-left:2px solid var(--border2);background:var(--bg4);color:var(--text2);margin-top:10px;}
+.nota.w{border-left-color:var(--amber);background:var(--amber-d);color:var(--amber);}
+.nota.g{border-left-color:var(--em);background:var(--em-d);}
+.nota.i{border-left-color:var(--indigo);background:var(--indigo-d);}
+/* CTA */
+.cta-disc{padding:1rem 1.25rem;border-top:.5px solid var(--border);margin-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.cta-disc-txt{font-size:12px;color:var(--text3);line-height:1.6;max-width:520px;}
+.cta-disc-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:var(--em-d);border:.5px solid var(--em-b);border-radius:8px;font-size:12px;color:var(--em-l);text-decoration:none;font-family:'DM Sans',sans-serif;transition:all .15s;white-space:nowrap;}
+.cta-disc-btn:hover{background:var(--em);color:#fff;}
+.pdf-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 18px;background:var(--bg4);border:.5px solid var(--border2);border-radius:8px;font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;margin-top:12px;text-decoration:none;}
+.pdf-btn:hover{background:var(--bg3);color:var(--text);}
+.foot{border-top:.5px solid var(--border);padding:1.5rem 0;margin-top:2rem;font-size:11px;color:var(--text3);}
+@media(max-width:800px){
+  .g2{grid-template-columns:1fr;}
+  .cen-grid{grid-template-columns:1fr;}
+  .wrap{padding:1.5rem 1.25rem 3rem;}
+  .row2{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Rodolfo<span>.</span></a>
+  <a href="index.html" class="nav-back">← Voltar</a>
+</nav>
+
+<div class="wrap">
+  <div class="page-tag">Simulador · Retirada do Sócio 2026</div>
+  <h1 class="page-title">Quanto retirar como pró-labore e quanto como distribuição de lucros?</h1>
+  <p class="page-desc">Descubra a combinação que maximiza o que fica no seu bolso — considerando INSS, IRRF e o Fator R do Simples Nacional. ⏱️ Menos de 2 minutos.</p>
+
+  <div class="g2">
+    <div>
+      <div class="sec">
+        <div class="sec-t">Dados da empresa</div>
+        <div class="field">
+          <span class="lbl">Regime tributário</span>
+          <select class="fs" id="regime" onchange="onRegimeChange()">
+            <option value="simplesIII">Simples Nacional — Anexo III (serviços)</option>
+            <option value="simplesV">Simples Nacional — Anexo V (serviços c/ Fator R)</option>
+            <option value="simplesI">Simples Nacional — Anexos I/II (comércio/indústria)</option>
+            <option value="presumido">Lucro Presumido</option>
+          </select>
+          <div class="hint">Anexo V tem Fator R — o pró-labore pode mudar a alíquota da empresa.</div>
+        </div>
+        <div class="field">
+          <span class="lbl">Faturamento mensal bruto (R$)</span>
+          <input type="number" class="fi" id="faturamento" value="20000" min="1000" oninput="calcTudo()">
+        </div>
+        <div class="field">
+          <span class="lbl">RBT12 — faturamento acumulado últimos 12 meses (R$)</span>
+          <input type="number" class="fi" id="rbt12" value="240000" min="0" oninput="calcTudo()">
+          <div class="hint">Usado para calcular a alíquota efetiva do Simples e o Fator R.</div>
+        </div>
+        <div class="field">
+          <span class="lbl">Lucro líquido mensal disponível para retirada (R$)</span>
+          <input type="number" class="fi" id="lucro" value="8000" min="0" oninput="calcTudo()">
+          <div class="hint">Valor após impostos e despesas. É o máximo disponível para sócio(s).</div>
+        </div>
+        <div class="field">
+          <span class="lbl">Número de sócios</span>
+          <select class="fs" id="socios" onchange="calcTudo()">
+            <option value="1">1 sócio</option>
+            <option value="2">2 sócios (divisão igual)</option>
+            <option value="3">3 sócios (divisão igual)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-t">Pró-labore por sócio</div>
+        <div class="field">
+          <span class="lbl">Pró-labore mensal por sócio (R$)</span>
+          <input type="number" class="fi" id="prolabore" value="3000" min="1621" oninput="syncSlider()">
+          <div class="hint">Mínimo recomendado: R$ 1.621 (1 salário mínimo 2026).</div>
+        </div>
+        <div class="slider-wrap">
+          <input type="range" class="slider" id="slider-pl" min="1621" max="8475.55" value="3000" step="100" oninput="syncInput()">
+          <div class="slider-labels"><span>Mín. R$ 1.621</span><span>Teto prev. R$ 8.475,55</span></div>
+        </div>
+      </div>
+
+      <div class="sec" id="sec-fatorr" style="display:none">
+        <div class="sec-t" style="color:var(--amber)">⚡ Fator R — Anexo V</div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.65;">O Fator R é a relação entre a folha de salários (incluindo pró-labore) dos últimos 12 meses e o RBT12. Se Fator R ≥ 28%, a empresa migra para o <strong style="color:var(--em-l)">Anexo III</strong> (alíquota menor). Abaixo de 28%, permanece no <strong style="color:var(--red)">Anexo V</strong> (alíquota maior).</div>
+        <div id="fatorr-display" style="margin-top:.875rem;"></div>
+      </div>
+    </div>
+
+    <!-- RESULTADO -->
+    <div id="resultado"></div>
+  </div>
+
+  <div class="cta-disc">
+    <div class="cta-disc-txt">A combinação certa de pró-labore e distribuição pode fazer diferença relevante no seu bolso todo mês — sem aumentar o custo da empresa.</div>
+    <a class="cta-disc-btn" id="cta-wpp" href="#" target="_blank">Falar com Rodolfo Assunção →</a>
+  </div>
+
+  <div class="sec" style="margin-top:14px;">
+    <div class="sec-t">⚠️ Disclaimer</div>
+    <div style="font-size:12px;color:var(--text2);line-height:1.75;">Estimativas com base na legislação vigente em junho/2026. A isenção de IR sobre distribuição de lucros (art. 10, Lei 9.249/95) depende de contabilidade regular e lucro apurado. No Simples Nacional, a distribuição isenta pressupõe que o lucro supere o valor resultante da aplicação dos percentuais de presunção (ou contabilidade completa). O Fator R considera pró-labore e folha de salários — este simulador usa apenas pró-labore como aproximação. Consulte seu contador. Rodolfo Assunção — CRC/SP 1SP353033/O-5.</div>
+  </div>
+
+  <div class="foot">IRRF: Lei 15.270/2025 · INSS 2026: Portaria MPS · Simples Nacional: LC 123/2006 · Fator R: Art. 18, §24 LC 123/2006 · Lei 9.249/95 (distribuição de lucros) · Rodolfo Assunção · CRC/SP 1SP353033/O-5 · Limeira, SP</div>
+</div>
+
+<script>
+const fmt2 = v => 'R$ '+parseFloat(v||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fmtR = v => 'R$ '+Math.round(v||0).toLocaleString('pt-BR');
+const pct  = v => parseFloat(v||0).toFixed(1)+'%';
+const g    = id => document.getElementById(id);
+const n    = id => parseFloat(g(id)?.value)||0;
+
+function syncSlider(){ g('slider-pl').value=n('prolabore'); calcTudo(); }
+function syncInput(){ g('prolabore').value=g('slider-pl').value; calcTudo(); }
+
+function onRegimeChange(){
+  g('sec-fatorr').style.display = g('regime').value==='simplesV' ? 'block' : 'none';
+  calcTudo();
+}
+
+// ─── INSS SÓCIO 2026 — Contribuinte Individual no Simples Nacional ────────
+// Sócio de empresa do Simples contribui como CI: 11% sobre o pró-labore,
+// limitado ao teto previdenciário de R$ 8.475,55 (contribuição máx: R$ 932,31).
+// Ref: IN RFB 2.110/2022, art. 65, §1º; LC 123/2006, art. 21, §3º.
+function calcINSS(pl){
+  const TETO_BASE = 8475.55;
+  const ALIQ_CI   = 0.11;
+  const base      = Math.min(pl, TETO_BASE);
+  return parseFloat((base * ALIQ_CI).toFixed(2)); // máx R$ 932,31
+}
+
+// ─── IRRF 2026 — Lei nº 15.270/2025 ─────────────────────────────────────
+// Nota técnica: o redutor da Lei 15.270/2025 opera como DESCONTO DO IMPOSTO
+// apurado (crédito fiscal), não como redução da base de cálculo.
+// Mecanismo: calcular irBruto pela tabela progressiva, depois subtrair o redutor.
+// Ref: Lei 15.270/2025, art. 3º-A.
+function calcIRRF(base){
+  if(base<=0) return 0;
+  // 1. Tabela progressiva oficial 2026
+  let irBruto=0;
+  if(base<=2428.80)      irBruto=0;
+  else if(base<=2826.65) irBruto=base*.075-182.16;
+  else if(base<=3751.05) irBruto=base*.15-394.16;
+  else if(base<=4664.68) irBruto=base*.225-675.49;
+  else                   irBruto=base*.275-908.73;
+  irBruto=Math.max(0,irBruto);
+  // 2. Redutor — desconto sobre imposto apurado (não sobre a base)
+  const TETO_ISENCAO=5000,TETO_RAMPA=7350,RED_MAX=312.89;
+  let red=0;
+  if(base<=TETO_ISENCAO)     red=irBruto;
+  else if(base<=TETO_RAMPA){ const f=(TETO_RAMPA-base)/(TETO_RAMPA-TETO_ISENCAO); red=RED_MAX*f; }
+  return Math.max(0,irBruto-red);
+}
+
+// ─── TABELAS SIMPLES 2026 ─────────────────────────────────────────────────
+const ANEX_III=[
+  {ate:180000,aliq:.06,pd:0},{ate:360000,aliq:.112,pd:9360},
+  {ate:720000,aliq:.135,pd:17640},{ate:1800000,aliq:.16,pd:35640},
+  {ate:3600000,aliq:.21,pd:125640},{ate:4800000,aliq:.33,pd:648000}
+];
+const ANEX_V=[
+  {ate:180000,aliq:.155,pd:0},{ate:360000,aliq:.18,pd:4500},
+  {ate:720000,aliq:.195,pd:9900},{ate:1800000,aliq:.205,pd:17100},
+  {ate:3600000,aliq:.23,pd:62100},{ate:4800000,aliq:.305,pd:540000}
+];
+const ANEX_I=[
+  {ate:180000,aliq:.04,pd:0},{ate:360000,aliq:.073,pd:5940},
+  {ate:720000,aliq:.095,pd:13860},{ate:1800000,aliq:.107,pd:22500},
+  {ate:3600000,aliq:.143,pd:87300},{ate:4800000,aliq:.19,pd:378000}
+];
+
+function getAliq(rbt12, tab){
+  if(rbt12<=0) return 0;
+  for(const f of tab){
+    if(rbt12<=f.ate) return Math.max(0,((rbt12*f.aliq)-f.pd)/rbt12);
+  }
+  const l=tab[tab.length-1];
+  return Math.max(0,((rbt12*l.aliq)-l.pd)/rbt12);
+}
+
+// ─── FATOR R ──────────────────────────────────────────────────────────────
+// Fator R = folha 12 meses / RBT12
+// Aqui: folha = pró-labore × 12 (aproximação — não inclui funcionários)
+function calcFatorR(prolabore, rbt12){
+  if(rbt12<=0) return 0;
+  return (prolabore*12)/rbt12;
+}
+
+// ─── CÁLCULO CORE ─────────────────────────────────────────────────────────
+function calcRetirada(prolabore, lucroTotal, nSocios, regime, rbt12, fat){
+  // Por sócio: pró-labore + distribuição
+  const pl = prolabore;
+  const distribTotal = Math.max(0, lucroTotal - pl*nSocios);
+  const distribSocio = distribTotal/nSocios;
+
+  // INSS e IRRF sobre pró-labore
+  const inss = calcINSS(pl);
+  const baseIR = pl - inss;
+  const irrf = calcIRRF(baseIR);
+  const plLiq = pl - inss - irrf;
+
+  // Distribuição: isenta de IR (art. 10 Lei 9.249/95)
+  const distLiq = distribSocio;
+
+  // Total líquido por sócio
+  const totalLiq = plLiq + distLiq;
+
+  // Imposto da empresa
+  let aliqEmp = 0, tabUsada = 'Simples III';
+  if(regime==='simplesIII'){ aliqEmp=getAliq(rbt12,ANEX_III); tabUsada='Anexo III'; }
+  else if(regime==='simplesV'){
+    const fr=calcFatorR(pl*nSocios/12, rbt12); // média mensal
+    if(fr>=0.28){ aliqEmp=getAliq(rbt12,ANEX_III); tabUsada='Anexo III (Fator R ≥28%)'; }
+    else{         aliqEmp=getAliq(rbt12,ANEX_V);   tabUsada='Anexo V (Fator R <28%)'; }
+  }
+  else if(regime==='simplesI'){ aliqEmp=getAliq(rbt12,ANEX_I); tabUsada='Anexo I'; }
+  else{ aliqEmp=0.1453; tabUsada='Lucro Presumido'; } // PIS+COFINS+CSLL+IRPJ estimado
+
+  const impostoEmp = fat*aliqEmp;
+
+  return {
+    pl, plLiq, inss, irrf, baseIR,
+    distribSocio, distLiq,
+    totalLiq, totalLiqAnual:totalLiq*12,
+    aliqEmp, tabUsada, impostoEmp,
+    fratorR: regime==='simplesV' ? calcFatorR(pl*nSocios/12, rbt12) : null,
+  };
+}
+
+// ─── RENDER ────────────────────────────────────────────────────────────────
+function calcTudo(){
+  const regime  = g('regime').value;
+  const fat     = n('faturamento');
+  const rbt12   = n('rbt12');
+  const lucro   = n('lucro');
+  const nSoc    = parseInt(g('socios').value)||1;
+  const pl      = Math.max(1621, n('prolabore'));
+
+  const R = calcRetirada(pl, lucro, nSoc, regime, rbt12, fat);
+
+  // Fator R display
+  if(regime==='simplesV' && R.fratorR!==null){
+    const fr=R.fratorR, atingiu=fr>=0.28;
+    g('fatorr-display').innerHTML=`<div class="fatorr-box ${atingiu?'verde':'vermelho'}">
+      <div class="fatorr-ico">${atingiu?'✅':'⚠️'}</div>
+      <div class="fatorr-txt">
+        <b>Fator R atual: ${pct(fr*100)}</b> (pró-labore ${fmtR(pl*nSoc)}/mês × 12 ÷ RBT12 ${fmtR(rbt12)})<br>
+        ${atingiu
+          ?`Fator R ≥ 28% — empresa enquadrada no <b>Anexo III</b>. Alíquota efetiva: ${pct(R.aliqEmp*100)}.`
+          :`Fator R < 28% — empresa no <b>Anexo V</b> (alíquota maior: ${pct(R.aliqEmp*100)}). Aumentar o pró-labore pode migrar para o Anexo III.`}
+      </div>
+    </div>`;
+  }
+
+  // Calcula cenários para comparativo
+  const cenMin  = calcRetirada(1621, lucro, nSoc, regime, rbt12, fat);
+  const cen50   = calcRetirada(Math.min(lucro/nSoc*0.5, 10000), lucro, nSoc, regime, rbt12, fat);
+
+  // Busca o pró-labore ótimo (maior líquido por sócio)
+  let melhor=cenMin, melhorPL=1621;
+  for(let testPL=1621; testPL<=Math.min(lucro/nSoc, 20000); testPL+=100){
+    const t=calcRetirada(testPL, lucro, nSoc, regime, rbt12, fat);
+    if(t.totalLiq>melhor.totalLiq){ melhor=t; melhorPL=testPL; }
+  }
+
+  // Barra de composição
+  const barPLPct  = lucro>0?(pl*nSoc/lucro)*100:0;
+  const barDistPct= lucro>0?Math.max(0,100-barPLPct):0;
+
+  g('resultado').innerHTML=`
+    <div class="answer gold">
+      <div class="answer-label">Retirada total por sócio</div>
+      <div class="answer-text">${fmtR(R.totalLiq)}/mês líquido</div>
+      <div class="answer-sub">Pró-labore líquido: ${fmtR(R.plLiq)} + Distribuição de lucros (isenta): ${fmtR(R.distribSocio)}<br>
+      ${melhorPL!==pl?`💡 O pró-labore ideal estimado é ${fmtR(melhorPL)}/mês — geraria ${fmtR(melhor.totalLiq)}/mês (+${fmtR(melhor.totalLiq-R.totalLiq)}).`:'✅ Pró-labore atual está próximo do ideal calculado.'}</div>
+    </div>
+
+    <!-- Barra composição -->
+    <div class="optbar-wrap">
+      <div class="optbar-title">Composição da retirada do sócio</div>
+      <div class="optbar-track" style="display:flex">
+        <div class="optbar-prolabore" style="width:${Math.min(barPLPct,100)}%">${barPLPct>10?'Pró-labore':''}</div>
+        <div class="optbar-distrib"  style="width:${Math.min(barDistPct,100)}%">${barDistPct>10?'Distribuição':''}</div>
+      </div>
+      <div class="optbar-legend">
+        <div style="display:flex;gap:5px;align-items:center"><div class="optbar-dot" style="background:var(--indigo)"></div><span>Pró-labore ${fmtR(pl*nSoc)}/mês total (${pct(barPLPct)})</span></div>
+        <div style="display:flex;gap:5px;align-items:center"><div class="optbar-dot" style="background:var(--em)"></div><span>Distribuição ${fmtR(Math.max(0,lucro-pl*nSoc))}/mês total (${pct(barDistPct)})</span></div>
+      </div>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi"><div class="kpi-l">Pró-labore bruto</div><div class="kpi-v">${fmtR(R.pl)}</div></div>
+      <div class="kpi"><div class="kpi-l">(-) INSS + IRRF</div><div class="kpi-v r">-${fmtR(R.inss+R.irrf)}</div></div>
+      <div class="kpi"><div class="kpi-l">Pró-labore líquido</div><div class="kpi-v i">${fmtR(R.plLiq)}</div></div>
+      <div class="kpi"><div class="kpi-l">Distribuição (isenta)</div><div class="kpi-v g">${fmtR(R.distribSocio)}</div></div>
+      <div class="kpi"><div class="kpi-l">Total líquido/mês</div><div class="kpi-v gold">${fmtR(R.totalLiq)}</div></div>
+      <div class="kpi"><div class="kpi-l">Total líquido/ano</div><div class="kpi-v gold">${fmtR(R.totalLiqAnual)}</div></div>
+    </div>
+
+    <!-- Comparativo de cenários -->
+    <div style="margin-bottom:8px;font-size:11px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;">Comparativo de cenários por sócio</div>
+    <div class="cen-grid">
+      <div class="cen-card ${melhorPL===1621?'destaque':''}">
+        <div class="cen-titulo">Pró-labore mínimo</div>
+        <div class="cen-valor">${fmtR(cenMin.totalLiq)}/mês</div>
+        <div class="cen-sub">PL: ${fmtR(1621)} · Dist: ${fmtR(cenMin.distribSocio)}</div>
+        <div class="cen-sub">INSS+IR: -${fmtR(cenMin.inss+cenMin.irrf)}</div>
+        ${cenMin.tabUsada!==R.tabUsada?`<div style="font-size:10px;color:var(--amber);margin-top:3px;">Tabela: ${cenMin.tabUsada}</div>`:''}
+      </div>
+      <div class="cen-card ${pl===melhorPL?'destaque-gold':''}">
+        <div class="cen-titulo">Pró-labore atual ${pl===melhorPL?'🏆 Ideal':''}</div>
+        <div class="cen-valor">${fmtR(R.totalLiq)}/mês</div>
+        <div class="cen-sub">PL: ${fmtR(pl)} · Dist: ${fmtR(R.distribSocio)}</div>
+        <div class="cen-sub">INSS+IR: -${fmtR(R.inss+R.irrf)}</div>
+        ${R.tabUsada?`<div style="font-size:10px;color:var(--text3);margin-top:3px;">Tabela: ${R.tabUsada}</div>`:''}
+      </div>
+      <div class="cen-card ${melhor.totalLiq>R.totalLiq?'destaque-gold':''}">
+        <div class="cen-titulo">Pró-labore ideal estimado${melhor.totalLiq>R.totalLiq?' 🏆':''}</div>
+        <div class="cen-valor">${fmtR(melhor.totalLiq)}/mês</div>
+        <div class="cen-sub">PL: ${fmtR(melhorPL)} · Dist: ${fmtR(melhor.distribSocio)}</div>
+        <div class="cen-sub">INSS+IR: -${fmtR(melhor.inss+melhor.irrf)}</div>
+        ${melhor.tabUsada!==R.tabUsada?`<div style="font-size:10px;color:var(--em-l);margin-top:3px;">Tabela: ${melhor.tabUsada}</div>`:''}
+      </div>
+    </div>
+
+    <button class="toggle-btn" id="tbtn-det" onclick="toggle('det')">Ver detalhamento completo <span class="arr">▼</span></button>
+    <div class="toggle-body" id="tbody-det">
+      <div class="rb"><div class="rb-t">Pró-labore — cálculo de descontos</div>
+        <div class="rrow"><span class="rn b">Pró-labore bruto</span><span class="rv">${fmt2(R.pl)}</span></div>
+        <div class="rrow"><span class="rn">(-) INSS sócio (tabela progressiva)</span><span class="rv r">-${fmt2(R.inss)}</span></div>
+        <div class="rrow"><span class="rn">Base de cálculo IRRF (bruto - INSS)</span><span class="rv">${fmt2(R.baseIR)}</span></div>
+        <div class="rrow"><span class="rn">(-) IRRF 2026 (Lei 15.270/2025)</span><span class="rv r">-${fmt2(R.irrf)}${R.baseIR>5000&&R.baseIR<=7350?' <span style="font-size:10px;color:var(--amber)">⚡rampa gradual</span>':''}</span></div>
+        <div class="rrow total"><span class="rn b">Pró-labore líquido</span><span class="rv big i">${fmt2(R.plLiq)}</span></div>
+      </div>
+      <div class="rb"><div class="rb-t">Distribuição de lucros — sem desconto de IR</div>
+        <div class="rrow"><span class="rn b">Lucro disponível total</span><span class="rv">${fmt2(lucro)}</span></div>
+        <div class="rrow"><span class="rn">(-) Pró-labore total (${nSoc} sócio${nSoc>1?'s':''})</span><span class="rv r">-${fmt2(R.pl*nSoc)}</span></div>
+        <div class="rrow"><span class="rn">= Lucro a distribuir (total)</span><span class="rv i">${fmt2(Math.max(0,lucro-R.pl*nSoc))}</span></div>
+        <div class="rrow"><span class="rn">Distribuição por sócio</span><span class="rv">${fmt2(R.distribSocio)}</span></div>
+        <div class="rrow"><span class="rn">(-) IR sobre distribuição</span><span class="rv g">R$ 0,00 — isenta (art. 10, Lei 9.249/95)</span></div>
+        <div class="rrow total"><span class="rn b">Distribuição líquida por sócio</span><span class="rv big g">${fmt2(R.distLiq)}</span></div>
+      </div>
+      <div class="rb"><div class="rb-t">Resumo por sócio — ${R.tabUsada}</div>
+        <div class="rrow"><span class="rn">Pró-labore líquido</span><span class="rv i">${fmt2(R.plLiq)}</span></div>
+        <div class="rrow"><span class="rn">Distribuição de lucros (isenta)</span><span class="rv g">${fmt2(R.distLiq)}</span></div>
+        <div class="rrow total"><span class="rn b">Total líquido por sócio/mês</span><span class="rv big gold">${fmt2(R.totalLiq)}</span></div>
+        <div class="rrow"><span class="rn">Total líquido por sócio/ano</span><span class="rv gold">${fmtR(R.totalLiqAnual)}</span></div>
+        <div class="rrow"><span class="rn">Alíquota efetiva da empresa (${R.tabUsada})</span><span class="rv">${pct(R.aliqEmp*100)}</span></div>
+        <div class="rrow"><span class="rn">Imposto estimado da empresa/mês</span><span class="rv r">${fmtR(R.impostoEmp)}</span></div>
+      </div>
+      <div class="nota i">💡 A distribuição de lucros é isenta de IR para o sócio desde que a empresa mantenha a contabilidade regular e o lucro esteja devidamente apurado. No Simples, a presunção de lucro tem limites — contabilidade completa é recomendada para distribuições acima desses limites.</div>
+    </div>
+
+    <button class="pdf-btn" onclick="gerarPDF()">📄 Baixar relatório em PDF</button>`;
+
+  // WPP
+  const msg=`Olá Rodolfo! Usei o simulador de distribuição de lucros.\n\nEmpresa:\n• Regime: ${g('regime').options[g('regime').selectedIndex].text}\n• Faturamento: ${fmtR(fat)}/mês\n• RBT12: ${fmtR(rbt12)}\n• Lucro disponível: ${fmtR(lucro)}/mês\n• Sócios: ${nSoc}\n\nPró-labore atual: ${fmtR(pl)}/mês\n• Líquido por sócio: ${fmtR(R.totalLiq)}/mês\n• Pró-labore ideal estimado: ${fmtR(melhorPL)}/mês (${fmtR(melhor.totalLiq)}/mês líquido)\n\nGostaria de otimizar a retirada dos sócios.`;
+  g('cta-wpp').href='https://wa.me/5519982003732?text='+encodeURIComponent(msg);
+}
+
+function toggle(id){
+  const btn=g('tbtn-'+id),body=g('tbody-'+id);
+  const open=body.classList.toggle('open');
+  btn.querySelector('.arr').textContent=open?'▲':'▼';
+}
+
+function gerarPDF(){
+  const c=g('resultado').innerHTML;
+  const w=window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+    <title>Distribuição de Lucros · Rodolfo Assunção</title>
+    <style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:Arial,sans-serif;font-size:12px;color:#1e293b;background:#fff;padding:2rem;}
+    .answer{border:1px solid #cbd5e1;border-radius:6px;padding:.875rem;margin-bottom:10px;background:#f8fafc;}
+    .answer.gold{border-color:#fcd34d;background:#fffbeb;}
+    .answer-label{font-size:10px;text-transform:uppercase;color:#64748b;margin-bottom:.25rem;}
+    .answer-text{font-size:1rem;font-weight:700;margin-bottom:.25rem;color:#b45309;}
+    .answer-sub{font-size:11px;color:#475569;line-height:1.6;}
+    .optbar-wrap{border:1px solid #e2e8f0;border-radius:6px;padding:.875rem;margin-bottom:10px;background:#f8fafc;}
+    .optbar-title{font-size:10px;text-transform:uppercase;color:#64748b;margin-bottom:.625rem;}
+    .optbar-track{height:20px;background:#f1f5f9;border-radius:4px;overflow:hidden;display:flex;margin-bottom:4px;}
+    .optbar-prolabore{height:100%;background:#6366f1;display:flex;align-items:center;padding-left:4px;font-size:9px;color:#fff;}
+    .optbar-distrib{height:100%;background:#10b981;display:flex;align-items:center;padding-left:4px;font-size:9px;color:#fff;}
+    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;}
+    .kpi{border:1px solid #e2e8f0;border-radius:6px;padding:.625rem;background:#f8fafc;}
+    .kpi-l{font-size:10px;color:#64748b;margin-bottom:2px;}.kpi-v{font-size:1rem;font-weight:700;color:#1e293b;}
+    .kpi-v.g{color:#059669;}.kpi-v.r{color:#dc2626;}.kpi-v.i{color:#4338ca;}.kpi-v.gold{color:#b45309;}
+    .cen-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;}
+    .cen-card{border:1px solid #e2e8f0;border-radius:6px;padding:.75rem;background:#f8fafc;}
+    .cen-card.destaque-gold{border-color:#fcd34d;background:#fffbeb;}
+    .cen-titulo{font-size:10px;text-transform:uppercase;color:#64748b;margin-bottom:4px;}
+    .cen-valor{font-size:1rem;font-weight:700;color:#1e293b;margin-bottom:2px;}
+    .cen-sub{font-size:10px;color:#64748b;}
+    .rb{border:1px solid #e2e8f0;border-radius:6px;padding:1rem;margin-bottom:8px;background:#f8fafc;}
+    .rb-t{font-size:10px;text-transform:uppercase;color:#64748b;margin-bottom:.75rem;}
+    .rrow{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #f1f5f9;font-size:11px;}
+    .rrow:last-child{border-bottom:none;}.rrow.total{border-top:1px solid #e2e8f0;padding-top:8px;margin-top:4px;border-bottom:none;}
+    .rn{color:#475569;flex:1;}.rn.b{color:#1e293b;font-weight:600;}
+    .rv{font-weight:600;text-align:right;color:#1e293b;}.rv.big{font-size:1.2rem;}
+    .rv.g{color:#059669;}.rv.r{color:#dc2626;}.rv.i{color:#4338ca;}.rv.gold{color:#b45309;}
+    .nota{padding:8px;border-left:2px solid #6366f1;background:#eef2ff;font-size:10px;color:#4338ca;margin-top:8px;}
+    .toggle-btn,.pdf-btn,.slider-wrap,.cta-disc,.sec-fatorr{display:none!important;}
+    .toggle-body{display:block!important;}
+    .fatorr-box{border:1px solid #e2e8f0;border-radius:6px;padding:.75rem;margin-bottom:8px;font-size:11px;color:#475569;display:flex;gap:8px;}
+    header{border-bottom:2px solid #e2e8f0;padding-bottom:.75rem;margin-bottom:1.25rem;display:flex;justify-content:space-between;}
+    .hdr-logo{font-size:1rem;font-weight:700;color:#1e293b;}.hdr-data{font-size:10px;color:#64748b;}
+    footer{border-top:1px solid #e2e8f0;margin-top:1.5rem;padding-top:.75rem;font-size:9px;color:#94a3b8;text-align:center;}
+    .disclaimer{border:1px solid #fcd34d;background:#fffbeb;border-radius:4px;padding:.625rem;margin-top:1rem;font-size:10px;color:#78350f;line-height:1.6;}
+    </style></head><body>
+    <header><div class="hdr-logo">Pró-labore vs Distribuição de Lucros · Rodolfo Assunção · CRC/SP 1SP353033/O-5</div>
+    <div class="hdr-data">Gerado em: ${new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}</div></header>
+    ${c}
+    <div class="disclaimer">⚠️ Estimativas com base na legislação vigente em junho/2025. A isenção de IR sobre distribuição de lucros depende de contabilidade regular. O Fator R usa pró-labore como aproximação. Não substitui consultoria contábil individualizada. Rodolfo Assunção — CRC/SP 1SP353033/O-5 — Limeira, SP.</div>
+    <footer>Pró-labore vs Distribuição · Rodolfo Assunção · CRC/SP 1SP353033/O-5 · Junho/2026</footer>
+    </body></html>`);
+  w.document.close();
+  setTimeout(()=>w.print(),600);
+}
+
+// INIT
+calcTudo();
+</script>
+</body>
+</html>

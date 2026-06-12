@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador Pró-labore vs Distribuição de Lucros 2026 — Rodolfo Assunção</title>
+<meta name="description" content="Calcule o custo real do pró-labore, a tributação sobre distribuição de lucros e encontre a estratégia ótima de retirada para sócios em 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F172A;--bg2:#111827;--bg3:#1E2937;--bg4:#263244;
+  --border:rgba(51,65,85,0.5);--border2:#334155;
+  --text:#F1F5F9;--text2:#94A3B8;--text3:#64748B;
+  --indigo:#4F46E5;--indigo2:#4338CA;--indigo-l:#818CF8;
+  --indigo-d:rgba(79,70,229,0.1);--indigo-b:rgba(79,70,229,0.25);
+  --em:#10B981;--em2:#059669;--em-l:#34D399;--em-d:rgba(16,185,129,0.1);--em-b:rgba(16,185,129,0.25);
+  --amber:#FBBF24;--amber-d:rgba(251,191,36,0.1);--amber-b:rgba(251,191,36,0.3);
+  --red:#F87171;--red-d:rgba(248,113,113,0.1);--red-b:rgba(248,113,113,0.3);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.7;min-height:100vh;}
+nav{position:sticky;top:0;z-index:100;background:rgba(15,23,42,0.95);backdrop-filter:blur(16px);border-bottom:.5px solid var(--border);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);text-decoration:none;}
+.nav-logo span{color:var(--indigo-l);}
+.nav-back{font-size:13px;color:var(--text2);text-decoration:none;transition:color .2s;}
+.nav-back:hover{color:var(--text);}
+.tabs-wrap{background:var(--bg2);border-bottom:.5px solid var(--border);padding:0 2rem;}
+.tabs{max-width:940px;margin:0 auto;display:flex;}
+.tab{padding:14px 22px;font-size:13px;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none;font-family:'DM Sans',sans-serif;white-space:nowrap;}
+.tab:hover{color:var(--text2);}
+.tab.active{color:var(--text);border-bottom-color:var(--indigo);}
+.page{display:none;max-width:940px;margin:0 auto;padding:2rem 2rem 4rem;}
+.page.active{display:block;}
+.page-hdr{margin-bottom:2rem;}
+.page-tag{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:.5rem;}
+.page-title{font-family:'DM Serif Display',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:400;color:var(--text);line-height:1.2;margin-bottom:.6rem;}
+.page-desc{font-size:14px;color:var(--text2);line-height:1.75;max-width:600px;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start;}
+.sec{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:1.5rem;margin-bottom:14px;}
+.sec-title{font-size:11px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1.25rem;}
+.lbl{display:block;font-size:12px;color:var(--text2);margin-bottom:5px;}
+.field{margin-bottom:12px;}.field:last-child{margin-bottom:0;}
+.fi{width:100%;padding:9px 13px;font-size:13px;background:var(--bg4);border:.5px solid var(--border2);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;transition:border-color .2s;}
+.fi:focus{outline:none;border-color:var(--indigo);}
+.fs{width:100%;padding:9px 13px;font-size:13px;background:var(--bg4);border:.5px solid var(--border2);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:14px;}
+.kpi{background:var(--bg3);border:.5px solid var(--border2);border-radius:10px;padding:1rem;}
+.kpi-lbl{font-size:11px;color:var(--text3);margin-bottom:4px;}
+.kpi-val{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--text);}
+.kpi-val.g{color:var(--em-l);}.kpi-val.i{color:var(--indigo-l);}
+.kpi-val.r{color:var(--red);}.kpi-val.w{color:var(--amber);}
+.rb{background:var(--bg4);border:.5px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:12px;}
+.rb.green{background:var(--em-d);border-color:var(--em-b);}
+.rb.indigo{background:var(--indigo-d);border-color:var(--indigo-b);}
+.rb.amber{background:var(--amber-d);border-color:var(--amber-b);}
+.rb.red{background:var(--red-d);border-color:var(--red-b);}
+.rb-title{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem;}
+.rrow{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:.5px solid var(--border);font-size:13px;}
+.rrow:last-child{border-bottom:none;}
+.rrow.total{border-top:1px solid var(--border2);padding-top:10px;margin-top:4px;}
+.rname{color:var(--text2);}.rname.b{color:var(--text);font-weight:500;}
+.rval{font-weight:500;color:var(--text);}
+.rval.g{color:var(--em-l);}.rval.r{color:var(--red);}.rval.w{color:var(--amber);}.rval.i{color:var(--indigo-l);}
+.rval.big{font-family:'DM Serif Display',serif;font-size:1.7rem;}
+.nota{margin-top:10px;padding:10px 13px;border-radius:8px;font-size:12px;line-height:1.65;border-left:2px solid var(--indigo);background:var(--indigo-d);color:var(--text2);}
+.nota.g{border-left-color:var(--em);background:var(--em-d);}
+.nota.w{border-left-color:var(--amber);background:var(--amber-d);color:var(--amber);}
+.nota.r{border-left-color:var(--red);background:var(--red-d);color:var(--red);}
+.alert{border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:13px;line-height:1.65;display:flex;align-items:flex-start;gap:10px;}
+.alert.warn{background:var(--amber-d);color:var(--amber);border:.5px solid var(--amber-b);}
+.alert.danger{background:var(--red-d);color:var(--red);border:.5px solid var(--red-b);}
+.alert.info{background:var(--indigo-d);color:var(--indigo-l);border:.5px solid var(--indigo-b);}
+.alert.green{background:var(--em-d);color:var(--em-l);border:.5px solid var(--em-b);}
+.alert-icon{flex-shrink:0;margin-top:1px;}
+/* OTIMIZADOR */
+.opt-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+.opt-card{background:var(--bg3);border:.5px solid var(--border2);border-radius:12px;padding:1.125rem;cursor:pointer;transition:border-color .2s;}
+.opt-card:hover{border-color:var(--border2);}
+.opt-card.best{border-color:var(--em-b);background:var(--em-d);}
+.opt-card-label{font-size:11px;color:var(--text3);margin-bottom:4px;}
+.opt-card-pro{font-size:13px;font-weight:500;color:var(--text);margin-bottom:2px;}
+.opt-card-dist{font-size:12px;color:var(--text2);margin-bottom:8px;}
+.opt-card-liq{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--text);}
+.opt-card.best .opt-card-liq{color:var(--em-l);}
+.opt-card-custo{font-size:11px;color:var(--text3);margin-top:4px;}
+/* CTA */
+.cta{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:2rem;margin-bottom:14px;text-align:center;}
+.cta-headline{font-family:'DM Serif Display',serif;font-size:1.4rem;font-weight:400;color:var(--text);margin-bottom:6px;}
+.cta-sub{font-size:13px;color:var(--text2);margin-bottom:1.5rem;line-height:1.6;}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;background:var(--em);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s;text-decoration:none;}
+.cta-btn:hover{background:var(--em2);}
+.cta-email{display:block;margin-top:10px;font-size:12px;color:var(--text2);}
+.cta-email a{color:var(--text2);text-decoration:none;border-bottom:.5px solid var(--border2);}
+.cta-email a:hover{color:var(--text);}
+.foot{border-top:.5px solid var(--border);padding:1.5rem 2rem;text-align:center;font-size:11px;color:var(--text3);margin-top:2rem;}
+@media(max-width:700px){.g2,.row2,.opt-grid{grid-template-columns:1fr;}.tabs{overflow-x:auto;}.page{padding:1.5rem 1.25rem 3rem;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Rodolfo<span>.</span></a>
+  <a href="index.html" class="nav-back">← Voltar</a>
+</nav>
+
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab active" onclick="showPage('pro',this)">💼 Pró-labore</button>
+    <button class="tab" onclick="showPage('dist',this)">💰 Distribuição de Lucros</button>
+    <button class="tab" onclick="showPage('otim',this)">⚡ Estratégia Ótima</button>
+  </div>
+</div>
+
+<!-- ======================================================= -->
+<!-- ABA 1: PRÓ-LABORE                                       -->
+<!-- ======================================================= -->
+<div id="page-pro" class="page active">
+  <div class="page-hdr">
+    <div class="page-tag">Simulador · Retirada de Sócio</div>
+    <h1 class="page-title">Pró-labore — Cálculo Completo 2026</h1>
+    <p class="page-desc">INSS fixo sobre o pró-labore: <strong>14%</strong> para LTDA, S/A e SLU (caso mais comum) ou <strong>11%</strong> para Cooperativa — Art. 12, § 3º, Lei 8.212/1991. IR pela tabela 2026 com redução da Lei 15.270/2025. INSS patronal de 20% conforme o regime — exceto Simples Nacional Anexos I, II e III.</p>
+  </div>
+
+  <div class="g2">
+    <div>
+      <div class="sec">
+        <div class="sec-title">Dados do sócio</div>
+        <div class="field">
+          <span class="lbl">Tipo de empresa (define alíquota INSS do sócio)</span>
+          <select class="fs" id="pl-tipo" onchange="calcPL()">
+            <option value="0.14" selected>LTDA / S/A / SLU — 14% (caso mais comum)</option>
+            <option value="0.11">Cooperativa — 11%</option>
+          </select>
+        </div>
+        <div class="field">
+          <span class="lbl">Valor do pró-labore bruto (R$)</span>
+          <input type="number" class="fi" id="pl-val" value="5000" min="1621" oninput="calcPL()">
+          <div style="font-size:11px;color:var(--text3);margin-top:4px;">Mínimo referencial: R$ 1.621,00 (salário-mínimo 2026). Pró-labore abaixo do mínimo legal pode aumentar o risco de questionamentos fiscais e previdenciários, dependendo das circunstâncias concretas da atividade exercida pelo sócio.</div>
+        </div>
+        <div class="field">
+          <span class="lbl">Dependentes para IR</span>
+          <input type="number" class="fi" id="pl-dep" value="0" min="0" max="20" oninput="calcPL()">
+        </div>
+        <div class="field">
+          <span class="lbl">Regime tributário da empresa (define INSS patronal)</span>
+          <select class="fs" id="pl-reg" onchange="calcPL()">
+            <option value="simplesI">Simples Nacional — Anexos I, II, III (sem INSS patronal)</option>
+            <option value="simplesIV">Simples Nacional — Anexo IV (com INSS patronal 20%)</option>
+            <option value="presumido" selected>Lucro Presumido (com INSS patronal 20%)</option>
+            <option value="real">Lucro Real (com INSS patronal 20%)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-title">Referência INSS 2026 — Art. 12 da Lei 8.212/1991</div>
+        <div class="rrow"><span class="rname">Alíquota LTDA / S/A / SLU</span><span class="rval r">14% (fixa)</span></div>
+        <div class="rrow"><span class="rname">Alíquota Cooperativa</span><span class="rval">11% (fixa)</span></div>
+        <div class="rrow"><span class="rname">Teto de contribuição</span><span class="rval">R$ 8.475,55</span></div>
+        <div class="rrow"><span class="rname">Contribuição máx. LTDA (14%)</span><span class="rval">R$ 1.186,58/mês</span></div>
+        <div class="rrow"><span class="rname">Pró-labore mínimo referencial</span><span class="rval w">R$ 1.621,00</span></div>
+        <div class="rrow"><span class="rname">Dedução por dependente (IR)</span><span class="rval">R$ 189,59</span></div>
+        <div class="nota" style="margin-top:.75rem">14% para LTDA/S/A/SLU e 11% para Cooperativa — Art. 12, § 3º, Lei 8.212/1991. O regime tributário da empresa <strong>não altera</strong> a alíquota INSS do sócio. O regime tributário define apenas o INSS patronal (0% Simples I/II/III; 20% demais).</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="kpis">
+        <div class="kpi"><div class="kpi-lbl">Pró-labore líquido</div><div class="kpi-val g" id="pl-kpi-liq">—</div></div>
+        <div class="kpi"><div class="kpi-lbl">INSS sócio</div><div class="kpi-val r" id="pl-kpi-inss">—</div></div>
+        <div class="kpi"><div class="kpi-lbl">IR retido</div><div class="kpi-val r" id="pl-kpi-ir">—</div></div>
+        <div class="kpi"><div class="kpi-lbl">Custo total empresa</div><div class="kpi-val i" id="pl-kpi-custo">—</div></div>
+      </div>
+
+      <div class="rb">
+        <div class="rb-title">👤 Perspectiva do sócio</div>
+        <div class="rrow"><span class="rname">Pró-labore bruto</span><span class="rval" id="pl-bruto">—</span></div>
+        <div class="rrow"><span class="rname">(-) INSS sócio</span><span class="rval r" id="pl-inss">—</span></div>
+        <div class="rrow"><span class="rname">(-) Dedução dependentes</span><span class="rval" id="pl-dep-s">—</span></div>
+        <div class="rrow"><span class="rname">Base de cálculo IR</span><span class="rval" id="pl-base-ir">—</span></div>
+        <div class="rrow"><span class="rname">(-) IR retido na fonte</span><span class="rval r" id="pl-ir">—</span></div>
+        <div class="rrow total"><span class="rname b">Pró-labore líquido</span><span class="rval big g" id="pl-liq">—</span></div>
+        <div id="pl-ir-nota" class="nota" style="margin-top:1rem;"></div>
+      </div>
+
+      <div class="rb">
+        <div class="rb-title">🏢 Perspectiva da empresa</div>
+        <div class="rrow"><span class="rname">Pró-labore bruto</span><span class="rval" id="pl-bruto2">—</span></div>
+        <div class="rrow"><span class="rname">INSS patronal (20%)</span><span class="rval r" id="pl-inss-pat">—</span></div>
+        <div class="rrow total"><span class="rname b">Custo total mensal</span><span class="rval big i" id="pl-custo">—</span></div>
+        <div class="rrow"><span class="rname">Custo adicional sobre pró-labore</span><span class="rval w" id="pl-pct-custo">—</span></div>
+        <div id="pl-reg-nota" class="nota" style="margin-top:1rem;"></div>
+      </div>
+
+      <div class="rb">
+        <div class="rb-title">📊 Benefício previdenciário estimado</div>
+        <div class="rrow"><span class="rname">Salário de contribuição</span><span class="rval" id="pl-sc">—</span></div>
+        <div class="rrow"><span class="rname">Benefício INSS esperado</span><span class="rval g" id="pl-benef">—</span></div>
+        <div class="rrow"><span class="rname">Contribuição mensal INSS</span><span class="rval" id="pl-contrib">—</span></div>
+        <div class="nota" style="margin-top:.75rem">Estimativa baseada em 60–70% do salário de contribuição (regra geral pós-reforma). Não substitui simulação junto ao INSS.</div>
+      </div>
+
+      <div id="pl-alerta" style="margin-top:4px;"></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    INSS sócio: 14% para LTDA/S/A/SLU e 11% para Cooperativa — Art. 12, § 3º, Lei 8.212/1991 · IR: tabela 2026 com redução Lei 15.270/2025 · Decreto 3.048/1999 · Rodolfo Assunção CRC/SP 1SP353033/O-5
+  </div>
+</div>
+
+<!-- ======================================================= -->
+<!-- ABA 2: DISTRIBUIÇÃO DE LUCROS                           -->
+<!-- ======================================================= -->
+<div id="page-dist" class="page">
+  <div class="page-hdr">
+    <div class="page-tag">Simulador · Retirada de Sócio</div>
+    <h1 class="page-title">Distribuição de Lucros 2026</h1>
+    <p class="page-desc">Isenta até R$ 50.000/mês <strong>por empresa (CNPJ)</strong>. Cada empresa é analisada isoladamente — o limite não é somado entre empresas. Acima disso: 10% sobre o valor total distribuído. Art. 6º-A da Lei 9.250/1995, inserido pela Lei 15.270/2025.</p>
+  </div>
+
+  <div id="dist-aviso-total" style="margin-bottom:14px;"></div>
+
+  <div class="g2">
+    <div>
+      <div class="sec">
+        <div class="sec-title">Dados da distribuição</div>
+        <div class="field">
+          <span class="lbl">Valor distribuído por esta empresa (R$)</span>
+          <input type="number" class="fi" id="dl-val" value="20000" min="0" oninput="calcDL()">
+        </div>
+        <div class="field">
+          <span class="lbl">Regime tributário da empresa</span>
+          <select class="fs" id="dl-reg" onchange="calcDL()">
+            <option value="simples" selected>Simples Nacional</option>
+            <option value="presumido">Lucro Presumido</option>
+            <option value="real">Lucro Real</option>
+            <option value="mei">MEI</option>
+          </select>
+        </div>
+        <div class="nota" style="margin-top:0">Cada empresa é analisada isoladamente. Se o sócio recebe de múltiplas empresas, cada uma tem seu próprio limite de R$ 50.000/mês. <strong>O limite não é somado entre empresas</strong> — base: Art. 6º-A da Lei 9.250/1995: "por uma mesma pessoa jurídica a uma mesma pessoa física".</div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-title">Regras 2026 — Art. 6º-A da Lei 9.250/1995</div>
+        <div class="rrow"><span class="rname">Isento até (por empresa/mês)</span><span class="rval g">R$ 50.000,00</span></div>
+        <div class="rrow"><span class="rname">Alíquota acima de R$ 50k</span><span class="rval r">10% sobre o valor total</span></div>
+        <div class="rrow"><span class="rname">Incidência</span><span class="rval w">Sobre o total — não só o excedente</span></div>
+        <div class="rrow"><span class="rname">Análise por empresa</span><span class="rval g">Cada CNPJ tem seu próprio limite</span></div>
+        <div class="rrow"><span class="rname">INSS sobre distribuição</span><span class="rval g">Não incide</span></div>
+        <div class="rrow"><span class="rname">Vigência</span><span class="rval">01/01/2026</span></div>
+        <div class="nota w" style="margin-top:.75rem">⚠️ A tributação de 10% incide sobre o <strong>valor total</strong> distribuído acima de R$ 50.000, não apenas sobre o excedente. Posição oficial da Receita Federal (Manual v.19-12-2025). Existe controvérsia técnica sobre se deveria incidir apenas sobre o excedente, mas a interpretação oficial é sobre o total. Exemplo: distribuição de R$ 100.000 = IR de R$ 10.000.</div>
+        <div class="nota" style="margin-top:.5rem;border-left-color:var(--em);background:var(--em-d)">📋 <strong>Regra de transição (Art. 6º-A, § 3º):</strong> Lucros apurados até 31/12/2025 e cuja distribuição tenha sido aprovada até 31/12/2025 estão isentos de tributação, mesmo que pagos em 2026 ou posteriormente. Empresas podem distribuir lucros de 2025 em 2026 sem incidência do IR de 10%.</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="kpis">
+        <div class="kpi"><div class="kpi-lbl">Distribuição (esta empresa)</div><div class="kpi-val i" id="dl-kpi-tot">—</div></div>
+        <div class="kpi"><div class="kpi-lbl">IR retido</div><div class="kpi-val r" id="dl-kpi-ir">—</div></div>
+        <div class="kpi"><div class="kpi-lbl">Líquido recebido</div><div class="kpi-val g" id="dl-kpi-liq">—</div></div>
+      </div>
+
+      <div class="rb">
+        <div class="rb-title">💰 Cálculo da distribuição</div>
+        <div class="rrow"><span class="rname">Valor distribuído por esta empresa</span><span class="rval" id="dl-val-s">—</span></div>
+        <div class="rrow"><span class="rname">Limite de isenção por empresa/mês</span><span class="rval g">R$ 50.000,00</span></div>
+        <div class="rrow"><span class="rname">Situação</span><span class="rval" id="dl-sit">—</span></div>
+        <div class="rrow"><span class="rname">IR retido (10% s/ total se &gt; R$ 50k)</span><span class="rval r" id="dl-ir">—</span></div>
+        <div class="rrow total"><span class="rname b">Líquido recebido</span><span class="rval big g" id="dl-liq">—</span></div>
+        <div id="dl-nota" class="nota" style="margin-top:1rem;"></div>
+      </div>
+
+      <div class="rb">
+        <div class="rb-title">📅 Tributação mínima anual — Art. 16-A da Lei 9.250/1995</div>
+        <div class="rrow"><span class="rname">Projeção anual desta distribuição</span><span class="rval" id="dl-proj-anual">—</span></div>
+        <div class="rrow"><span class="rname">Limiar de atenção</span><span class="rval">Renda anual total &gt; R$ 600.000</span></div>
+        <div class="rrow"><span class="rname">Vigência</span><span class="rval">Exercício 2027 (ano-calendário 2026)</span></div>
+        <div class="rrow"><span class="rname">Aplicação</span><span class="rval">Apenas na declaração anual — não mensal</span></div>
+        <div class="rrow"><span class="rname">Situação desta projeção</span><span class="rval" id="dl-trib-min-sit">—</span></div>
+        <div id="dl-trib-min-nota" class="nota" style="margin-top:1rem;"></div>
+      </div>
+
+      <div class="rb">
+        <div class="rb-title">📋 Obrigações da empresa</div>
+        <div class="rrow"><span class="rname">IRRF recolher (DARF)</span><span class="rval" id="dl-darf">—</span></div>
+        <div class="rrow"><span class="rname">Prazo recolhimento</span><span class="rval">15º dia do mês seguinte</span></div>
+        <div class="rrow"><span class="rname">Documentação obrigatória</span><span class="rval">Ata + Recibo assinado</span></div>
+        <div class="rrow"><span class="rname">Contabilidade formalizada</span><span class="rval" id="dl-contab">—</span></div>
+        <div class="rrow"><span class="rname">DIRF (se IR retido)</span><span class="rval">28/fev do ano seguinte</span></div>
+      </div>
+
+      <div id="dl-alerta" style="margin-top:4px;"></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    Distribuição de lucros: Art. 6º-A da Lei 9.250/1995 (Lei 15.270/2025) · Limite R$ 50k por empresa (CNPJ)/mês · Cada empresa analisada isoladamente · Rodolfo Assunção CRC/SP 1SP353033/O-5
+  </div>
+</div>
+
+<!-- ======================================================= -->
+<!-- ABA 3: ESTRATÉGIA ÓTIMA                                 -->
+<!-- ======================================================= -->
+<div id="page-otim" class="page">
+  <div class="page-hdr">
+    <div class="page-tag">Simulador · Planejamento Tributário</div>
+    <h1 class="page-title">Estratégia Ótima de Retirada</h1>
+    <p class="page-desc">Qual a combinação ideal entre pró-labore e distribuição de lucros para maximizar o líquido do sócio com o menor custo para a empresa? Configure o total que deseja retirar e compare os cenários.</p>
+  </div>
+
+  <div class="sec" style="margin-bottom:16px;">
+    <div class="sec-title">Configuração</div>
+    <div class="row2">
+      <div class="field">
+        <span class="lbl">Total mensal de retirada desejada (R$)</span>
+        <input type="number" class="fi" id="ot-tot" value="15000" min="1621" oninput="calcOtim()">
+      </div>
+      <div class="field">
+        <span class="lbl">Regime tributário da empresa</span>
+        <select class="fs" id="ot-reg" onchange="calcOtim()">
+          <option value="simplesI">Simples Nacional — Anexos I, II, III</option>
+          <option value="simplesIV">Simples Nacional — Anexo IV</option>
+          <option value="presumido" selected>Lucro Presumido</option>
+          <option value="real">Lucro Real</option>
+        </select>
+      </div>
+      <div class="field">
+        <span class="lbl">Dependentes (IR do sócio)</span>
+        <input type="number" class="fi" id="ot-dep" value="0" min="0" oninput="calcOtim()">
+      </div>
+    </div>
+  </div>
+
+  <!-- CARDS DE CENÁRIOS -->
+  <div class="opt-grid" id="ot-cards"></div>
+
+  <!-- RESULTADO DETALHADO DO MELHOR CENÁRIO -->
+  <div id="ot-detalhes" style="margin-bottom:14px;"></div>
+
+  <!-- ALERTA TRIBUTAÇÃO MÍNIMA -->
+  <div id="ot-alerta" style="margin-bottom:14px;"></div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <div class="cta-headline">Cada retirada tem implicações tributárias e previdenciárias.</div>
+    <div class="cta-sub">A estratégia ótima depende do seu perfil, dos planos de crescimento e das necessidades de benefícios previdenciários. Uma análise personalizada pode fazer diferença significativa no longo prazo.</div>
+    <a class="cta-btn" id="ot-cta-btn" href="#" target="_blank">Solicitar análise personalizada →</a>
+    <div class="cta-email">Prefere e-mail? <a href="mailto:contato@solcontabil.com.br">contato@solcontabil.com.br</a></div>
+  </div>
+
+  <div class="foot">
+    Estratégia orientativa — não substitui planejamento tributário individualizado. Lei 15.270/2025 · Decreto 3.048/1999 · Rodolfo Assunção CRC/SP 1SP353033/O-5
+  </div>
+</div>
+
+<script>
+// ─── UTILITÁRIOS ─────────────────────────────────────────────────────────
+const fmt  = v => 'R$ '+Math.round(v||0).toLocaleString('pt-BR');
+const fmtD = v => 'R$ '+parseFloat(v||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const pct  = v => parseFloat(v||0).toFixed(1)+'%';
+const g    = id => document.getElementById(id);
+const n    = id => parseFloat(g(id)?.value)||0;
+
+function showPage(id,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  g('page-'+id).classList.add('active');
+  el.classList.add('active');
+}
+
+// ─── INSS SÓCIO (contribuinte individual) ─────────────────────────────────
+// 14% para LTDA, S/A, SLU — Art. 12, § 3º, inciso III, Lei 8.212/1991
+// 11% apenas para Cooperativa — Art. 12, § 3º, inciso II, Lei 8.212/1991
+function calcINSSSocio(pl, aliq){
+  const teto=8475.55;
+  const base=Math.max(Math.min(pl,teto), 0);
+  return base*(aliq||0.14);
+}
+
+// ─── IR COM LEI 15.270/2025 (mesma do CLT) ───────────────────────────────
+function calcIR(base){
+  if(base<=0) return 0;
+  let irBruto=0;
+  if(base<=2428.80)       irBruto=0;
+  else if(base<=2826.65)  irBruto=base*0.075-182.16;
+  else if(base<=3751.05)  irBruto=base*0.15-394.16;
+  else if(base<=4664.68)  irBruto=base*0.225-675.49;
+  else                    irBruto=base*0.275-908.73;
+  if(irBruto<=0) return 0;
+  // Redução Lei 15.270/2025
+  let reducao=0;
+  if(base<=7350) reducao=Math.max(0, 978.62-(0.133145*base));
+  const irFinal=Math.max(0,irBruto-reducao);
+  return irFinal;
+}
+
+function temINSSPatronal(reg){
+  return reg==='simplesIV'||reg==='presumido'||reg==='real';
+}
+
+// ─── CÁLCULO PRÓ-LABORE ──────────────────────────────────────────────────
+function calcPL(){
+  const val   = n('pl-val');
+  const dep   = n('pl-dep');
+  const reg   = g('pl-reg').value;
+  const aliqINSS = parseFloat(g('pl-tipo').value)||0.14;
+
+  const inss    = calcINSSSocio(val, aliqINSS);
+  const deducDep= dep*189.59;
+  const baseIR  = Math.max(0, val-inss-deducDep);
+  const ir      = calcIR(baseIR);
+  const liq     = val-inss-ir;
+  const patInss = temINSSPatronal(reg) ? val*0.20 : 0;
+  const custo   = val+patInss;
+  const pctCusto= val>0 ? (patInss/val)*100 : 0;
+  const tipoLabel = aliqINSS===0.14 ? 'LTDA / S/A / SLU' : 'Cooperativa';
+
+  // Benefício previdenciário estimado
+  const sc   = Math.min(val, 8475.55);
+  const benef= sc*0.65;
+
+  // KPIs
+  g('pl-kpi-liq').textContent   = fmt(liq);
+  g('pl-kpi-inss').textContent  = fmt(inss);
+  g('pl-kpi-ir').textContent    = ir>0?fmt(ir):'R$ 0';
+  g('pl-kpi-custo').textContent = fmt(custo);
+
+  // Sócio
+  g('pl-bruto').textContent   = fmt(val);
+  g('pl-inss').textContent    = '-'+fmtD(inss)+` (${(aliqINSS*100).toFixed(0)}% — ${tipoLabel})`;
+  g('pl-dep-s').textContent   = dep>0?'-'+fmtD(deducDep):'—';
+  g('pl-base-ir').textContent = fmtD(baseIR);
+  g('pl-ir').textContent      = ir>0?'-'+fmtD(ir):'R$ 0,00 (isento)';
+  g('pl-liq').textContent     = fmt(liq);
+
+  // IR nota
+  const irNota=g('pl-ir-nota');
+  if(ir===0){
+    irNota.className='nota g';
+    irNota.textContent=`Base de ${fmtD(baseIR)} — IR zerado pela redução da Lei 15.270/2025. Isenção efetiva até base de ~R$ 5.000.`;
+  } else {
+    irNota.className='nota';
+    irNota.textContent=`Base ${fmtD(baseIR)} → IR calculado com a redução Lei 15.270/2025 → IR final: ${fmtD(ir)}.`;
+  }
+
+  // Empresa
+  g('pl-bruto2').textContent    = fmt(val);
+  g('pl-inss-pat').textContent  = temINSSPatronal(reg)?'-'+fmt(patInss):'Incluso no DAS';
+  g('pl-custo').textContent     = fmt(custo);
+  g('pl-pct-custo').textContent = temINSSPatronal(reg)?'+'+pct(pctCusto)+' de encargo':'Sem encargo adicional';
+
+  const regNota=g('pl-reg-nota');
+  if(reg==='simplesI'){
+    regNota.className='nota g';
+    regNota.textContent='Simples Nacional Anexos I, II e III: INSS patronal incluso no DAS. Custo para a empresa = valor do pró-labore.';
+  } else {
+    regNota.className='nota';
+    regNota.textContent=`${reg==='simplesIV'?'Simples Nacional Anexo IV':'Lucro Presumido / Real'}: INSS patronal de 20% sobre o pró-labore. Custo total para a empresa: ${fmt(custo)}.`;
+  }
+
+  // Benefício previdenciário
+  g('pl-sc').textContent     = fmt(sc);
+  g('pl-benef').textContent  = fmt(benef)+'/mês (est.)';
+  g('pl-contrib').textContent= fmt(inss)+'/mês';
+
+  // Alerta mínimo
+  const alerta=g('pl-alerta');
+  if(val<1621){
+    alerta.innerHTML=`<div class="alert danger"><span class="alert-icon">⚠️</span><span><strong>Pró-labore abaixo do mínimo referencial.</strong> Pró-labore inexistente ou incompatível com a efetiva atuação do sócio pode gerar questionamentos fiscais e previdenciários, especialmente quando houver prestação habitual de serviços à empresa. O valor mínimo referencial é R$ 1.621,00 (salário-mínimo 2026).</span></div>`;
+  } else if(val===1621){
+    alerta.innerHTML=`<div class="alert info"><span class="alert-icon">💡</span><span>Pró-labore no mínimo referencial (salário-mínimo 2026). Garante contribuição previdenciária básica. Para benefício INSS maior, considere aumentar o valor.</span></div>`;
+  } else {
+    alerta.innerHTML='';
+  }
+
+  // Salva para estratégia
+  window._plData={val,liq,custo,inss,ir,reg};
+  calcOtim();
+}
+
+// ─── CÁLCULO DISTRIBUIÇÃO ────────────────────────────────────────────────
+function calcDL(){
+  const val    = n('dl-val');
+  const reg    = g('dl-reg').value;
+  const limite = 50000;
+  const isIsento = val<=limite;
+  // 10% sobre o valor TOTAL quando ultrapassa o limite — posição oficial Receita Federal
+  const ir     = isIsento ? 0 : val*0.10;
+  const liq    = val-ir;
+  const projecAnual = val*12;
+
+  // KPIs
+  g('dl-kpi-tot').textContent = fmt(val);
+  g('dl-kpi-ir').textContent  = ir>0?fmt(ir):'R$ 0';
+  g('dl-kpi-liq').textContent = fmt(liq);
+
+  // Cálculo
+  g('dl-val-s').textContent   = fmt(val);
+  g('dl-sit').textContent     = isIsento?'✅ Dentro do limite de isenção (por empresa/mês)':'⚠️ Acima do limite — incide IR 10%';
+  g('dl-ir').textContent      = ir>0?'-'+fmt(ir):'R$ 0,00 (isento)';
+  g('dl-liq').textContent     = fmt(liq);
+  g('dl-darf').textContent    = ir>0?fmt(ir):'Não há IRRF a recolher';
+
+  // Contabilidade
+  const contabEl=g('dl-contab');
+  if(reg==='real'){contabEl.textContent='Obrigatória (Lucro Real)';}
+  else{contabEl.textContent='Recomendada (não obrigatória)';}
+
+  // Nota distribuição
+  const dlNota=g('dl-nota');
+  if(isIsento){
+    dlNota.className='nota g';
+    dlNota.textContent=`Distribuição de ${fmt(val)}/mês está dentro do limite de isenção de R$ 50.000 por empresa. Sem IR sobre esta distribuição. Se este sócio recebe de outras empresas, cada uma tem seu próprio limite independente.`;
+  } else {
+    dlNota.className='nota r';
+    dlNota.textContent=`Distribuição de ${fmt(val)}/mês ultrapassa R$ 50.000. IR de 10% incide sobre o valor TOTAL: ${fmt(val)} × 10% = ${fmt(ir)}. Líquido: ${fmt(liq)}. A tributação é sobre o total — não apenas sobre o excedente de ${fmt(val-limite)} — conforme interpretação oficial da Receita Federal (Manual v.19-12-2025).`;
+  }
+
+  // Fix 5: Tributação mínima anual — separada e explicada como regra anual
+  const tribMinSit=g('dl-trib-min-sit');
+  const tribMinNota=g('dl-trib-min-nota');
+  g('dl-proj-anual').textContent=fmt(projecAnual);
+  if(projecAnual>600000){
+    tribMinSit.textContent='⚠️ Projeção acima de R$ 600.000/ano — atenção na declaração anual';
+    tribMinSit.className='rval w';
+    tribMinNota.className='nota w';
+    tribMinNota.textContent=`Projeção anual de ${fmt(projecAnual)} supera R$ 600.000. Contribuintes com renda anual total acima desse valor podem estar sujeitos à tributação mínima anual (Art. 16-A da Lei 9.250/1995), apurada apenas na declaração anual de 2027 — não no recolhimento mensal. A distribuição de lucros conta na base de cálculo. Consulte um contador para planejamento individualizado.`;
+  } else {
+    tribMinSit.textContent='✅ Projeção abaixo de R$ 600.000/ano';
+    tribMinSit.className='rval g';
+    tribMinNota.className='nota g';
+    tribMinNota.textContent=`Projeção anual de ${fmt(projecAnual)} está abaixo do limiar de R$ 600.000. A tributação mínima anual (Art. 16-A) não se aplica neste cenário. Atenção: essa regra considera a renda anual total do contribuinte — não apenas a distribuição desta empresa.`;
+  }
+
+  // Alerta acima do limite
+  const alertaEl=g('dl-alerta');
+  if(!isIsento){
+    alertaEl.innerHTML=`<div class="alert warn"><span class="alert-icon">⚠️</span><span>Distribuição acima de R$ 50.000/mês por esta empresa incide IR de 10% sobre o <strong>valor total</strong>, não só sobre o excedente (posição oficial da Receita Federal). Para reduzir a carga, considere diluir a distribuição em meses diferentes, se o fluxo de caixa e a contabilidade permitirem.</span></div>`;
+  } else {
+    alertaEl.innerHTML='';
+  }
+
+  window._dlData={val,ir,liq,isIsento,reg};
+  calcOtim();
+}
+
+// ─── ESTRATÉGIA ÓTIMA ────────────────────────────────────────────────────
+function calcOtim(){
+  const totRet  = n('ot-tot');
+  const reg     = g('ot-reg').value;
+  const dep     = n('ot-dep');
+  // Lê tipo de empresa da aba pró-labore se disponível, default 14% (LTDA)
+  const aliqINSS = parseFloat(g('pl-tipo')?.value)||0.14;
+  const outras  = 0; // Limite é por empresa (CNPJ) — sem soma entre empresas
+
+  // Gera 4 cenários com diferentes proporções de pró-labore
+  const cenarios=[
+    {label:'Mínimo legal',     pro:1621,          desc:'Pró-labore = salário-mínimo'},
+    {label:'Isenção IR',       pro:5000,           desc:'Pró-labore na faixa de isenção'},
+    {label:'Meio-termo',       pro:Math.min(totRet*0.35, 8475.55), desc:'35% como pró-labore'},
+    {label:'Máximo INSS',      pro:Math.min(8475.55,totRet), desc:'Pró-labore no teto INSS'},
+  ];
+
+  const resultados = cenarios.map(c=>{
+    const pro     = Math.min(c.pro, totRet);
+    const dist    = Math.max(0, totRet-pro);
+    const inss    = calcINSSSocio(pro, aliqINSS);
+    const deducDep= dep*189.59;
+    const baseIR  = Math.max(0, pro-inss-deducDep);
+    const ir      = calcIR(baseIR);
+    // Limite por empresa (CNPJ) — sem soma entre empresas (Art. 6º-A)
+    const irDist  = dist>50000 ? dist*0.10 : 0;
+    const liqPro  = pro-inss-ir;
+    const liqDist = dist-irDist;
+    const liqTot  = liqPro+liqDist;
+    const patInss = temINSSPatronal(reg) ? pro*0.20 : 0;
+    const custoEmp= pro+patInss;
+    const tributTotal = inss+ir+irDist+patInss;
+    return {...c,pro,dist,inss,ir,irDist,liqPro,liqDist,liqTot,custoEmp,tributTotal,patInss};
+  });
+
+  // Melhor cenário = maior líquido total (critério financeiro)
+  const melhor = resultados.reduce((a,b)=>a.liqTot>b.liqTot?a:b);
+  const pior   = resultados.reduce((a,b)=>a.liqTot<b.liqTot?a:b);
+  const economiaMensal = melhor.liqTot - pior.liqTot;
+  const economiaAnual  = economiaMensal * 12;
+
+  // Render cards
+  g('ot-cards').innerHTML=resultados.map(r=>`
+    <div class="opt-card ${r===melhor?'best':''}">
+      ${r===melhor?'<div style="font-size:10px;color:var(--em-l);margin-bottom:4px;font-weight:500">✦ Melhor líquido</div>':''}
+      <div class="opt-card-label">${r.label}</div>
+      <div class="opt-card-pro">Pró-labore: ${fmt(r.pro)}</div>
+      <div class="opt-card-dist">Distribuição: ${fmt(r.dist)}</div>
+      <div class="opt-card-liq">${fmt(r.liqTot)}</div>
+      <div style="font-size:11px;color:var(--text3)">líquido total/mês</div>
+      <div class="opt-card-custo">Tributos: ${fmt(r.tributTotal)}</div>
+    </div>
+  `).join('');
+
+  // Detalhes do melhor — Fix 2: critério explícito + Fix 3: economia anual
+  const m=melhor;
+  g('ot-detalhes').innerHTML=`
+    <div class="rb green">
+      <div class="rb-title">✦ Cenário recomendado — ${m.label}</div>
+      <div class="rrow"><span class="rname">Pró-labore</span><span class="rval">${fmt(m.pro)}</span></div>
+      <div class="rrow"><span class="rname">(-) INSS sócio (${(aliqINSS*100).toFixed(0)}%)</span><span class="rval r">-${fmtD(m.inss)}</span></div>
+      <div class="rrow"><span class="rname">(-) IR s/ pró-labore</span><span class="rval r">${m.ir>0?'-'+fmtD(m.ir):'R$ 0 (isento)'}</span></div>
+      <div class="rrow"><span class="rname">Líquido do pró-labore</span><span class="rval g">${fmt(m.liqPro)}</span></div>
+      <div class="rrow"><span class="rname">Distribuição de lucros</span><span class="rval">${fmt(m.dist)}</span></div>
+      <div class="rrow"><span class="rname">(-) IR s/ distribuição</span><span class="rval r">${m.irDist>0?'-'+fmt(m.irDist):'R$ 0 (isento)'}</span></div>
+      <div class="rrow"><span class="rname">Líquido da distribuição</span><span class="rval g">${fmt(m.liqDist)}</span></div>
+      <div class="rrow total"><span class="rname b">Líquido mensal estimado</span><span class="rval big g">${fmt(m.liqTot)}</span></div>
+      <div class="rrow"><span class="rname b">Economia anual estimada</span><span class="rval big g">${fmt(economiaAnual)}</span></div>
+      <div class="rrow"><span class="rname">INSS patronal (custo empresa)</span><span class="rval r">${m.patInss>0?fmt(m.patInss):'Incluso no DAS'}</span></div>
+      <div class="rrow"><span class="rname">Total tributos do mês</span><span class="rval w">${fmt(m.tributTotal)}</span></div>
+      <div class="nota g" style="margin-top:1rem">${m.desc}. Distribuição ${m.dist<=50000?'dentro do limite de isenção de R$ 50.000/mês por empresa':'acima do limite por empresa — incide IR 10% sobre o total'}.</div>
+      <div class="nota" style="margin-top:.5rem;border-left-color:var(--text3);background:rgba(255,255,255,0.03)"><strong style="color:var(--text2)">Critério utilizado:</strong> maior líquido mensal para o sócio. Esta recomendação prioriza a maximização do líquido mensal. Aspectos previdenciários, sucessórios e patrimoniais podem justificar estratégias diferentes — consulte um contador para análise individualizada.</div>
+      <div class="nota w" style="margin-top:.5rem">Este simulador calcula o imposto mensal. Contribuintes com renda anual total superior a R$ 600.000 podem estar sujeitos à tributação mínima anual (Art. 16-A da Lei 9.250/1995), apurada apenas na declaração anual de 2027 — não no recolhimento mensal.</div>
+    </div>
+  `;
+
+  // Alerta tributação mínima anual
+  const alertaEl=g('ot-alerta');
+  const projAnual=(m.liqTot)*12;
+  if(totRet*12>600000){
+    alertaEl.innerHTML=`<div class="alert warn"><span class="alert-icon">⚠️</span><span>Retirada anual projetada de ${fmt(totRet*12)} ultrapassa R$ 600.000. Na declaração anual poderá incidir a tributação mínima progressiva (Lei 15.270/2025). Planejamento tributário individualizado é especialmente relevante neste perfil.</span></div>`;
+  } else {
+    alertaEl.innerHTML='';
+  }
+
+  // CTA WhatsApp
+  const reg_label={simplesI:'Simples I/II/III',simplesIV:'Simples IV',presumido:'Lucro Presumido',real:'Lucro Real'}[reg];
+  const msg=`Olá Rodolfo! Usei o simulador de pró-labore e distribuição de lucros.\n\nPerfil:\n• Retirada total desejada: ${fmt(totRet)}/mês\n• Regime: ${reg_label}\n• Cenário ótimo: ${m.label} (pró-labore ${fmt(m.pro)} + distribuição ${fmt(m.dist)})\n• Líquido estimado: ${fmt(m.liqTot)}/mês\n\nGostaria de uma análise personalizada.`;
+  g('ot-cta-btn').href='https://wa.me/5519982003732?text='+encodeURIComponent(msg);
+}
+
+// INIT
+calcPL();
+calcDL();
+calcOtim();
+</script>
+</body>
+</html>

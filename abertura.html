@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador de Abertura de Empresa 2026 — Rodolfo Assunção</title>
+<meta name="description" content="Calcule o custo de abrir sua empresa e receba uma recomendação automática de tipo societário. MEI, SLU ou LTDA. Estimativas 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F172A;--bg2:#111827;--bg3:#1E2937;--bg4:#263244;
+  --border:rgba(51,65,85,0.5);--border2:#334155;
+  --text:#F8FAFC;--text2:#CBD5E1;--text3:#94A3B8;
+  --indigo:#4F46E5;--indigo2:#4338CA;--indigo-l:#818CF8;
+  --indigo-d:rgba(79,70,229,0.1);--indigo-b:rgba(79,70,229,0.25);
+  --em:#10B981;--em2:#059669;--em-l:#34D399;
+  --em-d:rgba(16,185,129,0.1);--em-b:rgba(16,185,129,0.25);
+  --amber:#FBBF24;--amber-d:rgba(251,191,36,0.1);--amber-b:rgba(251,191,36,0.3);
+  --red:#F87171;--red-d:rgba(248,113,113,0.1);--red-b:rgba(248,113,113,0.3);
+  --gold:#F59E0B;--gold-d:rgba(245,158,11,0.08);--gold-b:rgba(245,158,11,0.25);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.7;min-height:100vh;}
+nav{position:sticky;top:0;z-index:100;background:rgba(15,23,42,0.95);backdrop-filter:blur(16px);border-bottom:.5px solid var(--border);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);text-decoration:none;}
+.nav-logo span{color:var(--indigo-l);}
+.nav-back{font-size:13px;color:var(--text2);text-decoration:none;}
+.wizard{max-width:860px;margin:0 auto;padding:2rem 2rem 4rem;}
+.steps-bar{display:flex;align-items:center;margin-bottom:2.5rem;}
+.si{display:flex;align-items:center;gap:8px;flex:1;}.si:last-child{flex:none;}
+.sn{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0;transition:all .3s;}
+.sn.done{background:var(--em);color:#fff;}
+.sn.active{background:var(--indigo);color:#fff;}
+.sn.idle{background:var(--bg4);color:var(--text3);}
+.sl{font-size:12px;color:var(--text3);white-space:nowrap;}.sl.active{color:var(--text2);}
+.sline{flex:1;height:.5px;background:var(--border2);margin:0 8px;}
+.panel{display:none;}.panel.active{display:block;}
+.pt{font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--text);margin-bottom:.4rem;}
+.pd{font-size:14px;color:var(--text2);margin-bottom:1.75rem;line-height:1.7;}
+/* TIPO CARDS */
+.tipo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.5rem;}
+.tc{background:var(--bg3);border:1.5px solid var(--border2);border-radius:12px;padding:1.125rem .875rem;cursor:pointer;transition:all .2s;text-align:center;}
+.tc:hover{border-color:var(--indigo-b);}
+.tc.sel{border-color:var(--indigo);background:var(--indigo-d);}
+.tc-emoji{font-size:1.5rem;margin-bottom:6px;}
+.tc-nome{font-size:13px;font-weight:500;color:var(--text2);margin-bottom:4px;}
+.tc.sel .tc-nome{color:var(--indigo-l);}
+.tc-tag{font-size:11px;color:var(--text3);line-height:1.4;}
+/* OPÇÃO BUTTONS */
+.opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:1rem;}
+.opt-grid.cols3{grid-template-columns:1fr 1fr 1fr;}
+.ob{background:var(--bg3);border:1.5px solid var(--border2);border-radius:10px;padding:.875rem 1rem;cursor:pointer;transition:all .2s;font-size:13px;color:var(--text2);text-align:left;font-family:'DM Sans',sans-serif;}
+.ob:hover{border-color:var(--indigo-b);}
+.ob.sel{border-color:var(--indigo);background:var(--indigo-d);color:var(--indigo-l);}
+.ob-main{font-weight:500;margin-bottom:2px;}
+.ob-sub{font-size:11px;color:var(--text3);}
+.ob.sel .ob-sub{color:var(--indigo-l);opacity:.7;}
+/* ATIVIDADE */
+.ativ-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem;}
+.ac{background:var(--bg3);border:1.5px solid var(--border2);border-radius:12px;padding:.875rem .75rem;cursor:pointer;transition:all .2s;text-align:center;}
+.ac:hover{border-color:var(--em-b);}
+.ac.sel{border-color:var(--em);background:var(--em-d);}
+.ac.atencao{border-style:dashed;opacity:.7;}
+.ac.atencao:hover{opacity:1;border-color:var(--amber-b);}
+.ac.atencao.sel{border-color:var(--amber);background:var(--amber-d);opacity:1;}
+.ac-emoji{font-size:1.3rem;margin-bottom:4px;}
+.ac-nome{font-size:11px;font-weight:500;color:var(--text2);line-height:1.3;}
+.ac.sel .ac-nome{color:var(--em-l);}
+.ac.atencao.sel .ac-nome{color:var(--amber);}
+/* FORM */
+.sec{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:1.5rem;margin-bottom:14px;}
+.sec-t{font-size:11px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1.25rem;}
+.lbl{display:block;font-size:12px;color:var(--text2);margin-bottom:5px;}
+.fi{width:100%;padding:9px 13px;font-size:13px;background:var(--bg4);border:.5px solid var(--border2);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;}
+.fi:focus{outline:none;border-color:var(--indigo);}
+.fs{width:100%;padding:9px 13px;font-size:13px;background:var(--bg4);border:.5px solid var(--border2);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;}
+.field{margin-bottom:12px;}.field:last-child{margin-bottom:0;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.hint{font-size:11px;color:var(--text3);margin-top:3px;line-height:1.5;}
+.bench{font-size:11px;color:var(--text3);margin-top:4px;}
+.bench b{color:var(--amber);}
+/* BTNS */
+.nav-btns{display:flex;justify-content:space-between;align-items:center;margin-top:1.75rem;}
+.btn{padding:10px 24px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;border:none;transition:all .2s;}
+.btn-sec{background:var(--bg4);color:var(--text2);border:.5px solid var(--border2);}
+.btn-pri{background:var(--indigo);color:#fff;}
+.btn-pri:hover{background:var(--indigo2);}
+.btn-cal{background:var(--em);color:#fff;padding:11px 28px;font-size:14px;}
+.btn-cal:hover{background:var(--em2);}
+/* RESULTADO */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:16px;}
+.kpi{background:var(--bg3);border:.5px solid var(--border2);border-radius:10px;padding:1rem;}
+.kpi-l{font-size:11px;color:var(--text3);margin-bottom:4px;}
+.kpi-v{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--text);}
+.kpi-v.g{color:var(--em-l);}.kpi-v.r{color:var(--red);}.kpi-v.i{color:var(--indigo-l);}.kpi-v.gold{color:var(--gold);}.kpi-v.w{color:var(--amber);}
+.rb{background:var(--bg4);border:.5px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:12px;}
+.rb.gold{background:var(--gold-d);border-color:var(--gold-b);}
+.rb.green{background:var(--em-d);border-color:var(--em-b);}
+.rb.amber{background:var(--amber-d);border-color:var(--amber-b);}
+.rb.indigo{background:var(--indigo-d);border-color:var(--indigo-b);}
+.rb-t{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem;}
+.rrow{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:.5px solid var(--border);font-size:13px;gap:12px;}
+.rrow:last-child{border-bottom:none;}
+.rrow.total{border-top:1px solid var(--border2);padding-top:10px;margin-top:4px;border-bottom:none;}
+.rname{color:var(--text2);flex:1;line-height:1.5;}.rname.b{color:var(--text);font-weight:500;}
+.rval{font-weight:500;color:var(--text);text-align:right;flex-shrink:0;}
+.rval.g{color:var(--em-l);}.rval.r{color:var(--red);}.rval.w{color:var(--amber);}.rval.gold{color:var(--gold);}
+.rval.big{font-family:'DM Serif Display',serif;font-size:1.7rem;}
+.robs{font-size:10px;color:var(--text3);margin-top:2px;}
+.rfree{font-size:11px;color:var(--em-l);font-weight:500;}
+/* RECOMENDAÇÃO */
+.rec-box{background:var(--em-d);border:1.5px solid var(--em-b);border-radius:14px;padding:1.5rem;margin-bottom:14px;}
+.rec-title{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--em-l);margin-bottom:.25rem;}
+.rec-tipo{font-size:11px;color:var(--em-l);opacity:.7;text-transform:uppercase;letter-spacing:.07em;margin-bottom:.875rem;}
+.rec-motivo{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--text2);padding:4px 0;}
+.rec-motivo span{color:var(--em-l);flex-shrink:0;}
+/* DIAGNOSTICO */
+.diag-box{background:var(--indigo-d);border:1.5px solid var(--indigo-b);border-radius:14px;padding:1.5rem;margin-bottom:14px;}
+.diag-title{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:1rem;}
+.diag-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.diag-item{background:var(--bg4);border-radius:10px;padding:.875rem;}
+.diag-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
+.diag-val{font-size:13px;font-weight:500;color:var(--text);line-height:1.4;}
+/* PRAZO */
+.prazo-bar{height:6px;background:var(--bg4);border-radius:3px;overflow:hidden;margin:6px 0;}
+.prazo-fill{height:100%;border-radius:3px;}
+/* COMPARATIVO */
+.cmp-table{width:100%;border-collapse:collapse;border-radius:10px;overflow:hidden;margin-bottom:14px;}
+.cmp-table th{padding:9px 12px;background:var(--bg4);font-size:11px;color:var(--text3);font-weight:500;text-transform:uppercase;letter-spacing:.05em;text-align:left;}
+.cmp-table th:not(:first-child){text-align:right;}
+.cmp-table td{padding:9px 12px;font-size:13px;border-top:.5px solid var(--border);color:var(--text2);}
+.cmp-table td:not(:first-child){text-align:right;color:var(--text);font-weight:500;}
+.cmp-table tr:nth-child(even) td{background:var(--bg3);}
+.cmp-table tr:nth-child(odd) td{background:var(--bg4);}
+.cmp-table tr.hl td{background:var(--indigo-d);}
+.cmp-table tr.hl td:first-child{color:var(--indigo-l);font-weight:500;}
+/* NOTA */
+.nota{padding:10px 13px;border-radius:8px;font-size:12px;line-height:1.65;border-left:2px solid var(--indigo);background:var(--indigo-d);color:var(--text2);margin-top:10px;}
+.nota.g{border-left-color:var(--em);background:var(--em-d);}
+.nota.w{border-left-color:var(--amber);background:var(--amber-d);color:var(--amber);}
+.nota.r{border-left-color:var(--red);background:var(--red-d);color:var(--red);}
+/* ALERTA */
+.alerta{padding:10px 14px;border-radius:8px;font-size:13px;line-height:1.65;display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;}
+.alerta.r{background:var(--red-d);color:var(--red);border:.5px solid var(--red-b);}
+.alerta.w{background:var(--amber-d);color:var(--amber);border:.5px solid var(--amber-b);}
+/* BADGE */
+.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:500;background:var(--indigo-d);color:var(--indigo-l);border:.5px solid var(--indigo-b);}
+/* CTA */
+.cta{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:2rem;text-align:center;margin-bottom:14px;}
+.cta-title{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--text);margin-bottom:6px;}
+.cta-sub{font-size:13px;color:var(--text2);margin-bottom:1.5rem;line-height:1.6;}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;background:var(--em);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;}
+.cta-btn:hover{background:var(--em2);}
+.cta-email{display:block;margin-top:10px;font-size:12px;color:var(--text2);}
+.cta-email a{color:var(--text2);text-decoration:none;border-bottom:.5px solid var(--border2);}
+.foot{border-top:.5px solid var(--border);padding:1.5rem;text-align:center;font-size:11px;color:var(--text3);margin-top:2rem;}
+@media(max-width:700px){
+  .tipo-grid{grid-template-columns:1fr 1fr;}
+  .ativ-grid{grid-template-columns:repeat(2,1fr);}
+  .opt-grid,.opt-grid.cols3,.row2,.diag-grid{grid-template-columns:1fr;}
+  .wizard{padding:1.5rem 1.25rem 3rem;}
+  .steps-bar{gap:0;}.sl{display:none;}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Rodolfo<span>.</span></a>
+  <a href="index.html" class="nav-back">← Voltar</a>
+</nav>
+
+<div class="wizard">
+  <div class="steps-bar">
+    <div class="si"><div class="sn active" id="sn1">1</div><div class="sl active" id="sl1">Perfil</div></div>
+    <div class="sline"></div>
+    <div class="si"><div class="sn idle" id="sn2">2</div><div class="sl" id="sl2">Atividade</div></div>
+    <div class="sline"></div>
+    <div class="si"><div class="sn idle" id="sn3">3</div><div class="sl" id="sl3">Detalhes</div></div>
+    <div class="sline"></div>
+    <div class="si"><div class="sn idle" id="sn4">4</div><div class="sl" id="sl4">Resultado</div></div>
+  </div>
+
+  <!-- P1: PERFIL -->
+  <div class="panel active" id="p1">
+    <h1 class="pt">Vamos entender o seu negócio</h1>
+    <p class="pd">Responda três perguntas rápidas. O simulador vai recomendar o tipo de empresa ideal e calcular os custos de abertura. <strong style="color:var(--em-l)">A simulação é gratuita e não exige cadastro.</strong></p>
+
+    <div class="sec">
+      <div class="sec-t">Faturamento esperado por mês</div>
+      <div class="opt-grid">
+        <div class="ob" data-fat="mei" onclick="selOpt(this,'fat')">
+          <div class="ob-main">Até R$ 6.750/mês</div>
+          <div class="ob-sub">Até R$ 81.000/ano — faixa MEI</div>
+        </div>
+        <div class="ob" data-fat="simples_baixo" onclick="selOpt(this,'fat')">
+          <div class="ob-main">R$ 6.750 a R$ 30.000/mês</div>
+          <div class="ob-sub">Acima do MEI — Simples Nacional</div>
+        </div>
+        <div class="ob" data-fat="simples_medio" onclick="selOpt(this,'fat')">
+          <div class="ob-main">R$ 30.000 a R$ 100.000/mês</div>
+          <div class="ob-sub">Até R$ 1,2M/ano — Simples ou Presumido</div>
+        </div>
+        <div class="ob" data-fat="alto" onclick="selOpt(this,'fat')">
+          <div class="ob-main">Acima de R$ 100.000/mês</div>
+          <div class="ob-sub">Acima de R$ 1,2M/ano — Lucro Presumido ou Real</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-t">Quantidade de sócios</div>
+      <div class="opt-grid cols3">
+        <div class="ob" data-socios="0" onclick="selOpt(this,'socios')">
+          <div class="ob-main">Sou sozinho</div>
+          <div class="ob-sub">MEI ou SLU</div>
+        </div>
+        <div class="ob" data-socios="2" onclick="selOpt(this,'socios')">
+          <div class="ob-main">2 sócios</div>
+          <div class="ob-sub">LTDA</div>
+        </div>
+        <div class="ob" data-socios="3" onclick="selOpt(this,'socios')">
+          <div class="ob-main">3 ou mais sócios</div>
+          <div class="ob-sub">LTDA</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-t">Você vai emitir nota fiscal?</div>
+      <div class="opt-grid cols3">
+        <div class="ob" data-nf="sim" onclick="selOpt(this,'nf')">
+          <div class="ob-main">Sim</div>
+          <div class="ob-sub">Precisarei emitir NF-e ou NFS-e</div>
+        </div>
+        <div class="ob" data-nf="nao" onclick="selOpt(this,'nf')">
+          <div class="ob-main">Não por enquanto</div>
+          <div class="ob-sub">Clientes não exigem nota</div>
+        </div>
+        <div class="ob" data-nf="nsei" onclick="selOpt(this,'nf')">
+          <div class="ob-main">Ainda não sei</div>
+          <div class="ob-sub">Depende dos clientes</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="alerta-perfil"></div>
+    <div class="nav-btns"><div></div><button class="btn btn-pri" onclick="goStep(2)">Próximo →</button></div>
+  </div>
+
+  <!-- P2: ATIVIDADE -->
+  <div class="panel" id="p2">
+    <h1 class="pt">Qual é a atividade da empresa?</h1>
+    <p class="pd">A atividade define as licenças e custos adicionais necessários além do registro.</p>
+    <div class="ativ-grid">
+      <div class="ac" data-ativ="simples" onclick="selAtiv(this)"><div class="ac-emoji">🛒</div><div class="ac-nome">Comércio / Serviços gerais</div></div>
+      <div class="ac" data-ativ="ecommerce" onclick="selAtiv(this)"><div class="ac-emoji">📦</div><div class="ac-nome">E-commerce / Marketplace</div></div>
+      <div class="ac" data-ativ="saude" onclick="selAtiv(this)"><div class="ac-emoji">🏥</div><div class="ac-nome">Saúde / Clínica / Consultório</div></div>
+      <div class="ac" data-ativ="educacao" onclick="selAtiv(this)"><div class="ac-emoji">📚</div><div class="ac-nome">Educação / Cursos</div></div>
+      <div class="ac" data-ativ="alimentacao" onclick="selAtiv(this)"><div class="ac-emoji">🍽️</div><div class="ac-nome">Alimentação / Restaurante</div></div>
+      <div class="ac" data-ativ="engenharia" onclick="selAtiv(this)"><div class="ac-emoji">🏗️</div><div class="ac-nome">Engenharia / Arquitetura</div></div>
+      <div class="ac" data-ativ="contabilidade" onclick="selAtiv(this)"><div class="ac-emoji">📊</div><div class="ac-nome">Contabilidade</div></div>
+      <div class="ac atencao" data-ativ="advocacia" onclick="selAtiv(this)"><div class="ac-emoji">⚖️</div><div class="ac-nome">Advocacia ⚠️</div></div>
+    </div>
+    <div id="alerta-ativ"></div>
+    <div class="nav-btns"><button class="btn btn-sec" onclick="goStep(1)">← Voltar</button><button class="btn btn-pri" onclick="goStep(3)">Próximo →</button></div>
+  </div>
+
+  <!-- P3: DETALHES -->
+  <div class="panel" id="p3">
+    <h1 class="pt">Ajuste os detalhes</h1>
+    <p class="pd" id="p3-desc">Campos pré-preenchidos com referências de mercado 2026. Você pode editar qualquer valor.</p>
+
+    <div class="sec">
+      <div class="sec-t">Localização e capital social</div>
+      <div class="row2">
+        <div class="field">
+          <span class="lbl">Localização</span>
+          <select class="fs" id="loc">
+            <option value="1.0">São Paulo — Capital</option>
+            <option value="0.9">São Paulo — Região ABC</option>
+            <option value="0.85" selected>São Paulo — Interior</option>
+          </select>
+        </div>
+        <div class="field">
+          <span class="lbl">Em qual cidade pretende abrir a empresa?</span>
+          <input type="text" class="fi" id="cidade" placeholder="Ex: Limeira, Campinas, São Paulo...">
+          <div class="hint">Algumas taxas e licenças variam conforme o município.</div>
+        </div>
+      </div>
+      <div class="field" style="margin-top:12px;">
+        <span class="lbl">Capital social (R$)</span>
+        <input type="number" class="fi" id="capital" value="10000" min="1000">
+        <div class="hint">Pode influenciar custos de registro e estrutura societária.</div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-t">Honorários contábeis</div>
+      <div class="field">
+        <span class="lbl" id="lbl-hon">Honorários de abertura (R$)</span>
+        <input type="number" class="fi" id="honorarios" value="1150" min="0">
+        <div class="bench" id="bench-hon"></div>
+      </div>
+      <div class="nota" style="margin-top:.75rem;">Você pode editar para refletir seus honorários reais. Referência de mercado 2026. Honorários são livremente negociados.</div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-t">Itens opcionais</div>
+      <div class="row2">
+        <div class="field">
+          <span class="lbl">Certificado digital e-CNPJ A1 (R$)</span>
+          <input type="number" class="fi" id="cert-dig" value="250" min="0">
+          <div class="hint" id="hint-cert">R$ 200–R$ 350. Necessário para emitir NF-e.</div>
+        </div>
+        <div class="field">
+          <span class="lbl">Registro de marca INPI (R$)</span>
+          <input type="number" class="fi" id="inpi" value="0" min="0">
+          <div class="hint">R$ 355–R$ 1.115. Protege a marca em todo o Brasil.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-btns"><button class="btn btn-sec" onclick="goStep(2)">← Voltar</button><button class="btn btn-cal" onclick="calcular()">Calcular custos →</button></div>
+  </div>
+
+  <!-- P4: RESULTADO -->
+  <div class="panel" id="p4">
+    <div id="res-rec"></div>
+    <div id="res-diag"></div>
+    <div class="kpis" id="res-kpis"></div>
+    <div id="res-custos"></div>
+    <div id="res-licencas"></div>
+    <div id="res-prazo" style="margin-bottom:14px;"></div>
+    <div id="res-comp" style="margin-bottom:14px;"></div>
+    <div id="res-prox" style="margin-bottom:14px;"></div>
+    <div id="res-cta"></div>
+    <div class="foot">Estimativas de mercado 2026 · Rodolfo Assunção · Limeira, SP</div>
+    <div style="margin-top:1rem;text-align:center;"><button class="btn btn-sec" onclick="goStep(1);resetar()">← Nova simulação</button></div>
+  </div>
+</div>
+
+<script>
+// ─── DADOS ─────────────────────────────────────────────────────────────────
+const TIPOS={
+  mei:{
+    nome:'MEI — Microempreendedor Individual', emoji:'🟢',
+    jucesp:0, ccmMin:0, ccmMax:0,
+    honMin:0, honMax:300, honMed:0,
+    prazoSimp:'Imediato (minutos a 1 dia)', prazoReg:'1–3 dias',
+    das:'R$ 76,90 (comércio) / R$ 80,90 (serviços)/mês',
+    limFat:'R$ 81.000/ano', socios:'Apenas 1 pessoa — sem sócios',
+    sep:'Não existe separação patrimonial formal entre empresário e empresa.',
+    contab:'Escrituração contábil não é obrigatória, mas é recomendada para gestão.',
+    quando:'Faturamento até R$ 81k, atividade permitida (não regulamentada), sem sócios.',
+    regime:'Simples Nacional — DAS fixo mensal',
+    docs:['RG e CPF','Comprovante de endereço','Acesso ao Portal Gov.br'],
+    obs:'Abertura 100% gratuita pelo Portal do Empreendedor (gov.br/mei).'
+  },
+  slu:{
+    nome:'SLU — Sociedade Limitada Unipessoal', emoji:'🔵',
+    jucesp_ate10k:250, jucesp_10_50k:300, jucesp_acima50k:350,
+    ccmMin:150, ccmMax:300,
+    honMin:600, honMax:1200, honMed:900,
+    prazoSimp:'3–10 dias úteis', prazoReg:'10–20 dias úteis',
+    das:'Conforme regime tributário',
+    limFat:'Sem limite', socios:'1 pessoa — sem sócios',
+    sep:'Responsabilidade limitada ao capital social.',
+    contab:'Escrituração contábil recomendada e normalmente necessária para operação regular.',
+    quando:'Faturamento acima do MEI, sem sócios, quer separação patrimonial.',
+    regime:'Simples Nacional, Lucro Presumido ou Lucro Real',
+    docs:['RG e CPF','Comprovante de endereço','Contrato social (elaborado pelo contador)','Comprovante do endereço comercial'],
+    obs:'Substitui a antiga EIRELI. Processo via VRE/REDESIM.'
+  },
+  ltda:{
+    nome:'LTDA — Sociedade Limitada', emoji:'🟣',
+    jucesp_ate10k:350, jucesp_10_50k:400, jucesp_acima50k:450,
+    ccmMin:200, ccmMax:300,
+    honMin:800, honMax:1500, honMed:1150,
+    prazoSimp:'5–15 dias úteis', prazoReg:'15–30 dias úteis',
+    das:'Conforme regime tributário',
+    limFat:'Sem limite', socios:'2 a 999 sócios',
+    sep:'Responsabilidade limitada ao capital social.',
+    contab:'Escrituração contábil recomendada e normalmente necessária para operação regular.',
+    quando:'2 ou mais sócios, faturamento acima de R$ 360k, busca credibilidade.',
+    regime:'Simples Nacional, Lucro Presumido ou Lucro Real',
+    docs:['RG e CPF de todos os sócios','Comprovante de endereço de todos os sócios','Contrato social assinado por todos','Comprovante do endereço comercial'],
+    obs:'Modelo mais usado no Brasil. Processo via VRE/REDESIM.'
+  }
+};
+
+const ATIVIDADES={
+  simples:{nome:'Comércio / Serviços Gerais',emoji:'🛒',reg:false,atencao:false,
+    licencas:[
+      {n:'Alvará de funcionamento',min:100,max:300,obrig:true},
+      {n:'Inscrição municipal (CCM)',min:150,max:250,obrig:true},
+    ]},
+  ecommerce:{nome:'E-commerce / Marketplace',emoji:'📦',reg:false,atencao:false,
+    licencas:[
+      {n:'Alvará de funcionamento',min:100,max:300,obrig:true},
+      {n:'Inscrição Estadual (IE) — para ICMS',min:0,max:0,obrig:true},
+    ]},
+  saude:{nome:'Saúde / Clínica / Consultório',emoji:'🏥',reg:true,atencao:false,
+    licencas:[
+      {n:'Licença Sanitária (Vigilância Sanitária)',min:600,max:1200,obrig:true},
+      {n:'Registro no conselho profissional da área',min:800,max:2000,obrig:true},
+      {n:'AVCB — Corpo de Bombeiros',min:400,max:800,obrig:true},
+      {n:'Alvará de funcionamento',min:300,max:600,obrig:true},
+    ]},
+  educacao:{nome:'Educação / Cursos',emoji:'📚',reg:true,atencao:false,
+    licencas:[
+      {n:'Autorização de funcionamento (Secretaria de Educação)',min:800,max:1500,obrig:true},
+      {n:'AVCB — Corpo de Bombeiros',min:500,max:1000,obrig:true},
+      {n:'Alvará de funcionamento',min:300,max:500,obrig:true},
+      {n:'Licença Sanitária (quando aplicável)',min:500,max:1000,obrig:false},
+    ]},
+  alimentacao:{nome:'Alimentação / Restaurante / Delivery',emoji:'🍽️',reg:true,atencao:false,
+    licencas:[
+      {n:'Licença Sanitária (Vigilância Sanitária)',min:800,max:1500,obrig:true},
+      {n:'AVCB — Corpo de Bombeiros',min:600,max:1200,obrig:true},
+      {n:'Alvará de funcionamento',min:400,max:800,obrig:true},
+      {n:'Inspeção de alimentos (quando exigida)',min:200,max:400,obrig:false},
+    ]},
+  engenharia:{nome:'Engenharia / Arquitetura',emoji:'🏗️',reg:true,atencao:false,
+    licencas:[
+      {n:'Registro da empresa no CREA ou CAU (pessoa jurídica)',min:1200,max:2500,obrig:true},
+      {n:'Alvará de funcionamento',min:100,max:300,obrig:true},
+    ]},
+  contabilidade:{nome:'Escritório de Contabilidade',emoji:'📊',reg:true,atencao:false,
+    licencas:[
+      {n:'Registro da empresa no CRC',min:800,max:1500,obrig:true},
+      {n:'Registro do responsável técnico',min:300,max:500,obrig:true},
+    ]},
+  advocacia:{nome:'Advocacia',emoji:'⚖️',reg:true,atencao:true,
+    licencas:[
+      {n:'Registro da sociedade na OAB e demais procedimentos específicos — custos definidos pela OAB-SP',min:1500,max:4500,obrig:true},
+    ]},
+};
+
+const REGIMES={
+  mei:'Simples Nacional — DAS fixo mensal',
+  simples_baixo:'Simples Nacional (faturamento até R$ 4,8M/ano)',
+  simples_medio:'Simples Nacional ou Lucro Presumido — análise tributária recomendada',
+  alto:'Lucro Presumido ou Lucro Real — análise tributária obrigatória',
+};
+
+// ─── ESTADO ────────────────────────────────────────────────────────────────
+let sel={fat:null,socios:null,nf:null,ativ:null};
+
+const fmt=v=>'R$ '+Math.round(v||0).toLocaleString('pt-BR');
+const g=id=>document.getElementById(id);
+const n=id=>parseFloat(g(id)?.value)||0;
+
+function goStep(step){
+  if(step===2&&!validarP1()) return;
+  if(step===3&&!sel.ativ){alert('Selecione a atividade da empresa.');return;}
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  g('p'+step).classList.add('active');
+  [1,2,3,4].forEach(i=>{
+    const sn=g('sn'+i),sl=g('sl'+i);
+    if(i<step){sn.className='sn done';sn.textContent='✓';}
+    else if(i===step){sn.className='sn active';sn.textContent=i;sl.className='sl active';}
+    else{sn.className='sn idle';sn.textContent=i;sl.className='sl';}
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(step===3) preencherDetalhes();
+}
+
+function resetar(){
+  sel={fat:null,socios:null,nf:null,ativ:null};
+  document.querySelectorAll('.ob,.ac').forEach(c=>c.classList.remove('sel'));
+  [1,2,3,4].forEach(i=>{
+    g('sn'+i).className=i===1?'sn active':'sn idle';
+    g('sn'+i).textContent=i;
+    g('sl'+i).className=i===1?'sl active':'sl';
+  });
+  g('alerta-perfil').innerHTML='';
+  g('alerta-ativ').innerHTML='';
+}
+
+function selOpt(el,grupo){
+  document.querySelectorAll(`.ob[data-${grupo}]`).forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+  sel[grupo]=el.dataset[grupo];
+  verificarConflitos();
+}
+
+function selAtiv(el){
+  document.querySelectorAll('.ac').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  sel.ativ=el.dataset.ativ;
+  const A=ATIVIDADES[sel.ativ];
+  const alertaEl=g('alerta-ativ');
+  if(A.atencao){
+    alertaEl.innerHTML=`<div class="alerta w"><span>⚠️</span><span><strong>Advocacia tem regras específicas da OAB</strong> que vão além do registro empresarial comum. O custo estimado é orientativo — consulte a OAB-SP para os procedimentos específicos da sua situação.</span></div>`;
+  } else {
+    alertaEl.innerHTML='';
+  }
+}
+
+function verificarConflitos(){
+  const alertaEl=g('alerta-perfil');
+  const alertas=[];
+  // MEI + sócios
+  if(sel.fat==='mei'&&sel.socios&&sel.socios!=='0'){
+    alertas.push(`<div class="alerta r"><span>🚫</span><span><strong>MEI não permite sócios.</strong> Com ${sel.socios==='2'?'2 sócios':'3 ou mais sócios'}, o tipo correto é LTDA. O simulador ajustará a recomendação automaticamente.</span></div>`);
+  }
+  // MEI + NF obrigatória (só aviso, não erro)
+  if(sel.fat==='mei'&&sel.nf==='sim'){
+    alertas.push(`<div class="alerta w"><span>📄</span><span>MEI pode emitir nota fiscal. Para NF-e de mercadoria (ICMS) pode ser necessário certificado digital. Para NFS-e de serviços, muitas prefeituras permitem emissão pelo portal sem certificado.</span></div>`);
+  }
+  alertaEl.innerHTML=alertas.join('');
+}
+
+function validarP1(){
+  if(!sel.fat){alert('Selecione o faturamento esperado.');return false;}
+  if(!sel.socios){alert('Selecione a quantidade de sócios.');return false;}
+  if(!sel.nf){alert('Responda sobre emissão de nota fiscal.');return false;}
+  return true;
+}
+
+// ─── RECOMENDAÇÃO AUTOMÁTICA ───────────────────────────────────────────────
+function recomendar(){
+  const fat=sel.fat, socios=parseInt(sel.socios)||0, nf=sel.nf;
+  const A=ATIVIDADES[sel.ativ];
+  const motivos=[], alertas=[];
+  let tipo='slu';
+
+  if(fat==='mei'&&socios===0&&!A.reg){
+    tipo='mei';
+    motivos.push('faturamento dentro do limite MEI (até R$ 81k/ano)');
+    motivos.push('você é o único titular — sem sócios');
+    motivos.push(`atividade (${A.nome}) é permitida para MEI`);
+    if(nf==='nao') motivos.push('sem obrigatoriedade imediata de emitir nota fiscal');
+  } else if(socios>=2){
+    tipo='ltda';
+    motivos.push(`LTDA é a opção mais comum para empresas com ${socios>=3?'3 ou mais':'2'} sócios`);
+    if(fat!=='mei') motivos.push('faturamento acima do limite MEI');
+    if(nf==='sim') motivos.push('emissão de nota fiscal facilita com LTDA e certificado digital');
+  } else {
+    tipo='slu';
+    if(fat!=='mei') motivos.push('faturamento acima do limite MEI (R$ 81k/ano)');
+    else if(A.reg) motivos.push(`atividade regulamentada (${A.nome}) geralmente exige CNPJ com escrituração`);
+    else if(socios==='0'&&fat==='mei') motivos.push('deseja proteção patrimonial (separação entre bens pessoais e da empresa)');
+    motivos.push('sem sócios — SLU é mais simples e econômica que LTDA');
+    if(nf==='sim') motivos.push('emissão de notas fiscais é mais prática com CNPJ regular');
+  }
+
+  // Conflito MEI+sócios — força LTDA
+  if(fat==='mei'&&socios>=2){
+    tipo='ltda';
+    alertas.push('MEI não permite sócios — tipo ajustado para LTDA automaticamente.');
+  }
+
+  return {tipo, motivos, alertas};
+}
+
+// ─── PREENCHER DETALHES ────────────────────────────────────────────────────
+function preencherDetalhes(){
+  const {tipo}=recomendar();
+  const T=TIPOS[tipo];
+  const bh=g('bench-hon');
+  if(T.honMed>0){
+    bh.innerHTML=`<b>▸ Referência de mercado 2026:</b> R$ ${T.honMin.toLocaleString('pt-BR')}–R$ ${T.honMax.toLocaleString('pt-BR')} (média R$ ${T.honMed.toLocaleString('pt-BR')})`;
+    g('honorarios').value=T.honMed;
+    g('lbl-hon').textContent='Honorários de abertura (R$)';
+  } else {
+    bh.innerHTML=`<b>▸ MEI:</b> Abertura gratuita pelo Portal do Empreendedor. Honorários são opcionais.`;
+    g('honorarios').value=0;
+    g('lbl-hon').textContent='Honorários de abertura, se contratar contador (R$)';
+  }
+  // Certificado digital
+  const hintCert=g('hint-cert');
+  if(sel.nf==='sim'){
+    hintCert.textContent='Necessário para emitir NF-e. Recomendamos incluir no orçamento.';
+    g('cert-dig').value=250;
+  } else if(sel.nf==='nao'){
+    hintCert.textContent='Você indicou que não vai emitir notas. Pode zerar este campo por ora.';
+  } else {
+    hintCert.textContent='R$ 200–R$ 350. Necessário para emitir NF-e quando precisar.';
+  }
+}
+
+// ─── JUCESP ────────────────────────────────────────────────────────────────
+function getJucesp(tipo,capital){
+  if(tipo==='mei') return 0;
+  const T=TIPOS[tipo];
+  if(capital<=10000) return T.jucesp_ate10k;
+  if(capital<=50000) return T.jucesp_10_50k;
+  return T.jucesp_acima50k;
+}
+
+// ─── CALCULAR ──────────────────────────────────────────────────────────────
+function calcular(){
+  const rec=recomendar();
+  const tipo=rec.tipo;
+  const T=TIPOS[tipo];
+  const A=ATIVIDADES[sel.ativ];
+  const loc=parseFloat(g('loc').value)||1.0;
+  const cap=n('capital');
+  const hon=n('honorarios');
+  const cert=n('cert-dig');
+  const inpi=n('inpi');
+
+  const jucesp=getJucesp(tipo,cap)*loc;
+  const ccm=tipo==='mei'?0:Math.round(((T.ccmMin+T.ccmMax)/2))*loc;
+  const licTotal=A.licencas.reduce((s,l)=>{
+    if(l.min===0) return s;
+    return s+Math.round(((l.min+l.max)/2)*loc);
+  },0);
+
+  const totalBase=jucesp+ccm+hon;
+  const totalFinal=totalBase+licTotal+cert+inpi;
+  const prazo=A.reg?T.prazoReg:T.prazoSimp;
+  const prazoNum=A.reg?(tipo==='mei'?3:tipo==='slu'?15:22):(tipo==='mei'?0.5:tipo==='slu'?6:10);
+
+  goStep(4);
+
+  // ── RECOMENDAÇÃO ──────────────────────────────────────────────────────────
+  const alertasRec=rec.alertas.map(a=>`<div class="alerta w" style="margin-bottom:8px;"><span>⚠️</span><span>${a}</span></div>`).join('');
+  g('res-rec').innerHTML=`${alertasRec}<div class="rec-box">
+    <div class="rec-tipo">Recomendação do simulador</div>
+    <div class="rec-title">${T.emoji} ${T.nome}</div>
+    ${rec.motivos.map(m=>`<div class="rec-motivo"><span>✓</span>${m}</div>`).join('')}
+    <div class="nota g" style="margin-top:1rem;">${T.obs}</div>
+  </div>`;
+
+  // ── DIAGNÓSTICO ───────────────────────────────────────────────────────────
+  const regimeDisplay=REGIMES[sel.fat]||T.regime;
+  g('res-diag').innerHTML=`<div class="diag-box">
+    <div class="diag-title">📋 Diagnóstico rápido</div>
+    <div class="diag-grid">
+      <div class="diag-item">
+        <div class="diag-label">Tipo recomendado</div>
+        <div class="diag-val">${T.emoji} ${tipo.toUpperCase()}</div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-label">Custo estimado de abertura</div>
+        <div class="diag-val" style="color:var(--gold)">${totalFinal>0?fmt(totalFinal):'Gratuito'}</div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-label">Cidade</div>
+        <div class="diag-val" id="diag-cidade">${g('cidade')?.value?.trim()||'Não informada'}</div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-label">Prazo estimado</div>
+        <div class="diag-val">${prazo}</div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-label">Regime tributário mais provável</div>
+        <div class="diag-val">${regimeDisplay}</div>
+      </div>
+      <div class="diag-item" style="grid-column:1/-1">
+        <div class="diag-label">Principais documentos necessários</div>
+        <div class="diag-val" style="font-size:12px;line-height:1.7;">${T.docs.join(' · ')}</div>
+      </div>
+      <div class="diag-item" style="grid-column:1/-1">
+        <div class="diag-label">Certificado digital</div>
+        <div class="diag-val" style="font-size:12px;line-height:1.7;">${
+          sel.nf==='sim'?'✅ Necessário para emitir NF-e. Inclua no orçamento de abertura.':
+          sel.nf==='nao'?'Pode ser incluído posteriormente quando precisar emitir notas.':
+          'Recomendado incluir no orçamento — será necessário ao emitir a primeira nota fiscal.'
+        }</div>
+      </div>
+      ${A.reg?`<div class="diag-item" style="grid-column:1/-1">
+        <div class="diag-label">⚠️ Atividade regulamentada</div>
+        <div class="diag-val" style="font-size:12px;line-height:1.7;color:var(--amber)">${A.nome} exige licenças específicas além do registro. Inclua +${fmt(licTotal)} no orçamento e reserve +${A.reg?'10–30':''} dias para vistorias.</div>
+      </div>`:''}
+    </div>
+  </div>`;
+
+  // ── KPIS ──────────────────────────────────────────────────────────────────
+  g('res-kpis').innerHTML=`
+    <div class="kpi"><div class="kpi-l">Taxas governamentais</div><div class="kpi-v i">${jucesp+ccm>0?fmt(jucesp+ccm):'Gratuito'}</div></div>
+    <div class="kpi"><div class="kpi-l">Honorários contábeis</div><div class="kpi-v">${hon>0?fmt(hon):'Não contratado'}</div></div>
+    <div class="kpi"><div class="kpi-l">Licenças da atividade</div><div class="kpi-v ${licTotal>0?'w':''}">${licTotal>0?fmt(licTotal):'Sem adicionais'}</div></div>
+    <div class="kpi"><div class="kpi-l">Prazo estimado</div><div class="kpi-v">${prazo.split('(')[0].trim()}</div></div>
+    <div class="kpi"><div class="kpi-l">Total de abertura</div><div class="kpi-v gold">${totalFinal>0?fmt(totalFinal):'Gratuito'}</div></div>`;
+
+  // ── CUSTOS DETALHADOS ─────────────────────────────────────────────────────
+  const itens=[
+    {n:'Registro JUCESP',v:jucesp,src:'Estimativa de mercado — JUCESP 2026',free:jucesp===0},
+    {n:'Inscrição Municipal (CCM)',v:ccm,src:'Estimativa de mercado — varia por município',free:ccm===0},
+    {n:'CNPJ — Receita Federal',v:0,src:'Gratuito',free:true},
+    {n:'Inscrição Estadual (IE)',v:0,src:'Gratuita — SEFAZ SP',free:true},
+    {n:'Honorários contábeis de abertura',v:hon,src:'Referência de mercado 2026 — livremente negociável',free:hon===0},
+    cert>0?{n:'Certificado Digital e-CNPJ A1',v:cert,src:'Estimativa de mercado'}:null,
+    inpi>0?{n:'Registro de marca INPI',v:inpi,src:'Estimativa de mercado — INPI'}:null,
+  ].filter(Boolean);
+
+  g('res-custos').innerHTML=`<div class="rb">
+    <div class="rb-t">Detalhamento dos custos</div>
+    ${itens.map(i=>`<div class="rrow">
+      <div class="rname">${i.n}<div class="robs">${i.src}</div></div>
+      <div>${i.free?'<span class="rfree">Gratuito</span>':fmt(i.v)}</div>
+    </div>`).join('')}
+    <div class="rrow total"><span class="rname b">Subtotal (sem licenças)</span><span class="rval big gold">${fmt(totalBase+cert+inpi)}</span></div>
+  </div>`;
+
+  // ── LICENÇAS ──────────────────────────────────────────────────────────────
+  if(licTotal>0){
+    g('res-licencas').innerHTML=`<div class="rb amber" style="margin-bottom:12px;">
+      <div class="rb-t">⚠️ Licenças adicionais — ${A.nome}</div>
+      ${A.licencas.map(l=>{
+        const med=l.min===0?0:Math.round(((l.min+l.max)/2)*loc);
+        return `<div class="rrow">
+          <div class="rname">${l.n}<div class="robs">${l.obrig?'Obrigatório':'Opcional'} · Estimativa de mercado — varia por município</div></div>
+          <div>${l.min===0?'<span class="rfree">Gratuito</span>':fmt(med)}</div>
+        </div>`;
+      }).join('')}
+      <div class="rrow total"><span class="rname b">Total licenças</span><span class="rval big w">${fmt(licTotal)}</span></div>
+      <div class="nota w" style="margin-top:.75rem">Valores estimados. Licenças podem exigir vistorias que adicionam tempo ao processo. Solicite orçamentos específicos para o seu município.</div>
+    </div>
+    <div class="rb gold"><div class="rb-t">💰 Total geral de abertura</div>
+      <div class="rrow"><span class="rname">Custos base + opcionais</span><span class="rval">${fmt(totalBase+cert+inpi)}</span></div>
+      <div class="rrow"><span class="rname">Licenças da atividade</span><span class="rval w">${fmt(licTotal)}</span></div>
+      <div class="rrow total"><span class="rname b">Total completo</span><span class="rval big gold">${fmt(totalFinal)}</span></div>
+    </div>`;
+  } else {
+    g('res-licencas').innerHTML=`<div class="nota g" style="margin-bottom:12px;">✅ Atividade simples — sem licenças adicionais além do alvará padrão. Processo direto pelo VRE/REDESIM.</div>`;
+  }
+
+  // ── PRAZO ─────────────────────────────────────────────────────────────────
+  const pct50=Math.min(100,Math.round((prazoNum/90)*100));
+  const prazoCor=prazoNum<=5?'var(--em-l)':prazoNum<=15?'var(--amber)':'var(--red)';
+  g('res-prazo').innerHTML=`<div class="rb">
+    <div class="rb-t">⏱️ Prazo estimado</div>
+    <div style="font-size:1.1rem;font-weight:500;margin-bottom:6px;">${prazo}</div>
+    <div class="prazo-bar"><div class="prazo-fill" style="width:${pct50}%;background:${prazoCor}"></div></div>
+    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-top:3px;"><span>Imediato</span><span>30 dias</span><span>90 dias</span></div>
+    <div class="nota" style="margin-top:.75rem">A REDESIM costuma agilizar significativamente o processo. Gargalos comuns: CNAE incorreto (+5–10 dias), endereço em zoneamento inadequado (+10–20 dias).</div>
+  </div>`;
+
+  // ── COMPARATIVO ───────────────────────────────────────────────────────────
+  const tiposComp=['mei','slu','ltda'];
+  const rows=tiposComp.map(t=>{
+    const Tc=TIPOS[t];
+    const jc=getJucesp(t,cap)*loc;
+    const cc=t==='mei'?0:Math.round(((Tc.ccmMin+Tc.ccmMax)/2))*loc;
+    const hc=Tc.honMed*loc;
+    const tot=jc+cc+hc+licTotal+(t===tipo?cert+inpi:0);
+    return `<tr class="${t===tipo?'hl':''}">
+      <td>${Tc.emoji} ${t.toUpperCase()}${t===tipo?' ←':''}</td>
+      <td>${jc===0?'<span style="color:var(--em-l);font-size:11px">Grátis</span>':fmt(jc)}</td>
+      <td>${hc===0?'<span style="color:var(--text3);font-size:11px">Opcional</span>':fmt(hc)}</td>
+      <td>${tot===0?'<span style="color:var(--em-l);font-size:11px">Grátis</span>':fmt(tot)}</td>
+    </tr>`;
+  }).join('');
+  g('res-comp').innerHTML=`<div class="rb">
+    <div class="rb-t">Comparativo de custos — mesma atividade</div>
+    <table class="cmp-table">
+      <thead><tr><th>Tipo</th><th>JUCESP</th><th>Honorários</th><th>Total estimado</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div class="nota">Tipo recomendado destacado. Inclui licenças da atividade.</div>
+  </div>`;
+
+  // ── PRÓXIMOS PASSOS ───────────────────────────────────────────────────────
+  const passos=[
+    {t:'Validar o CNAE com o contador',d:'O CNAE define atividade, impostos e licenças. Um CNAE errado atrasa a abertura em +5–10 dias.'},
+    {t:'Consultar viabilidade urbana',d:'Confirme se o endereço é permitido para a atividade antes de registrar.'},
+    {t:'Acessar o VRE/REDESIM',d:'vreredesim.sp.gov.br — unifica JUCESP, Receita Federal e Prefeitura. Costuma agilizar significativamente o processo.'},
+    sel.nf==='sim'?{t:'Obter certificado digital e-CNPJ A1',d:'Necessário para emitir NF-e. Inclua no orçamento desde a abertura.'}:null,
+    A.reg?{t:'Agendar vistorias antecipadamente',d:`${A.nome} exige vistorias que podem atrasar a abertura. Agende o quanto antes.`}:null,
+    {t:'Abrir conta bancária empresarial',d:'Separe as finanças da empresa desde o primeiro dia. Evita problemas fiscais futuros.'},
+  ].filter(Boolean);
+  g('res-prox').innerHTML=`<div class="rb"><div class="rb-t">✅ Próximos passos</div>
+    ${passos.map((p,i)=>`<div class="rrow"><div class="rname"><strong style="color:var(--text)">${i+1}. ${p.t}</strong><br>${p.d}</div></div>`).join('')}
+  </div>`;
+
+  // ── CTA ───────────────────────────────────────────────────────────────────
+  const fatLabels={mei:'Até R$ 6.750/mês',simples_baixo:'R$ 6.750 a R$ 30.000/mês',simples_medio:'R$ 30.000 a R$ 100.000/mês',alto:'Acima de R$ 100.000/mês'};
+  const sociosLabels={'0':'Sou sozinho','2':'2 sócios','3':'3 ou mais sócios'};
+  const nfLabels={sim:'Sim, vou emitir NF',nao:'Não por enquanto',nsei:'Ainda não sei'};
+  const cidade=g('cidade')?.value?.trim();
+  const msg=`Olá Rodolfo! Usei o simulador de abertura de empresa.\n\nPerfil:\n• Tipo recomendado: ${T.nome}\n• Atividade: ${A.nome}\n• Faturamento esperado: ${fatLabels[sel.fat]||sel.fat}\n• Sócios: ${sociosLabels[sel.socios]||sel.socios}\n• Emitirá NF: ${nfLabels[sel.nf]||sel.nf}${cidade?'\n• Cidade: '+cidade:''}\n\nCustos estimados:\n• Total: ${fmt(totalFinal)}\n• Prazo: ${prazo}\n• Regime provável: ${regimeDisplay}\n\nGostaria de abrir minha empresa com você.`;
+  g('res-cta').innerHTML=`
+  <div class="rb" style="background:var(--bg4);margin-bottom:14px;">
+    <div class="rb-t">⚠️ Disclaimer</div>
+    <div style="font-size:12px;color:var(--text2);line-height:1.75;">Todos os valores são <strong style="color:var(--text)">estimativas de mercado</strong>. Os custos reais dependem do município, CNAE, viabilidade do endereço, licenças específicas e condições negociadas com o contador. Honorários são livremente negociados. Este simulador não substitui análise profissional individualizada.</div>
+  </div>
+  <div class="cta">
+    <div class="cta-title">Esse contador já te ajudou antes de contratar.</div>
+    <div class="cta-sub">Agora é só dar o próximo passo. Faço a abertura com segurança, cuido do CNAE, do regime tributário e de todas as licenças para você começar certo.</div>
+    <a class="cta-btn" href="https://wa.me/5519982003732?text=${encodeURIComponent(msg)}" target="_blank">Abrir com Rodolfo Assunção →</a>
+  </div>`;
+}
+</script>
+</body>
+</html>

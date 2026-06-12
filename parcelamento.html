@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador de Parcelamento Tributário 2026 — Rodolfo Assunção</title>
+<meta name="description" content="Calcule o valor das parcelas do seu DAS em atraso, o saldo consolidado com multa e juros, e compare com outras modalidades de crédito. Simples Nacional 2026.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F172A;--bg2:#111827;--bg3:#1E2937;--bg4:#263244;
+  --border:rgba(51,65,85,0.5);--border2:#334155;
+  --text:#F8FAFC;--text2:#CBD5E1;--text3:#94A3B8;
+  --indigo:#4F46E5;--indigo-l:#818CF8;
+  --indigo-d:rgba(79,70,229,0.1);--indigo-b:rgba(79,70,229,0.25);
+  --em:#10B981;--em2:#059669;--em-l:#34D399;
+  --em-d:rgba(16,185,129,0.1);--em-b:rgba(16,185,129,0.25);
+  --amber:#FBBF24;--amber-d:rgba(251,191,36,0.1);--amber-b:rgba(251,191,36,0.3);
+  --red:#F87171;--red-d:rgba(248,113,113,0.1);--red-b:rgba(248,113,113,0.3);
+  --gold:#F59E0B;--gold-d:rgba(245,158,11,0.08);--gold-b:rgba(245,158,11,0.25);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.7;min-height:100vh;}
+nav{position:sticky;top:0;z-index:100;background:rgba(15,23,42,0.95);backdrop-filter:blur(16px);border-bottom:.5px solid var(--border);height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);text-decoration:none;}
+.nav-logo span{color:var(--indigo-l);}
+.nav-back{font-size:13px;color:var(--text2);text-decoration:none;}
+.wrap{max-width:900px;margin:0 auto;padding:2rem 2rem 4rem;}
+.page-tag{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:.5rem;}
+.page-title{font-family:'DM Serif Display',serif;font-size:clamp(1.4rem,3vw,1.9rem);color:var(--text);line-height:1.2;margin-bottom:.5rem;}
+.page-desc{font-size:13px;color:var(--text2);line-height:1.75;margin-bottom:1.75rem;}
+/* LAYOUT */
+.g2{display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start;}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.sec{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:1.5rem;margin-bottom:14px;}
+.sec-t{font-size:11px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1.25rem;}
+.lbl{display:block;font-size:12px;color:var(--text2);margin-bottom:5px;}
+.field{margin-bottom:12px;}.field:last-child{margin-bottom:0;}
+.fi{width:100%;padding:9px 13px;font-size:13px;background:var(--bg4);border:.5px solid var(--border2);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;}
+.fi:focus{outline:none;border-color:var(--em);}
+.fs{width:100%;padding:9px 13px;font-size:13px;background:var(--bg4);border:.5px solid var(--border2);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;}
+.hint{font-size:11px;color:var(--text3);margin-top:3px;line-height:1.5;}
+/* ANSWER */
+.answer{border-radius:14px;padding:1.5rem;margin-bottom:14px;border:1.5px solid;}
+.answer.verde{background:var(--em-d);border-color:var(--em-b);}
+.answer.amarelo{background:var(--amber-d);border-color:var(--amber-b);}
+.answer.vermelho{background:var(--red-d);border-color:var(--red-b);}
+.answer.indigo{background:var(--indigo-d);border-color:var(--indigo-b);}
+.answer-label{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem;}
+.answer-text{font-family:'DM Serif Display',serif;font-size:1.4rem;margin-bottom:.3rem;}
+.answer.verde .answer-text{color:var(--em-l);}
+.answer.amarelo .answer-text{color:var(--amber);}
+.answer.vermelho .answer-text{color:var(--red);}
+.answer.indigo .answer-text{color:var(--indigo-l);}
+.answer-sub{font-size:13px;color:var(--text2);line-height:1.65;}
+/* KPIS */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:14px;}
+.kpi{background:var(--bg3);border:.5px solid var(--border2);border-radius:10px;padding:.875rem;}
+.kpi-l{font-size:11px;color:var(--text3);margin-bottom:4px;line-height:1.3;}
+.kpi-v{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--text);}
+.kpi-v.g{color:var(--em-l);}.kpi-v.r{color:var(--red);}.kpi-v.w{color:var(--amber);}.kpi-v.i{color:var(--indigo-l);}
+/* PARCELAS GRID */
+.parc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+.parc-card{border-radius:12px;padding:1rem;border:1.5px solid var(--border2);background:var(--bg3);}
+.parc-card.destaque{border-color:var(--em-b);background:var(--em-d);}
+.parc-prazo{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:.5rem;}
+.parc-card.destaque .parc-prazo{color:var(--em-l);}
+.parc-valor{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--text);margin-bottom:3px;}
+.parc-card.destaque .parc-valor{color:var(--em-l);}
+.parc-total{font-size:11px;color:var(--text3);}
+.parc-badge{font-size:10px;font-weight:500;padding:2px 7px;border-radius:20px;background:var(--em);color:#fff;display:inline-block;margin-top:4px;}
+/* ALERTA */
+.alerta{border-radius:10px;padding:.875rem 1rem;margin-bottom:14px;display:flex;gap:10px;font-size:13px;line-height:1.6;}
+.alerta.r{background:var(--red-d);border:.5px solid var(--red-b);color:var(--red);}
+.alerta.w{background:var(--amber-d);border:.5px solid var(--amber-b);color:var(--amber);}
+.alerta.g{background:var(--em-d);border:.5px solid var(--em-b);color:var(--em-l);}
+/* ROWS */
+.rb{background:var(--bg4);border:.5px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:12px;}
+.rb-t{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:1rem;}
+.rrow{display:flex;justify-content:space-between;padding:8px 0;border-bottom:.5px solid var(--border);font-size:13px;gap:12px;}
+.rrow:last-child{border-bottom:none;}
+.rrow.total{border-top:1px solid var(--border2);padding-top:10px;margin-top:4px;border-bottom:none;}
+.rn{color:var(--text2);flex:1;}.rn.b{color:var(--text);font-weight:500;}
+.rv{font-weight:500;color:var(--text);text-align:right;}
+.rv.r{color:var(--red);}.rv.g{color:var(--em-l);}.rv.w{color:var(--amber);}
+.rv.big{font-family:'DM Serif Display',serif;font-size:1.5rem;}
+/* TOGGLE */
+.toggle-btn{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px;color:var(--text3);padding:6px 0;border:none;background:none;font-family:'DM Sans',sans-serif;margin-bottom:6px;}
+.toggle-btn:hover{color:var(--text2);}
+.arr{display:inline-block;}
+.toggle-body{display:none;}.toggle-body.open{display:block;}
+/* NOTA */
+.nota{padding:10px 13px;border-radius:8px;font-size:12px;line-height:1.65;border-left:2px solid var(--border2);background:var(--bg4);color:var(--text2);margin-top:10px;}
+.nota.w{border-left-color:var(--amber);background:var(--amber-d);color:var(--amber);}
+.nota.g{border-left-color:var(--em);background:var(--em-d);}
+.nota.r{border-left-color:var(--red);background:var(--red-d);color:var(--red);}
+.nota.i{border-left-color:var(--indigo);background:var(--indigo-d);}
+/* CTA */
+.cta-disc{padding:1rem 1.25rem;border-top:.5px solid var(--border);margin-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.cta-disc-txt{font-size:12px;color:var(--text3);line-height:1.6;max-width:520px;}
+.cta-disc-btn{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:var(--em-d);border:.5px solid var(--em-b);border-radius:8px;font-size:12px;color:var(--em-l);text-decoration:none;font-family:'DM Sans',sans-serif;transition:all .15s;white-space:nowrap;}
+.cta-disc-btn:hover{background:var(--em);color:#fff;}
+.pdf-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 18px;background:var(--bg4);border:.5px solid var(--border2);border-radius:8px;font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;margin-top:12px;text-decoration:none;}
+.pdf-btn:hover{background:var(--bg3);color:var(--text);}
+.foot{border-top:.5px solid var(--border);padding:1.5rem 0;margin-top:2rem;font-size:11px;color:var(--text3);}
+@media(max-width:740px){
+  .g2{grid-template-columns:1fr;}
+  .parc-grid{grid-template-columns:1fr;}
+  .wrap{padding:1.5rem 1.25rem 3rem;}
+  .row2{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Rodolfo<span>.</span></a>
+  <a href="index.html" class="nav-back">← Voltar</a>
+</nav>
+
+<div class="wrap">
+  <div class="page-tag">Simulador · Parcelamento Tributário 2026</div>
+  <h1 class="page-title">Quanto vou pagar para regularizar o DAS em atraso?</h1>
+  <p class="page-desc">Calcule o saldo consolidado com multa e juros, o valor das parcelas e os alertas de risco da sua situação fiscal. ⏱️ Menos de 1 minuto.</p>
+
+  <div class="g2">
+    <div>
+      <div class="sec">
+        <div class="sec-t">Dados da dívida</div>
+        <div class="field">
+          <span class="lbl">Tipo de empresa</span>
+          <select class="fs" id="porte" onchange="calcParc()">
+            <option value="mei">MEI — Parcela mínima R$ 50</option>
+            <option value="me" selected>ME / EPP — Parcela mínima R$ 300</option>
+          </select>
+        </div>
+        <div class="field">
+          <span class="lbl">Valor original da dívida (R$)</span>
+          <input type="number" class="fi" id="divida" value="10000" min="100" oninput="calcParc()">
+          <div class="hint">Soma dos DAS não pagos, sem multa ou juros.</div>
+        </div>
+        <div class="field">
+          <span class="lbl">Dias de atraso</span>
+          <input type="number" class="fi" id="dias" value="30" min="1" max="1825" oninput="calcParc()">
+          <div class="hint">A multa cresce 0,33%/dia até o teto de 20% (aproximadamente 60 dias).</div>
+        </div>
+        <div class="field">
+          <span class="lbl">Taxa SELIC mensal estimada (%)</span>
+          <input type="number" class="fi" id="selic" value="1.07" min="0.1" max="5" step="0.01" oninput="calcParc()">
+          <div class="hint">SELIC/12 aproximada. Jun/2026: ~1,07%/mês.</div>
+        </div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-t">Parcelamento desejado</div>
+        <div class="field">
+          <span class="lbl">Número de parcelas</span>
+          <select class="fs" id="nparcelas" onchange="calcParc()">
+            <option value="12">12 meses</option>
+            <option value="24">24 meses</option>
+            <option value="36">36 meses</option>
+            <option value="48">48 meses</option>
+            <option value="60" selected>60 meses (máximo)</option>
+          </select>
+        </div>
+        <div class="field">
+          <span class="lbl">Situação da dívida</span>
+          <select class="fs" id="situacao" onchange="calcParc()">
+            <option value="rfb">Simples Nacional — Receita Federal (não inscrita)</option>
+            <option value="pgfn">Dívida Ativa — PGFN (já inscrita)</option>
+          </select>
+          <div class="hint" id="hint-situacao"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="resultado"></div>
+  </div>
+
+  <div class="cta-disc">
+    <div class="cta-disc-txt">Regularizar sua situação fiscal é o primeiro passo. Um contador pode identificar a melhor estratégia para sua empresa sair do vermelho com segurança.</div>
+    <a class="cta-disc-btn" id="cta-wpp" href="#" target="_blank">Falar com Rodolfo Assunção →</a>
+  </div>
+
+  <div class="sec" style="margin-top:14px;">
+    <div class="sec-t">⚠️ Disclaimer</div>
+    <div style="font-size:12px;color:var(--text2);line-height:1.75;">Simulação estimada. A consolidação real ocorre na data do pedido de parcelamento no portal do Simples Nacional ou no Regularize (PGFN). Juros e multas podem variar. Para parcelamentos PGFN: encargo legal de 20% adicional sobre o saldo inscrito. Use este simulador apenas como orientação — o valor exato é gerado pelo sistema da Receita Federal. Rodolfo Assunção — CRC/SP 1SP353033/O-5.</div>
+  </div>
+
+  <div class="foot">LC 123/2006, art. 21 · Resolução CGSN 140/2018 · CTN, art. 151, VI · Decreto-Lei 1.025/1969 (encargo legal PGFN) · Rodolfo Assunção · CRC/SP 1SP353033/O-5 · Limeira, SP</div>
+</div>
+
+<script>
+const fmt2 = v => 'R$ '+parseFloat(v||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fmtR = v => 'R$ '+Math.round(v||0).toLocaleString('pt-BR');
+const pct  = v => parseFloat(v||0).toFixed(2)+'%';
+const g    = id => document.getElementById(id);
+const n    = id => parseFloat(g(id)?.value)||0;
+
+function toggle(id){
+  const btn=g('tbtn-'+id),body=g('tbody-'+id);
+  const open=body.classList.toggle('open');
+  btn.querySelector('.arr').textContent=open?'▲':'▼';
+}
+
+function calcParc(){
+  const porte    = g('porte').value;
+  const divida   = n('divida');
+  const dias     = n('dias');
+  const selicMes = n('selic')/100;
+  const nParc    = parseInt(g('nparcelas').value)||60;
+  const situacao = g('situacao').value;
+  const parcMin  = porte==='mei' ? 50 : 300;
+
+  // Hint situação
+  const hints = {
+    rfb:  'Débitos ainda na Receita Federal. Parcelamento via portal do Simples Nacional ou e-CAC.',
+    pgfn: 'Dívida já inscrita na Procuradoria-Geral da Fazenda Nacional. Parcelamento via portal Regularize. Incide encargo legal de 20%.',
+  };
+  g('hint-situacao').textContent = hints[situacao];
+
+  if(divida<=0){ g('resultado').innerHTML='<div class="nota w">Informe o valor da dívida para calcular.</div>'; return; }
+
+  // ── CONSOLIDAÇÃO ──────────────────────────────────────────────────────
+  // Multa: 0,33%/dia até teto de 20%
+  const multaPct  = Math.min(dias * 0.0033, 0.20);
+  const multaR    = divida * multaPct;
+
+  // Meses de atraso para SELIC
+  const mesesAtraso = Math.ceil(dias/30);
+  // Fix: juros de mora calculados de forma SIMPLES (não composta)
+  // Regra fiscal federal: soma das taxas SELIC mensais acumuladas (linear)
+  // Ref: PGDAS-D / Regularize — não há capitalização composta
+  const jurosPct = mesesAtraso * selicMes;
+  const jurosR   = divida * jurosPct;
+
+  // Encargo legal PGFN: 20% sobre (principal + multa + juros)
+  const encargoPGFN = situacao==='pgfn' ? (divida + multaR + jurosR) * 0.20 : 0;
+
+  const saldoConsolidado = divida + multaR + jurosR + encargoPGFN;
+
+  // ── PARCELAS ──────────────────────────────────────────────────────────
+  // Fix: a Receita Federal e PGFN NÃO usam Sistema Price.
+  // Regra oficial: saldo consolidado dividido linearmente pelo nº de parcelas.
+  // Cada parcela sofre acréscimo de SELIC acumulada desde a consolidação
+  // até o mês anterior + 1% no mês do pagamento.
+  // Estimativa da 1ª parcela: (saldo / meses) × (1 + selicMes)
+  function calcParcFisco(saldo, meses, taxaMes){
+    if(meses<=0) return saldo;
+    const parcelaBase = saldo / meses;
+    return parcelaBase * (1 + taxaMes); // acréscimo SELIC do 1º mês
+  }
+
+  const parcCalc60 = calcParcFisco(saldoConsolidado, 60, selicMes);
+  const parcCalc36 = calcParcFisco(saldoConsolidado, 36, selicMes);
+  const parcCalc12 = calcParcFisco(saldoConsolidado, 12, selicMes);
+  const parcCalcN  = calcParcFisco(saldoConsolidado, nParc, selicMes);
+
+  // Aplica parcela mínima — ajusta prazo real
+  const parcReal60 = Math.max(parcCalc60, parcMin);
+  const prazoReal60 = parcReal60 > parcCalc60
+    ? Math.ceil(saldoConsolidado / parcMin)
+    : 60;
+
+  const parcRealN  = Math.max(parcCalcN, parcMin);
+  const prazoRealN = parcRealN > parcCalcN
+    ? Math.ceil(saldoConsolidado / parcMin)
+    : nParc;
+
+  // Total pago estimado
+  const totalPago60 = parcReal60 * prazoReal60;
+  const totalPagoN  = parcRealN  * prazoRealN;
+
+  // Custo adicional sobre a dívida original
+  const custoPct60 = ((totalPago60 - divida) / divida) * 100;
+
+  // ── ALERTAS ───────────────────────────────────────────────────────────
+  const alertaExclusao = situacao==='rfb' && dias > 90;
+  const alertaPGFN     = situacao==='pgfn';
+  const alertaMult20   = multaPct >= 0.20;
+
+  // ── RENDER ────────────────────────────────────────────────────────────
+  const alertaHTML = [
+    alertaExclusao ? `<div class="alerta r"><span>🚨</span><div><strong>Risco de exclusão do Simples Nacional.</strong> Dívida com mais de 90 dias pode gerar Termo de Exclusão. Você terá 30 dias para regularizar após a notificação. A exclusão produz efeitos a partir de 1º de janeiro do ano seguinte.</div></div>` : '',
+    alertaMult20   ? `<div class="alerta w"><span>⚠️</span><div><strong>Multa no teto máximo de 20%.</strong> A partir do 61º dia de atraso a multa para de crescer — mas os juros SELIC continuam acumulando sobre o saldo total.</div></div>` : '',
+    alertaPGFN     ? `<div class="alerta r"><span>🔴</span><div><strong>Dívida inscrita na PGFN.</strong> Incide encargo legal de 20% (Decreto-Lei 1.025/1969). Certidão Negativa bloqueada. Risco de execução fiscal com penhora de bens via SISBAJUD e RENAJUD. Regularize com urgência via portal <strong>regularize.pgfn.gov.br</strong>.<br><span style="font-size:12px;margin-top:4px;display:block;">💡 Verifique se há Edital de Transação ativo — pode haver desconto de até 70% para MEI, ME e EPP.</span></div></div>` : '',
+  ].join('');
+
+  g('resultado').innerHTML=`
+    ${alertaHTML}
+    <div class="answer ${dias<=1?'verde':dias<=30?'amarelo':'vermelho'}">
+      <div class="answer-label">Saldo consolidado estimado</div>
+      <div class="answer-text">${fmt2(saldoConsolidado)}</div>
+      <div class="answer-sub">Dívida original ${fmt2(divida)} + multa ${fmt2(multaR)} (${pct(multaPct*100)}) + juros SELIC ${fmt2(jurosR)}${encargoPGFN>0?` + encargo PGFN ${fmt2(encargoPGFN)}`:''}.</div>
+    </div>
+
+    <div class="parc-grid">
+      <div class="parc-card">
+        <div class="parc-prazo">12 meses</div>
+        <div class="parc-valor">${fmt2(Math.max(parcCalc12,parcMin))}/mês</div>
+        <div class="parc-total">Total: ${fmt2(Math.max(parcCalc12,parcMin)*12)}</div>
+      </div>
+      <div class="parc-card">
+        <div class="parc-prazo">36 meses</div>
+        <div class="parc-valor">${fmt2(Math.max(parcCalc36,parcMin))}/mês</div>
+        <div class="parc-total">Total: ${fmt2(Math.max(parcCalc36,parcMin)*36)}</div>
+      </div>
+      <div class="parc-card destaque">
+        <div class="parc-prazo">60 meses (máximo)</div>
+        <div class="parc-valor">${fmt2(parcReal60)}/mês</div>
+        <div class="parc-total">Prazo real: ${prazoReal60} meses</div>
+        ${prazoReal60<60?`<div class="parc-total" style="color:var(--amber)">Parcela mínima: ${fmt2(parcMin)}</div>`:''}
+        <div class="parc-badge">Menor parcela</div>
+      </div>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi"><div class="kpi-l">Dívida original</div><div class="kpi-v">${fmt2(divida)}</div></div>
+      <div class="kpi"><div class="kpi-l">Multa acumulada</div><div class="kpi-v r">${fmt2(multaR)}</div></div>
+      <div class="kpi"><div class="kpi-l">Juros SELIC</div><div class="kpi-v r">${fmt2(jurosR)}</div></div>
+      ${encargoPGFN>0?`<div class="kpi"><div class="kpi-l">Encargo PGFN (20%)</div><div class="kpi-v r">${fmt2(encargoPGFN)}</div></div>`:''}
+      <div class="kpi"><div class="kpi-l">Saldo consolidado</div><div class="kpi-v w">${fmt2(saldoConsolidado)}</div></div>
+      <div class="kpi"><div class="kpi-l">Custo total (60x)</div><div class="kpi-v r">+${pct(custoPct60)} sobre a dívida</div></div>
+    </div>
+
+    <button class="toggle-btn" id="tbtn-det" onclick="toggle('det')">Ver cálculo passo a passo <span class="arr">▼</span></button>
+    <div class="toggle-body" id="tbody-det">
+      <div class="rb"><div class="rb-t">Consolidação da dívida</div>
+        <div class="rrow"><span class="rn b">Valor original</span><span class="rv">${fmt2(divida)}</span></div>
+        <div class="rrow"><span class="rn">(+) Multa de mora: ${dias} dias × 0,33%/dia = ${pct(multaPct*100)} (teto 20%)</span><span class="rv r">+${fmt2(multaR)}</span></div>
+        <div class="rrow"><span class="rn">(+) Juros SELIC: ${mesesAtraso} meses × ~${pct(selicMes*100)}/mês</span><span class="rv r">+${fmt2(jurosR)}</span></div>
+        ${encargoPGFN>0?`<div class="rrow"><span class="rn">(+) Encargo legal PGFN (20% — Decreto-Lei 1.025/1969)</span><span class="rv r">+${fmt2(encargoPGFN)}</span></div>`:''}
+        <div class="rrow total"><span class="rn b">Saldo consolidado</span><span class="rv big w">${fmt2(saldoConsolidado)}</span></div>
+      </div>
+      <div class="rb"><div class="rb-t">Simulação de parcelas — cálculo linear oficial (Receita Federal / PGFN)</div>
+        <div class="rrow"><span class="rn">12 meses</span><span class="rv">${fmt2(Math.max(parcCalc12,parcMin))}/mês · Total: ${fmt2(Math.max(parcCalc12,parcMin)*12)}</span></div>
+        <div class="rrow"><span class="rn">24 meses</span><span class="rv">${fmt2(Math.max(calcParcFisco(saldoConsolidado,24,selicMes),parcMin))}/mês · Total: ${fmt2(Math.max(calcParcFisco(saldoConsolidado,24,selicMes),parcMin)*24)}</span></div>
+        <div class="rrow"><span class="rn">36 meses</span><span class="rv">${fmt2(Math.max(parcCalc36,parcMin))}/mês · Total: ${fmt2(Math.max(parcCalc36,parcMin)*36)}</span></div>
+        <div class="rrow"><span class="rn">48 meses</span><span class="rv">${fmt2(Math.max(calcParcFisco(saldoConsolidado,48,selicMes),parcMin))}/mês · Total: ${fmt2(Math.max(calcParcFisco(saldoConsolidado,48,selicMes),parcMin)*48)}</span></div>
+        <div class="rrow"><span class="rn b">60 meses (prazo real: ${prazoReal60} meses)</span><span class="rv g">${fmt2(parcReal60)}/mês · Total: ${fmt2(totalPago60)}</span></div>
+        <div class="rrow"><span class="rn">Parcela mínima legal (${porte==='mei'?'MEI':'ME/EPP'})</span><span class="rv i">${fmt2(parcMin)}/mês</span></div>
+      </div>
+      <div class="rb"><div class="rb-t">Regras de parcelamento — ${situacao==='rfb'?'Simples Nacional (RFB)':'Dívida Ativa (PGFN)'}</div>
+        <div class="rrow"><span class="rn">Prazo máximo</span><span class="rv">${situacao==='rfb'?'60 meses':'60 a 133 meses (transação)'}</span></div>
+        <div class="rrow"><span class="rn">Parcela mínima</span><span class="rv">${fmt2(parcMin)}/mês</span></div>
+        <div class="rrow"><span class="rn">Juros sobre saldo devedor</span><span class="rv">SELIC + 1% no mês do pagamento</span></div>
+        <div class="rrow"><span class="rn">Rescisão do parcelamento</span><span class="rv r">3 parcelas em atraso (consecutivas ou não)</span></div>
+        <div class="rrow"><span class="rn">Reparcelamento (1º)</span><span class="rv">Entrada de 10% do saldo</span></div>
+        <div class="rrow"><span class="rn">Reparcelamento (2º+)</span><span class="rv">Entrada de 20% do saldo</span></div>
+        <div class="rrow"><span class="rn">Certidão durante o parcelamento</span><span class="rv g">CPEN — Positiva com efeito de Negativa</span></div>
+        <div class="rrow"><span class="rn">Onde solicitar</span><span class="rv">${situacao==='rfb'?'Portal Simples Nacional / e-CAC':'Portal Regularize (PGFN)'}</span></div>
+      </div>
+      <div class="nota i">As parcelas do Simples Nacional são calculadas com base no saldo devedor consolidado dividido <strong>linearmente</strong> pelo número de parcelas, sofrendo acréscimo de juros SELIC mensais até a data do respectivo pagamento. Diferente do Sistema Price bancário — sem capitalização composta. Os valores são estimativas da 1ª parcela; as seguintes variam conforme a SELIC vigente em cada mês.</div>
+      <div class="nota i" style="margin-top:8px;">A CPEN (Certidão Positiva com Efeito de Negativa) tem o mesmo valor jurídico de uma certidão negativa — libera participação em licitações, financiamentos e transações que exigem regularidade fiscal.</div>
+    </div>
+
+    <button class="pdf-btn" onclick="gerarPDF()">📄 Baixar relatório em PDF</button>
+    <div class="nota w" style="margin-top:12px;">⚠️ Simulação orientativa. O saldo real é calculado pelo sistema da Receita Federal na data do pedido. Consulte um contador antes de tomar qualquer decisão sobre regularização fiscal.</div>`;
+
+  // WPP
+  const msg=`Olá Rodolfo! Usei o simulador de parcelamento.\n\nSituação:\n• Dívida original: ${fmt2(divida)}\n• Dias de atraso: ${dias}\n• Saldo consolidado estimado: ${fmt2(saldoConsolidado)}\n• Tipo: ${situacao==='rfb'?'Simples Nacional':'Dívida Ativa PGFN'}\n• Parcela em 60x: ${fmt2(parcReal60)}/mês\n\nGostaria de entender as opções para regularizar minha situação.`;
+  g('cta-wpp').href='https://wa.me/5519982003732?text='+encodeURIComponent(msg);
+}
+
+function gerarPDF(){
+  const c=g('resultado').innerHTML;
+  const w=window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">
+    <title>Parcelamento Tributário · Rodolfo Assunção</title>
+    <style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:Arial,sans-serif;font-size:12px;color:#1e293b;background:#fff;padding:2rem;}
+    .answer{border:1px solid #cbd5e1;border-radius:6px;padding:.875rem;margin-bottom:10px;background:#f8fafc;}
+    .answer.verde{border-color:#6ee7b7;background:#f0fdf4;}
+    .answer.amarelo{border-color:#fcd34d;background:#fffbeb;}
+    .answer.vermelho{border-color:#fca5a5;background:#fff1f2;}
+    .answer-label{font-size:10px;text-transform:uppercase;color:#64748b;margin-bottom:.25rem;}
+    .answer-text{font-size:1.2rem;font-weight:700;margin-bottom:.25rem;color:#dc2626;}
+    .answer-sub{font-size:11px;color:#475569;line-height:1.6;}
+    .alerta{border-radius:6px;padding:.75rem;margin-bottom:8px;font-size:11px;line-height:1.6;display:flex;gap:6px;}
+    .alerta.r{border:1px solid #fca5a5;background:#fff1f2;color:#dc2626;}
+    .alerta.w{border:1px solid #fcd34d;background:#fffbeb;color:#b45309;}
+    .parc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;}
+    .parc-card{border:1px solid #e2e8f0;border-radius:6px;padding:.75rem;background:#f8fafc;}
+    .parc-card.destaque{border-color:#6ee7b7;background:#f0fdf4;}
+    .parc-prazo{font-size:10px;text-transform:uppercase;color:#64748b;margin-bottom:3px;}
+    .parc-valor{font-size:1rem;font-weight:700;color:#1e293b;margin-bottom:2px;}
+    .parc-card.destaque .parc-valor{color:#059669;}
+    .parc-total{font-size:10px;color:#64748b;}
+    .parc-badge{font-size:9px;font-weight:600;padding:1px 5px;border-radius:20px;background:#059669;color:#fff;display:inline-block;margin-top:3px;}
+    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;}
+    .kpi{border:1px solid #e2e8f0;border-radius:6px;padding:.625rem;background:#f8fafc;}
+    .kpi-l{font-size:10px;color:#64748b;margin-bottom:2px;}.kpi-v{font-size:1rem;font-weight:700;color:#1e293b;}
+    .kpi-v.r{color:#dc2626;}.kpi-v.w{color:#b45309;}.kpi-v.g{color:#059669;}.kpi-v.i{color:#4338ca;}
+    .rb{border:1px solid #e2e8f0;border-radius:6px;padding:1rem;margin-bottom:8px;background:#f8fafc;}
+    .rb-t{font-size:10px;text-transform:uppercase;color:#64748b;margin-bottom:.75rem;}
+    .rrow{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #f1f5f9;font-size:11px;}
+    .rrow:last-child{border-bottom:none;}.rrow.total{border-top:1px solid #e2e8f0;padding-top:8px;margin-top:4px;border-bottom:none;}
+    .rn{color:#475569;flex:1;}.rn.b{color:#1e293b;font-weight:600;}
+    .rv{font-weight:600;text-align:right;color:#1e293b;}.rv.big{font-size:1.2rem;}.rv.r{color:#dc2626;}.rv.g{color:#059669;}.rv.w{color:#b45309;}.rv.i{color:#4338ca;}
+    .nota{padding:8px;border-left:2px solid #94a3b8;font-size:10px;color:#475569;margin-top:8px;}
+    .nota.w{border-left-color:#f59e0b;color:#b45309;background:#fffbeb;}
+    .nota.i{border-left-color:#6366f1;color:#4338ca;background:#eef2ff;}
+    .toggle-btn,.pdf-btn,.cta-disc{display:none!important;}
+    .toggle-body{display:block!important;}
+    header{border-bottom:2px solid #e2e8f0;padding-bottom:.75rem;margin-bottom:1.25rem;display:flex;justify-content:space-between;}
+    .hdr-logo{font-size:1rem;font-weight:700;color:#1e293b;}.hdr-data{font-size:10px;color:#64748b;}
+    footer{border-top:1px solid #e2e8f0;margin-top:1.5rem;padding-top:.75rem;font-size:9px;color:#94a3b8;text-align:center;}
+    .disclaimer{border:1px solid #fcd34d;background:#fffbeb;border-radius:4px;padding:.625rem;margin-top:1rem;font-size:10px;color:#78350f;line-height:1.6;}
+    </style></head><body>
+    <header><div class="hdr-logo">Parcelamento Tributário · Rodolfo Assunção · CRC/SP 1SP353033/O-5</div>
+    <div class="hdr-data">Gerado em: ${new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}</div></header>
+    ${c}
+    <div class="disclaimer">⚠️ Simulação orientativa. O saldo real é calculado pelo sistema da Receita Federal na data do pedido. Não substitui consultoria contábil individualizada. Rodolfo Assunção — CRC/SP 1SP353033/O-5 — Limeira, SP.</div>
+    <footer>Parcelamento Tributário · Rodolfo Assunção · CRC/SP 1SP353033/O-5 · Junho/2026</footer>
+    </body></html>`);
+  w.document.close();
+  setTimeout(()=>w.print(),600);
+}
+
+calcParc();
+</script>
+</body>
+</html>
