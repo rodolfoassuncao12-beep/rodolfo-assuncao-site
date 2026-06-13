@@ -140,7 +140,9 @@ nav{position:sticky;top:0;z-index:100;background:rgba(15,23,42,0.95);backdrop-fi
 
   <div class="aviso-principal">
     <div class="aviso-ico">⚖️</div>
-    <div class="aviso-txt"><strong>Menor custo financeiro não significa menor risco jurídico.</strong> Contratar como PJ ou MEI para reduzir encargos, quando a relação configura vínculo empregatício, pode gerar passivo trabalhista retroativo com multas, verbas rescisórias e FGTS em aberto. Este simulador mostra custo <em>e</em> risco — leia os dois antes de decidir.</div>
+    <div class="aviso-txt"><strong>Menor custo financeiro não significa menor risco jurídico.</strong> Contratar como PJ ou MEI para reduzir encargos, quando a relação configura vínculo empregatício, pode gerar passivo trabalhista retroativo com multas, verbas rescisórias e FGTS em aberto. Este simulador mostra custo <em>e</em> risco — leia os dois antes de decidir.
+    <br><br>
+    <strong>Este simulador estima o risco financeiro, mas não substitui a análise de um advogado trabalhista.</strong> A caracterização de vínculo empregatício depende de fatores fáticos (subordinação, pessoalidade, habitualidade, exclusividade) que exigem avaliação jurídica do caso concreto.</div>
   </div>
 
   <div class="g2">
@@ -241,7 +243,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(15,23,42,0.95);backdrop-fi
     <div style="font-size:12px;color:var(--text2);line-height:1.75;">Estimativas com base na legislação vigente em junho/2026. Encargos CLT variam conforme CNAE, convenção coletiva, FAP e porte da empresa. Sistema S varia por atividade. ISSQN do autônomo varia por município (2%–5% — estimado em 5%). A existência de subordinação, pessoalidade, habitualidade e exclusividade pode configurar vínculo empregatício independente da modalidade contratada. Este simulador não substitui consultoria trabalhista ou contábil individualizada. Rodolfo Assunção — CRC/SP 1SP353033/O-5.</div>
   </div>
 
-  <div class="foot">CLT/FGTS: Lei 8.036/90 · INSS 2026: Portaria MPS · IRRF 2026: Lei 15.270/2025 · Salário mínimo: Decreto 12.797/2025 · Rodolfo Assunção · CRC/SP 1SP353033/O-5 · Limeira, SP</div>
+  <div class="foot">CLT/FGTS: Lei 8.036/90 · INSS 2026: Portaria MPS · IRRF 2026: Lei 15.270/2025 · Salário mínimo: Decreto 12.797/2025 · Rodolfo Assunção · CRC/SP 1SP353033/O-5</div>
 </div>
 
 <script>
@@ -700,7 +702,7 @@ function gerarPDF(){
     <header><div class="hdr-logo">CLT ou PJ? Simulador de Contratação · Rodolfo Assunção · CRC/SP 1SP353033/O-5</div>
     <div class="hdr-data">Gerado em: ${new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}</div></header>
     ${c}
-    <div class="disclaimer">⚠️ Estimativas com base na legislação vigente em junho/2026. Não substitui consultoria trabalhista ou contábil individualizada. A existência de subordinação, pessoalidade, habitualidade e exclusividade pode configurar vínculo empregatício. Rodolfo Assunção — CRC/SP 1SP353033/O-5 — Limeira, SP.</div>
+    <div class="disclaimer">⚠️ Estimativas com base na legislação vigente em junho/2026. Não substitui consultoria trabalhista ou contábil individualizada. A existência de subordinação, pessoalidade, habitualidade e exclusividade pode configurar vínculo empregatício. Rodolfo Assunção — CRC/SP 1SP353033/O-5.</div>
     <footer>Simulador de Contratação · Rodolfo Assunção · CRC/SP 1SP353033/O-5 · Junho/2026</footer>
     </body></html>`);
   w.document.close();
