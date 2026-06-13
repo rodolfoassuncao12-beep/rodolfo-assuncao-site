@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ultrapassei o limite do MEI em 2026: vou perder o CNPJ? — Rodolfo Assunção</title>
+<meta name="description" content="Faturou mais de R$ 81.000 no ano como MEI? Entenda o que acontece, a diferença entre passar até 20% ou mais do limite, e os próximos passos para migrar para ME sem sustos.">
+<link rel="canonical" href="https://rodolfoassuncao.com.br/blog/limite-faturamento-mei-2026.html">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://rodolfoassuncao.com.br/blog/limite-faturamento-mei-2026.html">
+<meta property="og:title" content="Ultrapassei o limite do MEI em 2026: vou perder o CNPJ?">
+<meta property="og:description" content="Entenda o que acontece quando o MEI fatura acima de R$ 81.000 no ano, e os próximos passos para migrar para ME.">
+<meta property="og:image" content="https://rodolfoassuncao.com.br/rodolfo-assuncao.jpg">
+<meta property="og:locale" content="pt_BR">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F172A;--bg2:#111827;--bg3:#1E2937;--bg4:#263244;
+  --border:rgba(51,65,85,0.5);--border2:#334155;
+  --text:#F8FAFC;--text2:#CBD5E1;--text3:#94A3B8;
+  --indigo:#4F46E5;--indigo-l:#818CF8;
+  --indigo-d:rgba(79,70,229,0.1);--indigo-b:rgba(79,70,229,0.25);
+  --em:#10B981;--em2:#059669;--em-l:#34D399;
+  --em-d:rgba(16,185,129,0.1);--em-b:rgba(16,185,129,0.25);
+  --amber:#FBBF24;--amber-d:rgba(251,191,36,0.1);--amber-b:rgba(251,191,36,0.3);
+  --red:#F87171;--red-d:rgba(248,113,113,0.1);--red-b:rgba(248,113,113,0.3);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.8;}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(15,23,42,0.92);backdrop-filter:blur(16px);border-bottom:.5px solid var(--border);}
+.nav-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;padding:0 2rem;}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);text-decoration:none;}
+.nav-logo span{color:var(--indigo-l);}
+.nav-back{font-size:13px;color:var(--text3);text-decoration:none;transition:color .2s;}
+.nav-back:hover{color:var(--text2);}
+
+.wrap{max-width:680px;margin:0 auto;padding:3rem 2rem 5rem;}
+
+.article-tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--em-l);margin-bottom:.875rem;}
+h1{font-family:'DM Serif Display',serif;font-size:clamp(1.9rem,4vw,2.5rem);font-weight:400;color:var(--text);line-height:1.25;margin-bottom:1rem;}
+.article-meta{font-size:12.5px;color:var(--text3);margin-bottom:2.5rem;display:flex;gap:1rem;flex-wrap:wrap;}
+
+.lede{font-size:17px;color:var(--text2);line-height:1.85;margin-bottom:1.75rem;}
+.lede strong{color:var(--text);}
+article p{font-size:15px;color:var(--text2);line-height:1.85;margin-bottom:1.25rem;}
+article p:last-child{margin-bottom:0;}
+article strong{color:var(--text);font-weight:500;}
+article h2{font-family:'DM Serif Display',serif;font-size:1.4rem;font-weight:400;color:var(--text);margin:2.5rem 0 1.1rem;line-height:1.35;}
+article h3{font-size:15px;font-weight:500;color:var(--text);margin:1.75rem 0 .75rem;}
+article ul, article ol{margin:1.1rem 0 1.25rem;padding-left:1.4rem;display:flex;flex-direction:column;gap:.5rem;}
+article li{font-size:15px;color:var(--text2);line-height:1.75;}
+article a{color:var(--em-l);text-decoration:none;border-bottom:.5px solid var(--em-b);}
+article a:hover{color:var(--em);}
+article table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:14px;}
+article th{text-align:left;color:var(--text3);font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.05em;padding:.6rem .75rem;border-bottom:1px solid var(--border2);}
+article td{padding:.75rem;color:var(--text2);border-bottom:.5px solid var(--border);}
+article td:first-child, article th:first-child{padding-left:0;}
+
+.callout{border-radius:12px;padding:1.25rem 1.5rem;margin:1.5rem 0;border:1px solid;}
+.callout.amber{background:var(--amber-d);border-color:var(--amber-b);}
+.callout.indigo{background:var(--indigo-d);border-color:var(--indigo-b);}
+.callout.red{background:var(--red-d);border-color:var(--red-b);}
+.callout.em{background:var(--em-d);border-color:var(--em-b);}
+.callout p{margin-bottom:0 !important;font-size:14px;}
+.callout-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem;font-weight:500;}
+.callout.amber .callout-label{color:var(--amber);}
+.callout.indigo .callout-label{color:var(--indigo-l);}
+.callout.red .callout-label{color:var(--red);}
+.callout.em .callout-label{color:var(--em-l);}
+
+.tool-mention{border-left:2px solid var(--em);padding:0.25rem 0 0.25rem 1.1rem;margin:1.75rem 0;}
+.tool-mention p{font-size:14.5px;color:var(--text2);margin-bottom:.5rem !important;}
+.tool-mention a{font-size:14px;font-weight:500;}
+
+.next-step{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:1.5rem 1.75rem;margin-top:2.5rem;}
+.next-step-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:.75rem;}
+.next-step p{font-size:14.5px;color:var(--text2);margin-bottom:1rem !important;}
+.next-step-link{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:var(--em-l);text-decoration:none;border-bottom:.5px solid var(--em-b);}
+.next-step-link:hover{color:var(--em);}
+
+.series{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:1.5rem 1.75rem;margin:2.5rem 0;}
+.series-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:1rem;}
+.series-item{display:flex;align-items:baseline;gap:10px;padding:.5rem 0;border-bottom:.5px solid var(--border);font-size:14px;}
+.series-item:last-child{border-bottom:none;}
+.series-num{font-family:'DM Serif Display',serif;color:var(--indigo-l);font-size:13px;min-width:18px;}
+.series-item a{color:var(--text2);}
+.series-item.current a{color:var(--text3);border-bottom:none;cursor:default;pointer-events:none;}
+.series-item.current .series-num{color:var(--text3);}
+
+hr.divider{border:none;border-top:.5px solid var(--border);margin:2.5rem 0;}
+
+footer{border-top:.5px solid var(--border);padding:2rem;}
+.foot-inner{max-width:1120px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.foot-left{font-size:12px;color:var(--text3);}
+.foot-right{font-size:11px;color:var(--text3);max-width:480px;text-align:right;line-height:1.6;}
+@media(max-width:760px){.foot-right{text-align:left;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">Rodolfo<span>.</span></a>
+    <a href="../index.html#blog" class="nav-back">← Voltar ao blog</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="article-tag">MEI · Crescimento</div>
+  <h1>Ultrapassei o limite do MEI em 2026: vou perder o CNPJ?</h1>
+  <div class="article-meta">
+    <span>Atualizado em junho de 2026</span>
+    <span>·</span>
+    <span>Leitura de 6 min</span>
+  </div>
+
+  <p class="lede">Você somou o faturamento do ano e percebeu: passou de R$ 81.000. Ou recebeu um aviso, ou descobriu isso ao preencher a declaração anual. E agora a cabeça pergunta: isso é um problema grave? Vou perder o CNPJ? Vou ser multado?</p>
+
+  <p>Primeiro, respira: <strong>isso acontece com muita gente, especialmente quando o negócio está indo bem</strong>. Faturar mais do que o esperado não é, em si, uma infração — é um sinal de crescimento. O que existe é um processo formal para "trocar de categoria", e esse processo tem regras e prazos que vale entender.</p>
+
+  <h2>O que acontece, na prática</h2>
+  <p>As perguntas que normalmente aparecem aqui são: <em>vou perder minha empresa? vou pagar multa retroativa? vou pagar muito mais imposto? preciso fazer alguma coisa agora ou só na declaração?</em> A resposta depende de um número: <strong>quanto você passou do limite</strong>.</p>
+
+  <p>Existem dois cenários bem diferentes:</p>
+
+  <table>
+    <tr><th>Quanto passou do limite</th><th>O que acontece</th></tr>
+    <tr><td>Até 20% acima (até R$ 97.200)</td><td>Continua como MEI até dezembro. Em janeiro, migra para ME e paga um <strong>DAS complementar</strong> sobre o valor excedente.</td></tr>
+    <tr><td>Mais de 20% acima (acima de R$ 97.200)</td><td>O desenquadramento é <strong>retroativo</strong> — todos os tributos do ano são recalculados pelas regras de ME, com juros (SELIC) e multa de 0,33% ao dia (limitada a 20%).</td></tr>
+  </table>
+
+  <p>Em outras palavras: passar um pouco do limite tem uma solução tranquila — um ajuste no início do ano seguinte. Passar muito do limite tem um custo maior, porque a Receita trata o ano inteiro como se a empresa já fosse ME desde o começo. A boa notícia é que a maioria dos casos costuma ficar no primeiro cenário.</p>
+
+  <div class="callout em">
+    <div class="callout-label">O tempo importa — mas de um jeito diferente aqui</div>
+    <p>Diferente de DAS ou DASN atrasados, aqui o "tempo" não é sobre regularizar rápido — é sobre <strong>identificar o quanto antes</strong> que o limite vai ser ultrapassado. Quem percebe isso no meio do ano tem tempo de se planejar (inclusive, em alguns casos, de ajustar o ritmo de faturamento dentro do ano); quem só descobre na declaração de maio do ano seguinte já está lidando com o fato consumado.</p>
+  </div>
+
+  <h2>O CNPJ é cancelado?</h2>
+  <p>Não. O CNPJ continua o mesmo — o que muda é o regime tributário. Na prática, a empresa passa de MEI para <strong>Microempresa (ME)</strong>, dentro do Simples Nacional. Isso significa: novas obrigações (como contabilidade formal), tributação diferente (calculada por faixas de faturamento, com o chamado Fator R em alguns casos), e possibilidade de ter sócios e acesso a mais linhas de crédito.</p>
+
+  <div class="callout amber">
+    <div class="callout-label">Atenção a um detalhe pouco conhecido</div>
+    <p>Desde a Resolução CGSN 183/2025, <strong>rendimentos recebidos no CPF da mesma atividade do CNPJ também contam para o limite</strong>. Ou seja, se você recebe parte do dinheiro da mesma atividade via CPF (Pix pessoal, por exemplo) e parte via CNPJ, a soma dos dois é considerada para o teto de R$ 81.000 — não só o que passa pelo CNPJ.</p>
+  </div>
+
+  <h2>Se a empresa abriu no meio do ano</h2>
+  <p>O limite de R$ 81.000 é proporcional ao tempo de atividade. Quem abriu o MEI em julho, por exemplo, tem um limite de R$ 40.500 para aquele primeiro ano (6 meses × R$ 6.750) — não os R$ 81.000 inteiros. É um detalhe que pega muita gente de surpresa justamente no primeiro ano.</p>
+
+  <h2>Passo a passo</h2>
+
+  <h3>1. Confirme o valor exato e a porcentagem de excesso</h3>
+  <p>Some o faturamento bruto do ano (sem descontar despesas — é receita bruta, não lucro) e compare com o limite (proporcional, se for o caso). Isso define em qual dos dois cenários da tabela acima você está.</p>
+
+  <h3>2. Comunique o desenquadramento</h3>
+  <p>O desenquadramento pode ser feito voluntariamente pelo Portal do Simples Nacional, ou a Receita pode identificar automaticamente ao processar a DASN-SIMEI. Fazer voluntariamente, quando possível, costuma ser mais simples do que esperar a identificação de ofício.</p>
+
+  <h3>3. Avalie o regime e a estrutura da nova empresa (ME)</h3>
+  <p>Migrar para ME abre decisões novas: qual a melhor forma de tributação dentro do Simples, como organizar pró-labore (se houver sócios), e se vale a pena formalizar funcionários. É um momento de "trocar de patamar", não só de "resolver uma pendência".</p>
+
+  <div class="tool-mention">
+    <p>Antes de decidir os próximos passos, vale entender como ficaria a carga tributária como ME em comparação com o MEI — em muitos casos, o crescimento do faturamento compensa bastante a mudança de regime.</p>
+    <a href="../crescimento.html">Ver como ficaria minha empresa como ME →</a>
+  </div>
+
+  <h2>Perguntas frequentes</h2>
+
+  <h3>Vou pagar multa só por ter ultrapassado o limite?</h3>
+  <p>Não necessariamente uma "multa por crescer" — mas, se o excesso foi acima de 20% e o desenquadramento for retroativo, os tributos recalculados como ME podem vir com multa de mora e juros sobre a diferença. Se o excesso foi até 20%, normalmente é só o DAS complementar, sem multa retroativa.</p>
+
+  <h3>Posso continuar como MEI no ano seguinte, já que foi "só esse ano"?</h3>
+  <p>Não. Uma vez desenquadrado, a empresa segue como ME — não há retorno automático ao MEI no ano seguinte só porque o faturamento eventualmente ficar abaixo do limite outra vez.</p>
+
+  <h3>Isso significa que meu negócio está em risco?</h3>
+  <p>Pelo contrário — na maioria dos casos, é sinal de que o negócio cresceu mais do que a estrutura do MEI permite. A "dor" aqui é administrativa (mais obrigações, mais complexidade), não financeira no sentido de prejuízo.</p>
+
+  <h2>Próximo passo</h2>
+  <p>Se você ultrapassou o limite do MEI, o primeiro passo é confirmar exatamente quanto — até 20% ou mais — porque isso define se o ajuste é simples (DAS complementar em janeiro) ou retroativo (recálculo do ano todo). Cada situação é diferente: o quanto foi ultrapassado, se a empresa abriu no meio do ano, se há rendimentos em CPF da mesma atividade, e qual o ramo de atuação (que define o regime ideal como ME). Se o excesso foi acima de 20%, ou se há dúvida sobre rendimentos em CPF contando para o limite, uma análise individual ajuda a calcular o impacto real antes de qualquer decisão.</p>
+
+  <div class="next-step">
+    <div class="next-step-label">Para visualizar o próximo patamar</div>
+    <p>O simulador de Crescimento mostra como ficaria a tributação migrando de MEI para ME — útil para entender como a tributação muda quando a empresa passa para o próximo estágio de crescimento.</p>
+    <a href="../crescimento.html" class="next-step-link">Simular minha migração para ME →</a>
+  </div>
+
+  <hr class="divider">
+
+  <div class="series">
+    <div class="series-label">Nesta série — Regularização do MEI</div>
+    <div class="series-item"><span class="series-num">01</span><a href="mei-excluido-por-divida-2026.html">Meu MEI foi excluído por dívida: perdi minha empresa?</a></div>
+    <div class="series-item"><span class="series-num">02</span><a href="das-mei-atrasado-2026.html">DAS do MEI atrasado: o que a Receita pode fazer comigo?</a></div>
+    <div class="series-item"><span class="series-num">03</span><a href="dasn-simei-atrasada-2026.html">DASN-SIMEI atrasada: o CNPJ vai ser bloqueado?</a></div>
+    <div class="series-item current"><span class="series-num">04</span><a>Ultrapassei o limite do MEI em 2026: vou perder o CNPJ? <em style="color:var(--text3);font-size:12px;">(você está aqui)</em></a></div>
+    <div class="series-item"><span class="series-num">05</span><a href="transicao-mei-para-me-2026.html">Transição de MEI para ME: o que muda na prática</a></div>
+  </div>
+
+  <p style="font-size:13px;color:var(--text3);">Este artigo tem finalidade informativa e não substitui análise contábil individualizada da sua situação. Cada CNPJ pode ter particularidades — consulte um contador antes de tomar decisões. <a href="../politicas.html" style="color:var(--text3);border-bottom:.5px solid var(--border2);">Leia o aviso completo</a>.</p>
+
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-left">Rodolfo Assunção · CRC/SP 1SP353033/O-5 · CEA ANBIMA</div>
+    <div class="foot-right">Atendimento 100% digital — todo o Brasil</div>
+  </div>
+</footer>
+
+</body>
+</html>
