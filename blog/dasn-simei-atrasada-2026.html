@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DASN-SIMEI atrasada: o CNPJ vai ser bloqueado? — Rodolfo Assunção</title>
+<meta name="description" content="Não entregou a Declaração Anual do MEI (DASN-SIMEI)? Entenda a multa, o que fica bloqueado enquanto a declaração não é entregue, e como regularizar com desconto.">
+<link rel="canonical" href="https://rodolfoassuncao.com.br/blog/dasn-simei-atrasada-2026.html">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://rodolfoassuncao.com.br/blog/dasn-simei-atrasada-2026.html">
+<meta property="og:title" content="DASN-SIMEI atrasada: o CNPJ vai ser bloqueado?">
+<meta property="og:description" content="Entenda a multa por atraso na Declaração Anual do MEI, o que fica bloqueado, e como regularizar com desconto.">
+<meta property="og:image" content="https://rodolfoassuncao.com.br/rodolfo-assuncao.jpg">
+<meta property="og:locale" content="pt_BR">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F172A;--bg2:#111827;--bg3:#1E2937;--bg4:#263244;
+  --border:rgba(51,65,85,0.5);--border2:#334155;
+  --text:#F8FAFC;--text2:#CBD5E1;--text3:#94A3B8;
+  --indigo:#4F46E5;--indigo-l:#818CF8;
+  --indigo-d:rgba(79,70,229,0.1);--indigo-b:rgba(79,70,229,0.25);
+  --em:#10B981;--em2:#059669;--em-l:#34D399;
+  --em-d:rgba(16,185,129,0.1);--em-b:rgba(16,185,129,0.25);
+  --amber:#FBBF24;--amber-d:rgba(251,191,36,0.1);--amber-b:rgba(251,191,36,0.3);
+  --red:#F87171;--red-d:rgba(248,113,113,0.1);--red-b:rgba(248,113,113,0.3);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.8;}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(15,23,42,0.92);backdrop-filter:blur(16px);border-bottom:.5px solid var(--border);}
+.nav-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;padding:0 2rem;}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);text-decoration:none;}
+.nav-logo span{color:var(--indigo-l);}
+.nav-back{font-size:13px;color:var(--text3);text-decoration:none;transition:color .2s;}
+.nav-back:hover{color:var(--text2);}
+
+.wrap{max-width:680px;margin:0 auto;padding:3rem 2rem 5rem;}
+
+.article-tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--em-l);margin-bottom:.875rem;}
+h1{font-family:'DM Serif Display',serif;font-size:clamp(1.9rem,4vw,2.5rem);font-weight:400;color:var(--text);line-height:1.25;margin-bottom:1rem;}
+.article-meta{font-size:12.5px;color:var(--text3);margin-bottom:2.5rem;display:flex;gap:1rem;flex-wrap:wrap;}
+
+.lede{font-size:17px;color:var(--text2);line-height:1.85;margin-bottom:1.75rem;}
+.lede strong{color:var(--text);}
+article p{font-size:15px;color:var(--text2);line-height:1.85;margin-bottom:1.25rem;}
+article p:last-child{margin-bottom:0;}
+article strong{color:var(--text);font-weight:500;}
+article h2{font-family:'DM Serif Display',serif;font-size:1.4rem;font-weight:400;color:var(--text);margin:2.5rem 0 1.1rem;line-height:1.35;}
+article h3{font-size:15px;font-weight:500;color:var(--text);margin:1.75rem 0 .75rem;}
+article ul, article ol{margin:1.1rem 0 1.25rem;padding-left:1.4rem;display:flex;flex-direction:column;gap:.5rem;}
+article li{font-size:15px;color:var(--text2);line-height:1.75;}
+article a{color:var(--em-l);text-decoration:none;border-bottom:.5px solid var(--em-b);}
+article a:hover{color:var(--em);}
+
+.callout{border-radius:12px;padding:1.25rem 1.5rem;margin:1.5rem 0;border:1px solid;}
+.callout.amber{background:var(--amber-d);border-color:var(--amber-b);}
+.callout.indigo{background:var(--indigo-d);border-color:var(--indigo-b);}
+.callout.red{background:var(--red-d);border-color:var(--red-b);}
+.callout.em{background:var(--em-d);border-color:var(--em-b);}
+.callout p{margin-bottom:0 !important;font-size:14px;}
+.callout-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem;font-weight:500;}
+.callout.amber .callout-label{color:var(--amber);}
+.callout.indigo .callout-label{color:var(--indigo-l);}
+.callout.red .callout-label{color:var(--red);}
+.callout.em .callout-label{color:var(--em-l);}
+
+.tool-mention{border-left:2px solid var(--em);padding:0.25rem 0 0.25rem 1.1rem;margin:1.75rem 0;}
+.tool-mention p{font-size:14.5px;color:var(--text2);margin-bottom:.5rem !important;}
+.tool-mention a{font-size:14px;font-weight:500;}
+
+.next-step{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:1.5rem 1.75rem;margin-top:2.5rem;}
+.next-step-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:.75rem;}
+.next-step p{font-size:14.5px;color:var(--text2);margin-bottom:1rem !important;}
+.next-step-link{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:var(--em-l);text-decoration:none;border-bottom:.5px solid var(--em-b);}
+.next-step-link:hover{color:var(--em);}
+
+.series{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:1.5rem 1.75rem;margin:2.5rem 0;}
+.series-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:1rem;}
+.series-item{display:flex;align-items:baseline;gap:10px;padding:.5rem 0;border-bottom:.5px solid var(--border);font-size:14px;}
+.series-item:last-child{border-bottom:none;}
+.series-num{font-family:'DM Serif Display',serif;color:var(--indigo-l);font-size:13px;min-width:18px;}
+.series-item a{color:var(--text2);}
+.series-item.current a{color:var(--text3);border-bottom:none;cursor:default;pointer-events:none;}
+.series-item.current .series-num{color:var(--text3);}
+
+hr.divider{border:none;border-top:.5px solid var(--border);margin:2.5rem 0;}
+
+footer{border-top:.5px solid var(--border);padding:2rem;}
+.foot-inner{max-width:1120px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.foot-left{font-size:12px;color:var(--text3);}
+.foot-right{font-size:11px;color:var(--text3);max-width:480px;text-align:right;line-height:1.6;}
+@media(max-width:760px){.foot-right{text-align:left;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">Rodolfo<span>.</span></a>
+    <a href="../index.html#blog" class="nav-back">← Voltar ao blog</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="article-tag">MEI · Regularização</div>
+  <h1>DASN-SIMEI atrasada: o CNPJ vai ser bloqueado?</h1>
+  <div class="article-meta">
+    <span>Atualizado em junho de 2026</span>
+    <span>·</span>
+    <span>Leitura de 5 min</span>
+  </div>
+
+  <p class="lede">Maio passou, e você não entregou a Declaração Anual do MEI (a DASN-SIMEI). Agora ficou aquela sensação de "esqueci de algo importante" — e a dúvida sobre o que isso realmente significa.</p>
+
+  <p>Direto ao ponto: <strong>isso tem solução, e na maioria dos casos é simples de resolver</strong> — mas enquanto a declaração não é entregue, algumas coisas ficam travadas. Vale entender o que exatamente, e o quanto antes resolver, menor o custo.</p>
+
+  <h2>O que é a DASN-SIMEI, em uma frase</h2>
+  <p>É a declaração anual onde o MEI informa à Receita Federal quanto faturou no ano anterior — e se teve algum funcionário. É obrigatória <strong>mesmo para quem não faturou nada</strong> no ano. O prazo normal é até 31 de maio.</p>
+  <p>É importante não confundir com o DAS: o DAS é o pagamento mensal (já tratamos dele <a href="das-mei-atrasado-2026.html">neste outro artigo</a>); a DASN é a declaração anual. São coisas diferentes, e é possível estar com o DAS em dia e ainda assim com a DASN pendente — ou vice-versa.</p>
+
+  <h2>O que fica bloqueado enquanto a declaração não é entregue</h2>
+  <p>As perguntas que normalmente surgem aqui são: <em>meu CNPJ vai ser cancelado? posso continuar emitindo nota fiscal? o que vou pagar de multa?</em> Vamos por partes.</p>
+
+  <p>O CNPJ não é cancelado de forma imediata só por isso. Mas, enquanto a declaração estiver pendente:</p>
+  <ul>
+    <li><strong>A emissão de notas fiscais eletrônicas pode ficar bloqueada</strong> — o sistema entende que o CNPJ está com uma pendência.</li>
+    <li><strong>Certidões negativas de débito (CND) não são emitidas</strong> — o que pode travar financiamentos ou participação em licitações, se for o caso.</li>
+    <li><strong>A multa por atraso (MAED) é gerada automaticamente</strong> quando a declaração finalmente é enviada — não antes.</li>
+  </ul>
+  <p>Em outras palavras: o problema cresce em "travas administrativas" quanto mais tempo passa, mas o CNPJ em si continua existindo. A solução é simples — entregar a declaração — só que cada mês de atraso pode aumentar um pouco a multa.</p>
+
+  <div class="callout em">
+    <div class="callout-label">A multa tem desconto se você for rápido</div>
+    <p>A multa por atraso (MAED) é de 2% por mês de atraso sobre o imposto declarado, com valor mínimo de R$ 50 — mas tem um teto de 20%. E mais importante: <strong>se você entregar a declaração e pagar a multa em até 30 dias, o valor cai 50%</strong>. Ou seja, agir rápido literalmente custa a metade.</p>
+  </div>
+
+  <h2>Passo a passo para regularizar</h2>
+
+  <h3>1. Entregue a DASN-SIMEI em atraso</h3>
+  <p>O envio é feito pelo Portal do Empreendedor, com login gov.br — mesmo estando fora do prazo normal, o sistema aceita o envio. É o primeiro passo, e tudo o resto depende dele.</p>
+
+  <h3>2. Emita e pague a guia da multa (DARF/MAED)</h3>
+  <p>Depois de transmitida a declaração, o sistema gera automaticamente a guia da multa. Vale lembrar do desconto de 50% se pago dentro de 30 dias da emissão — não vale a pena deixar essa guia "para depois".</p>
+
+  <h3>3. Confira se há algo mais pendente</h3>
+  <p>Em alguns casos, a pessoa entrega a DASN atrasada e descobre, ao preencher, que o faturamento do ano passou do limite do MEI (R$ 81.000) — uma situação diferente, com seu próprio caminho de solução. Se for o seu caso, o artigo certo é <a href="limite-faturamento-mei-2026.html">"Ultrapassei o limite do MEI em 2026: vou perder o CNPJ?"</a>.</p>
+
+  <div class="callout amber">
+    <div class="callout-label">Se o DAS também está atrasado</div>
+    <p>Vale lembrar: para conseguir <strong>parcelar débitos de DAS</strong> de um determinado ano, a DASN-SIMEI daquele ano precisa estar entregue primeiro. Se os dois estão pendentes — DASN e DAS — a ordem certa é: declaração primeiro, depois parcelamento. Detalhamos o parcelamento em <a href="das-mei-atrasado-2026.html">"DAS do MEI atrasado: o que a Receita pode fazer comigo?"</a>.</p>
+  </div>
+
+  <div class="tool-mention">
+    <p>Se, ao entregar a DASN, você descobrir que também tem DAS em atraso, vale ver o que isso representa em valores — quitar de uma vez ou parcelar.</p>
+    <a href="../parcelamento.html">Ver minhas opções de parcelamento →</a>
+  </div>
+
+  <h2>Perguntas frequentes</h2>
+
+  <h3>Não tive nenhum faturamento no ano. Preciso declarar mesmo assim?</h3>
+  <p>Sim. A DASN-SIMEI é obrigatória mesmo para CNPJ sem movimento — basta informar receita bruta zero.</p>
+
+  <h3>Fechei o MEI no meio do ano. Ainda preciso entregar?</h3>
+  <p>Sim, há uma declaração específica de situação especial para quem encerrou as atividades durante o ano — referente ao período em que o CNPJ esteve ativo.</p>
+
+  <h3>Posso atrasar vários anos de DASN sem problema?</h3>
+  <p>Não é recomendável. Quanto mais declarações pendentes se acumulam, mais bloqueios administrativos (notas fiscais, certidões) se acumulam também — e o sistema pode passar a exigir a regularização de anos anteriores antes de liberar o envio do ano mais recente.</p>
+
+  <h2>Próximo passo</h2>
+  <p>Se a DASN-SIMEI está atrasada, o caminho é direto: entregar a declaração pelo Portal do Empreendedor, pagar a guia da multa (de preferência dentro de 30 dias, pelo desconto de 50%), e verificar se isso revela algo mais — DAS pendente ou faturamento acima do limite. Cada situação é diferente: quantos anos de declaração estão pendentes, se há DAS em atraso junto, e se o faturamento informado está dentro do limite do MEI. Se houver múltiplos anos pendentes ou suspeita de faturamento acima do teto, uma análise individual ajuda a organizar a ordem certa de regularização.</p>
+
+  <div class="next-step">
+    <div class="next-step-label">Se descobrir DAS em atraso</div>
+    <p>O simulador de parcelamento mostra o saldo consolidado com multa e juros, e as opções de parcela — incluindo a parcela mínima de R$ 50 para MEI.</p>
+    <a href="../parcelamento.html" class="next-step-link">Simular quitação x parcelamento →</a>
+  </div>
+
+  <hr class="divider">
+
+  <div class="series">
+    <div class="series-label">Nesta série — Regularização do MEI</div>
+    <div class="series-item"><span class="series-num">01</span><a href="mei-excluido-por-divida-2026.html">Meu MEI foi excluído por dívida: perdi minha empresa?</a></div>
+    <div class="series-item"><span class="series-num">02</span><a href="das-mei-atrasado-2026.html">DAS do MEI atrasado: o que a Receita pode fazer comigo?</a></div>
+    <div class="series-item current"><span class="series-num">03</span><a>DASN-SIMEI atrasada: o CNPJ vai ser bloqueado? <em style="color:var(--text3);font-size:12px;">(você está aqui)</em></a></div>
+    <div class="series-item"><span class="series-num">04</span><a href="limite-faturamento-mei-2026.html">Ultrapassei o limite do MEI em 2026: vou perder o CNPJ?</a></div>
+    <div class="series-item"><span class="series-num">05</span><a href="transicao-mei-para-me-2026.html">Transição de MEI para ME: o que muda na prática</a></div>
+  </div>
+
+  <p style="font-size:13px;color:var(--text3);">Este artigo tem finalidade informativa e não substitui análise contábil individualizada da sua situação. Cada CNPJ pode ter particularidades — consulte um contador antes de tomar decisões. <a href="../politicas.html" style="color:var(--text3);border-bottom:.5px solid var(--border2);">Leia o aviso completo</a>.</p>
+
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-left">Rodolfo Assunção · CRC/SP 1SP353033/O-5 · CEA ANBIMA</div>
+    <div class="foot-right">Atendimento 100% digital — todo o Brasil</div>
+  </div>
+</footer>
+
+</body>
+</html>
