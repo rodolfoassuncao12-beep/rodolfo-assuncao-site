@@ -154,10 +154,13 @@ section{padding:5rem 2rem;}
 
 /* BLOG */
 .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-.post{background:var(--bg3);border:.5px dashed var(--border2);border-radius:14px;padding:1.5rem;display:flex;flex-direction:column;gap:.75rem;min-height:160px;justify-content:center;align-items:flex-start;}
-.post-tag{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);}
-.post-title{font-size:13.5px;font-weight:500;color:var(--text3);line-height:1.55;}
+.post{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:1.5rem;display:flex;flex-direction:column;gap:.75rem;min-height:160px;justify-content:center;align-items:flex-start;text-decoration:none;transition:border-color .2s,transform .15s;}
+.post:hover{border-color:var(--em-b);transform:translateY(-2px);}
+.post-tag{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--em-l);}
+.post-title{font-size:13.5px;font-weight:500;color:var(--text);line-height:1.55;}
 .post-soon{font-size:11px;color:var(--text3);background:var(--bg4);padding:3px 10px;border-radius:20px;border:.5px solid var(--border);}
+.post-more{background:transparent;border:.5px dashed var(--border2);justify-content:center;align-items:center;text-align:center;}
+.post-more .post-title{color:var(--text3);font-size:13px;}
 @media(max-width:860px){.blog-grid{grid-template-columns:1fr 1fr;}}
 @media(max-width:600px){.blog-grid{grid-template-columns:1fr;}}
 
@@ -375,9 +378,7 @@ footer{border-top:.5px solid var(--border);padding:2rem;}
     <h2 class="sec-title">Quem está do outro lado</h2>
     <div class="sobre-grid">
       <div class="sobre-text">
-        <p>Sou contador formado em Ciências Contábeis, com 12 anos de experiência no setor bancário — tempo em que acompanhei de perto a rotina financeira de centenas de pequenos empresários, suas dúvidas, seus erros mais comuns e o que realmente fazia diferença no resultado.</p>
-        <p>Além do registro no CRC, sou certificado <b style="color:var(--text)">CEA pela ANBIMA</b> — especialista em investimentos. Isso muda a forma como penso contabilidade: não como obrigação a cumprir, mas como instrumento de gestão de capital. Fluxo de caixa, custo de oportunidade e estrutura tributária são parte da mesma equação.</p>
-        <p>Hoje atendo MEI, ME, EPP, e-commerce e profissionais liberais — com foco especial em quem vende em marketplaces como Mercado Livre e Shopee, onde a complexidade fiscal é maior e a maioria dos contadores não tem familiaridade real com as particularidades do canal.</p>
+        <p>Sou contador formado em Ciências Contábeis, com 12 anos de experiência no setor bancário — tempo em que acompanhei de perto a rotina financeira de centenas de pequenos empresários, suas dúvidas, seus erros mais comuns e o que realmente fazia diferença no resultado. Além do registro no CRC, sou certificado <b style="color:var(--text)">CEA pela ANBIMA</b> — especialista em investimentos — e tenho pós-graduação em Big Data e Business Analytics. Isso muda a forma como penso contabilidade: não como obrigação a cumprir, mas como instrumento de gestão de capital, onde fluxo de caixa, custo de oportunidade e estrutura tributária são parte da mesma equação. Atendo MEI, ME, EPP, e-commerce e profissionais liberais — incluindo quem vende em marketplaces como Mercado Livre e Shopee, onde a complexidade fiscal costuma ser maior.</p>
       </div>
       <div class="sobre-creds">
         <div class="sobre-cred">
@@ -389,8 +390,8 @@ footer{border-top:.5px solid var(--border);padding:2rem;}
           <div class="sobre-cred-val"><b>CEA — Certificação de Especialista em Investimentos</b><br>Conhecimento técnico em produtos financeiros, gestão de capital e mercado.</div>
         </div>
         <div class="sobre-cred">
-          <div class="sobre-cred-label">Especialidade</div>
-          <div class="sobre-cred-val"><b>E-commerce e marketplaces</b><br>Mercado Livre, Shopee e operações multicanal — precificação, tributação e regime ideal.</div>
+          <div class="sobre-cred-label">Pós-graduação</div>
+          <div class="sobre-cred-val"><b>Big Data e Business Analytics</b><br>Leitura de dados aplicada à gestão financeira e tributária do seu negócio.</div>
         </div>
       </div>
     </div>
@@ -406,24 +407,32 @@ footer{border-top:.5px solid var(--border);padding:2rem;}
 <!-- BLOG -->
 <section id="blog">
   <div class="container">
-    <div class="sec-label">Em breve</div>
-    <h2 class="sec-title">Blog</h2>
-    <p class="sec-body">Artigos sobre as dúvidas mais comuns de quem vende online e administra pequenas empresas — DAS, MEI, regime tributário, parcelamento e mais. Em construção.</p>
+    <div class="sec-label">Blog</div>
+    <h2 class="sec-title">Dúvidas reais, respondidas direto</h2>
+    <p class="sec-body">Artigos sobre as situações mais comuns de quem tem MEI ou pequena empresa — regularização, prazos, mudanças de regime e crescimento.</p>
     <div class="blog-grid">
-      <div class="post">
-        <div class="post-tag">Em breve</div>
-        <div class="post-title">Como calcular o DAS do Simples Nacional</div>
-        <span class="post-soon">Publicação em breve</span>
-      </div>
-      <div class="post">
-        <div class="post-tag">Em breve</div>
-        <div class="post-title">CLT ou PJ — qual custa mais para contratar?</div>
-        <span class="post-soon">Publicação em breve</span>
-      </div>
-      <div class="post">
-        <div class="post-tag">Em breve</div>
-        <div class="post-title">MEI pode vender no Mercado Livre e Shopee?</div>
-        <span class="post-soon">Publicação em breve</span>
+      <a href="blog/mei-excluido-por-divida-2026.html" class="post">
+        <div class="post-tag">MEI · Regularização</div>
+        <div class="post-title">Meu MEI foi excluído por dívida: perdi minha empresa?</div>
+      </a>
+      <a href="blog/das-mei-atrasado-2026.html" class="post">
+        <div class="post-tag">MEI · Regularização</div>
+        <div class="post-title">DAS do MEI atrasado: o que a Receita pode fazer comigo?</div>
+      </a>
+      <a href="blog/dasn-simei-atrasada-2026.html" class="post">
+        <div class="post-tag">MEI · Regularização</div>
+        <div class="post-title">DASN-SIMEI atrasada: o CNPJ vai ser bloqueado?</div>
+      </a>
+      <a href="blog/limite-faturamento-mei-2026.html" class="post">
+        <div class="post-tag">MEI · Crescimento</div>
+        <div class="post-title">Ultrapassei o limite do MEI em 2026: vou perder o CNPJ?</div>
+      </a>
+      <a href="blog/transicao-mei-para-me-2026.html" class="post">
+        <div class="post-tag">MEI · Crescimento</div>
+        <div class="post-title">Transição de MEI para ME: o que muda na prática</div>
+      </a>
+      <div class="post post-more">
+        <div class="post-title">Mais artigos em breve</div>
       </div>
     </div>
   </div>
