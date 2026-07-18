@@ -710,7 +710,7 @@ function calcComp(){
   const msg=`Olá Rodolfo! Usei o comparativo de marketplace.\n\nProduto:\n• Preço: ${fmt(preco)} · CMV: ${fmt(custo)} · Categoria: ${cat} · Regime: ${regime}%\n\nResultados:\n`
     +resultados.map(P=>`• ${P.nome}: ${P.lucro>=0?fmt(P.lucro)+' ('+pct(P.margem)+')':'Prejuízo'}`).join('\n')
     +`\n\nGostaria de analisar minha precificação.`;
-  g('comp-wpp').href='https://wa.me/5519982003732?text='+encodeURIComponent(msg);
+  g('comp-wpp').href='https://wa.me/551926420970?text='+encodeURIComponent(msg);
 
   const optRow = (dev>0||ads>0) ? `<div class="rb" style="margin-top:12px;"><div class="rb-t">Custos opcionais — aplicados em todas as plataformas</div>
     ${dev>0?`<div class="rrow"><span class="rn">Devolução estimada (${pct(dev*100)} × CMV)</span><span class="rv r">−${fmt(devR)}</span></div>`:''}
