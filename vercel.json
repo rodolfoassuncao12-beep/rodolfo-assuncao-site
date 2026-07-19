@@ -1,11 +1,21 @@
 {
-    "headers": [
-          {
-                  "source": "/(.*)",
-                  "headers": [
-                            { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-                            { "key": "X-Content-Type-Options", "value": "nosniff" }
-                  ]
-          }
-    ]
-}
+        "redirects": [
+        {
+        "source": "/(.*)",
+        "has": [
+        { "type": "host", "value": "rodolfo-assuncao-site.vercel.app" }
+        ],
+        "destination": "https://www.rodolfoassuncao.com.br/$1",
+        "permanent": true
+        }
+        ],
+        "headers": [
+        {
+        "source": "/(.*)",
+        "headers": [
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+        ]
+        }
+        ]
+        }
