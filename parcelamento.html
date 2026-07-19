@@ -359,9 +359,9 @@ function calcParc(){
     <button class="pdf-btn" onclick="gerarPDF()">📄 Baixar relatório em PDF</button>
     <div class="nota w" style="margin-top:12px;">⚠️ Simulação orientativa. O saldo real é calculado pelo sistema da Receita Federal na data do pedido. Consulte um contador antes de tomar qualquer decisão sobre regularização fiscal.</div>`;
 
-  // WP
+  // WPP
   const msg=`Olá Rodolfo! Usei o simulador de parcelamento.\n\nSituação:\n• Dívida original: ${fmt2(divida)}\n• Dias de atraso: ${dias}\n• Saldo consolidado estimado: ${fmt2(saldoConsolidado)}\n• Tipo: ${situacao==='rfb'?'Simples Nacional':'Dívida Ativa PGFN'}\n• Parcela em 60x: ${fmt2(parcReal60)}/mês\n\nGostaria de entender as opções para regularizar minha situação.`;
-  g('cta-wpp').href='https://wa.me/5519982003732?text='+encodeURIComponent(msg);
+  g('cta-wpp').href='https://wa.me/551926420970?text='+encodeURIComponent(msg);
 }
 
 function gerarPDF(){
