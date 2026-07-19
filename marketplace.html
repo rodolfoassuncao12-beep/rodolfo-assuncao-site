@@ -627,7 +627,7 @@ function calcPrec(){
     </div>
     <div style="display:flex;align-items:center;gap:12px;margin-top:12px;flex-wrap:wrap;">
       <button class="pdf-btn" onclick="gerarPDF('prec','${D.label}')">📄 Baixar relatório em PDF</button>
-      <a href="https://wa.me/5519982003732?text=${encodeURIComponent(msgWpp)}" target="_blank" class="cta-disc-btn">Falar com Rodolfo Assunção →</a>
+      <a href="https://wa.me/551926420970?text=${encodeURIComponent(msgWpp)}" target="_blank" class="cta-disc-btn">Falar com Rodolfo Assunção →</a>
     </div>
     <div class="nota w" style="margin-top:12px">⚠️ Estimativas de mercado — jun/2026. Verifique taxas sempre no portal do vendedor. Não considera variações sazonais, estoque FBA ou promoções de plataforma.</div>`;
 }
@@ -710,7 +710,7 @@ function calcComp(){
   const msg=`Olá Rodolfo! Usei o comparativo de marketplace.\n\nProduto:\n• Preço: ${fmt(preco)} · CMV: ${fmt(custo)} · Categoria: ${cat} · Regime: ${regime}%\n\nResultados:\n`
     +resultados.map(P=>`• ${P.nome}: ${P.lucro>=0?fmt(P.lucro)+' ('+pct(P.margem)+')':'Prejuízo'}`).join('\n')
     +`\n\nGostaria de analisar minha precificação.`;
-  g('comp-wpp').href='https://wa.me/5519982003732?text='+encodeURIComponent(msg);
+  g('comp-wpp').href='https://wa.me/551926420970?text='+encodeURIComponent(msg);
 
   const optRow = (dev>0||ads>0) ? `<div class="rb" style="margin-top:12px;"><div class="rb-t">Custos opcionais — aplicados em todas as plataformas</div>
     ${dev>0?`<div class="rrow"><span class="rn">Devolução estimada (${pct(dev*100)} × CMV)</span><span class="rv r">−${fmt(devR)}</span></div>`:''}

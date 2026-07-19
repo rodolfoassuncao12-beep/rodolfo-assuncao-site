@@ -674,7 +674,7 @@ function renderTabela(proj){
 
   g('tabela-proj').innerHTML=thead+`<tbody>${tbody}</tbody>`;
 }
-
+ 
 // ─── WPP ──────────────────────────────────────────────────────────────────
 function gerarWpp(proj, {fatAtual, meses}){
   const transicao = proj.find(p=>p.isTransicao);
@@ -687,7 +687,7 @@ function gerarWpp(proj, {fatAtual, meses}){
               :`Fico no MEI durante todo o período projetado.\n`)+
     `Faturamento projetado mês ${meses}: ${fmtR(proj[proj.length-1].fatMes)}/mês.\n\n`+
     `Gostaria de entender o planejamento para a transição.`;
-  g('cta-wpp').href='https://wa.me/5519982003732?text='+encodeURIComponent(msg);
+  g('cta-wpp').href='https://wa.me/551926420970?text='+encodeURIComponent(msg);
 }
 
 // ─── PDF ──────────────────────────────────────────────────────────────────

@@ -569,7 +569,7 @@ function calc(){
   const origem=g('origem').value||localStorage.getItem('hon_origem')||'';
   const origemTxt=origem?`\n• Como nos conheceu: ${origem}`:'';
   const msg=`Olá Rodolfo! Usei o simulador de honorários e meu perfil é:\n• Regime: ${regimeLabel}\n• Faturamento mensal: ${fmt(fat)}\n• Funcionários: ${g('func').options[g('func').selectedIndex].text}\n• Sócios: ${g('socios').options[g('socios').selectedIndex].text}\n• Score de complexidade: ${score} (${badge})${origemTxt}\n\nEstimativas:\n• Essencial: ${fmt(ess)}/mês\n• Recomendado: ${fmt(rec)}/mês\n• Consultivo: ${fmt(cons)}/mês\n\nGostaria de receber uma proposta personalizada.`;
-  const wppUrl='https://wa.me/5519982003732?text='+encodeURIComponent(msg);
+  const wppUrl='https://wa.me/551926420970?text='+encodeURIComponent(msg);
   g('cta-btn').href=wppUrl;
   if(requerValidacao){
     const vb=g('val-btn');
