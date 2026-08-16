@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Receita Federal sabe quanto você vendeu no Mercado Livre e na Shopee — Rodolfo Assunção</title>
+<meta name="description" content="Marketplaces já reportam automaticamente o faturamento dos vendedores à Receita Federal. Entenda como funciona esse cruzamento de dados e o que isso significa para quem vende online.">
+<link rel="canonical" href="https://www.rodolfoassuncao.com.br/blog/receita-federal-marketplace-cruzamento-dados-2026.html">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://rodolfoassuncao.com.br/blog/receita-federal-marketplace-cruzamento-dados-2026.html">
+<meta property="og:title" content="A Receita Federal sabe quanto você vendeu no Mercado Livre e na Shopee">
+<meta property="og:description" content="Entenda como funciona o cruzamento de dados entre marketplaces e a Receita Federal, e o que isso significa para quem vende online.">
+<meta property="og:image" content="https://rodolfoassuncao.com.br/rodolfo-assuncao.jpg">
+<meta property="og:locale" content="pt_BR">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F172A;--bg2:#111827;--bg3:#1E2937;--bg4:#263244;
+  --border:rgba(51,65,85,0.5);--border2:#334155;
+  --text:#F8FAFC;--text2:#CBD5E1;--text3:#94A3B8;
+  --indigo:#4F46E5;--indigo-l:#818CF8;
+  --indigo-d:rgba(79,70,229,0.1);--indigo-b:rgba(79,70,229,0.25);
+  --em:#10B981;--em2:#059669;--em-l:#34D399;
+  --em-d:rgba(16,185,129,0.1);--em-b:rgba(16,185,129,0.25);
+  --amber:#FBBF24;--amber-d:rgba(251,191,36,0.1);--amber-b:rgba(251,191,36,0.3);
+  --red:#F87171;--red-d:rgba(248,113,113,0.1);--red-b:rgba(248,113,113,0.3);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.8;}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(15,23,42,0.92);backdrop-filter:blur(16px);border-bottom:.5px solid var(--border);}
+.nav-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;padding:0 2rem;}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text);text-decoration:none;}
+.nav-logo span{color:var(--indigo-l);}
+.nav-back{font-size:13px;color:var(--text3);text-decoration:none;transition:color .2s;}
+.nav-back:hover{color:var(--text2);}
+
+.wrap{max-width:680px;margin:0 auto;padding:3rem 2rem 5rem;}
+
+.article-tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--em-l);margin-bottom:.875rem;}
+h1{font-family:'DM Serif Display',serif;font-size:clamp(1.9rem,4vw,2.5rem);font-weight:400;color:var(--text);line-height:1.25;margin-bottom:1rem;}
+.article-meta{font-size:12.5px;color:var(--text3);margin-bottom:2.5rem;display:flex;gap:1rem;flex-wrap:wrap;}
+
+.lede{font-size:17px;color:var(--text2);line-height:1.85;margin-bottom:1.75rem;}
+.lede strong{color:var(--text);}
+article p{font-size:15px;color:var(--text2);line-height:1.85;margin-bottom:1.25rem;}
+article p:last-child{margin-bottom:0;}
+article strong{color:var(--text);font-weight:500;}
+article h2{font-family:'DM Serif Display',serif;font-size:1.4rem;font-weight:400;color:var(--text);margin:2.5rem 0 1.1rem;line-height:1.35;}
+article h3{font-size:15px;font-weight:500;color:var(--text);margin:1.75rem 0 .75rem;}
+article ul, article ol{margin:1.1rem 0 1.25rem;padding-left:1.4rem;display:flex;flex-direction:column;gap:.5rem;}
+article li{font-size:15px;color:var(--text2);line-height:1.75;}
+article a{color:var(--em-l);text-decoration:none;border-bottom:.5px solid var(--em-b);}
+article a:hover{color:var(--em);}
+
+.callout{border-radius:12px;padding:1.25rem 1.5rem;margin:1.5rem 0;border:1px solid;}
+.callout.amber{background:var(--amber-d);border-color:var(--amber-b);}
+.callout.indigo{background:var(--indigo-d);border-color:var(--indigo-b);}
+.callout.red{background:var(--red-d);border-color:var(--red-b);}
+.callout.em{background:var(--em-d);border-color:var(--em-b);}
+.callout p{margin-bottom:0 !important;font-size:14px;}
+.callout-label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem;font-weight:500;}
+.callout.amber .callout-label{color:var(--amber);}
+.callout.indigo .callout-label{color:var(--indigo-l);}
+.callout.red .callout-label{color:var(--red);}
+.callout.em .callout-label{color:var(--em-l);}
+
+.tool-mention{border-left:2px solid var(--em);padding:0.25rem 0 0.25rem 1.1rem;margin:1.75rem 0;}
+.tool-mention p{font-size:14.5px;color:var(--text2);margin-bottom:.5rem !important;}
+.tool-mention a{font-size:14px;font-weight:500;}
+
+.next-step{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:1.5rem 1.75rem;margin-top:2.5rem;}
+.next-step-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:.75rem;}
+.next-step p{font-size:14.5px;color:var(--text2);margin-bottom:1rem !important;}
+.next-step-link{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:var(--em-l);text-decoration:none;border-bottom:.5px solid var(--em-b);}
+.next-step-link:hover{color:var(--em);}
+
+.series{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;padding:1.5rem 1.75rem;margin:2.5rem 0;}
+.series-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:1rem;}
+.series-item{display:flex;align-items:baseline;gap:10px;padding:.5rem 0;border-bottom:.5px solid var(--border);font-size:14px;}
+.series-item:last-child{border-bottom:none;}
+.series-num{font-family:'DM Serif Display',serif;color:var(--indigo-l);font-size:13px;min-width:18px;}
+.series-item a{color:var(--text2);}
+.series-item.current a{color:var(--text3);border-bottom:none;cursor:default;pointer-events:none;}
+.series-item.current .series-num{color:var(--text3);}
+
+hr.divider{border:none;border-top:.5px solid var(--border);margin:2.5rem 0;}
+
+footer{border-top:.5px solid var(--border);padding:2rem;}
+.foot-inner{max-width:1120px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.foot-left{font-size:12px;color:var(--text3);}
+.foot-right{font-size:11px;color:var(--text3);max-width:480px;text-align:right;line-height:1.6;}
+@media(max-width:760px){.foot-right{text-align:left;}}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WGTMZ4ZNDB"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag("js", new Date());
+gtag("config", "G-WGTMZ4ZNDB");
+</script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">Rodolfo<span>.</span></a>
+    <a href="../index.html#blog" class="nav-back">← Voltar ao blog</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="article-tag">E-commerce · Fiscalização</div>
+  <h1>A Receita Federal sabe quanto você vendeu no Mercado Livre e na Shopee</h1>
+  <div class="article-meta">
+    <span>Atualizado em junho de 2026</span>
+    <span>·</span>
+    <span>Leitura de 6 min</span>
+  </div>
+
+  <p class="lede">Talvez você já tenha pensado: "só eu sei quanto vendo de verdade — o que está na minha conta do marketplace ninguém vê". Se esse pensamento já passou pela sua cabeça em algum momento, vale entender como a fiscalização do e-commerce mudou nos últimos meses — porque essa ideia não é mais verdade, e talvez nunca tenha sido.</p>
+
+  <p>A boa notícia é que, para quem já vende formalizado, com CNPJ e notas emitidas, nada disso muda nada na prática — é só a confirmação de que você está no caminho certo. Esse artigo é mais importante para quem ainda opera "no escuro", ou está pensando em começar a vender online sem se formalizar.</p>
+
+  <h2>O que mudou</h2>
+  <p>Com a Reforma Tributária (Lei Complementar 214/2025), os marketplaces — Mercado Livre, Shopee, Amazon e similares — passaram a ter o que se chama de <strong>responsabilidade solidária</strong> pelo recolhimento de tributos das vendas que intermediam. Em outras palavras: se um vendedor não recolhe o que deveria, a plataforma pode ser cobrada por isso.</p>
+
+  <div class="callout em">
+    <div class="callout-label">Em outras palavras</div>
+    <p>Como a plataforma agora pode ser responsabilizada pelo que você vende através dela, ela passou a ter um interesse direto em saber se você está regularizado — e a reportar seus dados de faturamento para a Receita Federal de forma automática. Não é uma escolha da plataforma; é uma exigência legal.</p>
+  </div>
+
+  <h2>O que aconteceu na prática, recentemente</h2>
+  <p>Em maio de 2026, a Receita Federal realizou a chamada <strong>Operação E-Commerce</strong> em São Paulo — uma fiscalização de grande escala que resultou no bloqueio de aproximadamente <strong>280 mil encomendas</strong>. O foco foram centros de fulfillment, self storages e depósitos usados por vendedores online, em busca de mercadorias irregulares, produtos sem comprovação fiscal e operações totalmente informais.</p>
+
+  <p>Isso não foi uma ação isolada ou um "susto pontual" — foi o resultado visível de meses de cruzamento de dados entre informações de pagamento, dados bancários, declarações de marketplaces e declarações fiscais dos próprios vendedores.</p>
+
+  <h2>Como o cruzamento funciona, em termos simples</h2>
+  <p>As perguntas que normalmente surgem aqui são: <em>e se eu vendo pouco? e se eu uso a conta de outra pessoa para receber? como a Receita realmente descobre?</em></p>
+
+  <ul>
+    <li><strong>O marketplace já informa o seu faturamento.</strong> Plataformas reportam periodicamente à Receita o volume movimentado por cada vendedor — vinculado ao CPF ou CNPJ cadastrado.</li>
+    <li><strong>O banco também informa.</strong> Movimentações financeiras acima de determinados valores são reportadas pelas instituições financeiras.</li>
+    <li><strong>O cruzamento é automatizado.</strong> Sistemas com inteligência artificial comparam o que entra na sua conta, o que a plataforma reporta, e o que você declara — inconsistências geram alertas automáticos, sem necessidade de um auditor "olhar" individualmente.</li>
+  </ul>
+
+  <div class="callout amber">
+    <div class="callout-label">Sobre usar a conta de outra pessoa</div>
+    <p>Vale um esclarecimento direto: usar conta bancária de terceiros (familiar, "laranja") para receber valores de vendas não torna a operação invisível — pelo contrário, divergências entre o titular da conta da plataforma e o titular da conta bancária de recebimento são, hoje, um dos principais gatilhos de bloqueio automático. Além do risco fiscal, isso pode gerar responsabilidade civil para quem cede a conta.</p>
+  </div>
+
+  <h2>O que isso significa para quem vende pouco, ou só de vez em quando</h2>
+  <p>É importante diferenciar dois cenários, e a própria legislação faz essa diferença:</p>
+
+  <ul>
+    <li><strong>Venda ocasional</strong> — por exemplo, vender um celular usado uma vez, desfazer-se de itens pessoais — é uma situação diferente, tratada de forma diferente pela legislação tributária (geralmente como ganho de capital eventual, com suas próprias regras de isenção).</li>
+    <li><strong>Atividade com habitualidade</strong> — vender repetidamente, com regularidade, ainda que em pequena escala (revenda, produtos novos, dropshipping) — isso configura atividade empresarial, e precisa de CNPJ para operar de forma regular.</li>
+  </ul>
+
+  <p>O cruzamento de dados existe justamente para identificar esse segundo padrão — não para perseguir quem vendeu um item usado uma vez no ano.</p>
+
+  <div class="tool-mention">
+    <p>Se você está vendendo com regularidade mas ainda não tem CNPJ, o caminho de formalização mais comum — e geralmente o mais simples — é o MEI. Vale entender o que muda na prática.</p>
+    <a href="../abertura.html">Ver simulador de abertura de empresa →</a>
+  </div>
+
+  <h2>Perguntas frequentes</h2>
+
+  <h3>Eu vendo pouco — menos de mil reais por mês. Preciso me preocupar?</h3>
+  <p>O ponto não é exatamente o valor, mas a <strong>habitualidade</strong>. Vender pequenas quantias com regularidade, ao longo de meses, já caracteriza atividade — mesmo que o valor individual pareça baixo. A boa notícia é que, para volumes pequenos, formalizar como MEI tem custo baixo e resolve a questão.</p>
+
+  <h3>Se eu nunca recebi nenhuma notificação, está tudo bem?</h3>
+  <p>Não receber notificação não significa que os dados não estão sendo cruzados — pode significar apenas que ainda não gerou um alerta, ou que o alerta ainda está em fila de análise. O cruzamento de dados é contínuo; "não ter sido notificado ainda" não é a mesma coisa que "estar regular".</p>
+
+  <h3>O que acontece se eu for identificado vendendo sem CNPJ?</h3>
+  <p>As consequências variam — desde bloqueio de conta na plataforma, passando por questões no Imposto de Renda pessoa física (malha fina, multas), até autuações mais formais em casos de volume maior. Em todos os casos, regularizar antes de ser identificado é sempre mais simples e barato do que regularizar depois.</p>
+
+  <h2>Próximo passo</h2>
+  <p>Se você já vende formalizado, esse artigo é só uma confirmação de que está no caminho certo. Se você está vendendo com alguma regularidade sem CNPJ — mesmo que em pequena escala — vale considerar a formalização não como burocracia adicional, mas como o caminho que já é mais barato e mais simples do que parece, especialmente via MEI. Os próximos artigos desta série tratam especificamente de vender sem nota fiscal e de como o MEI se encaixa no e-commerce.</p>
+
+  <div class="next-step">
+    <div class="next-step-label">Próximo na série</div>
+    <p>Vender sem nota fiscal: o que pode acontecer, e quando vale a pena regularizar.</p>
+    <a href="vender-sem-nota-fiscal-2026.html" class="next-step-link">Ler o próximo artigo →</a>
+  </div>
+
+  <hr class="divider">
+
+  <div class="series">
+    <div class="series-label">Nesta série — E-commerce e Fiscalização</div>
+    <div class="series-item current"><span class="series-num">01</span><a>A Receita Federal sabe quanto você vendeu no Mercado Livre e na Shopee <em style="color:var(--text3);font-size:12px;">(você está aqui)</em></a></div>
+    <div class="series-item"><span class="series-num">02</span><a href="vender-sem-nota-fiscal-2026.html">Vender sem nota fiscal: o que pode acontecer de fato</a></div>
+    <div class="series-item"><span class="series-num">03</span><a href="mei-ecommerce-marketplace-2026.html">MEI para quem vende em marketplace: o que precisa saber</a></div>
+  </div>
+
+  <p style="font-size:13px;color:var(--text3);">Este artigo tem finalidade informativa e não substitui análise contábil individualizada da sua situação. Cada CNPJ ou operação pode ter particularidades — consulte um contador antes de tomar decisões. <a href="../politicas.html" style="color:var(--text3);border-bottom:.5px solid var(--border2);">Leia o aviso completo</a>.</p>
+
+</div>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-left">Rodolfo Assunção · CRC/SP 1SP353033/O-5 · CEA ANBIMA</div>
+    <div class="foot-right">Atendimento 100% digital — todo o Brasil</div>
+  </div>
+</footer>
+
+</body>
+</html>
