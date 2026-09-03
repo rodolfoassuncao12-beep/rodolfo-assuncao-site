@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-  <link rel="canonical" href="https://www.rodolfoassuncao.com.br/crescimento.html">
+<link rel="canonical" href="https://www.rodolfoassuncao.com.br/crescimento.html">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.rodolfoassuncao.com.br/crescimento.html">
 <meta property="og:title" content="Simulador de Crescimento MEI → ME → EPP — Rodolfo Assunção">
@@ -16,16 +16,16 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0F172A;--bg2:#111827;--bg3:#1E2937;--bg4:#263244;
-  --border:rgba(51,65,85,0.5);--border2:#334155;
-  --text:#F8FAFC;--text2:#CBD5E1;--text3:#94A3B8;
-  --indigo:#4F46E5;--indigo2:#4338CA;--indigo-l:#818CF8;
-  --indigo-d:rgba(79,70,229,0.1);--indigo-b:rgba(79,70,229,0.25);
-  --em:#10B981;--em2:#059669;--em-l:#34D399;
-  --em-d:rgba(16,185,129,0.1);--em-b:rgba(16,185,129,0.25);
-  --amber:#FBBF24;--amber-d:rgba(251,191,36,0.1);--amber-b:rgba(251,191,36,0.3);
-  --red:#F87171;--red-d:rgba(248,113,113,0.1);--red-b:rgba(248,113,113,0.3);
-  --gold:#F59E0B;--gold-d:rgba(245,158,11,0.08);--gold-b:rgba(245,158,11,0.25);
+--bg:#0F172A;--bg2:#111827;--bg3:#1E2937;--bg4:#263244;
+--border:rgba(51,65,85,0.5);--border2:#334155;
+--text:#F8FAFC;--text2:#CBD5E1;--text3:#94A3B8;
+--indigo:#4F46E5;--indigo2:#4338CA;--indigo-l:#818CF8;
+--indigo-d:rgba(79,70,229,0.1);--indigo-b:rgba(79,70,229,0.25);
+--em:#10B981;--em2:#059669;--em-l:#34D399;
+--em-d:rgba(16,185,129,0.1);--em-b:rgba(16,185,129,0.25);
+--amber:#FBBF24;--amber-d:rgba(251,191,36,0.1);--amber-b:rgba(251,191,36,0.3);
+--red:#F87171;--red-d:rgba(248,113,113,0.1);--red-b:rgba(248,113,113,0.3);
+--gold:#F59E0B;--gold-d:rgba(245,158,11,0.08);--gold-b:rgba(245,158,11,0.25);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
@@ -146,10 +146,53 @@ nav{position:sticky;top:0;z-index:100;background:rgba(15,23,42,0.95);backdrop-fi
 .pdf-btn:hover{background:var(--bg3);color:var(--text);}
 .foot{border-top:.5px solid var(--border);padding:1.5rem 0;margin-top:2rem;font-size:11px;color:var(--text3);}
 @media(max-width:800px){
-  .g2{grid-template-columns:1fr;}
-  .wrap{padding:1.5rem 1.25rem 3rem;}
-  .row2{grid-template-columns:1fr;}
-  .impacto-grid{grid-template-columns:1fr;}
+.g2{grid-template-columns:1fr;}
+.wrap{padding:1.5rem 1.25rem 3rem;}
+.row2{grid-template-columns:1fr;}
+.impacto-grid{grid-template-columns:1fr;}
+}
+
+/* ── MOBILE-FIRST: RESPOSTA RÁPIDA ─────────────────────────────────────── */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.chip{padding:7px 14px;border-radius:20px;font-size:12.5px;background:var(--bg4);border:.5px solid var(--border2);color:var(--text2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;}
+.chip:hover{border-color:var(--indigo-b);color:var(--text);}
+.chip.active{background:var(--indigo-d);border-color:var(--indigo-b);color:var(--indigo-l);}
+.toggle-ativ{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;}
+.toggle-btn{padding:14px 12px;border-radius:10px;background:var(--bg4);border:1.5px solid var(--border2);color:var(--text2);font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;text-align:center;line-height:1.45;transition:all .15s;}
+.toggle-btn span{display:block;font-weight:400;font-size:11px;color:var(--text3);margin-top:2px;}
+.toggle-btn:hover{border-color:var(--em-b);}
+.toggle-btn.active{background:var(--em-d);border-color:var(--em-b);color:var(--em-l);}
+.toggle-btn.active span{color:var(--em-l);opacity:.85;}
+.resultado-imediato-row{display:flex;justify-content:space-between;align-items:baseline;font-size:13.5px;color:var(--text2);gap:12px;}
+.resultado-imediato-row b{font-family:'DM Serif Display',serif;font-size:1.05rem;font-weight:400;color:var(--text);white-space:nowrap;}
+.resultado-imediato-row.diff{border-top:.5px solid var(--border);padding-top:10px;margin-top:2px;}
+.resultado-imediato-row.diff b{color:var(--amber);}
+.cta-principal{display:block;text-align:center;background:var(--em);color:#fff;padding:15px 16px;border-radius:12px;font-weight:500;font-size:14.5px;text-decoration:none;margin-top:16px;font-family:'DM Sans',sans-serif;transition:background .15s;}
+.cta-principal:hover{background:var(--em2);}
+.cta-principal small{display:block;font-size:11.5px;font-weight:400;opacity:.85;margin-top:3px;}
+
+/* ── ACCORDION ──────────────────────────────────────────────────────────── */
+.accordion{background:var(--bg3);border:.5px solid var(--border2);border-radius:14px;margin-bottom:14px;overflow:hidden;}
+.accordion-summary{cursor:pointer;padding:1rem 1.25rem;font-size:13px;font-weight:500;color:var(--text2);list-style:none;display:flex;align-items:center;justify-content:space-between;user-select:none;}
+.accordion-summary::-webkit-details-marker{display:none;}
+.accordion-summary::after{content:'▾';color:var(--text3);font-size:12px;transition:transform .2s;margin-left:10px;}
+details[open]>.accordion-summary::after{transform:rotate(180deg);}
+.accordion-body{padding:0 1.25rem 1.25rem;}
+.sub-accordion{background:var(--bg4);border-color:var(--border);margin-top:14px;margin-bottom:0;}
+
+/* ── BLOCO "SE NÃO MIGRAR" ─────────────────────────────────────────────── */
+.risco-box{background:var(--amber-d);border:.5px solid var(--amber-b);border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:14px;}
+.risco-title{font-size:13px;font-weight:500;color:var(--amber);margin-bottom:.75rem;}
+.risco-item{font-size:12.5px;color:var(--text2);line-height:1.7;margin-bottom:8px;padding-left:1.1em;text-indent:-1.1em;}
+.risco-item:last-child{margin-bottom:0;}
+
+/* ── BOTÃO FLUTUANTE (desktop) / BARRA FIXA (mobile) ───────────────────── */
+.wpp-float{position:fixed;bottom:24px;right:24px;z-index:999;background:#25d366;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.3);border-bottom:none;}
+.wpp-bar{display:none;}
+@media(max-width:760px){
+.wpp-float{display:none;}
+.wpp-bar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:999;background:#25d366;color:#fff;align-items:center;justify-content:center;gap:10px;padding:14px 16px;text-decoration:none;font-weight:500;font-size:14px;font-family:'DM Sans',sans-serif;box-shadow:0 -4px 12px rgba(0,0,0,0.25);}
+body{padding-bottom:74px;}
 }
 </style>
 <!-- Google tag (gtag.js) -->
@@ -163,650 +206,738 @@ gtag("config", "G-WGTMZ4ZNDB");
 </head>
 <body>
 <nav>
-  <a href="index.html" class="nav-logo">Rodolfo<span>.</span></a>
-  <a href="index.html" class="nav-back">← Voltar</a>
+<a href="index.html" class="nav-logo">Rodolfo<span>.</span></a>
+<a href="index.html" class="nav-back">← Voltar</a>
 </nav>
 
 <div class="wrap">
-  <div class="page-tag">Simulador · Crescimento Empresarial 2026</div>
-  <h1 class="page-title">Descubra quando o MEI deixa de ser suficiente para sua empresa</h1>
-  <p class="page-desc">Projete o crescimento mês a mês e veja exatamente quando sua empresa muda de regime — com o impacto tributário real de cada transição e quanto vai custar no seu bolso. ⏱️ Menos de 2 minutos.</p>
+<div class="page-tag">Simulador · Crescimento Empresarial 2026</div>
+<h1 class="page-title">Estourou o limite do MEI?</h1>
+<p class="page-desc">Veja em segundos se sua empresa já passou do limite — e o que fazer a seguir.</p>
 
-<div style="background:#fff8e1;border-left:4px solid #f59e0b;padding:16px 20px;margin:24px 0;border-radius:0 8px 8px 0;">
-  <p style="margin:0 0 8px 0;font-weight:bold;color:#1a1a1a;">Ultrapassou o limite do MEI? Isso é crescimento.</p>
-  <p style="margin:0 0 12px 0;color:#333;font-size:14px;">E tem um caminho certo para fazer a migração sem sustos com impostos. Eu conduzo sua transição de MEI para ME do início ao fim.</p>
-  <a href="https://api.whatsapp.com/send/?phone=551926420970&text=Ol%C3%A1+Rodolfo!+Ultrapassei+o+limite+do+MEI+e+quero+entender+a+migra%C3%A7%C3%A3o+para+ME.&type=phone_number&app_absent=0" style="display:inline-block;background:#25d366;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:bold;border-bottom:none;">💬 Falar com o contador sobre minha migração →</a>
+<div class="sec">
+<div class="sec-t">Resposta Rápida</div>
+<div class="field">
+<span class="lbl">Faturamento mensal atual (R$)</span>
+<input type="number" class="fi" id="fat-atual" value="5000" min="100" oninput="calcCresc()">
+<div class="chips" id="chips-fat">
+<div class="chip active" data-v="5000" onclick="escolherFaturamento(this)">R$ 5 mil</div>
+<div class="chip" data-v="8000" onclick="escolherFaturamento(this)">R$ 8 mil</div>
+<div class="chip" data-v="12000" onclick="escolherFaturamento(this)">R$ 12 mil</div>
+<div class="chip" data-v="15000" onclick="escolherFaturamento(this)">R$ 15 mil</div>
+<div class="chip" data-v="25000" onclick="escolherFaturamento(this)">R$ 25 mil</div>
 </div>
-  
-  <div class="g2">
-    <div>
-      <div class="sec">
-        <div class="sec-t">Situação atual</div>
-        <div class="field">
-          <span class="lbl">Regime atual da empresa</span>
-          <select class="fs" id="regime-atual" onchange="onRegimeChange()">
-            <option value="mei">MEI — Microempreendedor Individual</option>
-            <option value="simples">Simples Nacional (já migrei do MEI)</option>
-          </select>
-        </div>
-        <div class="field">
-          <span class="lbl">Faturamento mensal atual (R$)</span>
-          <input type="number" class="fi" id="fat-atual" value="5000" min="100" oninput="calcCresc()">
-          <div class="hint">Faturamento bruto médio do último mês.</div>
-        </div>
-        <p style="font-size:12.5px;color:var(--text3);margin-bottom:6px;">Modelo simplificado para os dois anexos mais comuns entre quem migra do MEI. Sua atividade é diferente? <a href="https://api.whatsapp.com/send/?phone=551926420970&text=Ol%C3%A1+Rodolfo!+Minha+atividade+n%C3%A3o+se+encaixa+nas+op%C3%A7%C3%B5es+do+simulador+de+migra%C3%A7%C3%A3o.+Pode+me+ajudar%3F&type=phone_number&app_absent=0" style="color:var(--em-l);text-decoration:underline;">Me chama que calculo certinho pra você</a>.</p>
-        <div class="field">
-          <span class="lbl">Atividade principal</span>
-          <select class="fs" id="atividade" onchange="calcCresc()">
-            <option value="comercio">Comércio / E-commerce (Anexo I)</option>
-            <option value="servicos">Serviços (Anexo III)</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="sec">
-        <div class="sec-t">Projeção de crescimento</div>
-        <div class="field">
-          <span class="lbl">Crescimento mensal esperado (%)</span>
-          <input type="number" class="fi" id="cresc" value="8" min="0" max="100" step="0.5" oninput="calcCresc()">
-          <div class="hint">Média e-commerce MEI: 5–15%/mês. Use 0% para faturamento constante.</div>
-        </div>
-        <div class="field">
-          <span class="lbl">Período de projeção</span>
-          <select class="fs" id="meses" onchange="calcCresc()">
-            <option value="12">12 meses</option>
-            <option value="24" selected>24 meses</option>
-            <option value="36">36 meses</option>
-          </select>
-        </div>
-        <div class="field">
-          <span class="lbl">Sazonalidade (opcional)</span>
-          <select class="fs" id="sazonal" onchange="calcCresc()">
-            <option value="0">Sem sazonalidade</option>
-            <option value="1">E-commerce geral</option>
-            <option value="2">Moda e vestuário</option>
-            <option value="3">Brinquedos e presentes</option>
-          </select>
-          <div class="hint">Aplica variação nos meses de pico (Black Friday, Natal, etc.)</div>
-        </div>
-      </div>
-
-      <div class="sec">
-        <div class="sec-t">Custos mensais</div>
-        <div class="field">
-          <span class="lbl">Margem de contribuição média (%)</span>
-          <input type="number" class="fi" id="margem-cont" value="35" min="1" max="99" oninput="calcCresc()">
-          <div class="hint">% que sobra após CMV e custos variáveis.</div>
-        </div>
-        <div class="field">
-          <span class="lbl">Custos fixos mensais (R$)</span>
-          <input type="number" class="fi" id="custo-fixo" value="1500" min="0" oninput="calcCresc()">
-        </div>
-        <div class="field" id="field-das-mei">
-          <span class="lbl">DAS MEI mensal (R$)</span>
-          <input type="number" class="fi" id="das-mei" value="76.90" min="0" step="0.1" oninput="calcCresc()">
-          <div class="hint">R$ 76,90 comércio · R$ 80,90 serviços · 2026</div>
-        </div>
-        <div class="field">
-          <span class="lbl">Honorários contador pós-MEI (R$/mês)</span>
-          <input type="number" class="fi" id="honorarios" value="300" min="0" oninput="calcCresc()">
-          <div class="hint">Obrigatório no Simples Nacional. R$ 200–R$ 500/mês.</div>
-        </div>
-      </div>
-    </div>
-
-    <div id="resultado"></div>
-  </div>
-
-<div style="background:#f0fdf4;border-left:4px solid #22c55e;padding:16px 20px;margin:24px 0;border-radius:0 8px 8px 0;">
-  <p style="margin:0 0 8px 0;font-weight:bold;color:#1a1a1a;">Viu o impacto nos números?</p>
-  <p style="margin:0 0 12px 0;color:#333;font-size:14px;">Agora a parte prática: eu cuido de toda a migração para você — sem erro, sem multa, sem dor de cabeça.</p>
-  <a href="https://api.whatsapp.com/send/?phone=551926420970&text=Ol%C3%A1+Rodolfo!+Usei+o+simulador+de+migra%C3%A7%C3%A3o+MEI-ME+e+quero+que+voc%C3%AA+cuide+da+minha+transi%C3%A7%C3%A3o.&type=phone_number&app_absent=0" style="display:inline-block;background:#25d366;color:#fff;padding:10px 20px;border-radius:6px;text-decoration:none;font-weight:bold;border-bottom:none;">📅 Quero que você cuide disso →</a>
 </div>
-  
-  <div id="tabela-wrap" style="display:none">
-    <div class="sec" style="padding:1.25rem;">
-      <div class="sec-t">Projeção mês a mês</div>
-      <div class="nota i" style="margin-bottom:12px;">O RBT12 real considera os últimos 12 meses efetivos. Esta simulação usa uma projeção aproximada baseada nos dados informados — o RBT12 inicial é estimado como o faturamento atual × 12.</div>
-      <div class="timeline-wrap">
-        <table class="tbl" id="tabela-proj"></table>
-      </div>
-    </div>
-  </div>
 
-  <div class="cta-disc">
-    <div class="cta-disc-txt">A transição de regime tributário exige planejamento — a hora certa de migrar pode fazer diferença significativa no caixa.</div>
-    <a class="cta-disc-btn" id="cta-wpp" href="#" target="_blank">Falar com Rodolfo Assunção →</a>
-  </div>
+<p style="font-size:12.5px;color:var(--text3);margin-bottom:6px;">Modelo simplificado para os dois anexos mais comuns entre quem migra do MEI. Sua atividade é diferente? <a href="https://api.whatsapp.com/send/?phone=551926420970&text=Ol%C3%A1+Rodolfo!+Minha+atividade+n%C3%A3o+se+encaixa+nas+op%C3%A7%C3%B5es+do+simulador+de+migra%C3%A7%C3%A3o.+Pode+me+ajudar%3F&type=phone_number&app_absent=0" style="color:var(--em-l);text-decoration:underline;">Me chama que calculo certinho pra você</a>.</p>
 
-  <div class="sec" style="margin-top:14px;">
-    <div class="sec-t">⚠️ Disclaimer</div>
-    <div style="font-size:12px;color:var(--text2);line-height:1.75;">Projeção estimada com base nos parâmetros informados. O crescimento real depende de fatores de mercado e gestão. Alíquotas Simples Nacional: Receita Federal — jun/2026. Limites MEI/ME/EPP: LC 155/2016. Esta simulação não constitui planejamento tributário — consulte um contador. Rodolfo Assunção — CRC/SP 1SP353033/O-5.</div>
-  </div>
+<div class="field">
+<span class="lbl">Atividade principal</span>
+<div class="toggle-ativ" id="toggle-ativ">
+<div class="toggle-btn active" data-v="comercio" onclick="escolherAtividade(this)">Comércio / E-commerce<span>Anexo I</span></div>
+<div class="toggle-btn" data-v="servicos" onclick="escolherAtividade(this)">Serviços<span>Anexo III</span></div>
+</div>
+<select class="fs" id="atividade" onchange="calcCresc()" style="display:none">
+<option value="comercio">Comércio / E-commerce (Anexo I)</option>
+<option value="servicos">Serviços (Anexo III)</option>
+</select>
+</div>
 
-  <div class="foot">Receita Federal · Portal Simples Nacional · LC 155/2016 · Alíquotas: jun/2026 · Rodolfo Assunção · CRC/SP 1SP353033/O-5 </div>
+<div id="selo-limite"></div>
+<div id="resultado-imediato"></div>
+</div>
+
+<a class="cta-principal" id="cta-principal" href="#" target="_blank">Falar com Rodolfo no WhatsApp →<small>Tire suas dúvidas sobre a migração sem compromisso</small></a>
+
+<details class="accordion">
+<summary class="accordion-summary">Ver projeção de crescimento (24 meses)</summary>
+<div class="accordion-body">
+
+<div class="sec-t" style="margin-top:1.25rem;">Situação atual</div>
+<div class="row2" style="margin-bottom:14px;">
+<div class="field">
+<span class="lbl">Regime atual da empresa</span>
+<select class="fs" id="regime-atual" onchange="onRegimeChange()">
+<option value="mei">MEI — Microempreendedor Individual</option>
+<option value="simples">Simples Nacional (já migrei do MEI)</option>
+</select>
+</div>
+</div>
+
+<div class="sec-t">Projeção de crescimento</div>
+<div class="row2" style="margin-bottom:14px;">
+<div class="field">
+<span class="lbl">Crescimento mensal esperado (%)</span>
+<input type="number" class="fi" id="cresc" value="8" min="0" max="100" step="0.5" oninput="calcCresc()">
+<div class="hint">Média e-commerce MEI: 5–15%/mês. Use 0% para faturamento constante.</div>
+</div>
+<div class="field">
+<span class="lbl">Período de projeção</span>
+<select class="fs" id="meses" onchange="calcCresc()">
+<option value="12">12 meses</option>
+<option value="24" selected>24 meses</option>
+<option value="36">36 meses</option>
+</select>
+</div>
+<div class="field">
+<span class="lbl">Sazonalidade (opcional)</span>
+<select class="fs" id="sazonal" onchange="calcCresc()">
+<option value="0">Sem sazonalidade</option>
+<option value="1">E-commerce geral</option>
+<option value="2">Moda e vestuário</option>
+<option value="3">Brinquedos e presentes</option>
+</select>
+<div class="hint">Aplica variação nos meses de pico (Black Friday, Natal, etc.)</div>
+</div>
+</div>
+
+<div class="sec-t">Custos mensais</div>
+<div class="row2" style="margin-bottom:14px;">
+<div class="field">
+<span class="lbl">Margem de contribuição média (%)</span>
+<input type="number" class="fi" id="margem-cont" value="35" min="1" max="99" oninput="calcCresc()">
+<div class="hint">% que sobra após CMV e custos variáveis.</div>
+</div>
+<div class="field">
+<span class="lbl">Custos fixos mensais (R$)</span>
+<input type="number" class="fi" id="custo-fixo" value="1500" min="0" oninput="calcCresc()">
+</div>
+<div class="field" id="field-das-mei">
+<span class="lbl">DAS MEI mensal (R$)</span>
+<input type="number" class="fi" id="das-mei" value="76.90" min="0" step="0.1" oninput="calcCresc()">
+<div class="hint">R$ 76,90 comércio · R$ 80,90 serviços · 2026</div>
+</div>
+<div class="field">
+<span class="lbl">Honorários contador pós-MEI (R$/mês)</span>
+<input type="number" class="fi" id="honorarios" value="300" min="0" oninput="calcCresc()">
+<div class="hint">Obrigatório no Simples Nacional. R$ 200–R$ 500/mês.</div>
+</div>
+</div>
+
+<div class="kpis" style="margin-top:4px;">
+<div class="kpi"><div class="kpi-l">Mês que ultrapassa R$ 81 mil/ano</div><div class="kpi-v w" id="resumo-mes-mei">—</div></div>
+<div class="kpi"><div class="kpi-l">Mês que vira EPP</div><div class="kpi-v i" id="resumo-mes-epp">—</div></div>
+<div class="kpi"><div class="kpi-l">Imposto total no período</div><div class="kpi-v r" id="resumo-imposto-total">—</div></div>
+</div>
+
+<div id="resultado"></div>
+
+<details class="accordion sub-accordion">
+<summary class="accordion-summary">Ver mês a mês</summary>
+<div class="accordion-body">
+<div id="tabela-wrap" style="display:none">
+<div class="nota i" style="margin:12px 0;">O RBT12 real considera os últimos 12 meses efetivos. Esta simulação usa uma projeção aproximada baseada nos dados informados — o RBT12 inicial é estimado como o faturamento atual × 12.</div>
+<div class="timeline-wrap">
+<table class="tbl" id="tabela-proj"></table>
+</div>
+</div>
+</div>
+</details>
+
+</div>
+</details>
+
+<div class="risco-box">
+<div class="risco-title">⚠️ O que acontece se eu não migrar?</div>
+<div class="risco-item">Desenquadramento retroativo: quem ultrapassa R$ 97.200/ano (20% acima do limite MEI) pode ser desenquadrado desde o mês em que excedeu, com cobrança retroativa de impostos como Simples Nacional.</div>
+<div class="risco-item">Marketplaces e bancos informam automaticamente à Receita Federal o faturamento processado em nome do CNPJ — não dá para "não perceber" que passou do limite.</div>
+<div class="risco-item">Só em 2024, mais de 570 mil MEIs foram desenquadrados de ofício pela Receita Federal por ultrapassar o limite sem regularizar a situação.</div>
+</div>
+
+<div class="sec" style="margin-top:14px;">
+<div class="sec-t">⚠️ Disclaimer</div>
+<div style="font-size:12px;color:var(--text2);line-height:1.75;">Projeção estimada com base nos parâmetros informados. O crescimento real depende de fatores de mercado e gestão. Alíquotas Simples Nacional: Receita Federal — jun/2026. Limites MEI/ME/EPP: LC 155/2016. Esta simulação não constitui planejamento tributário — consulte um contador. Rodolfo Assunção — CRC/SP 1SP353033/O-5.</div>
+</div>
+
+<div class="foot">Receita Federal · Portal Simples Nacional · LC 155/2016 · Alíquotas: jun/2026 · Rodolfo Assunção · CRC/SP 1SP353033/O-5 </div>
+
+<a id="cta-wpp" href="#" style="display:none" target="_blank">Falar com Rodolfo Assunção →</a>
 </div>
 
 <script>
 // ─── UTILS ────────────────────────────────────────────────────────────────
 const fmtR = v => 'R$ '+Math.round(v||0).toLocaleString('pt-BR');
 const fmt2 = v => 'R$ '+parseFloat(v||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
-const pct  = v => parseFloat(v||0).toFixed(1)+'%';
-const g    = id => document.getElementById(id);
-const n    = id => parseFloat(g(id)?.value)||0;
+const pct = v => parseFloat(v||0).toFixed(1)+'%';
+const g = id => document.getElementById(id);
+const n = id => parseFloat(g(id)?.value)||0;
 
 const MESES_NOME=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 function mesAnoStr(mesIdx, anoBase, offsetMes){
-  const totalMeses = mesIdx + offsetMes;
-  const m = totalMeses % 12;
-  const a = anoBase + Math.floor(totalMeses / 12);
-  return `${MESES_NOME[m]}/${a}`;
+const totalMeses = mesIdx + offsetMes;
+const m = totalMeses % 12;
+const a = anoBase + Math.floor(totalMeses / 12);
+return `${MESES_NOME[m]}/${a}`;
 }
 
 // ─── LIMITES 2026 ─────────────────────────────────────────────────────────
-const LIM_MEI     = 81000;
-const LIM_MEI_EXC = 97200;  // 20% acima do limite
-const LIM_ME      = 360000;
-const LIM_EPP     = 4800000;
+const LIM_MEI = 81000;
+const LIM_MEI_EXC = 97200; // 20% acima do limite
+const LIM_ME = 360000;
+const LIM_EPP = 4800000;
 
 // ─── TABELAS SIMPLES NACIONAL 2026 ────────────────────────────────────────
 const ANEXO_I = [
-  {ate:180000,   aliq:0.04,  pd:0},
-  {ate:360000,   aliq:0.073, pd:5940},
-  {ate:720000,   aliq:0.095, pd:13860},
-  {ate:1800000,  aliq:0.107, pd:22500},
-  {ate:3600000,  aliq:0.143, pd:87300},
-  {ate:4800000,  aliq:0.19,  pd:378000},
+{ate:180000, aliq:0.04, pd:0},
+{ate:360000, aliq:0.073, pd:5940},
+{ate:720000, aliq:0.095, pd:13860},
+{ate:1800000, aliq:0.107, pd:22500},
+{ate:3600000, aliq:0.143, pd:87300},
+{ate:4800000, aliq:0.19, pd:378000},
 ];
 const ANEXO_III = [
-  {ate:180000,   aliq:0.06,  pd:0},
-  {ate:360000,   aliq:0.112, pd:9360},
-  {ate:720000,   aliq:0.135, pd:17640},
-  {ate:1800000,  aliq:0.16,  pd:35640},
-  {ate:3600000,  aliq:0.21,  pd:125640},
-  {ate:4800000,  aliq:0.33,  pd:648000},
+{ate:180000, aliq:0.06, pd:0},
+{ate:360000, aliq:0.112, pd:9360},
+{ate:720000, aliq:0.135, pd:17640},
+{ate:1800000, aliq:0.16, pd:35640},
+{ate:3600000, aliq:0.21, pd:125640},
+{ate:4800000, aliq:0.33, pd:648000},
 ];
 
 // Fix: validação rigorosa dos limites de faixa
 function getAliqEfetiva(rbt12, atividade){
-  if(rbt12<=0) return 0;
-  const tab = atividade==='comercio' ? ANEXO_I : ANEXO_III;
-  // Casos de teste validados manualmente:
-  // rbt12=80000 → faixa 1 (≤180k) → ae=4%
-  // rbt12=81000 → faixa 1 → ae=4%
-  // rbt12=81001 → faixa 1 (Simples inicia aqui) → ae=4%
-  // rbt12=97200 → faixa 1 → ae=4%
-  // rbt12=180000 → faixa 1 → ae=4%
-  // rbt12=300000 → faixa 2 → ae=(300000×0.073-5940)/300000=5.82%
-  // rbt12=360000 → faixa 2 → ae=(360000×0.073-5940)/360000=5.63%
-  // rbt12=360001 → faixa 3 → ae=(360001×0.095-13860)/360001=7.05%
-  // rbt12=4800000 → faixa 6 → ae=(4800000×0.19-378000)/4800000=11.125%
-  // rbt12>4800000 → faixa 6 (mesma) → ae segue subindo pois PD diluído
-  for(const f of tab){
-    if(rbt12<=f.ate){
-      const ae=((rbt12*f.aliq)-f.pd)/rbt12;
-      return Math.max(0,ae);
-    }
-  }
-  // Acima de 4.8M — usa última faixa (EPP não se enquadra no Simples)
-  const last=tab[tab.length-1];
-  return Math.max(0,((rbt12*last.aliq)-last.pd)/rbt12);
+if(rbt12<=0) return 0;
+const tab = atividade==='comercio' ? ANEXO_I : ANEXO_III;
+// Casos de teste validados manualmente:
+// rbt12=80000 → faixa 1 (≤180k) → ae=4%
+// rbt12=81000 → faixa 1 → ae=4%
+// rbt12=81001 → faixa 1 (Simples inicia aqui) → ae=4%
+// rbt12=97200 → faixa 1 → ae=4%
+// rbt12=180000 → faixa 1 → ae=4%
+// rbt12=300000 → faixa 2 → ae=(300000×0.073-5940)/300000=5.82%
+// rbt12=360000 → faixa 2 → ae=(360000×0.073-5940)/360000=5.63%
+// rbt12=360001 → faixa 3 → ae=(360001×0.095-13860)/360001=7.05%
+// rbt12=4800000 → faixa 6 → ae=(4800000×0.19-378000)/4800000=11.125%
+// rbt12>4800000 → faixa 6 (mesma) → ae segue subindo pois PD diluído
+for(const f of tab){
+if(rbt12<=f.ate){
+const ae=((rbt12*f.aliq)-f.pd)/rbt12;
+return Math.max(0,ae);
+}
+}
+// Acima de 4.8M — usa última faixa (EPP não se enquadra no Simples)
+const last=tab[tab.length-1];
+return Math.max(0,((rbt12*last.aliq)-last.pd)/rbt12);
 }
 
 // ─── SAZONALIDADE ─────────────────────────────────────────────────────────
 const SAZONAL_MAP={
-  0:[1,1,1,1,1,1,1,1,1,1,1,1],
-  1:[0.85,0.80,0.90,0.85,0.90,0.85,0.85,0.90,0.95,1.00,1.40,1.15],
-  2:[0.75,0.70,0.85,0.90,0.85,0.70,0.70,0.85,0.90,0.95,1.30,1.20],
-  3:[0.70,0.65,0.75,0.80,0.75,0.70,0.70,0.80,0.85,0.90,1.40,1.60],
+0:[1,1,1,1,1,1,1,1,1,1,1,1],
+1:[0.85,0.80,0.90,0.85,0.90,0.85,0.85,0.90,0.95,1.00,1.40,1.15],
+2:[0.75,0.70,0.85,0.90,0.85,0.70,0.70,0.85,0.90,0.95,1.30,1.20],
+3:[0.70,0.65,0.75,0.80,0.75,0.70,0.70,0.80,0.85,0.90,1.40,1.60],
 };
 
 // ─── REGIME CHANGE ────────────────────────────────────────────────────────
 function onRegimeChange(){
-  const isMei = g('regime-atual').value==='mei';
-  g('field-das-mei').style.display = isMei ? 'block' : 'none';
-  calcCresc();
+const isMei = g('regime-atual').value==='mei';
+g('field-das-mei').style.display = isMei ? 'block' : 'none';
+calcCresc();
 }
 
 // ─── CÁLCULO PRINCIPAL ────────────────────────────────────────────────────
 function calcCresc(){
-  const regimeInicial = g('regime-atual').value; // 'mei' ou 'simples'
-  const fatAtual      = n('fat-atual');
-  const crescMensal   = n('cresc')/100;
-  const meses         = parseInt(g('meses').value)||24;
-  const atividade     = g('atividade').value;
-  const margemCont    = n('margem-cont')/100;
-  const custoFixo     = n('custo-fixo');
-  const dasMei        = n('das-mei');
-  const honorarios    = n('honorarios');
-  const sazonal       = parseInt(g('sazonal').value)||0;
-  const sazMult       = SAZONAL_MAP[sazonal]||SAZONAL_MAP[0];
+const regimeInicial = g('regime-atual').value; // 'mei' ou 'simples'
+const fatAtual = n('fat-atual');
+const crescMensal = n('cresc')/100;
+const meses = parseInt(g('meses').value)||24;
+const atividade = g('atividade').value;
+const margemCont = n('margem-cont')/100;
+const custoFixo = n('custo-fixo');
+const dasMei = n('das-mei');
+const honorarios = n('honorarios');
+const sazonal = parseInt(g('sazonal').value)||0;
+const sazMult = SAZONAL_MAP[sazonal]||SAZONAL_MAP[0];
 
-  const hoje    = new Date();
-  const mesBase = hoje.getMonth(); // 0-11
-  const anoBase = hoje.getFullYear();
+const hoje = new Date();
+const mesBase = hoje.getMonth(); // 0-11
+const anoBase = hoje.getFullYear();
 
-  // Fix definitivo: se MEI com fat×12 > LIM_MEI, o histórico inteiro é preenchido
-  // com fatHistorico = LIM_MEI/12. Isso garante que o RBT12 no mês 1 seja exatamente
-  // LIM_MEI (12 × LIM_MEI/12), e a transição só ocorra quando os meses reais projetados
-  // forem substituindo o histórico e empurrando o RBT12 para cima.
-  // Resultado: mês 1 sempre MEI para quem declara ser MEI, independente do fat_atual.
-  const fatHistorico = (regimeInicial === 'mei' && fatAtual * 12 > LIM_MEI)
-    ? LIM_MEI / 12
-    : fatAtual;
+// Fix definitivo: se MEI com fat×12 > LIM_MEI, o histórico inteiro é preenchido
+// com fatHistorico = LIM_MEI/12. Isso garante que o RBT12 no mês 1 seja exatamente
+// LIM_MEI (12 × LIM_MEI/12), e a transição só ocorra quando os meses reais projetados
+// forem substituindo o histórico e empurrando o RBT12 para cima.
+// Resultado: mês 1 sempre MEI para quem declara ser MEI, independente do fat_atual.
+const fatHistorico = (regimeInicial === 'mei' && fatAtual * 12 > LIM_MEI)
+? LIM_MEI / 12
+: fatAtual;
 
-  const historico = Array(12).fill(fatHistorico);
+const historico = Array(12).fill(fatHistorico);
 
-  let fat = fatAtual;
-  const projecao = [];
+let fat = fatAtual;
+const projecao = [];
 
-  // Rastrear estado do regime ANTES de cada iteração para detectar transição corretamente.
-  let jaNoSimples = regimeInicial === 'simples';
+// Rastrear estado do regime ANTES de cada iteração para detectar transição corretamente.
+let jaNoSimples = regimeInicial === 'simples';
 
-  for(let m=0; m<meses; m++){
-    const mesIdx   = (mesBase + m) % 12;
-    const saz      = sazMult[mesIdx];
-    const fatMes   = fat * saz;
+for(let m=0; m<meses; m++){
+const mesIdx = (mesBase + m) % 12;
+const saz = sazMult[mesIdx];
+const fatMes = fat * saz;
 
-    // Para o cálculo do RBT12, usamos fatHistorico no primeiro mês se houve calibração.
-    // Isso garante que RBT12 mês 1 = 12×fatHistorico (≤ LIM_MEI) e não
-    // 11×fatHistorico + fat_atual (que pode ultrapassar o limite).
-    const fatParaRbt12 = (m === 0 && fatHistorico !== fatAtual) ? fatHistorico : fatMes;
+// Para o cálculo do RBT12, usamos fatHistorico no primeiro mês se houve calibração.
+// Isso garante que RBT12 mês 1 = 12×fatHistorico (≤ LIM_MEI) e não
+// 11×fatHistorico + fat_atual (que pode ultrapassar o limite).
+const fatParaRbt12 = (m === 0 && fatHistorico !== fatAtual) ? fatHistorico : fatMes;
 
-    historico.push(fatParaRbt12);
-    if(historico.length > 12) historico.shift();
-    const rbt12 = historico.reduce((a,v)=>a+v, 0);
+historico.push(fatParaRbt12);
+if(historico.length > 12) historico.shift();
+const rbt12 = historico.reduce((a,v)=>a+v, 0);
 
-    // ── REGIME: captura estado ANTES da atualização da flag ───────────────
-    const eraNoSimples = jaNoSimples; // snapshot antes de qualquer mudança
+// ── REGIME: captura estado ANTES da atualização da flag ───────────────
+const eraNoSimples = jaNoSimples; // snapshot antes de qualquer mudança
 
-    // Regra: MEI permanece MEI enquanto rbt12 <= LIM_MEI.
-    // Assim que rbt12 > LIM_MEI, migra para Simples (irreversível).
-    if(!jaNoSimples && rbt12 > LIM_MEI) jaNoSimples = true;
+// Regra: MEI permanece MEI enquanto rbt12 <= LIM_MEI.
+// Assim que rbt12 > LIM_MEI, migra para Simples (irreversível).
+if(!jaNoSimples && rbt12 > LIM_MEI) jaNoSimples = true;
 
-    const regimeEfetivo = jaNoSimples ? 'Simples' : 'MEI';
+const regimeEfetivo = jaNoSimples ? 'Simples' : 'MEI';
 
-    // isTransicao: mês exato em que a flag mudou de false para true.
-    // Condição: não estava no Simples antes desta iteração, mas está agora.
-    const isTransicao = !eraNoSimples && jaNoSimples;
+// isTransicao: mês exato em que a flag mudou de false para true.
+// Condição: não estava no Simples antes desta iteração, mas está agora.
+const isTransicao = !eraNoSimples && jaNoSimples;
 
-    // ── ENQUADRAMENTO (porte) — independente do regime ────────────────────
-    let enquadramento;
-    if(rbt12 <= LIM_MEI)       enquadramento = 'MEI';
-    else if(rbt12 <= LIM_ME)   enquadramento = 'ME';
-    else if(rbt12 <= LIM_EPP)  enquadramento = 'EPP';
-    else                        enquadramento = 'EPP+';
+// ── ENQUADRAMENTO (porte) — independente do regime ────────────────────
+let enquadramento;
+if(rbt12 <= LIM_MEI) enquadramento = 'MEI';
+else if(rbt12 <= LIM_ME) enquadramento = 'ME';
+else if(rbt12 <= LIM_EPP) enquadramento = 'EPP';
+else enquadramento = 'EPP+';
 
-    // ── EXCESSO MEI ───────────────────────────────────────────────────────
-    let excessoMEI = null;
-    if(rbt12 > LIM_MEI && rbt12 <= LIM_MEI_EXC) excessoMEI = 'ate20';
-    else if(rbt12 > LIM_MEI_EXC)                 excessoMEI = 'acima20';
+// ── EXCESSO MEI ───────────────────────────────────────────────────────
+let excessoMEI = null;
+if(rbt12 > LIM_MEI && rbt12 <= LIM_MEI_EXC) excessoMEI = 'ate20';
+else if(rbt12 > LIM_MEI_EXC) excessoMEI = 'acima20';
 
-    // ── IMPOSTO ───────────────────────────────────────────────────────────
-    let impostoMes, contadorMes, aliqEfetiva;
-    if(regimeEfetivo === 'MEI'){
-      impostoMes   = dasMei;
-      contadorMes  = 0;
-      aliqEfetiva  = dasMei / Math.max(fatMes, 1);
-    } else {
-      aliqEfetiva  = getAliqEfetiva(rbt12, atividade);
-      impostoMes   = fatMes * aliqEfetiva;
-      contadorMes  = honorarios;
-    }
+// ── IMPOSTO ───────────────────────────────────────────────────────────
+let impostoMes, contadorMes, aliqEfetiva;
+if(regimeEfetivo === 'MEI'){
+impostoMes = dasMei;
+contadorMes = 0;
+aliqEfetiva = dasMei / Math.max(fatMes, 1);
+} else {
+aliqEfetiva = getAliqEfetiva(rbt12, atividade);
+impostoMes = fatMes * aliqEfetiva;
+contadorMes = honorarios;
+}
 
-    const lucroMes = (fatMes * margemCont) - custoFixo - impostoMes - contadorMes;
+const lucroMes = (fatMes * margemCont) - custoFixo - impostoMes - contadorMes;
 
-    projecao.push({
-      mes: m+1,
-      mesIdx,
-      label: mesAnoStr(mesBase, anoBase, m),
-      fatMes,
-      rbt12,
-      regimeEfetivo,
-      enquadramento,
-      excessoMEI,
-      impostoMes,
-      contadorMes,
-      aliqEfetiva,
-      lucroMes,
-      isTransicao, // agora calculado corretamente antes do push
-    });
+projecao.push({
+mes: m+1,
+mesIdx,
+label: mesAnoStr(mesBase, anoBase, m),
+fatMes,
+rbt12,
+regimeEfetivo,
+enquadramento,
+excessoMEI,
+impostoMes,
+contadorMes,
+aliqEfetiva,
+lucroMes,
+isTransicao, // agora calculado corretamente antes do push
+});
 
-    fat = fat * (1 + crescMensal);
-  }
+fat = fat * (1 + crescMensal);
+}
 
-  renderResultado(projecao, {regimeInicial, dasMei, honorarios, fatAtual, meses, atividade});
-  renderTabela(projecao);
-  gerarWpp(projecao, {fatAtual, meses});
+renderResultado(projecao, {regimeInicial, dasMei, honorarios, fatAtual, meses, atividade});
+renderTabela(projecao);
+gerarWpp(projecao, {fatAtual, meses});
+atualizarRespostaRapida();
+atualizarCTAs();
 }
 
 // ─── RENDER RESULTADO ─────────────────────────────────────────────────────
 function renderResultado(proj, {regimeInicial, dasMei, honorarios, fatAtual, meses, atividade}){
-  const isMei      = regimeInicial === 'mei';
-  const transicoes = proj.filter(p=>p.isTransicao);
-  const mesTransit = transicoes.length>0 ? transicoes[0] : null;
-  const mesEPP     = proj.find(p=>p.enquadramento==='EPP'||p.enquadramento==='EPP+');
-  const fatFinal   = proj[proj.length-1].fatMes;
-  const impTotal   = proj.reduce((s,p)=>s+p.impostoMes,0);
-  const lucTotal   = proj.reduce((s,p)=>s+p.lucroMes,0);
-  const excessos   = proj.filter(p=>p.excessoMEI);
-  const maxImposto = Math.max(...proj.map(p=>p.impostoMes));
+const isMei = regimeInicial === 'mei';
+const transicoes = proj.filter(p=>p.isTransicao);
+const mesTransit = transicoes.length>0 ? transicoes[0] : null;
+const mesEPP = proj.find(p=>p.enquadramento==='EPP'||p.enquadramento==='EPP+');
+const fatFinal = proj[proj.length-1].fatMes;
+const impTotal = proj.reduce((s,p)=>s+p.impostoMes,0);
+const lucTotal = proj.reduce((s,p)=>s+p.lucroMes,0);
+const excessos = proj.filter(p=>p.excessoMEI);
+const maxImposto = Math.max(...proj.map(p=>p.impostoMes));
 
-  // ── BADGE DE MODO ──────────────────────────────────────────────────────
-  const modoBadge = isMei
-    ? `<div class="modo-badge mei">🟢 Modo MEI — foco no desenquadramento</div>`
-    : `<div class="modo-badge simples">🟡 Modo Simples Nacional — foco no crescimento e carga tributária</div>`;
+// ── BADGE DE MODO ──────────────────────────────────────────────────────
+const modoBadge = isMei
+? `<div class="modo-badge mei">🟢 Modo MEI — foco no desenquadramento</div>`
+: `<div class="modo-badge simples">🟡 Modo Simples Nacional — foco no crescimento e carga tributária</div>`;
 
-  // ── RESPOSTA PRINCIPAL ────────────────────────────────────────────────
-  let resCls, resTxt, resSub;
-  if(isMei){
-    if(!mesTransit){
-      resCls='verde';
-      resTxt=`Você permanece como MEI durante todo o período projetado.`;
-      resSub=`Com crescimento de ${pct(n('cresc'))}/mês, seu faturamento chega a ${fmtR(fatFinal)}/mês no mês ${meses} — ainda dentro do limite de R$ 6.750/mês.`;
-    } else {
-      resCls='amarelo';
-      resTxt=`O MEI deixa de ser suficiente no mês ${mesTransit.mes} (${mesTransit.label}).`;
-      resSub=`RBT12 estimada nesse mês: ${fmtR(mesTransit.rbt12)}. A partir daí, o Simples Nacional passa a ser obrigatório. Planejamento antecipado evita surpresas.`;
-    }
-  } else {
-    // Usuário já está no Simples
-    resCls='indigo';
-    resTxt=`Você já está no Simples Nacional. A projeção mostra o crescimento da carga tributária.`;
-    resSub=`Faturamento projetado no mês ${meses}: ${fmtR(fatFinal)}/mês. Acompanhe as faixas do Simples para antecipar o impacto de cada salto de alíquota.`;
-  }
+// ── RESPOSTA PRINCIPAL ────────────────────────────────────────────────
+let resCls, resTxt, resSub;
+if(isMei){
+if(!mesTransit){
+resCls='verde';
+resTxt=`Você permanece como MEI durante todo o período projetado.`;
+resSub=`Com crescimento de ${pct(n('cresc'))}/mês, seu faturamento chega a ${fmtR(fatFinal)}/mês no mês ${meses} — ainda dentro do limite de R$ 6.750/mês.`;
+} else {
+resCls='amarelo';
+resTxt=`O MEI deixa de ser suficiente no mês ${mesTransit.mes} (${mesTransit.label}).`;
+resSub=`RBT12 estimada nesse mês: ${fmtR(mesTransit.rbt12)}. A partir daí, o Simples Nacional passa a ser obrigatório. Planejamento antecipado evita surpresas.`;
+}
+} else {
+// Usuário já está no Simples
+resCls='indigo';
+resTxt=`Você já está no Simples Nacional. A projeção mostra o crescimento da carga tributária.`;
+resSub=`Faturamento projetado no mês ${meses}: ${fmtR(fatFinal)}/mês. Acompanhe as faixas do Simples para antecipar o impacto de cada salto de alíquota.`;
+}
 
-  // ── ALERTAS DE EXCESSO MEI ────────────────────────────────────────────
-  let alertasHTML = '';
-  const excAte20   = excessos.filter(p=>p.excessoMEI==='ate20');
-  const excAcima20 = excessos.filter(p=>p.excessoMEI==='acima20');
-  if(excAte20.length>0){
-    alertasHTML+=`<div class="alerta w">
-      <span>⚠️</span>
-      <div><strong>Excesso até 20% acima do limite MEI</strong> (RBT12 entre R$ 81.001 e R$ 97.200)<br>
-      Detectado em ${excAte20.length} mês(es) da projeção. Pode haver tratamento específico previsto na legislação. Consulte seu contador antes de tomar qualquer decisão.</div>
-    </div>`;
-  }
-  if(excAcima20.length>0){
-    alertasHTML+=`<div class="alerta r">
-      <span>🚫</span>
-      <div><strong>Excesso acima de 20% do limite MEI</strong> (RBT12 acima de R$ 97.200)<br>
-      Detectado em ${excAcima20.length} mês(es). Esse nível de excesso pode gerar efeitos retroativos na tributação. Ação imediata recomendada — fale com um contador.</div>
-    </div>`;
-  }
+// ── ALERTAS DE EXCESSO MEI ────────────────────────────────────────────
+let alertasHTML = '';
+const excAte20 = excessos.filter(p=>p.excessoMEI==='ate20');
+const excAcima20 = excessos.filter(p=>p.excessoMEI==='acima20');
+if(excAte20.length>0){
+alertasHTML+=`<div class="alerta w">
+<span>⚠️</span>
+<div><strong>Excesso até 20% acima do limite MEI</strong> (RBT12 entre R$ 81.001 e R$ 97.200)<br>
+Detectado em ${excAte20.length} mês(es) da projeção. Pode haver tratamento específico previsto na legislação. Consulte seu contador antes de tomar qualquer decisão.</div>
+</div>`;
+}
+if(excAcima20.length>0){
+alertasHTML+=`<div class="alerta r">
+<span>🚫</span>
+<div><strong>Excesso acima de 20% do limite MEI</strong> (RBT12 acima de R$ 97.200)<br>
+Detectado em ${excAcima20.length} mês(es). Esse nível de excesso pode gerar efeitos retroativos na tributação. Ação imediata recomendada — fale com um contador.</div>
+</div>`;
+}
 
-  // ── KPI DE IMPACTO DA MIGRAÇÃO ────────────────────────────────────────
-  let impactoHTML = '';
-  if(isMei && mesTransit){
-    const impostoApos  = mesTransit.impostoMes + mesTransit.contadorMes;
-    const diferenca    = impostoApos - dasMei;
-    impactoHTML = `<div class="impacto-box">
-      <div class="impacto-title">💸 Impacto financeiro da migração — mês ${mesTransit.mes} (${mesTransit.label})</div>
-      <div class="impacto-grid">
-        <div class="impacto-item">
-          <div class="impacto-label">Hoje — DAS MEI</div>
-          <div class="impacto-val verde">${fmt2(dasMei)}/mês</div>
-        </div>
-        <div class="impacto-item">
-          <div class="impacto-label">Após migração — imposto + contador</div>
-          <div class="impacto-val amarelo">${fmtR(impostoApos)}/mês</div>
-        </div>
-        <div class="impacto-item">
-          <div class="impacto-label">Diferença mensal</div>
-          <div class="impacto-val vermelho">+${fmtR(diferenca)}/mês</div>
-        </div>
-      </div>
-      <div style="font-size:11px;color:var(--text3);margin-top:8px;">Em 12 meses após a migração: +${fmtR(diferenca*12)} a mais em custos tributários e contábeis.</div>
-    </div>`;
-  } else if(!isMei){
-    // Usuário já no Simples — mostra evolução de alíquota
-    const primeiro = proj[0];
-    const ultimo   = proj[proj.length-1];
-    const dif      = (ultimo.impostoMes+ultimo.contadorMes) - (primeiro.impostoMes+primeiro.contadorMes);
-    impactoHTML = `<div class="impacto-box">
-      <div class="impacto-title">📈 Evolução da carga tributária no período</div>
-      <div class="impacto-grid">
-        <div class="impacto-item">
-          <div class="impacto-label">Imposto + contador — mês 1</div>
-          <div class="impacto-val verde">${fmtR(primeiro.impostoMes+primeiro.contadorMes)}/mês</div>
-        </div>
-        <div class="impacto-item">
-          <div class="impacto-label">Imposto + contador — mês ${meses}</div>
-          <div class="impacto-val amarelo">${fmtR(ultimo.impostoMes+ultimo.contadorMes)}/mês</div>
-        </div>
-        <div class="impacto-item">
-          <div class="impacto-label">Diferença ao longo do período</div>
-          <div class="impacto-val ${dif>=0?'vermelho':'verde'}">${dif>=0?'+':''}${fmtR(dif)}/mês</div>
-        </div>
-      </div>
-    </div>`;
-  }
+// ── KPI DE IMPACTO DA MIGRAÇÃO ────────────────────────────────────────
+let impactoHTML = '';
+if(isMei && mesTransit){
+const impostoApos = mesTransit.impostoMes + mesTransit.contadorMes;
+const diferenca = impostoApos - dasMei;
+impactoHTML = `<div class="impacto-box">
+<div class="impacto-title">💸 Impacto financeiro da migração — mês ${mesTransit.mes} (${mesTransit.label})</div>
+<div class="impacto-grid">
+<div class="impacto-item">
+<div class="impacto-label">Hoje — DAS MEI</div>
+<div class="impacto-val verde">${fmt2(dasMei)}/mês</div>
+</div>
+<div class="impacto-item">
+<div class="impacto-label">Após migração — imposto + contador</div>
+<div class="impacto-val amarelo">${fmtR(impostoApos)}/mês</div>
+</div>
+<div class="impacto-item">
+<div class="impacto-label">Diferença mensal</div>
+<div class="impacto-val vermelho">+${fmtR(diferenca)}/mês</div>
+</div>
+</div>
+<div style="font-size:11px;color:var(--text3);margin-top:8px;">Em 12 meses após a migração: +${fmtR(diferenca*12)} a mais em custos tributários e contábeis.</div>
+</div>`;
+} else if(!isMei){
+// Usuário já no Simples — mostra evolução de alíquota
+const primeiro = proj[0];
+const ultimo = proj[proj.length-1];
+const dif = (ultimo.impostoMes+ultimo.contadorMes) - (primeiro.impostoMes+primeiro.contadorMes);
+impactoHTML = `<div class="impacto-box">
+<div class="impacto-title">📈 Evolução da carga tributária no período</div>
+<div class="impacto-grid">
+<div class="impacto-item">
+<div class="impacto-label">Imposto + contador — mês 1</div>
+<div class="impacto-val verde">${fmtR(primeiro.impostoMes+primeiro.contadorMes)}/mês</div>
+</div>
+<div class="impacto-item">
+<div class="impacto-label">Imposto + contador — mês ${meses}</div>
+<div class="impacto-val amarelo">${fmtR(ultimo.impostoMes+ultimo.contadorMes)}/mês</div>
+</div>
+<div class="impacto-item">
+<div class="impacto-label">Diferença ao longo do período</div>
+<div class="impacto-val ${dif>=0?'vermelho':'verde'}">${dif>=0?'+':''}${fmtR(dif)}/mês</div>
+</div>
+</div>
+</div>`;
+}
 
-  // ── MARCOS ────────────────────────────────────────────────────────────
-  let marcosHTML = '';
-  if(isMei){
-    if(!mesTransit){
-      marcosHTML=`<div class="marco mei"><div class="marco-ico">✅</div>
-        <div class="marco-txt"><b>Nenhuma transição prevista no período</b><br>Faturamento projetado permanece dentro do limite MEI (R$ 6.750/mês).</div>
-      </div>`;
-    } else {
-      const aliqTransit = getAliqEfetiva(mesTransit.rbt12, g('atividade').value);
-      marcosHTML+=`<div class="marco me"><div class="marco-ico">⚠️</div>
-        <div class="marco-txt"><b>Mês ${mesTransit.mes} (${mesTransit.label}) — Migração para Simples Nacional obrigatória</b><br>
-        RBT12 projetada: ${fmtR(mesTransit.rbt12)} · Limite MEI: R$ 81.000/ano<br>
-        Alíquota efetiva estimada: ${pct(mesTransit.aliqEfetiva*100)} · Imposto mês de transição: ${fmtR(mesTransit.impostoMes)}</div>
-      </div>`;
-    }
-  }
-  if(mesEPP){
-    marcosHTML+=`<div class="marco epp"><div class="marco-ico">📈</div>
-      <div class="marco-txt"><b>Mês ${mesEPP.mes} (${mesEPP.label}) — Faturamento de EPP</b><br>
-      RBT12 projetada: ${fmtR(mesEPP.rbt12)} · Limite ME: R$ 360.000/ano<br>
-      Alíquota efetiva estimada: ${pct(mesEPP.aliqEfetiva*100)}</div>
-    </div>`;
-  }
+// ── MARCOS ────────────────────────────────────────────────────────────
+let marcosHTML = '';
+if(isMei){
+if(!mesTransit){
+marcosHTML=`<div class="marco mei"><div class="marco-ico">✅</div>
+<div class="marco-txt"><b>Nenhuma transição prevista no período</b><br>Faturamento projetado permanece dentro do limite MEI (R$ 6.750/mês).</div>
+</div>`;
+} else {
+const aliqTransit = getAliqEfetiva(mesTransit.rbt12, g('atividade').value);
+marcosHTML+=`<div class="marco me"><div class="marco-ico">⚠️</div>
+<div class="marco-txt"><b>Mês ${mesTransit.mes} (${mesTransit.label}) — Migração para Simples Nacional obrigatória</b><br>
+RBT12 projetada: ${fmtR(mesTransit.rbt12)} · Limite MEI: R$ 81.000/ano<br>
+Alíquota efetiva estimada: ${pct(mesTransit.aliqEfetiva*100)} · Imposto mês de transição: ${fmtR(mesTransit.impostoMes)}</div>
+</div>`;
+}
+}
+if(mesEPP){
+marcosHTML+=`<div class="marco epp"><div class="marco-ico">📈</div>
+<div class="marco-txt"><b>Mês ${mesEPP.mes} (${mesEPP.label}) — Faturamento de EPP</b><br>
+RBT12 projetada: ${fmtR(mesEPP.rbt12)} · Limite ME: R$ 360.000/ano<br>
+Alíquota efetiva estimada: ${pct(mesEPP.aliqEfetiva*100)}</div>
+</div>`;
+}
 
-  // Obrigações acessórias — só para MEI que vai migrar
-  const obrigHTML = (isMei && mesTransit) ? `<div class="answer indigo" style="margin-top:8px;">
-    <div class="answer-label">Obrigações que surgem ao sair do MEI</div>
-    <div class="answer-text" style="font-size:1rem;line-height:1.5;">PGDAS-D mensal · DASN anual · eSocial · Escrituração contábil · Contador altamente recomendável</div>
-    <div class="answer-sub">No MEI: apenas DASN anual e DAS mensal. No Simples há muito mais obrigações — o contador passa a ser altamente recomendável e, na prática, necessário para manter as obrigações em ordem.</div>
-  </div>` : '';
+// Obrigações acessórias — só para MEI que vai migrar
+const obrigHTML = (isMei && mesTransit) ? `<div class="answer indigo" style="margin-top:8px;">
+<div class="answer-label">Obrigações que surgem ao sair do MEI</div>
+<div class="answer-text" style="font-size:1rem;line-height:1.5;">PGDAS-D mensal · DASN anual · eSocial · Escrituração contábil · Contador altamente recomendável</div>
+<div class="answer-sub">No MEI: apenas DASN anual e DAS mensal. No Simples há muito mais obrigações — o contador passa a ser altamente recomendável e, na prática, necessário para manter as obrigações em ordem.</div>
+</div>` : '';
 
-  // ── GRÁFICO ───────────────────────────────────────────────────────────
-  const barras = proj.slice(0, Math.min(24, proj.length)).map(p=>{
-    const pct100 = maxImposto>0?(p.impostoMes/maxImposto)*100:0;
-    const cor = p.regimeEfetivo==='MEI'?'var(--em)':
-                p.enquadramento==='ME'?'var(--amber)':'var(--indigo-l)';
-    return `<div class="chart-bar-row">
-      <div class="chart-label">${p.label}</div>
-      <div class="chart-track">
-        <div class="chart-fill" style="width:${pct100}%;background:${cor}">
-          <span class="chart-fill-label">${p.regimeEfetivo==='MEI'?'MEI':p.enquadramento}</span>
-        </div>
-      </div>
-      <div class="chart-val">${fmtR(p.impostoMes)}</div>
-    </div>`;
-  }).join('');
+// ── GRÁFICO ───────────────────────────────────────────────────────────
+const barras = proj.slice(0, Math.min(24, proj.length)).map(p=>{
+const pct100 = maxImposto>0?(p.impostoMes/maxImposto)*100:0;
+const cor = p.regimeEfetivo==='MEI'?'var(--em)':
+p.enquadramento==='ME'?'var(--amber)':'var(--indigo-l)';
+return `<div class="chart-bar-row">
+<div class="chart-label">${p.label}</div>
+<div class="chart-track">
+<div class="chart-fill" style="width:${pct100}%;background:${cor}">
+<span class="chart-fill-label">${p.regimeEfetivo==='MEI'?'MEI':p.enquadramento}</span>
+</div>
+</div>
+<div class="chart-val">${fmtR(p.impostoMes)}</div>
+</div>`;
+}).join('');
 
-  g('resultado').innerHTML=`
-    ${modoBadge}
-    <div class="answer ${resCls}">
-      <div class="answer-label">Projeção de crescimento — ${meses} meses</div>
-      <div class="answer-text">${resTxt}</div>
-      <div class="answer-sub">${resSub}</div>
-    </div>
-    ${alertasHTML}
-    ${impactoHTML}
-    <div class="kpis">
-      <div class="kpi"><div class="kpi-l">Faturamento inicial</div><div class="kpi-v">${fmtR(fatAtual)}/mês</div></div>
-      <div class="kpi"><div class="kpi-l">Faturamento final (mês ${meses})</div><div class="kpi-v i">${fmtR(fatFinal)}/mês</div></div>
-      <div class="kpi"><div class="kpi-l">Imposto total no período</div><div class="kpi-v r">${fmtR(impTotal)}</div></div>
-      <div class="kpi"><div class="kpi-l">Lucro estimado no período</div><div class="kpi-v ${lucTotal>=0?'g':'r'}">${fmtR(lucTotal)}</div></div>
-    </div>
-    ${marcosHTML}
-    ${obrigHTML}
-    <div style="margin:14px 0 8px;font-size:11px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;">Imposto mensal por fase</div>
-    <div class="chart-wrap">${barras}</div>
-    <div style="display:flex;gap:14px;font-size:11px;color:var(--text3);margin-bottom:14px;flex-wrap:wrap;">
-      <span style="color:var(--em-l)">🟢 MEI — DAS fixo</span>
-      <span style="color:var(--amber)">🟡 ME — Simples 1ª–2ª faixa</span>
-      <span style="color:var(--indigo-l)">🔵 EPP — Simples 3ª+ faixa</span>
-    </div>
-    ${lucTotal<0?`<div class="alerta w"><span>⚠️</span><div><strong>Lucro estimado negativo no período.</strong> A transição de regime sem planejamento pode devorar a margem do negócio — o imposto e o contador passam a consumir uma fatia do faturamento que o MEI não cobrava. Revise os custos fixos, a margem de contribuição ou o ritmo de crescimento. Uma conversa com um contador antes da transição pode poupar meses de prejuízo.</div></div>`:''}
-    <button class="pdf-btn" onclick="gerarPDF()">📄 Baixar relatório em PDF</button>
-    <div class="nota" style="margin-top:12px;">⚠️ Projeção estimada. RBT12 aqui é aproximado (faturamento projetado × 12 meses). A data real de migração depende do RBT12 efetivo — consulte seu contador com antecedência.</div>`;
+g('resultado').innerHTML=`
+${modoBadge}
+<div class="answer ${resCls}">
+<div class="answer-label">Projeção de crescimento — ${meses} meses</div>
+<div class="answer-text">${resTxt}</div>
+<div class="answer-sub">${resSub}</div>
+</div>
+${alertasHTML}
+${impactoHTML}
+<div class="kpis">
+<div class="kpi"><div class="kpi-l">Faturamento inicial</div><div class="kpi-v">${fmtR(fatAtual)}/mês</div></div>
+<div class="kpi"><div class="kpi-l">Faturamento final (mês ${meses})</div><div class="kpi-v i">${fmtR(fatFinal)}/mês</div></div>
+<div class="kpi"><div class="kpi-l">Imposto total no período</div><div class="kpi-v r">${fmtR(impTotal)}</div></div>
+<div class="kpi"><div class="kpi-l">Lucro estimado no período</div><div class="kpi-v ${lucTotal>=0?'g':'r'}">${fmtR(lucTotal)}</div></div>
+</div>
+${marcosHTML}
+${obrigHTML}
+<div style="margin:14px 0 8px;font-size:11px;font-weight:500;color:var(--text2);text-transform:uppercase;letter-spacing:.08em;">Imposto mensal por fase</div>
+<div class="chart-wrap">${barras}</div>
+<div style="display:flex;gap:14px;font-size:11px;color:var(--text3);margin-bottom:14px;flex-wrap:wrap;">
+<span style="color:var(--em-l)">🟢 MEI — DAS fixo</span>
+<span style="color:var(--amber)">🟡 ME — Simples 1ª–2ª faixa</span>
+<span style="color:var(--indigo-l)">🔵 EPP — Simples 3ª+ faixa</span>
+</div>
+${lucTotal<0?`<div class="alerta w"><span>⚠️</span><div><strong>Lucro estimado negativo no período.</strong> A transição de regime sem planejamento pode devorar a margem do negócio — o imposto e o contador passam a consumir uma fatia do faturamento que o MEI não cobrava. Revise os custos fixos, a margem de contribuição ou o ritmo de crescimento. Uma conversa com um contador antes da transição pode poupar meses de prejuízo.</div></div>`:''}
+<button class="pdf-btn" onclick="gerarPDF()">📄 Baixar relatório em PDF</button>
+<div class="nota" style="margin-top:12px;">⚠️ Projeção estimada. RBT12 aqui é aproximado (faturamento projetado × 12 meses). A data real de migração depende do RBT12 efetivo — consulte seu contador com antecedência.</div>`;
+
+if(g('resumo-mes-mei')) g('resumo-mes-mei').textContent = mesTransit ? `Mês ${mesTransit.mes} (${mesTransit.label})` : 'Não ultrapassa';
+if(g('resumo-mes-epp')) g('resumo-mes-epp').textContent = mesEPP ? `Mês ${mesEPP.mes} (${mesEPP.label})` : 'Não vira EPP';
+if(g('resumo-imposto-total')) g('resumo-imposto-total').textContent = fmtR(impTotal);
 }
 
 // ─── RENDER TABELA ────────────────────────────────────────────────────────
 function renderTabela(proj){
-  g('tabela-wrap').style.display='block';
-  const thead=`<thead><tr>
-    <th>Mês</th><th>Período</th><th>Fat. mensal</th><th>RBT12</th>
-    <th>Regime efetivo</th><th>Enquadramento</th><th>Alíq. efetiva</th><th>Imposto</th><th>Lucro est.</th>
-  </tr></thead>`;
+g('tabela-wrap').style.display='block';
+const thead=`<thead><tr>
+<th>Mês</th><th>Período</th><th>Fat. mensal</th><th>RBT12</th>
+<th>Regime efetivo</th><th>Enquadramento</th><th>Alíq. efetiva</th><th>Imposto</th><th>Lucro est.</th>
+</tr></thead>`;
 
-  const tbody=proj.map(p=>{
-    const badge = p.regimeEfetivo==='MEI'
-      ?`<span class="regime-badge badge-mei">MEI</span>`
-      :p.enquadramento==='ME'
-      ?`<span class="regime-badge badge-me">ME</span>`
-      :p.enquadramento==='EPP'
-      ?`<span class="regime-badge badge-epp">EPP</span>`
-      :`<span class="regime-badge badge-epp-mais">EPP+</span>`;
+const tbody=proj.map(p=>{
+const badge = p.regimeEfetivo==='MEI'
+?`<span class="regime-badge badge-mei">MEI</span>`
+:p.enquadramento==='ME'
+?`<span class="regime-badge badge-me">ME</span>`
+:p.enquadramento==='EPP'
+?`<span class="regime-badge badge-epp">EPP</span>`
+:`<span class="regime-badge badge-epp-mais">EPP+</span>`;
 
-    const enqBadge = p.enquadramento==='MEI'
-      ?`<span class="regime-badge badge-mei">MEI</span>`
-      :p.enquadramento==='ME'
-      ?`<span class="regime-badge badge-me">ME</span>`
-      :p.enquadramento==='EPP'
-      ?`<span class="regime-badge badge-epp">EPP</span>`
-      :`<span class="regime-badge badge-epp-mais">EPP+</span>`;
+const enqBadge = p.enquadramento==='MEI'
+?`<span class="regime-badge badge-mei">MEI</span>`
+:p.enquadramento==='ME'
+?`<span class="regime-badge badge-me">ME</span>`
+:p.enquadramento==='EPP'
+?`<span class="regime-badge badge-epp">EPP</span>`
+:`<span class="regime-badge badge-epp-mais">EPP+</span>`;
 
-    const trCls = p.regimeEfetivo==='MEI'?'mei-row':p.enquadramento==='ME'?'me-row':'epp-row';
-    const alertCls = p.isTransicao?' transicao':'';
-    const excessoIcon = p.excessoMEI==='acima20'?' 🚫':p.excessoMEI==='ate20'?' ⚠️':'';
-    return `<tr class="${trCls}${alertCls}">
-      <td>${p.mes}${p.isTransicao?'&nbsp;⚡':''}</td>
-      <td>${p.label}</td>
-      <td>${fmtR(p.fatMes)}</td>
-      <td>${fmtR(p.rbt12)}${excessoIcon}</td>
-      <td>${badge}</td>
-      <td>${enqBadge}</td>
-      <td>${pct(p.aliqEfetiva*100)}</td>
-      <td>${fmtR(p.impostoMes)}</td>
-      <td style="color:${p.lucroMes>=0?'var(--em-l)':'var(--red)'}">${fmtR(p.lucroMes)}</td>
-    </tr>`;
-  }).join('');
+const trCls = p.regimeEfetivo==='MEI'?'mei-row':p.enquadramento==='ME'?'me-row':'epp-row';
+const alertCls = p.isTransicao?' transicao':'';
+const excessoIcon = p.excessoMEI==='acima20'?' 🚫':p.excessoMEI==='ate20'?' ⚠️':'';
+return `<tr class="${trCls}${alertCls}">
+<td>${p.mes}${p.isTransicao?'&nbsp;⚡':''}</td>
+<td>${p.label}</td>
+<td>${fmtR(p.fatMes)}</td>
+<td>${fmtR(p.rbt12)}${excessoIcon}</td>
+<td>${badge}</td>
+<td>${enqBadge}</td>
+<td>${pct(p.aliqEfetiva*100)}</td>
+<td>${fmtR(p.impostoMes)}</td>
+<td style="color:${p.lucroMes>=0?'var(--em-l)':'var(--red)'}">${fmtR(p.lucroMes)}</td>
+</tr>`;
+}).join('');
 
-  g('tabela-proj').innerHTML=thead+`<tbody>${tbody}</tbody>`;
+g('tabela-proj').innerHTML=thead+`<tbody>${tbody}</tbody>`;
 }
- 
+
 // ─── WPP ──────────────────────────────────────────────────────────────────
 function gerarWpp(proj, {fatAtual, meses}){
-  const transicao = proj.find(p=>p.isTransicao);
-  const msg=`Olá Rodolfo! Usei o simulador de crescimento.\n\n`+
-    `Situação: ${g('regime-atual').value==='mei'?'MEI':'Simples Nacional'}\n`+
-    `Faturamento atual: ${fmtR(fatAtual)}/mês\n`+
-    `Crescimento esperado: ${pct(n('cresc'))}/mês\n`+
-    `Atividade: ${g('atividade').value}\n\n`+
-    (transicao?`Ultrapasso o limite do MEI no mês ${transicao.mes} (${transicao.label}).\n`
-              :`Fico no MEI durante todo o período projetado.\n`)+
-    `Faturamento projetado mês ${meses}: ${fmtR(proj[proj.length-1].fatMes)}/mês.\n\n`+
-    `Gostaria de entender o planejamento para a transição.`;
-  g('cta-wpp').href='https://wa.me/551926420970?text='+encodeURIComponent(msg);
+const transicao = proj.find(p=>p.isTransicao);
+const msg=`Olá Rodolfo! Usei o simulador de crescimento.\n\n`+
+`Situação: ${g('regime-atual').value==='mei'?'MEI':'Simples Nacional'}\n`+
+`Faturamento atual: ${fmtR(fatAtual)}/mês\n`+
+`Crescimento esperado: ${pct(n('cresc'))}/mês\n`+
+`Atividade: ${g('atividade').value}\n\n`+
+(transicao?`Ultrapasso o limite do MEI no mês ${transicao.mes} (${transicao.label}).\n`
+:`Fico no MEI durante todo o período projetado.\n`)+
+`Faturamento projetado mês ${meses}: ${fmtR(proj[proj.length-1].fatMes)}/mês.\n\n`+
+`Gostaria de entender o planejamento para a transição.`;
+g('cta-wpp').href='https://wa.me/551926420970?text='+encodeURIComponent(msg);
 }
 
 // ─── PDF ──────────────────────────────────────────────────────────────────
 function gerarPDF(){
-  const res = g('resultado').innerHTML;
-  const tab = g('tabela-wrap').innerHTML;
-  const w   = window.open('','_blank');
-  w.document.write(`<!DOCTYPE html><html lang="pt-BR"><head>
-    <meta charset="UTF-8"><title>Crescimento MEI → EPP · Rodolfo Assunção</title>
-    <style>
-      *{box-sizing:border-box;margin:0;padding:0;}
-      body{font-family:Arial,sans-serif;font-size:12px;color:#1e293b;background:#fff;padding:2rem;}
-      .answer{border:1px solid #cbd5e1;border-radius:6px;padding:.875rem;margin-bottom:10px;background:#f8fafc;}
-      .answer.verde{border-color:#6ee7b7;background:#f0fdf4;}
-      .answer.amarelo{border-color:#fcd34d;background:#fffbeb;}
-      .answer.indigo{border-color:#a5b4fc;background:#eef2ff;}
-      .answer-label{font-size:10px;text-transform:uppercase;color:#64748b;margin-bottom:.25rem;}
-      .answer-text{font-size:1rem;font-weight:600;margin-bottom:.25rem;}
-      .answer.verde .answer-text{color:#059669;}
-      .answer.amarelo .answer-text{color:#b45309;}
-      .answer.indigo .answer-text{color:#4338ca;}
-      .answer-sub{font-size:11px;color:#475569;line-height:1.6;}
-      .impacto-box{border:1px solid #fcd34d;background:#fffbeb;border-radius:6px;padding:.875rem;margin-bottom:10px;}
-      .impacto-title{font-size:10px;text-transform:uppercase;color:#b45309;margin-bottom:.625rem;}
-      .impacto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-      .impacto-item{border:1px solid #e2e8f0;border-radius:4px;padding:.625rem;background:#fff;}
-      .impacto-label{font-size:10px;color:#64748b;margin-bottom:2px;}
-      .impacto-val{font-size:1rem;font-weight:700;}
-      .impacto-val.verde{color:#059669;}.impacto-val.amarelo{color:#b45309;}.impacto-val.vermelho{color:#dc2626;}
-      .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px;}
-      .kpi{border:1px solid #e2e8f0;border-radius:6px;padding:.75rem;background:#f8fafc;}
-      .kpi-l{font-size:10px;color:#64748b;margin-bottom:2px;}
-      .kpi-v{font-size:1rem;font-weight:700;color:#1e293b;}
-      .kpi-v.g{color:#059669;}.kpi-v.r{color:#dc2626;}.kpi-v.i{color:#4338ca;}
-      .marco{border:1px solid #e2e8f0;border-radius:6px;padding:.75rem;margin-bottom:8px;background:#f8fafc;border-left:3px solid #94a3b8;display:flex;gap:8px;align-items:flex-start;}
-      .marco.me{border-left-color:#f59e0b;}.marco.epp{border-left-color:#6366f1;}.marco.mei{border-left-color:#10b981;}
-      .marco-ico{font-size:1rem;flex-shrink:0;}.marco-txt{font-size:11px;color:#475569;line-height:1.6;}
-      .marco-txt b{color:#1e293b;}
-      .alerta{border-radius:6px;padding:.75rem;margin-bottom:8px;display:flex;gap:8px;font-size:11px;line-height:1.6;}
-      .alerta.w{background:#fffbeb;border:1px solid #fcd34d;color:#b45309;}
-      .alerta.r{background:#fff1f2;border:1px solid #fca5a5;color:#dc2626;}
-      .chart-wrap{margin-bottom:10px;}
-      .chart-bar-row{display:flex;align-items:center;gap:6px;margin-bottom:3px;}
-      .chart-label{font-size:9px;color:#64748b;width:48px;text-align:right;}
-      .chart-track{flex:1;height:12px;background:#f1f5f9;border-radius:2px;overflow:hidden;}
-      .chart-fill{height:100%;display:flex;align-items:center;padding-left:4px;}
-      .chart-fill-label{font-size:8px;color:#fff;font-weight:600;}
-      .chart-val{font-size:9px;color:#64748b;width:58px;text-align:right;}
-      .nota{padding:8px;border-left:2px solid #94a3b8;font-size:10px;color:#64748b;margin-top:8px;}
-      .nota.i{border-left-color:#6366f1;background:#eef2ff;}
-      table{width:100%;border-collapse:collapse;font-size:11px;margin-bottom:10px;}
-      th{padding:6px 8px;background:#f1f5f9;font-size:9px;text-transform:uppercase;color:#64748b;text-align:right;}
-      th:first-child,th:nth-child(2){text-align:left;}
-      td{padding:6px 8px;border-top:1px solid #f1f5f9;text-align:right;}
-      td:first-child,td:nth-child(2){text-align:left;}
-      tr.mei-row td{color:#059669;}tr.me-row td{color:#b45309;}tr.epp-row td{color:#4338ca;}
-      .regime-badge{display:inline-flex;padding:1px 5px;border-radius:20px;font-size:9px;font-weight:600;}
-      .badge-mei{background:#d1fae5;color:#059669;}.badge-me{background:#fef3c7;color:#b45309;}
-      .badge-epp{background:#e0e7ff;color:#4338ca;}.badge-epp-mais{background:#fee2e2;color:#dc2626;}
-      .modo-badge{display:inline-flex;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:500;margin-bottom:10px;}
-      .modo-badge.mei{background:#d1fae5;color:#059669;}.modo-badge.simples{background:#fef3c7;color:#b45309;}
-      .pdf-btn,.cta-disc,.timeline-wrap ~ *:not(.nota){display:none!important;}
-      .timeline-wrap{overflow-x:auto;}
-      .sec{border:1px solid #e2e8f0;border-radius:6px;padding:.875rem;margin-bottom:10px;}
-      .sec-t{font-size:9px;text-transform:uppercase;color:#64748b;margin-bottom:.5rem;}
-      header{border-bottom:2px solid #e2e8f0;padding-bottom:.75rem;margin-bottom:1.25rem;display:flex;justify-content:space-between;}
-      .hdr-logo{font-size:1rem;font-weight:700;color:#1e293b;}
-      .hdr-data{font-size:10px;color:#64748b;}
-      footer{border-top:1px solid #e2e8f0;margin-top:1.5rem;padding-top:.75rem;font-size:9px;color:#94a3b8;text-align:center;}
-      .disclaimer{border:1px solid #fcd34d;background:#fffbeb;border-radius:4px;padding:.625rem;margin-top:1rem;font-size:10px;color:#78350f;line-height:1.6;}
-    </style>
-  </head><body>
-    <header>
-      <div class="hdr-logo">Crescimento MEI → ME → EPP · Rodolfo Assunção · CRC/SP 1SP353033/O-5</div>
-      <div class="hdr-data">Gerado em: ${new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}</div>
-    </header>
-    ${res}${tab}
-    <div class="disclaimer">⚠️ <strong>Simulação estimada.</strong> Projeção aproximada baseada nos parâmetros informados. Não constitui planejamento tributário. Consulte um contador. Rodolfo Assunção — CRC/SP 1SP353033/O-5 .</div>
-    <footer>Crescimento MEI → EPP · Rodolfo Assunção · CRC/SP 1SP353033/O-5 · Junho/2026</footer>
-  </body></html>`);
-  w.document.close();
-  setTimeout(()=>w.print(),600);
+const res = g('resultado').innerHTML;
+const tab = g('tabela-wrap').innerHTML;
+const w = window.open('','_blank');
+w.document.write(`<!DOCTYPE html><html lang="pt-BR"><head>
+<meta charset="UTF-8"><title>Crescimento MEI → EPP · Rodolfo Assunção</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Arial,sans-serif;font-size:12px;color:#1e293b;background:#fff;padding:2rem;}
+.answer{border:1px solid #cbd5e1;border-radius:6px;padding:.875rem;margin-bottom:10px;background:#f8fafc;}
+.answer.verde{border-color:#6ee7b7;background:#f0fdf4;}
+.answer.amarelo{border-color:#fcd34d;background:#fffbeb;}
+.answer.indigo{border-color:#a5b4fc;background:#eef2ff;}
+.answer-label{font-size:10px;text-transform:uppercase;color:#64748b;margin-bottom:.25rem;}
+.answer-text{font-size:1rem;font-weight:600;margin-bottom:.25rem;}
+.answer.verde .answer-text{color:#059669;}
+.answer.amarelo .answer-text{color:#b45309;}
+.answer.indigo .answer-text{color:#4338ca;}
+.answer-sub{font-size:11px;color:#475569;line-height:1.6;}
+.impacto-box{border:1px solid #fcd34d;background:#fffbeb;border-radius:6px;padding:.875rem;margin-bottom:10px;}
+.impacto-title{font-size:10px;text-transform:uppercase;color:#b45309;margin-bottom:.625rem;}
+.impacto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.impacto-item{border:1px solid #e2e8f0;border-radius:4px;padding:.625rem;background:#fff;}
+.impacto-label{font-size:10px;color:#64748b;margin-bottom:2px;}
+.impacto-val{font-size:1rem;font-weight:700;}
+.impacto-val.verde{color:#059669;}.impacto-val.amarelo{color:#b45309;}.impacto-val.vermelho{color:#dc2626;}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px;}
+.kpi{border:1px solid #e2e8f0;border-radius:6px;padding:.75rem;background:#f8fafc;}
+.kpi-l{font-size:10px;color:#64748b;margin-bottom:2px;}
+.kpi-v{font-size:1rem;font-weight:700;color:#1e293b;}
+.kpi-v.g{color:#059669;}.kpi-v.r{color:#dc2626;}.kpi-v.i{color:#4338ca;}
+.marco{border:1px solid #e2e8f0;border-radius:6px;padding:.75rem;margin-bottom:8px;background:#f8fafc;border-left:3px solid #94a3b8;display:flex;gap:8px;align-items:flex-start;}
+.marco.me{border-left-color:#f59e0b;}.marco.epp{border-left-color:#6366f1;}.marco.mei{border-left-color:#10b981;}
+.marco-ico{font-size:1rem;flex-shrink:0;}.marco-txt{font-size:11px;color:#475569;line-height:1.6;}
+.marco-txt b{color:#1e293b;}
+.alerta{border-radius:6px;padding:.75rem;margin-bottom:8px;display:flex;gap:8px;font-size:11px;line-height:1.6;}
+.alerta.w{background:#fffbeb;border:1px solid #fcd34d;color:#b45309;}
+.alerta.r{background:#fff1f2;border:1px solid #fca5a5;color:#dc2626;}
+.chart-wrap{margin-bottom:10px;}
+.chart-bar-row{display:flex;align-items:center;gap:6px;margin-bottom:3px;}
+.chart-label{font-size:9px;color:#64748b;width:48px;text-align:right;}
+.chart-track{flex:1;height:12px;background:#f1f5f9;border-radius:2px;overflow:hidden;}
+.chart-fill{height:100%;display:flex;align-items:center;padding-left:4px;}
+.chart-fill-label{font-size:8px;color:#fff;font-weight:600;}
+.chart-val{font-size:9px;color:#64748b;width:58px;text-align:right;}
+.nota{padding:8px;border-left:2px solid #94a3b8;font-size:10px;color:#64748b;margin-top:8px;}
+.nota.i{border-left-color:#6366f1;background:#eef2ff;}
+table{width:100%;border-collapse:collapse;font-size:11px;margin-bottom:10px;}
+th{padding:6px 8px;background:#f1f5f9;font-size:9px;text-transform:uppercase;color:#64748b;text-align:right;}
+th:first-child,th:nth-child(2){text-align:left;}
+td{padding:6px 8px;border-top:1px solid #f1f5f9;text-align:right;}
+td:first-child,td:nth-child(2){text-align:left;}
+tr.mei-row td{color:#059669;}tr.me-row td{color:#b45309;}tr.epp-row td{color:#4338ca;}
+.regime-badge{display:inline-flex;padding:1px 5px;border-radius:20px;font-size:9px;font-weight:600;}
+.badge-mei{background:#d1fae5;color:#059669;}.badge-me{background:#fef3c7;color:#b45309;}
+.badge-epp{background:#e0e7ff;color:#4338ca;}.badge-epp-mais{background:#fee2e2;color:#dc2626;}
+.modo-badge{display:inline-flex;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:500;margin-bottom:10px;}
+.modo-badge.mei{background:#d1fae5;color:#059669;}.modo-badge.simples{background:#fef3c7;color:#b45309;}
+.pdf-btn,.cta-disc,.timeline-wrap ~ *:not(.nota){display:none!important;}
+.timeline-wrap{overflow-x:auto;}
+.sec{border:1px solid #e2e8f0;border-radius:6px;padding:.875rem;margin-bottom:10px;}
+.sec-t{font-size:9px;text-transform:uppercase;color:#64748b;margin-bottom:.5rem;}
+header{border-bottom:2px solid #e2e8f0;padding-bottom:.75rem;margin-bottom:1.25rem;display:flex;justify-content:space-between;}
+.hdr-logo{font-size:1rem;font-weight:700;color:#1e293b;}
+.hdr-data{font-size:10px;color:#64748b;}
+footer{border-top:1px solid #e2e8f0;margin-top:1.5rem;padding-top:.75rem;font-size:9px;color:#94a3b8;text-align:center;}
+.disclaimer{border:1px solid #fcd34d;background:#fffbeb;border-radius:4px;padding:.625rem;margin-top:1rem;font-size:10px;color:#78350f;line-height:1.6;}
+</style>
+</head><body>
+<header>
+<div class="hdr-logo">Crescimento MEI → ME → EPP · Rodolfo Assunção · CRC/SP 1SP353033/O-5</div>
+<div class="hdr-data">Gerado em: ${new Date().toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}</div>
+</header>
+${res}${tab}
+<div class="disclaimer">⚠️ <strong>Simulação estimada.</strong> Projeção aproximada baseada nos parâmetros informados. Não constitui planejamento tributário. Consulte um contador. Rodolfo Assunção — CRC/SP 1SP353033/O-5 .</div>
+<footer>Crescimento MEI → EPP · Rodolfo Assunção · CRC/SP 1SP353033/O-5 · Junho/2026</footer>
+</body></html>`);
+w.document.close();
+setTimeout(()=>w.print(),600);
+}
+
+// ─── RESPOSTA RÁPIDA / CTAS DINÂMICOS ──────────────────────────────────────
+function escolherFaturamento(el){
+document.querySelectorAll('#chips-fat .chip').forEach(c=>c.classList.remove('active'));
+el.classList.add('active');
+g('fat-atual').value = el.dataset.v;
+calcCresc();
+}
+
+function escolherAtividade(el){
+document.querySelectorAll('#toggle-ativ .toggle-btn').forEach(b=>b.classList.remove('active'));
+el.classList.add('active');
+g('atividade').value = el.dataset.v;
+calcCresc();
+}
+
+// Coerência validada empiricamente (5/5 casos) contra o mês 1 da projeção
+// no regime Simples: aliqEfetiva(rbt12=fatAtual×12, atividade) × fatAtual
+// reproduz exatamente o imposto de mês 1 calculado por calcCresc().
+function atualizarRespostaRapida(){
+const fatAtual = n('fat-atual');
+const atividade = g('atividade').value;
+const dasMei = n('das-mei');
+const honorarios = n('honorarios');
+
+const impostoComoMei = dasMei;
+const aliqSimples = getAliqEfetiva(fatAtual*12, atividade);
+const impostoComoME = fatAtual * aliqSimples;
+const totalComoME = impostoComoME + honorarios;
+const diferenca = totalComoME - impostoComoMei;
+
+const acimaLimite = fatAtual > (LIM_MEI/12);
+g('selo-limite').innerHTML = acimaLimite
+? `<div class="modo-badge simples">🟡 Faturamento acima do limite MEI (R$ 6.750/mês)</div>`
+: `<div class="modo-badge mei">🟢 Faturamento dentro do limite MEI (R$ 6.750/mês)</div>`;
+
+g('resultado-imediato').innerHTML = `
+<div class="resultado-imediato-row"><span>Hoje, como MEI</span><b>${fmt2(impostoComoMei)}/mês</b></div>
+<div class="resultado-imediato-row"><span>Como ME no Simples</span><b>${fmtR(totalComoME)}/mês</b></div>
+<div class="resultado-imediato-row diff"><span>Diferença por mês</span><b>${diferenca>=0?'+':''}${fmtR(diferenca)}</b></div>
+`;
+}
+
+function atualizarCTAs(){
+const fatAtual = n('fat-atual');
+const atividade = g('atividade').value;
+const ativTxt = atividade==='comercio' ? 'venda de produtos' : 'prestação de serviços';
+const msg = `Olá Rodolfo! Faturo cerca de ${fmtR(fatAtual)}/mês com ${ativTxt} e quero migrar do MEI para ME. Pode cuidar disso pra mim?`;
+const link = 'https://api.whatsapp.com/send/?phone=551926420970&text='+encodeURIComponent(msg)+'&type=phone_number&app_absent=0';
+if(g('cta-principal')) g('cta-principal').href = link;
+const wppBar = document.querySelector('.wpp-bar');
+if(wppBar) wppBar.href = link;
 }
 
 // INIT
 onRegimeChange();
 </script>
-<!-- Botão flutuante WhatsApp -->
+<!-- Botão flutuante WhatsApp (desktop, >760px) — link estático original -->
 <a href="https://api.whatsapp.com/send/?phone=551926420970&text=Ol%C3%A1+Rodolfo!+Vim+pelo+seu+site+e+quero+conversar+sobre+contabilidade.&type=phone_number&app_absent=0"
-   style="position:fixed;bottom:24px;right:24px;z-index:999;background:#25d366;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,0.3);border-bottom:none;"
-   aria-label="Falar no WhatsApp">
-  <svg viewBox="0 0 32 32" width="30" height="30" fill="#ffffff" xmlns="http://www.w3.org/2000/svg"><path d="M16.004 3C9.383 3 4 8.383 4 15.004c0 2.117.553 4.184 1.604 6.008L4 29l8.184-1.57a11.94 11.94 0 0 0 3.82.625h.004C22.625 28.055 28 22.672 28 16.051 28 8.383 22.625 3 16.004 3zm0 22.055h-.004a9.94 9.94 0 0 1-3.406-.602l-.244-.09-4.855.932.947-4.73-.16-.25a9.964 9.964 0 0 1-1.278-4.86c0-5.516 4.488-10.004 10.004-10.004 5.512 0 10 4.488 10 10.05 0 5.517-4.488 9.554-11.004 9.554zm5.484-7.484c-.3-.15-1.777-.877-2.052-.977-.276-.1-.477-.15-.678.15-.2.301-.777.977-.953 1.177-.175.2-.35.226-.65.075-.301-.15-1.269-.467-2.416-1.49-.893-.797-1.496-1.78-1.671-2.081-.176-.301-.019-.464.131-.613.135-.135.301-.351.451-.527.15-.175.2-.301.301-.501.1-.2.05-.376-.025-.526-.075-.15-.678-1.634-.928-2.237-.244-.588-.493-.508-.678-.518-.175-.008-.376-.01-.577-.01-.2 0-.526.075-.802.376-.276.301-1.052 1.028-1.052 2.508 0 1.48 1.077 2.91 1.227 3.11.15.2 2.12 3.236 5.135 4.538.717.31 1.277.494 1.713.633.72.229 1.375.196 1.893.119.577-.086 1.777-.727 2.028-1.428.25-.702.25-1.303.175-1.428-.075-.126-.276-.201-.577-.351z"/></svg>
+class="wpp-float"
+aria-label="Falar no WhatsApp">
+<svg viewBox="0 0 32 32" width="30" height="30" fill="#ffffff" xmlns="http://www.w3.org/2000/svg"><path d="M16.004 3C9.383 3 4 8.383 4 15.004c0 2.117.553 4.184 1.604 6.008L4 29l8.184-1.57a11.94 11.94 0 0 0 3.82.625h.004C22.625 28.055 28 22.672 28 16.051 28 8.383 22.625 3 16.004 3zm0 22.055h-.004a9.94 9.94 0 0 1-3.406-.602l-.244-.09-4.855.932.947-4.73-.16-.25a9.964 9.964 0 0 1-1.278-4.86c0-5.516 4.488-10.004 10.004-10.004 5.512 0 10 4.488 10 10.05 0 5.517-4.488 9.554-11.004 9.554zm5.484-7.484c-.3-.15-1.777-.877-2.052-.977-.276-.1-.477-.15-.678.15-.2.301-.777.977-.953 1.177-.175.2-.35.226-.65.075-.301-.15-1.269-.467-2.416-1.49-.893-.797-1.496-1.78-1.671-2.081-.176-.301-.019-.464.131-.613.135-.135.301-.351.451-.527.15-.175.2-.301.301-.501.1-.2.05-.376-.025-.526-.075-.15-.678-1.634-.928-2.237-.244-.588-.493-.508-.678-.518-.175-.008-.376-.01-.577-.01-.2 0-.526.075-.802.376-.276.301-1.052 1.028-1.052 2.508 0 1.48 1.077 2.91 1.227 3.11.15.2 2.12 3.236 5.135 4.538.717.31 1.277.494 1.713.633.72.229 1.375.196 1.893.119.577-.086 1.777-.727 2.028-1.428.25-.702.25-1.303.175-1.428-.075-.126-.276-.201-.577-.351z"/></svg>
+</a>
+<!-- Barra fixa WhatsApp (mobile, <=760px) — link dinâmico via atualizarCTAs() -->
+<a href="#" class="wpp-bar" target="_blank" aria-label="Falar com Rodolfo no WhatsApp">
+<svg viewBox="0 0 32 32" width="22" height="22" fill="#ffffff" xmlns="http://www.w3.org/2000/svg"><path d="M16.004 3C9.383 3 4 8.383 4 15.004c0 2.117.553 4.184 1.604 6.008L4 29l8.184-1.57a11.94 11.94 0 0 0 3.82.625h.004C22.625 28.055 28 22.672 28 16.051 28 8.383 22.625 3 16.004 3zm0 22.055h-.004a9.94 9.94 0 0 1-3.406-.602l-.244-.09-4.855.932.947-4.73-.16-.25a9.964 9.964 0 0 1-1.278-4.86c0-5.516 4.488-10.004 10.004-10.004 5.512 0 10 4.488 10 10.05 0 5.517-4.488 9.554-11.004 9.554zm5.484-7.484c-.3-.15-1.777-.877-2.052-.977-.276-.1-.477-.15-.678.15-.2.301-.777.977-.953 1.177-.175.2-.35.226-.65.075-.301-.15-1.269-.467-2.416-1.49-.893-.797-1.496-1.78-1.671-2.081-.176-.301-.019-.464.131-.613.135-.135.301-.351.451-.527.15-.175.2-.301.301-.501.1-.2.05-.376-.025-.526-.075-.15-.678-1.634-.928-2.237-.244-.588-.493-.508-.678-.518-.175-.008-.376-.01-.577-.01-.2 0-.526.075-.802.376-.276.301-1.052 1.028-1.052 2.508 0 1.48 1.077 2.91 1.227 3.11.15.2 2.12 3.236 5.135 4.538.717.31 1.277.494 1.713.633.72.229 1.375.196 1.893.119.577-.086 1.777-.727 2.028-1.428.25-.702.25-1.303.175-1.428-.075-.126-.276-.201-.577-.351z"/></svg>
+<span>Falar com Rodolfo no WhatsApp</span>
 </a>
 </body>
 </html>
