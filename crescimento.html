@@ -927,6 +927,14 @@ if(wppBar) wppBar.href = link;
 
 // INIT
 onRegimeChange();
+
+// FIX (bug crítico): .wpp-bar é definido no HTML após este </script>, então a
+// chamada síncrona acima (via onRegimeChange) roda antes desse elemento existir
+// no DOM e a atualização do href é silenciosamente ignorada. Reforça a chamada
+// após o DOMContentLoaded, quando toda a página (incluindo .wpp-bar) já existe,
+// garantindo que .wpp-bar, #cta-principal e .wpp-float nasçam com link válido
+// sem depender de nenhuma interação do usuário.
+document.addEventListener('DOMContentLoaded', atualizarCTAs);
 </script>
 <!-- Botão flutuante WhatsApp (desktop, >760px) — link estático original -->
 <a href="https://api.whatsapp.com/send/?phone=551926420970&text=Ol%C3%A1+Rodolfo!+Vim+pelo+seu+site+e+quero+conversar+sobre+contabilidade.&type=phone_number&app_absent=0"
