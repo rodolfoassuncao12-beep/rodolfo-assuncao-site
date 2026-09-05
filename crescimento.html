@@ -928,7 +928,7 @@ if(wppBar) wppBar.href = link;
 // INIT
 onRegimeChange();
 
-// FIX (bug crítico): .wpp-bar é definido no HTML após este </script>, então a
+// FIX (bug crítico): .wpp-bar é definido no HTML após esta tag de script, então a
 // chamada síncrona acima (via onRegimeChange) roda antes desse elemento existir
 // no DOM e a atualização do href é silenciosamente ignorada. Reforça a chamada
 // após o DOMContentLoaded, quando toda a página (incluindo .wpp-bar) já existe,
